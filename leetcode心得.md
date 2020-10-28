@@ -337,3 +337,92 @@
 
     由于使用了常数空间，因此空间复杂度为：O(1)
 
+## SQL
+
+### [176. Second Highest Salary](https://leetcode-cn.com/problems/second-highest-salary/)
+
+- 注意去重
+- 注意有可能不存在排名第二的数值
+  - 因此可以将第一层用于搜索的select作为临时表，外面再套一层select
+  - 也可以在上面的基础上配合IFNULL函数来处理NULL的情况
+
+### [181. Employees Earning More Than Their Managers](https://leetcode-cn.com/problems/employees-earning-more-than-their-managers/)
+
+联表查询，语法可以用sql92的也可以用sql99的
+
+### [183. Customers Who Never Order](https://leetcode-cn.com/problems/customers-who-never-order/)
+
+- 可以用NOT IN筛选Customers的id没有在Orders的外键CustomerId中的Customers的name
+- 也可以用left outer join 筛选联表后CustomerId为NULL的Customers的name
+
+## 位操作
+
+### [190. Reverse Bits](https://leetcode-cn.com/problems/reverse-bits/)
+
+- 与操作配合位操作
+
+  二进制数跟1的与操作可以知道二进制数的最右位，再将该位左移至最左位，再找到最右边第二位，左移至最左边第二位，循环此操作即可
+
+- 带记忆化的按字节（8位）颠倒
+
+  ![在这里插入图片描述](https://pic.leetcode-cn.com/365599a4030d26a019d37ad97c201e64e2fa3ae9fd7b43d689e8a4d7f802141e-file_1585801736122)
+
+  在处理长字节流时，每字节（8 位的比特位）反转可能更有效，但是本题输入的是固定的 32 位整数，所以字节颠倒可能更有效
+
+  - 附上按自己为单位反转位的算法：
+
+    ```python
+    # 这个算法是用 3 个操作反转一个字节中的位，在 Sean Eron Anderson 的在线电子书 Bit Twiddling Hacks 中可以看到更多的细节。
+    def reverseByte(byte):
+        return (byte * 0x0202020202 & 0x010884422010) % 1023
+    ```
+
+    上述算法完全基于算术和位操作，不涉及循环
+
+  - 可以缓存先前计算的值，以避免重新计算
+
+  - 步骤
+
+    - 按字节遍历整数（总共32位，每次取最右边的8位，每次操作完后都将该整数右移8位）这里我们使用位掩码为 `11111111` 的与操作（即 `n&0xff`）来完成该操作
+    - 之后使用上述的reverseByte()方法来反转字节中的位，获取每个字节（8位）反转后的字节，注意，这里我们维护一个map来保存每一次的计算，下次如果有重复的计算就直接使用map中的结果即可可以减少计算量
+    - 之后将该反转后的字节左移24（32 - 8 = 24， 当然第二次的话就是 24 - 8 = 16，以此类推）
+    - 等到所有位都做了上述操作之后，我们就得到反转之后的结果了。当然，这里我们选择了8位，也可以选择4位，或更小的位数，这将需要更多的计算来交换更少的缓存空间
+
+- 分治策略颠倒位的顺序
+
+  上面的带记忆化的按字节颠倒方法将整数按照字节分成若干份，再循环处理最后得到结果，那能不能在不使用循环的情况下反转整个32位呢？事实上我们可以将32分成16，16分成8，8分成4，...，直到最后分成块数为1位为止，并将每个块反转合并最后得到结果。通俗来讲就是把32劈成两半，反转，再把左边右边的16各自劈成两半，反转，...，最后粒度到1为止，反转，即可
+
+  - 这里控制取到数的前一半位和后一半位的方法其实就是一个与操作
+
+  - 将两部分数合到一起其实就是一个位操作配合一个或操作
+
+  - 附上代码：
+
+    ```c++
+    class Solution {
+    public:
+        uint32_t reverseBits(uint32_t n) {
+            n = (n >> 16) | (n << 16);
+            n = ((n & 0xff00ff00) >> 8) | ((n & 0x00ff00ff) << 8);
+            n = ((n & 0xf0f0f0f0) >> 4) | ((n & 0x0f0f0f0f) << 4);
+            n = ((n & 0xcccccccc) >> 2) | ((n & 0x33333333) << 2);
+            n = ((n & 0xaaaaaaaa) >> 1) | ((n & 0x55555555) << 1);
+            return n;
+        }
+    };
+    ```
+
+### [191. Number of 1 Bits](https://leetcode-cn.com/problems/number-of-1-bits/)
+
+- 让数右移并跟 1 做与运算来判断每一次右移之后最右边的是否是1，并进行计数
+
+- 二进制数消一法
+
+  让数减一之后与数本身做与运算，循环操作后到某一次该数变为0，记录操作的次数即为二进制数中1的个数
+
+  - 事实上上述操作每一次都会使得二进制数消掉最靠右的那个1
+
+
+
+
+
