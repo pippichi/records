@@ -422,7 +422,11 @@
 
   - 事实上上述操作每一次都会使得二进制数消掉最靠右的那个1
 
+## 正则表达式
 
+### [193. Valid Phone Numbers](https://leetcode-cn.com/problems/valid-phone-numbers/)
 
+- 使用grep，注意grep -P中的-P的意思是使用perl的正则表达式语法，perl的正则功能更强大
 
+- 也可以使用awk或gawk，这是Unix上的grep
 
