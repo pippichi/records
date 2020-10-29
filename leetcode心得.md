@@ -355,6 +355,49 @@
 - 可以用NOT IN筛选Customers的id没有在Orders的外键CustomerId中的Customers的name
 - 也可以用left outer join 筛选联表后CustomerId为NULL的Customers的name
 
+### [196. Delete Duplicate Emails](https://leetcode-cn.com/problems/delete-duplicate-emails/)
+
+- 借助子查询查找Email重复的id，需要注意的是需要在子查询的临时表外面再套一层select，否则可能会出现同时查询和更新表的错误
+
+  - 附上代码
+
+    ```mysql
+    DELETE FROM Person 
+    WHERE id in (
+    	SELECT id FROM (
+        	SELECT id FROM Person p1 LEFT OUTER JOIN Person p2 
+            ON p1.Email=p2.Email
+            WHERE p1.id > p2.id
+        ) temp
+    );
+    ```
+
+- 可以使用delete 要删除的表 from ... 的语法
+
+  - 注意，这个语法sql92和sql99都有
+
+  - 附上代码
+
+    ```mysql
+    DELETE p1 FROM Person p1, Person p2 
+    WHERE p1.Email=p2.Email
+    AND p1.id > p2.id;
+    ```
+
+### [197. Rising Temperature](https://leetcode-cn.com/problems/rising-temperature/)
+
+利用DATEDIFF函数
+
+- 可以使用子查询，通过对比今天和昨天的温度得到答案
+
+- 可以使用join，合并的关联字段是今天的日期和昨天的日期，事实上就是这样写：
+
+  ```mysql
+  ON DATEDIFF(today.date, yesterday.date)=1
+  ```
+
+  之后再比较今日和昨日的温度得到答案
+
 ## 位操作
 
 ### [190. Reverse Bits](https://leetcode-cn.com/problems/reverse-bits/)
@@ -422,11 +465,27 @@
 
   - 事实上上述操作每一次都会使得二进制数消掉最靠右的那个1
 
-## 正则表达式
+## Linux
 
 ### [193. Valid Phone Numbers](https://leetcode-cn.com/problems/valid-phone-numbers/)
 
 - 使用grep，注意grep -P中的-P的意思是使用perl的正则表达式语法，perl的正则功能更强大
 
 - 也可以使用awk或gawk，这是Unix上的grep
+
+### [195. Tenth Line](https://leetcode-cn.com/problems/tenth-line/)
+
+输出文件第十行文本方法：
+
+- sed -n
+- grep -n配合cut
+- ...
+
+统计文本行数方法：
+
+- wc -l
+- grep -nc "" file.txt
+- grep -c "" file.txt
+- grep -vc "^$" file.txt
+- ...
 
