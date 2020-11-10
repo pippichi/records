@@ -110,6 +110,84 @@
   - 用数组维护每一步的最大收益
   - 实际上只需要维护以现在为基准的前两步的每一步的最大收益即可，因此也可以不用数组，而是使用两个变量维护前两步的最大收益
 
+### [217. Contains Duplicate](https://leetcode-cn.com/problems/contains-duplicate/)
+
+- 朴素线性查找
+
+  双重for循环查找
+
+- 排序之后对比相邻元素
+
+- 哈希表
+
+  首先应该想到该题需要一个支持快速搜索和插入操作的动态数据结构，这里我们用了unordered_set
+
+### [219. Contains Duplicate II](https://leetcode-cn.com/problems/contains-duplicate-ii/)
+
+- 线性搜索
+
+  维护一个长度为k的滑动窗口，在滑动窗口中比较元素（实现方法就是双重for循环）
+
+  此外，我们来思考是否有更好用的数据接口来实现这个滑动窗口呢？考虑到上面的滑动窗口是先进先出的，因此很容易想到的一个数据结构就是队列，但是由链表实现的队列虽然可以支持在常数时间内的删除、插入，但是搜索所耗费的时间确实线性的，所以如果使用队列来实现上述的滑动窗口并不会有更大的优势
+
+- 平衡二叉搜索树（BST）
+
+  我们再思考一下限制队列的在此题中的效率的原因是什么？显然是搜索时的低效导致了最终的低效，那又有什么数据结构能同时兼顾删除、插入、搜索的效率呢？那就是平衡二叉搜索树（BST）了（Java中可以用TreeMap或TreeSet，c++可以用stl::set或stl::map），BST中搜索、插入、删除都可以保持O(log k)的时间复杂度
+
+  那他该如何维护滑动窗口呢？请看如下代码：
+
+  ```c++
+  for (int i = 0; i < nums.length; ++i) {
+      if (set.contains(nums[i])) return true;
+      set.add(nums[i]);
+      // 控制滑动窗口大小
+      if (set.size() > k) {
+          // 删除最老元素的方法
+          set.remove(nums[i - k]);
+      }
+  }
+  ```
+
+- 散列表（哈希表）
+
+  实验后我们得知虽然平衡二叉树能够完成任务，但是效率还是不够，我们需要一个删除、插入、搜索的时间复杂度更低的数据结构，那就是散列表了，在本题中，我们会做n次搜索、删除、插入操作，每次操作都耗费常数时间，因此时间复杂度为O(n)
+
+  使用散列表实现滑动窗口思路基本跟使用平衡二叉搜索树的一样
+
+### [228. Summary Ranges](https://leetcode-cn.com/problems/summary-ranges/)
+
+- 双指针
+
+  关键点：1、保留起始点；2、更新起始点
+
+  - 用while控制终止点指针，如下：
+
+    ```c++
+    for(int i, j = 0; j < nums.size(); j++){
+        ...
+        // 直接更新终止点指针到目标位置
+        while(j + 1 < nums.size() && nums[j + 1] == nums[j] + 1){
+            j++;
+        }
+        ...
+    }
+    ```
+
+  - 用if控制终止点指针，如下：
+
+    ```c++
+    for(int i = 0, j = 0; i < nums.size(); i++){
+        ...
+        // 用if配合continue的方式更新终止点指针到目标位置
+        if(i + 1 < nums.size() && nums[i] + 1 == nums[i + 1]){
+            continue;
+        }
+    	...
+    }
+    ```
+
+  注意点：1、Java中可以直接用 1 + “” 的方式将int转换成string，但是c++需要借助to_string()方法；2、不要忘记更新起始点；3、c++中查找字符串是否包含子串需要借助string::size_type、find()函数以及string::npos，而Java中我们可以使用contains()函数，也可以使用indexOf()函数来实现
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -302,6 +380,53 @@
 
   创建pA和pB，分别指向链表A和B，让他们向后遍历，如果pA遍历完了，就让pA指向B链表，如果pB遍历完了，就让pB指向A链表，再继续向后遍历，此时如果有交点，则pA和pB一定能一起遍历到该交点。原理其实很简单，只要让两个指针在交点之前走过一样的长度即可，该长度就是两个链表交点之前的结点数量之和
 
+### [206. Reverse Linked List](https://leetcode-cn.com/problems/reverse-linked-list/)
+
+- 迭代
+
+  事先保存当前节点的下一个节点，之后修改当前节点的指向，再反过来处理保存的下一个节点，直到末尾，如下：
+
+  ```c++
+  ListNode* reverseList(ListNode* head) {
+  	// 将反过来的链表暂时保存在这里
+      ListNode *pre = nullptr;
+      while(head){
+          // 保存当前节点的下一个节点
+          ListNode *temp = head->next;
+          // 修改当前节点的指向
+          head->next = pre;
+          // 将反过来的链表保存到外部的变量
+          pre = head;
+          // 继续处理之前保存的下一个节点
+          head = temp;
+      }
+      return pre;
+  }
+  ```
+
+  迭代由于是从前往后的，因此需要保存当前节点的下一个节点，避免在修改当前节点指向的时候丢失后面的所有节点
+
+- 递归
+
+  从最后一个节点处开始思考，每一次返回给上一层递归的链表都是已经处理好的反过来的链表，这样到最上层的递归的时候就能形成反过来的链表了，如下：
+
+  ```c++
+  ListNode* reverseList(ListNode* head) {
+      // 终止条件
+      if(!head || !head->next) return head;
+      // 从下一层递归中返回的已经处理好的反过来的链表（显然他是从尾部开始向前一步一步反过来的）
+      ListNode *pre = reverseList(head->next);
+      // 由于后面的那一串链表都已经反过来了，我们只需要在已经反过来的后面的链表前面添加经过处理的当前的节点即可
+      // 下面两行代码就可以改变节点的指向
+      head->next->next = head;
+      // 注意，这一步是必须的，不然最终会导致链表循环
+      head->next = nullptr;
+      return pre;
+  }
+  ```
+
+  递归由于是从后往前的，因此不再需要考虑当前节点的下一个节点，而且当前节点的下一个节点的指向的改变也不会影响当前节点指向下一个节点的这个“指向”，所以我们总能从当前节点找到后面那一段链表，不存在链表丢失的情况
+
 ## 栈
 
 ### [155. Min Stack](https://leetcode-cn.com/problems/min-stack/)
@@ -309,6 +434,14 @@
 - 重点在于获取栈中最小值的算法的实现
 
   事实上只需要维护两个栈s1、s2，s1用于存放真正的数据，s2用于存放每次push的时候push的值与上一次push时s1中元素最小的值对比之后的较小值，相当于存放了每一层的最小值，这样就算执行pop操作，s2pop的还是这一层的最小值，这样的话在获取s2.top()的时候获取的值始终会是当前s1中元素的最小值
+
+### [225. Implement Stack using Queues](https://leetcode-cn.com/problems/implement-stack-using-queues/)
+
+- 两个队列
+
+- 一个队列
+
+  需要事先记录当前队列的长度，将目标值push到队列之后再根据之前记录的长度将原先队列中的元素再次全部push到队列后面即可
 
 ## 数
 
