@@ -427,6 +427,53 @@
 
   递归由于是从后往前的，因此不再需要考虑当前节点的下一个节点，而且当前节点的下一个节点的指向的改变也不会影响当前节点指向下一个节点的这个“指向”，所以我们总能从当前节点找到后面那一段链表，不存在链表丢失的情况
 
+### [234. Palindrome Linked List](https://leetcode-cn.com/problems/palindrome-linked-list/)
+
+- 头指针和尾指针
+
+  由于只是比较node的val，不需要比较node的指向，因此可以将node的val放入一个数组，维护一个头指针一个尾指针，头指针向后尾指针向前，并比较指向的node的val，停止的条件是头指针index大于等于尾指针index，如果有一次val不等的，就直接返回false，如果循环结束后都没有返回false的话就返回true
+
+- 递归
+
+  我们希望做到这样：有一个全局的头指针，直到递归到最后一个节点之前都不动，然后随着最后一层递归向上返回的时候他开始向后一步一步移动，如此一来就可以进行比较了
+
+  想要做到这样我们只需要做到这两步：
+
+  - 声明一个全局的头指针
+
+  - 递归代码写完之后再写全局头指针移动的代码，如下：
+
+    ```c++
+    class Solution {
+        // 全局头指针
+        ListNode *frontPoint;
+    public:
+        bool recursivelyCheck(ListNode *head){
+            if(head){
+                // 先进入递归，递归到最后一层，再从最后一层开始往前比较节点的值
+                if(!recursivelyCheck(head->next)) return false;
+                // 比较节点的值
+                if(frontPoint->val != head->val) return false;
+                // 从递归的最后一层开始随着递归往前返回，全局的头指针就要跟着往后移动
+                frontPoint = frontPoint->next;
+            }
+            // 如果要返回true，有两种情况：1、递归到最后一个node了，再次进入递归方法时传入的是一个空指针，此时不会进入上述if代码块，但是我们不能让这种情况返回false，否则整体递归就会返回false，这是不对的，因此返回true；2、递归返回到了最上层，但是上述if代码块仍旧没有返回false，说明该链表就是一个对称的回文链表，此时就是应该返回true的
+            return true;
+        }
+        bool isPalindrome(ListNode* head) {
+            // 初始化全局头指针
+            frontPoint = head;
+            return recursivelyCheck(head);
+        }
+    }
+    ```
+
+- 快慢指针
+
+  首先通过快慢指针找到链表的中间节点，将链表分成两段，再将后半段链表反转（链表反转请看：[206. Reverse Linked List](https://leetcode-cn.com/problems/reverse-linked-list/)），之后维护两个指针，一个指向第一段头部，一个指向第二段头部，同时往后移动并比较值即可
+
+  注意点：1、如果最后在得出结果的同时我们还不希望原链表被修改，还可以再将第二段链表再反转一下，并将其拼接到第一段链表后面
+
 ## 栈
 
 ### [155. Min Stack](https://leetcode-cn.com/problems/min-stack/)
@@ -442,6 +489,44 @@
 - 一个队列
 
   需要事先记录当前队列的长度，将目标值push到队列之后再根据之前记录的长度将原先队列中的元素再次全部push到队列后面即可
+
+## 队列
+
+### [232. Implement Queue using Stacks](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
+
+- 两个栈，使用一个栈为主栈，将一个栈的数据全放入另一个栈即是一个队列
+
+- 两个栈，两个栈都是主栈，代码如下：
+
+  ```c++
+  // push的时候直接push到某个栈，并保存栈底元素
+  void push(int x) {
+      if(s1.empty()) front = x;
+      s1.push(x);
+  }
+  // pop的时候先看另一个栈是否为空，如果不为空就将元素全部放入该栈，并对该栈执行pop()
+  int pop() {
+      if(s2.empty()){
+          while(!s1.empty()){
+              s2.push(s1.top()); s1.pop();
+          }
+      }
+      int temp = s2.top();
+      s2.pop();
+      return temp;
+  }
+  // peek的时候先看另一个栈是否为空，如果不为空返回栈顶元素即可，如果为空就返回最开始放入数据的栈的栈底元素
+  int peek() {
+      if(!s2.empty()) return s2.top();
+      return front;
+  }
+  // 判空的时候需要判断两个栈都为空才算为空
+  bool empty() {
+      return s1.empty() && s2.empty();
+  }
+  ```
+
+  该方法巧妙且充分地利用了两个栈的空间，思路非常值得学习
 
 ## 数
 
@@ -598,6 +683,26 @@
   如果多次实验（写程序让电脑去算），我们会发现如果是循环的话那它最终都会都会进入这样一个循环：4->16->37->58->89->145->42->20->4
 
   那就好办了，只要在循环中出现上述链中的数字，则说明就是无限循环
+
+### [231. Power of Two](https://leetcode-cn.com/problems/power-of-two/)
+
+- 暴力计算
+
+  由于是2的幂的数对2取余一定为0，而不是2的幂的数一直整除2除到整除不了的时候该数对2取余一定为1。抓住这个特性做取余和整除计算即可做出判断了。
+
+- 位运算（保留最右边的1）
+
+  技巧：1、 x & (~x + 1) 操作能保留最右边的1 ；2、用到了2的幂的数的特性
+
+  我们知道补码就是反码 + 1，显然 x & (~x + 1) 就可以保留最右边的1，而2的幂的数的二进制表示中，是只有1个1的，区域都是0，那么只需要判断 x & (~x + 1) 得结果是否等于 x即可做出判断
+
+- 位运算（将最右边的1变为0）
+
+  技巧：1、x & (x - 1) 操作能将最右边的1变为0 ；2、用到了2的幂的数的特性
+
+  上面说了2的幂的数的二进制只有1个1，其余都是0，我们可以通过x & (x - 1) 操作将x的最右边的1去掉，通过判断x & (x - 1) 是否为0得出结论
+
+本题中我们将int型的n转换成long型避免溢出
 
 ## SQL
 
