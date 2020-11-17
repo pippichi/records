@@ -239,6 +239,39 @@
   - 维护两个队列，一个用于保存结点，另一个用于保存该结点的值
   - 最后的判定条件为计算分支走到叶子结点的时候用于保存值的队列中的相应位置的值与该叶子结点的值之和，只要有一个分支通过这样的计算之后的值等于总合sum那就是符合题意的一棵树
 
+### [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+
+首先要注意它是一棵二叉搜索树（意味着他有序）
+
+- 两次遍历
+
+  封装一个能获取从根节点到目标节点所经过的所有节点的数组的函数，获取从根节点到q和从根节点到p的两条路径，从前向后遍历两条路径找出最后一个共同节点
+
+- 一次遍历
+
+  假设当前节点root，存在三种情况：1、q < root < p；2、q < root && p < root；3、q > root && p > root；如果是第一种情况的，显然当前节点就是我们想要的节点，第二种的话目标节点应该在当前节点的左侧，第三种的话目标节点应该在当前节点的右侧。按照这个逻辑，我们就可以写代码了，下面是两种实现的方法：
+
+  -  递归
+
+    ```c++
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return (root->val - q->val) * (root->val - p->val) <= 0 ? root : lowestCommonAncestor(root->val - q->val > 0 ? root->left: root->right, p, q);
+    }
+    ```
+
+  - while循环
+
+    ```c++
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        while(root){
+            if(root->val < q->val && root->val < p->val) root = root->right;
+            else if(root->val > q->val && root->val > p->val) root = root->left;
+            else break;
+        }
+        return root;
+    }
+    ```
+
 ## 字符串
 
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
@@ -273,31 +306,6 @@
 - 暴力枚举
 
   遍历不同平移长度，每一次都统计字母词频，与已知字母词频做残差平方和运算，找到结果最小的那一次平移的位数，再将原文本向左平移该位数长度即可破解密文
-
-### [203. Remove Linked List Elements](https://leetcode-cn.com/problems/remove-linked-list-elements/)
-
-- 设置哨兵指针（头指针）sentinel，方便删除结点
-
-- 使用指针的指针
-
-  - 附上代码
-
-    ```c++
-    ListNode* removeElements(ListNode* head, int val) {
-        for(ListNode **temp = &head; (*temp); ){
-            if((*temp)->val != val){
-                temp = &((*temp)->next);
-            }else{
-                ListNode *del = *temp;
-                *temp = (*temp)->next;
-                delete del;
-            }
-        }
-        return head;
-    }
-    ```
-
-     (\*p) 是当前节点的指针，也就是前一个节点的 next 指针，这两者是等价的，对 (*p) 赋值，就是对前一个节点的 next 指针赋值，然后，(\*p)->next 是当前节点的 next 指针的值，所以，\*temp = (\*temp)->next;的效果就是，把前一个节点的 next 指针赋值成了当前节点的 next 指针的值，也就是删除了当前节点
 
 ### [205. Isomorphic Strings](https://leetcode-cn.com/problems/isomorphic-strings/)
 
@@ -360,6 +368,22 @@
     }
     ```
 
+### [242. Valid Anagram](https://leetcode-cn.com/problems/valid-anagram/)
+
+c++可以通过c_str()将字符串转const char *c 指针指向型的字符数组；通过sizeof(char p[]) / sizeof(char)计算字符数组的size；通过strlen(char *p)计算指针指向型数组的size；通过strcmp(xxx, xxx)比较两个字符数组的大小（这里指针指向型和数组型的数组之间也可以相互比较。它的效果类似于减操作，返回0表示两个字符数组一样，-1表示第二个大，1表示第一个大）；通过sort函数对字符数组进行排序；由于const型数组无法改变其本身，因此无法使用sort函数，所以我们还需要通过strcpy()，将const型数组copy到一个新的数组中（注意这个新的数组需要指定大小，例如：char *c = new char[str.size()]）
+
+- 维护一个哈希表（int table[26] = {0}）
+
+  将第一个字符串中的字符在哈希表中对应位置都加1，遇到重复的字符就累加上去，第二个字符串中的字符在哈希表中对应位置都减1，遇到重复的字符就再减1，上述操作通过一个for循环完成，之后再通过一个for循环检验哈希表是否全为0即可得出结论
+
+- 维护一个哈希表优化版
+
+  两个for循环，第一次还是像上面一样去加1，只不过这次只是对其中某一个字符串进行遍历，第二个for循环对另一个字符串进行操作，也是像上面一样去减1，由于两个字符串长度必相等（不相等的直接就返回false了），因此如果是符合题意的字符串在第二次循环最后一定能将哈希表全部变为0，如果不符合则一定存在某些位置大于0某些位置小于0，且一旦小于0了就不可能再大于等于0了。利用这个特性在第二次遍历的时候一旦发现小于0的就直接返回false
+
+- 先排序，后比较
+
+  直接将两个字符串变成字符数组，排序之后比较两个字符数组是否相等即可得出结论
+
 ## 链表
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
@@ -379,6 +403,29 @@
 - 双指针法
 
   创建pA和pB，分别指向链表A和B，让他们向后遍历，如果pA遍历完了，就让pA指向B链表，如果pB遍历完了，就让pB指向A链表，再继续向后遍历，此时如果有交点，则pA和pB一定能一起遍历到该交点。原理其实很简单，只要让两个指针在交点之前走过一样的长度即可，该长度就是两个链表交点之前的结点数量之和
+
+### [203. Remove Linked List Elements](https://leetcode-cn.com/problems/remove-linked-list-elements/)
+
+- 设置哨兵指针（头指针）sentinel，方便删除结点
+
+- 使用指针的指针，代码：
+
+  ```c++
+  ListNode* removeElements(ListNode* head, int val) {
+      for(ListNode **temp = &head; (*temp); ){
+          if((*temp)->val != val){
+              temp = &((*temp)->next);
+          }else{
+              ListNode *del = *temp;
+              *temp = (*temp)->next;
+              delete del;
+          }
+      }
+      return head;
+  }
+  ```
+
+   (\*p) 是当前节点的指针，也就是前一个节点的 next 指针，这两者是等价的，对 (*p) 赋值，就是对前一个节点的 next 指针赋值，然后，(\*p)->next 是当前节点的 next 指针的值，所以，\*temp = (\*temp)->next;的效果就是，把前一个节点的 next 指针赋值成了当前节点的 next 指针的值，也就是删除了当前节点
 
 ### [206. Reverse Linked List](https://leetcode-cn.com/problems/reverse-linked-list/)
 
