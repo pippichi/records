@@ -112,3 +112,218 @@
 }
 ```
 
+# 加密
+
+## Jasypt实现配置文件中密码字符串加密配置
+
+我们可以编写加密解密工具：
+
+```java
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+
+public class JasyptUtil {
+    /**
+     * Jasypt生成加密结果
+     * 
+     * @param password 配置文件中设定的加密密
+     * @param value 加密值
+     * @return
+     */
+    public static String encyptPwd(String password, String value) {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(cryptor(password));
+        String result = encryptor.encrypt(value);
+        return result;
+    }
+
+    /**
+     * 解密
+     * 
+     * @param password 配置文件中设定的加密密码
+     * @param value 解密密文
+     * @return
+     */
+    public static String decyptPwd(String password, String value) {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        encryptor.setConfig(cryptor(password));
+        String result = encryptor.decrypt(value);
+        return result;
+    }
+
+    public static SimpleStringPBEConfig cryptor(String password) {
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword(password);
+        config.setAlgorithm("PBEWithMD5AndDES");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setStringOutputType("base64");
+        return config;
+    }
+
+    // public static void main(String[] args) {
+    // // 加密
+    // System.out.println(encyptPwd("neusoft", "root1234"));
+    // // 解密
+    // System.out.println(decyptPwd("neusoft",
+    // "VnCioJPCXOOPIOx5Aq9XuigNH6OuaOoz"));
+    // }
+}
+```
+
+修改配置文件
+
+<font color="red">- spring.datasource.password=123456</font>
+
+<font color="green">+ spring.datasource.password=ENC(VShsidDhfoasi&@#N%#@$#@SDoOidsaDaD144sSFWSEssQD)</font>
+
+这里这个密文就是通过上面这个加密解密工具类生成的
+
+
+
+之后配置加密私钥
+
+<font color="green">+ jasypt.encryptor.password=xxx</font>
+
+私钥自己定义就行
+
+
+
+需要使用的地方调用工具类解密
+
+```java
+String password = ""; // 配置文件中的私钥
+String pwd = ""; // 加密后的密文
+JasyptUtil.decyptPwd(password, pwd)
+```
+
+
+
+# @ControllerAdvice
+
+有三种应用场景
+
+## 配合@ExceptionHandler实现全局异常处理
+
+```java
+// 加了下面这个注解，该类中定义的函数都会变成全局的。如果不加，那这些函数就只会在当前类有效
+@ControllerAdvice
+public class MyGlobalExceptionHandler {
+    // 注意下面这个注解也可以不指定NullpointerException.class这个参数，如果什么参数都不指定，那他将自动进行映射
+    @ExceptionHandler(NullpointerException.class)
+    // 全局的NullpointerException都会被下面这个函数处理
+    public ModelAndView customException(Exception e) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("message", e.getMessage());
+        mv.setViewName("myerror");
+        return mv;
+    }
+    
+    @ExceptionHandler(Exception.class)
+    // 如果添加下面这个注解，则会在controller中接口调用发生Exception错误之后返回下面函数中定义的东西
+    @ResponseBody
+    public ModelAndView customException(Exception e) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("message", e.getMessage());
+        mv.setViewName("myerror");
+        return mv;
+    }
+}
+```
+
+
+
+## 配合@ModelAttribute实现全局数据绑定
+
+定义全局数据：
+
+```java 
+@ControllerAdvice
+public class MyGlobalExceptionHandler {
+    // 定义key为md，值为下面函数返回的map
+    @ModelAttribute(name = "md")
+    public Map<String,Object> mydata() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("age", 99);
+        map.put("gender", "男");
+        return map;
+    }
+}
+```
+
+取出全局数据：
+
+```java
+@RestController
+public class HelloController {
+    @GetMapping("/hello")
+    public String hello(Model model) {
+        // 使用Model的asMap()取出全局的数据，这里不出意外应该会取出：md(key) --->  {"age": 99, "gender": "男"}(value)
+        Map<String, Object> map = model.asMap();
+        System.out.println(map);
+        return "hello controller advice";
+    }
+}
+```
+
+
+
+## 配合@InitBinder和全局数据预处理
+
+假设有两个实体类：
+
+```java
+public class Book {
+    private String name;
+    private Long price;
+    //getter/setter
+}
+public class Author {
+    private String name;
+    private Integer age;
+    //getter/setter
+}
+```
+
+有一个controller需要同时传入上面两个实体类：
+
+```java
+@PostMapping("/book")
+public void addBook(Book book, Author author) {
+    ...
+}
+```
+
+由于两个实体类都有name这个字段，因此需要进行区分
+
+我们可以这么修改上面这个controller接口：
+
+```java
+@PostMapping("/book")
+public void addBook(@ModelAttribute("b") Book book, @ModelAttribute("a") Author author) {
+    ...
+}
+```
+
+并且在@ControllerAdvice标记的类中添加如下代码：
+
+```java
+// @InitBinder("b") 注解表示该方法用来处理和Book和相关的参数,在方法中,给参数添加一个 b 前缀,即请求参数要有b前缀.
+@InitBinder("b")
+public void b(WebDataBinder binder) {
+    binder.setFieldDefaultPrefix("b.");
+}
+@InitBinder("a")
+public void a(WebDataBinder binder) {
+    binder.setFieldDefaultPrefix("a.");
+}
+```
+
+此时就需要这样发送请求了：
+
+http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age=100
+
+可以看到name字段非常自然的被区分开了
+
