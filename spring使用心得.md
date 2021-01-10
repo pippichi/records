@@ -362,3 +362,25 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 - 在每个测试方法之后执行。
 - 注解在非静态方法上。
 - 可以回滚测试方法引起的数据库修改。
+
+# 注入
+
+## @Import注入类
+
+原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
+
+利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
+
+# 静态文件存储位置
+
+在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
+
+```java
+private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
+    "classpath:/META-INF/resources/", 
+    "classpath:/resources/", 
+    "classpath:/static/", 
+    "classpath:/public/"
+};
+```
+
