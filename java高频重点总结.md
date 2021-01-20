@@ -515,4 +515,77 @@ my.a = 11
 
 - change()方法执行完毕，所有形参全部销毁
 
+# 就近原则、变量分类、非静态代码块的执行、方法的调用规则
 
+代码如下：
+
+```java
+public class Test {
+    static int s;
+    int i;
+    int j;
+    {
+        int i = 1;
+        i++;
+        j++;
+        s++;
+    }
+    public void test(int j) {
+        j++;
+        i++;
+        s++;
+    }
+
+    public static void main(String[] args) {
+        Test t1 = new Test();
+        Test t2 = new Test();
+        t1.test(10);
+        t1.test(20);
+        t2.test(30);
+        System.out.println(t1.i + ", " + t1.j + ", " + t1.s);
+        System.out.println(t2.i + ", " + t2.j + ", " + t2.s);
+    }
+}
+
+```
+
+输出结果：
+
+```java
+2,1,5
+1,1,5
+```
+
+考点：
+
+- 就近原则
+
+- 变量的分类
+
+  - 成员变量：类变量、实例变量
+  - 局部变量
+
+  局部变量与成员变量的区别：
+
+  声明的位置：
+
+  - 局部变量：方法体{}中，形参，代码块{}中
+  - 成员变量：类中方法外
+    - 类变量：有static修饰
+    - 实例变量：没有static修饰
+
+  修饰符:
+
+  - 局部变量：final
+  - 成员变量：public、protected、private、final、static、volatile、transient
+
+  <font color="red">值存储的位置：</font>
+
+  - 局部变量：栈（Stack，是指虚拟机栈。虚拟机栈用于存储局部变量表等。局部变量表存放了编译期可知长度的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型，它不等同于对象本身，是对象在堆内存的首地址）。方法执行完，自动释放。）
+  - 实例变量：堆（Heap，此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。这一点在Java虚拟机规范中的描述是：所有的对象实例以及数组都要在堆上分配。）
+  - 类变量：方法区（Method Area，用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。）
+
+  
+
+- 非静态代码块的执行：每次创建实例对象都会执行
+- 方法的调用规则：调用一次执行一次
