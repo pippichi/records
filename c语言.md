@@ -87,3 +87,96 @@ extern int xxx;
 
 
 
+# VS下的一些问题
+
+## 不安全的库函数
+
+vs下scanf是不推荐使用的，vs编译器给我们提供了一个scanf_s来代替scanf，但是缺乏了跨平台的特性（比方说gcc他就不认识scanf_s，只认识标准C语言提供的scanf）
+
+其他的还有例如strcpy、strlen、strcat等都是不安全的，那么VS编辑器都会为我们提供对应的安全的版本：strcpy_s、strlen_s、strcat_s等
+
+同样，如果在VS编辑器下不使用这些_s的库函数而是使用标准C语言提供的函数，那VS编辑器都会报错（2013版本之后）
+
+<span style="font-weight:bold">解决方法：</span>
+
+在头文件头部加一句话
+
+如果是在VS编辑器下可以使用 _CRT_SECURE_NO_WARNINGS
+
+```c
+#define _CRT_SECURE_NO_WARNINGS 1
+```
+
+那么有没有什么一劳永逸的方法呢？
+
+可以在newc++file.cpp文件中加如这句话：
+
+![image-20210130132310427](c语言.assets/image-20210130132310427.png)
+
+![image-20210130132331165](c语言.assets/image-20210130132331165.png)
+
+# 常量
+
+C语言的常量分以下几种：
+
+- 字面常量
+
+  直接写出一个数字，这种的叫字面常量
+
+- const修饰的常变量
+
+- #define定义的标识符常量
+
+- 枚举常量
+
+  ```c
+  enum Sex {
+  	MALE,
+  	FEMALE,
+  	SECRET
+  };
+  int main() {
+  	enum Sex x = MALE;
+  	printf("%d\n", MALE); // 0
+  	printf("%d\n", FEMALE); // 1
+  	printf("%d\n", SECRET); // 2
+  	return 0;
+  }
+  ```
+
+  
+
+# 字符串
+
+```c
+int main() {
+	// "abc" -- 'a', 'b', 'c', '\0'  --  '\0'是字符串的结束标志
+	char arr[] = "abc";
+	// 等价于：
+	char arr[] = { 'a', 'b', 'c', 0 };
+	// 因为 '\0' 的ascii码值就是0，因此还等价于：
+	char arr[] = { 'a', 'b', 'c', '\0' };
+}
+```
+
+## strlen
+
+用来计算字符串长度
+
+## 字符串中的 \ 
+
+转义符号
+
+面试题：
+
+```c
+int main()
+{
+    // 答案是13
+    // \t算一个字符
+    // 重点解释一下\32，\32的意思是32是一个八进制数，需要先转成10进制，也就是3 * 8^1 + 3 * 8^0 = 26，再将26转成ascii码对应的字符，因此这里\32表示一个字符
+    // 如果是 \32 那意思就是把32当成8进制数（所以\382这样的写法是错误的，错在中间这个8，八进制数最多到7），如果是 \x32 则表示将32当成16进制数
+    printf("%d\n", strlen("c:\test\32\test.c"));
+}
+```
+
