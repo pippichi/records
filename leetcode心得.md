@@ -384,6 +384,11 @@ c++可以通过c_str()将字符串转const char *c 指针指向型的字符数�
 
   直接将两个字符串变成字符数组，排序之后比较两个字符数组是否相等即可得出结论
 
+### 计算字符串中字符的个数
+
+- 使用计数器
+- 递归
+
 ## 链表
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)

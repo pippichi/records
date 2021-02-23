@@ -1,3 +1,23 @@
+# 堆、栈、静态区
+
+内存分为堆、栈、静态区
+
+- 栈
+
+  存放局部变量、函数形参等
+
+  我们常说的栈溢出就是指这块栈区资源被耗尽从而导致的错误
+
+- 堆
+
+  存放动态开辟的内存（如使用malloc、calloc等开辟）
+
+- 静态区
+
+  存放全局变量、static修饰的变量等
+
+![image-20210223205114145](c语言.assets/image-20210223205114145.png)
+
 # 打印
 
 %d - 整型
@@ -24,7 +44,7 @@
 
 - 微软的MSDN
 
-- www.cplusplus.com
+- http://www.cplusplus.com
 - http://en.cppreference.com （第一手资料）
 
 # 类型long
@@ -304,17 +324,17 @@ a = -2;
   >
   > 当外部函数没有static修饰的时候它具有外部链接属性，而当外部函数被static修饰之后它具有内部链接属性
 
-## #define
+# #define
 
 不是c语言关键字，是预处理指令
 
-### 定义标识符常量
+## 定义标识符常量
 
 ```c
 #define X 10
 ```
 
-### 定义宏
+## 定义宏
 
 ```c
 #define MAX(A, B) (A>B?A:B)
@@ -882,3 +902,36 @@ int main(){...}
 ```
 
 注意，如果是引入库文件，#include后面是使用尖括号，如果是引入自己的文件，#include后面使用双引号
+
+# #ifndef、#ifdef、#else、#endif
+
+- 用于头文件
+
+  场景：避免多次引入同一个头文件
+
+  ```c
+  #ifndef __ADD_H__  // 命名规则：__自定义名称_H__
+  #define __ADD_H__
+  
+  // 函数的声明
+  int Add(int, int);
+  
+  #endif
+  ```
+
+- 用于普通代码中
+
+  场景：判断这个宏是否被定义
+
+  ```c
+  #define MAX(x,y) (((x)>(y))?(x):(y))
+  int main(){
+  #ifdef MAX    //判断这个宏是否被定义
+      printf("3 and 5 the max is:%d\n",MAX(3,5));
+  #endif
+      return 0;
+  }
+  ```
+
+  
+
