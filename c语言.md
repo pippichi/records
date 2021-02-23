@@ -4,6 +4,8 @@
 
 %c - 字符
 
+%s - 字符串
+
 %f - 浮点数字，小数
 
 %lf - 双精度浮点数（double）
@@ -11,6 +13,19 @@
 %p - 以地址形式打印
 
 %x - 16进制数字
+
+## 技巧
+
+%2d - 打印两位数，不够的用空格补齐（右对齐），类似的还有%3d、%4d等
+
+%-2d - 打印两位数，不够的用空格补齐（左对齐），类似的还有%-3d、%-4d等
+
+# c语言库函数文档
+
+- 微软的MSDN
+
+- www.cplusplus.com
+- http://en.cppreference.com （第一手资料）
 
 # 类型long
 
@@ -415,6 +430,14 @@ int main() {
 
 用于赋值字符串到变量
 
+```c
+char arr1[] = "bit"; // 'b','i','t','\0'
+char arr2[10] = "######"; // '#','#','#','#','#','#','\0','\0','\0','\0'
+strcpy(arr2, arr1); // 此时arr2会变成：'b','i','t','\0','#','#','\0','\0','\0','\0'
+// 由于'\0'是字符串的结束标志，因此输出arr2的时候还是只会输出"bit"
+printf("%s\n", arr2); // 输出bit
+```
+
 ## strcmp
 
  ‘==’ 不能用来比较两个字符串是否相等，应该使用库函数strcmp
@@ -568,6 +591,10 @@ printf("a = %d\n", a); // 输出： a = 20
 ## 指针占用的空间
 
 我们知道指针是用来存放内存地址的，所以32位机上指针需要表示的就是32个bit位，也就是4字节，这就是一个指针占用的内存大小，那如果是64位机，那就是8字节
+
+## 指针和++操作的优先级
+
+++操作优先级更高，因此\*p++它就相当于\*(p++)，如何避免这样的情况呢？写成(*p)++即可
 
 # 结构体
 
@@ -737,3 +764,121 @@ int main(){
 }
 ```
 
+## 关机命令
+
+shutdown -s -t 60 表示60秒钟之后关机
+
+shutdown -a 表示取消关机命令
+
+制作简单的关机病毒：
+
+```c
+int main(){
+    char input[20] = {0};
+    system("shutdown -s -t 60");
+    while(1){
+	    printf("你的电脑将在60之后关机，如果输入：我是猪才可解除关机\n请输入：");
+    	scanf("%s", input);
+        if(strcmp(input, "我是猪") == 0) {
+            system("shutdown -a");
+			break;
+        }
+    }
+    return 0;
+}
+```
+
+将上述程序使用gcc编译成.exe文件，并添加到系统的service服务中，设置它的启动方式为自动启动，这样每次开机都会走一遍上面这个流程
+
+# goto和标签
+
+goto语句最常用的用法就是终止程序在某些深度嵌套的结构的处理过程，例如一次跳出两层或多层循环，如下：
+
+```c
+for(...)
+    for(...)
+        for(...)
+            if(disaster)
+                goto error;
+error:
+	if(disaster)
+        // 处理错误情况
+```
+
+虽然goto在c语言中可以滥用，但是可能会出现一些破坏性的行为，因此能不用最好不要使用
+
+```c
+int main(){
+again:
+	printf("hello!");
+    goto again;
+    return 0;
+}
+```
+
+上面的程序将会一直输出hello!
+
+再比如：
+
+```c
+int main(){
+    printf("nihao!");
+    goto again;
+    printf("skip");
+again:
+    printf("hello!");
+    return 0;
+}
+```
+
+上面的程序将输出：nihao!hello!
+
+下面我们使用goto和标签来写一个关机游戏：用户需要输入“我是猪”才能取消关机，否则60秒之后将关机
+
+```c
+int main(){
+    char input[20] = {0};
+    system("shutdown -s -t 60");
+again:
+    printf("你的电脑60秒之后关机，如果输入：我是猪，就取消关机\n请输入：");
+	scanf("%s", input);
+    if(strcmp(input, "我是猪") == 0){
+        system("shutdown -a");
+    }else{
+      	goto again;  
+    }
+    return 0;
+}
+```
+
+# 函数声明与定义
+
+```c
+// 函数声明
+int Add(int x, int y); // 或者这么写：int Add(int, int); 因为实际上我们不会使用到x和y，所以形参可以省略x和y，直接写int
+int main(){
+    ...
+    // 函数调用
+    Add(x, y);
+    ...
+}
+// 函数定义
+int Add(int x, int y){
+    return x + y;
+}
+```
+
+上面这种写法就属于脱裤子放屁，因为一般情况下我们直接把Add函数写到main函数上面去就可以了，就不需要再提前声明了
+
+<span style="color:red;">那么什么时候函数声明才能真正发挥它的作用呢？</span>
+
+在正式写代码的时候，往往会把自定义函数写到一个新的模块当中去，比方说新建一个源文件add.c并将Add函数定义到这个文件中去，然后再新建一个头文件add.h并将Add函数的声明放到这个文件中去
+
+最后如果我们要使用这个函数，直接引入头文件add.h即可：
+
+```c
+#include "add.h"
+int main(){...}
+```
+
+注意，如果是引入库文件，#include后面是使用尖括号，如果是引入自己的文件，#include后面使用双引号
