@@ -1103,6 +1103,7 @@ shutdown -a 表示取消关机命令
 制作简单的关机病毒：
 
 ```c
+#include <stdlib.h>
 int main(){
     char input[20] = {0};
     system("shutdown -s -t 60");
@@ -1119,6 +1120,18 @@ int main(){
 ```
 
 将上述程序使用gcc编译成.exe文件，并添加到系统的service服务中，设置它的启动方式为自动启动，这样每次开机都会走一遍上面这个流程
+
+## 暂停命令
+
+```c
+#include <stdlib.h>
+int main(){
+    system("pause"); // 可以让程序执行到这里的时候暂停
+    return 0;
+}
+```
+
+
 
 # goto和标签
 
