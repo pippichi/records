@@ -403,6 +403,65 @@ a = -2;
   >
   > 当外部函数没有static修饰的时候它具有外部链接属性，而当外部函数被static修饰之后它具有内部链接属性
 
+## const
+
+const修饰的变量不能修改
+
+存在这么一种非法写法：
+
+```c
+int main(){
+    const int num = 10; // num被const修饰了，说明num不能更改
+    int* p = &num; // 指针没有被const限制，且拿到了num的地址，那这个指针它就是可以去修改num的值，显然这样是非法的
+    *p = 20; 
+    printf("%d\n", num); // 20
+    return 0;
+}
+```
+
+因此我们应该使用const关键字限制指针：
+
+```c
+int main(){
+    const int num = 10;
+    const int* p = &num;
+    *p = 20; // 报错（左值指定为const对象），那么这里*p是不能改变的，*p是const对象
+    printf("%d\n", num);
+    return 0;
+}
+```
+
+- const放在指针变量的 \* 的左边时，修饰的是\*p，也就是说：不能通过p来改变\*p（按照上面的代码来讲其实就是num）的值
+
+- const放在指针变量的 \* 的右边时，修饰的是指针变量p本身，p不能被改变
+
+  ```c
+  const int num = 10;
+  int* const p = &num;
+  int n = 100;
+  p = &n; // 报错（左值指定为const对象）
+  ```
+
+- const同时放在指针变量的 \* 的左边和右边时，修饰的是\*p和指针变量p本身，此时既不能通过p来改变\*p，p自身也不能被改变
+
+案例：
+
+```c
+// 手写strcpy函数
+char* my_strcpy(char* dest, char* src){
+    char* ret = dest;
+    assert(dest != NULL);
+    assert(src != NULL);
+    // 把src指向的字符串拷贝到dest指向的空间，包含‘\0'字符
+    while(*dest++ = *src++){
+        ;
+    }
+    return ret;
+}
+```
+
+
+
 # #define
 
 不是c语言关键字，是预处理指令
@@ -1694,6 +1753,40 @@ int main(){
 Debug是调试版本，它包含调试信息，并且不做任何优化，便于程序员调试程序
 
 Release是发布版本，往往进行了各种优化（包括功能上的优化，有些在Debug版本下的死循环在Release版本下可能就不会出现），使得程序在代码大小和运行速度上都是最优的，以便用户更好地使用
+
+举个例子：
+
+```c
+int main(){
+    int i = 0;
+	int arr[6] = {1, 2, 3, 4, 5, 6};
+    for(i = 0; i <= 8; i++){
+        arr[i] = 0;
+    }
+    return 0;
+}
+```
+
+我们知道上面这段代码是会死循环的（具体请看数组章节的“数组越界访问导致死循环”）
+
+那么我们知道如果使变量i存放在栈空间低位的话，就可以避免死循环，而Release版本给我们做了各种优化，其中就包括内存分布结构优化，那么它把上述代码原本在栈空间高位的变量i结构优化到栈空间低位，也正是因为这个原因，Release版本才不会进入死循环，而Debug版本由于没有经过优化，是会死循环的
+
+如何来验证这一点呢？
+
+我们分别用Debug版本和Release版本来执行下面的代码：
+
+```c
+int main(){
+    int i = 0;
+    int arr[6] = {1,2,3,4,5,6};
+    printf("%p\n", arr); // Release：00B3FD04  Debug：00B3FD00
+    printf("%p\n", &i); // Release：00B3FD00 Debug：00B3FD04
+    return 0;
+}
+// 结果发现，Debug版本没有经过优化，变量i存放的栈空间的地址相较于arr来讲是在高位的（i的存放地址大于arr）；而Release版本则在低位（i的存放地址小于arr）
+```
+
+而Release版本的优化并不都是好的，有时候优化导致代码发生一定程度的变化，导致了Debug版本没bug但是Release版本有bug
 
 ## 断点处输入条件值
 
