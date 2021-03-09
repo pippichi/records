@@ -557,7 +557,17 @@ printf("%f\n", *pFloat); // 9.0
   // 所以总结一下这行代码意思是一个名为signal的函数的声明，该函数需要一个int型的数和一个void(*)(int)型的函数指针作为参数，它的返回类型是void(*)(int)型的函数指针
   ```
 
+  我们发现上面这种写法及其麻烦而且可读性几乎为0，那么可不可以改进呢？
+
+  我们可以使用typedef
+
+  ```c
+  // typedef void(*)(int) pfun_t; // ❌
+  typedef void(*pfun_t)(int); // ✔
   
+  // 这个时候我们就可以简化上面的代码语句了
+  pfun_t signal(int, pfun_t);
+  ```
 
 - 函数指针数组
 
