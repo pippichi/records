@@ -542,6 +542,27 @@ printf("%f\n", *pFloat); // 9.0
   }
   ```
 
+  通过函数指针调用函数
+
+  ```c
+  void test(int x){
+      return x + 1;
+  }
+  int main(){
+      int a = 10;
+      void (*pa)(int) = test; 
+      // 这里pa、*pa、**pa和***pa完全一样，没有区别，*其实是摆设，加与不加都一样。
+      // 那么怎么理解呢？思考一下，直接调用test函数是怎么调用的呢：test(10)，我们把这里的test想象成地址，那么pa存的就是test的地址，那首先pa(a)就好理解了，因为pa里面存的就是test的地址，那直接调用就可以了；那(*pa)(a)其实也好理解，因为pa存的是test的地址，那么我们解引用拿到test函数再去调用，也就变成了(*pa)(a)
+      printf("%d\n", pa(a)); // 11
+      printf("%d\n", (*pa)(a)); // 11
+      printf("%d\n", (**pa)(a)); // 11 一般不这么写
+      printf("%d\n", (***pa)(a)); // 11 一般不这么写
+      return 0;
+  }
+  ```
+
+  
+
   案例1：
 
   ```c
