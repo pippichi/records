@@ -610,6 +610,87 @@ int main(){
 }
 ```
 
+### void*
+
+无类型的指针
+
+可以接收任意类型变量的地址
+
+```c
+int a = 0;
+char c = 'a';
+void* p = &a; // ✔
+p = &c; // ✔
+```
+
+案例：
+
+```c
+// qsort函数的声明
+void qsort(void* base, size_t num, size_t wid, int(*cmp)(const void* e1, const void* e2));
+```
+
+我们可以看到qsort函数第4个参数是一个函数指针，那么怎么来实现这个函数呢？
+
+首先我们要了解下面两点：
+
+<span style="color:red;font-weight:bold;">void*类型的指针不能进行解引用操作</span>
+
+```c
+void* p = &a;
+*p; // ❌
+```
+
+<span style="color:red;font-weight:bold;">void*类型的指针不能进行加减整数的操作</span>
+
+```c
+void* p = &a;
+p++; // ❌
+```
+
+现在我们回到qsort函数的第4个参数，也就是那个比较函数的实现：
+
+```c
+// 如果要排序的数组里面是整型数
+int cmp(const void* e1, const void* e2){
+    // return *e1 - *e2; // ❌
+    return *(int*)e1 - *(int*)e2; // ✔ 这里把e1和e2强制类型转换成int*型的指针
+}
+// 如果要排序的数组里面是浮点型数
+int cmp(const void* e1, const void* e2){
+    // return *(float*)e1 - *(float*)e2; // ✔ 这里把e1和e2强制类型转换成float*型的指针
+    // 但是上面这种写法可能会有问题，因为函数的返回类型是int，但是两个浮点型的数做加减法得到的也是一个浮点型的数
+    // 所以最好还是这么写：
+    // if (*(float*)e1 == *(float*)e2) return 0;
+    // else if (*(float*)e1 > *(float*)e2) return 1;
+    // else return -1;
+    
+    // 当然也可以这么写：
+    return ((int)(*(float*)e1 - *(float*)e2)); // 意思就是将两个浮点型的数做加减运算之后再将结果强制类型转换成int型
+}
+```
+
+如果要排序的数组里面是结构体
+
+```c
+struct Stu{
+    char name[20];
+    int age;
+};
+
+// 现在有结构体数组：struct Stu s[3] = {{"zhangsan", 20}, {"lisi", 30}, {"wangwu", 10}};
+// 那么怎么写比较函数来对数组s按照年龄进行排序呢？如下：
+int cmp_stu_by_age(const void* e1, const void* e2){
+    return ((struct Stu*)e1)->age - ((struct Stu*)e2)->age;
+}
+// 那么怎么写比较函数来对数组s按照名字进行排序呢？如下：
+int cmp_stu_by_name(const void* e1, const void* e2){
+    // 比较名字就是比较字符串
+    // 字符串比较不能直接用><=来比较，应该用strcmp函数
+    return strcmp(((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
+}
+```
+
 
 
 ## 函数指针数组
