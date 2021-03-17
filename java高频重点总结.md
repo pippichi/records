@@ -430,7 +430,7 @@ public class Test{
     public static void main(String[] args) {
         int i = 1;
         String str = "hello";
-        Integer num = 2;
+        Integer num = 200;
         int[] arr = {1, 2, 3, 4, 5};
         MyData my = new MyData();
 
