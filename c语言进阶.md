@@ -610,6 +610,38 @@ int main(){
 }
 ```
 
+案例：
+
+```c
+// 编写通用的冒泡排序函数
+void swap(char* buf1, char* buf2, int width){
+    int i = 0;
+    for(i = 0; i < width; i++){
+        char tmp = *buf1;
+        *buf1 = *buf2;
+        *buf2 = temp;
+        buf1++;
+        buf2++;
+    }
+}
+void bubble_sort(void* base, int sz, int width, int(*cmp)(const void* e1, const void* e2)){
+    int i = 0;
+    // 趟数
+    for(i = 0; i < sz - 1; i++){
+        // 每一趟比较的对数
+        int j = 0;
+        for(j = 0; j < sz - 1 - i; j++){
+            if(cmp((char*)base + j * width, (char*)base + (j + 1) * width) > 0){
+                // 交换
+                swap((char*)base + j * width, (char*)base + (j + 1) * width, width);
+            }
+        }
+    }
+}
+```
+
+
+
 ### void*
 
 无类型的指针
@@ -763,4 +795,118 @@ int main(){
 当然我们还可以一层一层的套下去，比方说还有指向函数指针数组的指针的数组等等
 
 ## 指针和数组面试题的解析
+
+### 一维数组
+
+```c
+int main(){
+    // 数组名是首元素的地址
+    // 1.sizeof(数组名) - 数组名表示整个数组
+    // 2.&数组名 - 数组名表示整个数组
+    // 
+    // 一维数组
+    int a[] = {1, 2, 3, 4}; // 4 * 4 = 16
+    printf("%d\n", sizeof(a)); // 16 sizeof(数组名) - 计算的是数组总大小 - 单位是字节
+    printf("%d\n", sizeof(a + 0)); // 4/8 数组名在这里表示首元素的地址，a+0还是首元素地址，地址的大小就是4/8个字节
+    printf("%d\n", sizeof(*a)); // 4 数组名表示首元素的地址，*a就是首元素，sizeof(*a)就是4
+    printf("%d\n", sizeof(a + 1)); // 4/8 数组名在这里表示首元素的地址，a+1是第2个元素的地址，地址的大小就是4/8个字节
+    printf("%d\n", sizeof(a[1])); // 4 第二个元素的大小
+    printf("%d\n", sizeof(&a)); // 4/8 &a取出的是数组的地址，但是数组的地址那也是地址，地址的大小就是4/8个字节
+    printf("%d\n", sizeof(*&a)); // 16 &a是数组的地址，数组地址解引用访问数组（相当于*和&抵消了），因此sizeof(*&a)计算的就是sizeof(a)的值
+    printf("%d\n", sizeof(&a + 1)); // 4/8 &a是数组的地址，&a+1虽然地址跳过整个数组，但还是地址
+    printf("%d\n", sizeof(&a[0])); // 4/8 &a[0]是第一个元素的地址
+    printf("%d\n", sizeof(&a[0] + 1)); // 4/8 &a[0]+1 是第二个元素的地址
+    return 0;
+}
+```
+
+### 字符数组
+
+```c
+int main(){
+    char arr[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    printf("%d\n", sizeof(arr)); // 6 sizeof计算的是数组大小
+    printf("%d\n", sizeof(arr + 0)); // 4/8 arr是首元素的地址，arr+0还是首元素的地址
+    printf("%d\n", sizeof(*arr)); // 1 arr是首元素的地址，*arr就是首元素，首元素是一个字符，而字符大小是一个字节
+    printf("%d\n", sizeof(arr[1])); // 1 
+    printf("%d\n", sizeof(&arr)); // 4/8 &arr虽然是数组的地址，但还是地址
+    printf("%d\n", sizeof(&arr + 1)); // 4/8 &arr+1是跳过整个数组后的地址
+    printf("%d\n", sizeof(&arr[0] + 1)); // 4/8 是第二个元素的地址
+    return 0;
+}
+```
+
+```c
+int main(){
+    char arr[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    printf("%d\n", strlen(arr)); // arr首元素地址往后找到'\0'才结束，因此是随机值
+    printf("%d\n", strlen(arr + 0)); // arr+0 还是arr首元素地址，还是从arr首元素地址往后找到'\0'才结束，因此是随机值
+    printf("%d\n", strlen(*arr)); // *arr是解引用arr首元素地址，这里是'a'，而strlen接收的参数是地址，因此这里传'a'相当于传了97，而访问地址97的内存是非法的，因此会报错
+    printf("%d\n", strlen(arr[1])); // arr[1]是arr第二个元素地址，这里是'b'，而strlen接收的参数是地址，因此这里传'b'相当于传了98，而访问地址98的内存是非法的，因此会报错
+    printf("%d\n", strlen(&arr)); // &arr是整个arr数组的地址，因此还是从arr首元素地址往后找到'\0'才结束，因此是随机值
+    printf("%d\n", strlen(&arr + 1)); // &arr+1是跳过整个arr数组的地址，因此是从跳过整个arr数组的地址的那个地址往后找到'\0'才结束，因此是随机值
+    printf("%d\n", strlen(&arr[0] + 1)); // &arr[0]+1是第二个元素的地址，因此是从第二个元素的地址往后找到'\0'才结束，因此是随机值
+	return 0;
+}
+```
+
+```c
+int main(){
+    char arr[] = "abcdef";
+    printf("%d\n", sizeof(arr)); // 7 sizeof(arr)计算的是数组的大小
+    printf("%d\n", sizeof(arr + 0)); // 4/8 计算的是地址的大小 - arr+0 是首元素的地址
+    printf("%d\n", sizeof(*arr)); // 1 *arr是首元素'a'，sizeof(*arr)计算首元素'a'的大小
+    printf("%d\n", sizeof(arr[1])); // 1 arr[1]是第二个元素，sizeof(arr[1])计算的是第二个元素的大小
+    printf("%d\n", sizeof(&arr)); // 4/8 &arr虽然是数组的地址，但也是地址
+    printf("%d\n", sizeof(&arr + 1)); // 4/8 &arr+1是跳过整个数组后的地址，但也是地址
+    printf("%d\n", sizeof(&arr[0] + 1)); // 4/8 &arr[0]+1是第二个元素的地址
+    return 0;
+}
+```
+
+```c
+int main(){
+    char arr[] = "abcdef";
+    printf("%d\n", strlen(arr)); // 6
+    printf("%d\n", strlen(arr + 0)); // 6
+    printf("%d\n", strlen(*arr)); // err
+    printf("%d\n", strlen(arr[1])); // err
+    printf("%d\n", strlen(&arr)); // 6 &arr是数组的地址，需要用数组指针去接：char(*p)[7] = &arr;但是strlen接收的参数实际上是一个字符指针，因此这里会报警告，但是并不影响使用，因为它会把传进去的数组指针当成字符指针去使用
+    printf("%d\n", strlen(&arr + 1)); // 随机值 &arr是整个数组的地址，&arr+1还是整个数组的地址，需要用数组指针去接：char(*p)[] = &arr+1;但是strlen接收的参数实际上是一个字符指针，因此这里会报警告，但是并不影响使用，因为它会把传进去的数组指针当成字符指针去使用
+    printf("%d\n", strlen(&arr[0] + 1)); // 5
+    return 0;
+}
+```
+
+### 字符指针
+
+```c
+int main(){
+    char* p = "abcdef";
+    printf("%d\n", sizeof(p)); // 4/8 计算指针变量p的大小
+    printf("%d\n", sizeof(p + 1)); // 4/8 p+1得到的是字符'b'的地址
+    printf("%d\n", sizeof(*p)); // 1 *p就是字符串的第一个字符'a'的大小
+    printf("%d\n", sizeof(p[0])); // 1 int arr[10]; arr[0] == *(arr+0)  因此p[0] == *(p+0) == 'a'
+    printf("%d\n", sizeof(&p)); // 4/8 &p取的是指针p的地址，所以计算的是地址的大小
+    printf("%d\n", sizeof(&p + 1)); // 4/8 &p+1意思是先取出指针p的地址，再让它往后走一步，所以计算的仍旧是地址的大小
+    printf("%d\n", sizeof(&p[0] + 1)); // 4/8 计算'b'的地址的大小
+    return 0;
+}
+```
+
+```c
+int main(){
+    char* p = "abcdef";
+    printf("%d\n", strlen(p)); // 6
+    printf("%d\n", strlen(p + 1)); // 5
+    printf("%d\n", strlen(*p)); // err
+    printf("%d\n", strlen(p[0])); // err
+    printf("%d\n", strlen(&p)); // 随机值 解释：&p指取出p的地址，那么p的地址可能是0x00131214，这个时候如果是小端存储那应该是这么存：14 12 13 00，如果使用strlen显然这里会得到结果为3，因为最后一个字符是00；而如果p的地址是0x12131415，按照小端存储则是：15 14 13 12，此时使用strlen就不知道会得到什么结果了，因为不知道什么时候遇到00
+    printf("%d\n", strlen(&p + 1)); // 随机值 解释：先取出p的地址，再让它往后走一步，这个时候后面什么时候遇到00仍旧是不知道的
+    printf("%d\n", strlen(&p[0] + 1)); // 5
+    return 0;
+}
+```
+
+### 二维数组
 
