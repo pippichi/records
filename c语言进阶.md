@@ -1049,6 +1049,8 @@ int main(){
 
 ## scanf和gets()
 
+头文件string.h
+
 scanf读到空格就停止了
 
 gets(char* buffer)可以读取一行
@@ -1058,3 +1060,27 @@ gets(char* buffer)可以读取一行
 头文件math.h
 
 计算次方
+
+## getchar()和putchar()
+
+getchar()用于接收键盘的字符，putchar()用于将字符输出（相当于printf()）
+
+```c
+int ch = getchar();
+putchar(ch); // 用于输出getchar()获取的字符，相当于printf("%c\n", ch)
+```
+
+案例：
+
+```c
+// 由于scanf读到空格就停止了，而我们又希望将空格后面的字符也全部都读掉以防止在scanf后面使用getchar()函数的时候getchar()误读到一些字符。那么可以怎么做呢？
+char password[20] = { 0 };
+scanf("%s", password);
+int ch = 0;
+// 我们知道用户输入字符到最后会按下回车键以结束，而这个回车键就是\n，所以我们可以通过判断getchar()是否读到\n来判断是否已经读完了用户所输入的所有字符
+// 通过这个原理，我们就可以编写以下while循环了：
+while ((ch = getchar()) != '\n') {
+    ; // 只写一个;表示循环里面什么也不做
+}
+```
+
