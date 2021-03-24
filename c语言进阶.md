@@ -320,6 +320,17 @@ printf("%f\n", *pFloat); // 9.0
 
 # 指针的进阶
 
+## 将数组名赋给指针
+
+```c
+int arr[10] = {1,2,3,4,5};
+int* p = arr; // 数组名表示首元素地址
+// *(p + 2) == p[2] == *(arr + 2) == arr[2]
+// 从这里可以看出p和arr其实是等价的
+```
+
+
+
 ## 字符指针
 
 ```c
@@ -997,3 +1008,53 @@ int main(){
 
 ![image-20210322111830900](c语言进阶.assets/image-20210322111830900.png)
 
+```c
+int main(){
+    int aa[2][5] = {1,2,3,4,5,6,7,8,9,10};
+    int* ptr1 = (int*)(&aa + 1); // 跳过整个数组，指向数组末尾元素的后面那个元素
+    int* ptr2 = (int*)(*(aa + 1)); // *(aa + 1)马上想到aa[1]，就是说aa是首元素地址，也就是第一行地址，+1之后就是第二行地址，因此解引用之后其实就是第二行，那么ptr2其实指向的就是第二行的首元素
+    printf("%d,%d\n", *(ptr1 - 1), *(ptr2 - 1)); // 由于ptr1、ptr2都被转成int*（其实ptr2都不用转，它自己就是int*类型，因为数组名表示首元素地址），所以输出为10，5
+    return 0;
+}
+```
+
+```c
+int main(){
+    char* a[] = {"work", "at", "alibaba"};
+    char** pa = a;
+    pa++;
+    printf("%s\n", *pa); // at
+    return 0;
+}
+```
+
+```c
+int main(){
+    char* c[] = {"ENTER", "NEW", "POINT", "FIRST"};
+    char** cp[] = {c+3, c+2, c+1, c};
+    char*** cpp = cp;
+    printf("%s\n", **++cpp); // POINT
+    printf("%s\n", *--*++cpp + 3); // ER
+    printf("%s\n", *cpp[-2] + 3); // ST
+    printf("%s\n", cpp[-1][-1] + 1); // EW
+    
+    return 0;
+}
+// 内存分布图见下图
+```
+
+![image-20210324145911904](c语言进阶.assets/image-20210324145911904.png)
+
+# c语言函数
+
+## scanf和gets()
+
+scanf读到空格就停止了
+
+gets(char* buffer)可以读取一行
+
+## pow()
+
+头文件math.h
+
+计算次方
