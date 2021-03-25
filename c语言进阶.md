@@ -130,6 +130,18 @@ int check_sys(){
 }
 ```
 
+案例：
+
+```c
+// 已知大端存储
+int main(){
+    unsigned int a = 0x1234; // 由于是大端存储，因此a在内存中这么存：（假设从左到右是低地址到高地址）00 00 12 34 
+    unsigned char b = *(unsigned char*)&a; // 取a的地址，强转成unsigned char*，意味着它的步长变1，再解引用拿到的应该是00这个字节，所以输出为0
+    printf("%d\n", b); // 0
+    return 0;
+}
+```
+
 
 
 # 有符号数和无符号数所能表示的范围
