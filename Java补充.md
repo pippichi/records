@@ -123,3 +123,63 @@ cDouble:1.668169110346482
 | 无（默认） | 1    | 1            | 0      | 0      |
 | protected  | 1    | 1            | 1      | 0      |
 | public     | 1    | 1            | 1      | 1      |
+
+# 注解
+
+## @PostConstruct与@PreDestory
+
+从Java EE 5规范开始，Servlet中增加了两个影响Servlet生命周期的注解（Annotation）：
+
+@PostConstruct和@PreDestory
+
+这两个注解被用来修饰一个非静态的void()方法，而且这个方法不能有抛出异常声明。写法有如下两种方式：
+
+```java
+@PostConstruct
+public void someMethod(){}
+```
+
+或者
+
+```java
+public @PostConstruct void someMethod(){}
+```
+
+被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次。@PostConstruct修饰的方法在构造函数之后执行，在init()方法之前执行。@PreDestory修饰的方法在destroy()方法执行之后执行，在Servlet被彻底卸载之前执行。
+
+![image-20210330213805539](Java补充.assets/image-20210330213805539.png)
+
+使用场景：
+
+在servlet初始化加载之前可能会需要处理一些东西，像加载缓存，加载线程池等，此时@PostConstruct就能派上用场了，当然，也可以不使用该注解，如果我们要加载或处理某些东西，我们完全可以在构造器初始化的时候就直接处理掉，只不过这种方法需要自己重写构造器。
+
+
+
+另外，spring中Constructor、@Autowired、@PostConstruct的顺序
+
+其实从依赖注入的字面意思就可以知道，要将对象p注入到对象a，那么首先就必须得生成对象a和对象p，才能执行注入。所以，如果一个类A中有个成员变量p被@Autowried注解，那么 **@Autowired注入是发生在A的构造方法执行完之后的**。
+
+如果想在生成对象时完成某些初始化操作，而偏偏这些初始化操作又依赖于依赖注入，那么久无法在构造函数中实现。为此，可以使用@PostConstruct注解一个方法来完成初始化，**@PostConstruct注解的方法将会在依赖注入完成后被自动调用**。
+
+Constructor >> @Autowired >> @PostConstruct
+
+举例： 
+
+```java
+public class AAA{
+    @Autowired
+    private BBB b;
+    
+    public AAA(){
+        System.out.println("此时b还未被注入：b = " + b);
+    }
+    
+    @PostConstruct
+    private void init(){
+        System.out.println("@PostConstruct将在依赖注入完成之后被自动调用：b = " + b);
+    }
+}
+```
+
+
+
