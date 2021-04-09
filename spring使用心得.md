@@ -24,6 +24,12 @@
 
 注意一个实体中只能出现一次
 
+## @JsonIgnoreProperties及其属性value
+
+@JsonIgnoreProperties(value = {"xx1", "xx2"})
+
+则序列化的时候字段xx1和xx2会被忽略
+
 
 
 ## @JsonIgnore
