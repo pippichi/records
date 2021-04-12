@@ -581,6 +581,261 @@ Mapper：
 </select>
 ```
 
+## @Param
+
+@Param是MyBatis所提供的(org.apache.ibatis.annotations.Param)，作为Dao层的注解，作用是用于传递参数，从而可以与SQL中的的字段名相对应，一般在2=<参数数<=5时使用最佳。
+
+@Param解决了参数可读性差的问题
+
+先来看看原始的方法：
+
+当只有一个参数时，没什么好说的，传进去一个值也只有一个参数可以匹配。当存在多个参数时，传进去的值就区分不开了，这时可以考虑用Map，例如接口：
+
+```java
+public List<Role> findRoleByMap(Map<String, Object> parameter);
+```
+
+此时的xml文件可以这么写：
+
+```xml
+<select id="findRoleByMap" parameterType="map" resultType="role">
+    SELECT id,name FROM t_role
+    WHERE roleName=#{roleName}
+    AND note=#{note}
+<select>
+```
+
+测试文件：
+
+```java
+RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+Map<String, Object> parameter = new HashMap<>();
+parameter.put("roleName", "剑士");
+parameter.put("note", "决战紫禁之巅");
+List<Role> roles = roleMapper.findRolesByMap(parameter);
+```
+
+很明显上面的缺点就在于可读性差，每次必须阅读他的键，才能明白其中的作用，并且不能限定其传递的数据类型，下面是使用@Param的情况，需要将接口改为：
+
+```java
+public List<Role> findRoleByAnnotation(@Param("roleName") String roleName, @Param("note") String note);
+```
+
+这样我们就可以直接传入对应的值了。
+
+当然也可以使用Java Bean来传递多个参数，定义一个POJO：
+
+```java
+public class RoleParam {
+    private String roleName;
+    private String note;
+    /*getter和setter*/
+}
+```
+
+此时接口就变为：
+
+```java
+public List<Role> findRoleByBean(RoleParam role);
+```
+
+这样对应的xml文件与原始的方法的区别就在于id和parameterType发生了变化，id对应的方法和parameterType对应该类的全限定名。
+
+而使用更多的场景可能是这样的，对应多个POJO：
+
+```java
+public List<Role> findRoleByMix(@Param("roleP") RoleParam role, @Param("permissionP") PermissionParam permission);
+```
+
+这样就可以进行如下映射：
+
+```xml
+<select id="findRoleByMix" resultType="role">
+    SELECT id,name FROM t_role
+    WHERE roleName=#{roleP.roleName}
+    AND note=#{rolep.note}
+    AND level=#{permissionP.level}
+<select>
+```
+
+注意：此时并不需要写出parameterType属性，Mybatis会进行自动搜索（这点在上面“使用mapper”这一章节中解释了）。
+
+## 使用#{}占位的方式和使用${}占位的方式
+
+现在有一个问题：
+
+目前我们在使用mybatis完成数据库操作的时候，mybatis底层默认使用PreparedStatement对象完成数据库操作，也就是说Sql语句的赋值都是通过占位赋值的，那么如果我们想通过字符串拼接的方式赋值怎么办？也就是底层使用Statement对象完成数据库操作。
+
+解决：
+
+```
+#{}方式占位：底层使用PreparedStatement对象完成数据库操作，sql语句本质上仍然是？占位赋值的
+${}方式占位：底层使用Statement对象完成数据库操作，本质为sql语句的拼接
+```
+
+举例说明：
+
+首先来看使用#{}占位方式：
+
+mapper.xml文件：
+
+```xml
+<select id="selPs" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where ename=#{ename}
+</select>
+```
+
+mapper接口中的方法：
+
+```java
+// #{}的占位
+List<Emp> selPs(@Param("ename") String ename);
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selPs("张三"); // 此时底层使用PreparedStatement
+```
+
+使用${}占位方式：
+
+mapper.xml文件：
+
+```xml
+<select id="selPs" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where ename='${ename}'
+</select>
+```
+
+mapper接口中的方法：
+
+```java
+// ${}的占位
+List<Emp> selPs(@Param("ename") String ename);
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selPs("张三"); // 此时底层使用Statement
+```
+
+## 模糊查询
+
+在进行模糊查询时，在映射文件中可以使用concat()函数来连接参数和通配符。另外，注意对于特殊字符，比如\<，不能直接书写，应该使用字符实体（诸如\&lt;等）替换。
+
+mapper接口方法：
+
+```java
+// 模糊查询：根据员工名查询员工信息
+List<Emp> selEmpByName(@Param("ename")String ename);
+```
+
+mapper.xml文件：
+
+```xml
+<!--模糊查询：根据员工姓名获取员工信息-->
+<select id="selEmpByName" resultType="com.bjsxt.pojo.Emp">
+    <!--下面的这个concat其实就是MySQL自带的函数，用来拼接字符串-->
+	select * from emp where ename like concat('%', #{ename}, '%')
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selEmpByName("三"); 
+```
+
+### 小于或者大于判断
+
+mapper接口方法：
+
+```java
+// 小于判断
+List<Emp> selEmpBySal(@Param("sal") Double sal);
+```
+
+mapper.xml文件：
+
+```xml
+<!--小于判断-->
+<select id="selEmpBySal" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where sal &lt; #{sal}
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selEmpBySal(4000.0); 
+```
+
+## 分页查询
+
+mapper接口方法：
+
+```java
+List<Emp> selEmpByPage(@Param("ename") String ename, @Param("pageStart")int pageStart, @Param("pageSize")int pageSize);
+```
+
+mapper.xml文件：
+
+```xml
+<!--分页查询-->
+<select id="selEmpByPage" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where sal &lt; #{sal} limit #{pageStart},#{pageSize}
+</select>
+```
+
+测试文件：
+
+```java
+// 分页查询
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selEmpByPage(4000.0, 0, 5); 
+```
+
+## 自增主键回填
+
+Mysql支持主键自增。有时候完成添加后需要立刻获取刚刚自增的主键，由下一个操作来使用。比如结算购物车之后，主订单的主键确定后，需要作为后续订单明细项的外键存在。对于主键的使用，我们可以用UUID（先手动生成一个UUID，再把它作为主键，为什么用UUID呢？因为UUID可以保证不重复），也可以让它自动生成，那么自动生成的时候我们如何拿到主键呢？Mybatis提供了支持，可以非常简单的获取。
+
+**方式1：通过useGeneratedKeys属性实现**
+
+```xml
+<insert id="save" useGeneratedKeys="true" keyProperty="empno">
+	insert into emp values(null,#{ename},#{job},#{mgr},#{hireDate},#{sal},#{comm},#{deptno})
+</insert>
+```
+
+useGeneratedKeys：表示要使用自增的主键
+
+keyProperty：表示把自增的主键赋给JavaBean的哪个成员变量
+
+以添加Employee对象为例，添加前Employee对象的empno是空的，添加完毕后可以通过getEmpno()获取自增的主键。
+
+**方式2：通过selectKey元素实现**
+
+```xml
+<insert id="save">
+	<selectKey order="AFTER" keyProperty="empno" resultType="int">
+		<!--SELECT LAST_INSERT_ID()-->
+        <!--或者可以这么写：-->
+        SELECT @@identity
+    </selectKey>
+    insert into emp(empno,ename,sal)values(null,#{ename},#{sal})
+</insert>
+```
+
+order：取值AFTER|BEFORE，表示在新增之后|之前执行\<selectKey\>中的命令（由此可见这种方式的功能更加丰富）
+
+keyProperty：表示将查询到的数据绑定到哪个属性上
+
 
 
 ## idea使用技巧

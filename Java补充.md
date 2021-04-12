@@ -183,3 +183,11 @@ public class AAA{
 
 
 
+# 生成随机值
+
+## UUID包的使用
+
+```java
+UUID.randomUUID();
+```
+
