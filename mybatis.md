@@ -257,6 +257,102 @@ sqlSession.commit();
 // 删除
 int i = sqlSession.delete("com.bjsxt.mapper.EmpMapper.delEmp", 4);
 sqlSession.commit();
+
+```
+
+### 使用mapper
+
+```java
+// 假设有两个相关文件，一个是接口EmpMapper和一个是xml文件EmpMapper.xml
+// 获取SqlSession对象之后，我们需要获取是哪个mapper
+// 获取Mapper接口的实现类。注意，接口的实现类是在SqlSession对象被创建的时候即完成了生成，所以假设有5个接口，与之对应有5个xml文件，那么这5个接口实现会在SqlSession创建的时候就完成，到后面要用的时候直接取就行了
+EmpMapper empMapper = sqlSession.getMapper(EmpMapper.class);
+// 调用EmpMapper接口中的方法
+List<Emp> emps = empMapper.selEmpMapper();
+
+//// 有参数查询
+// 一个形参
+// 参数为基本类型
+Emp emp = empMapper.selEmpById(1);
+// 参数为引用类型
+Emp emp1 = new Emp();
+emp1.setEmpid(2);
+Emp emp2 = empMapper.selEmpById2(emp1);
+// 多个参数
+// 参数全部为基本类型
+List<Emp> emps = empMapper.selEmpBySalDept(2.0, 1);
+// 参数全部为引用类型
+Emp e1 = new Emp();
+e1.setSal(3.0);
+Emp e2 = new Emp();
+e2.setDeptno(1);
+List<Emp> emps2 = empMapper.selEmpBySalDept2(e1, e2);
+// 参数为引用类型和基本类型的混用
+Emp e3 = new Emp();
+e3.setSal(4.0);
+List<Emp> emps3 = empMapper.selEmpBySalDept3(e3, 2);
+```
+
+而且如果使用这种一个接口对应一个xml文件的方法的话，连parameterType都不用写了，因为可以直接把查询参数传到接口中去：
+
+```xml
+<!--EmpMapper.xml文件中的sql语句-->
+<!--查询所有员工信息-->
+<select id="selEmpMapper" resultType="com.bjsxt.pojo.Emp">
+	select empid, ename, job, mgr from emp
+</select>
+<!--有参数的数据库操作-->
+<!--根据Id查询员工信息-->
+<!--参数为一个-->
+<!--类型为基本类型：使用#{0}-->
+<select id="selEmpById" resultType="com.bjsxt.pojo.Emp">
+    <!--下面的#{0}中的0表示接口中形参的下标-->
+	select empid, ename, job, mgr from emp from emp where empid=#{0}
+</select>
+<!--类型为引用类型：使用#{实体类的属性名}或者#{Map集合的键名（因为形参类型可能为Map）}-->
+<select id="selEmpById2" resultType="com.bjsxt.pojo.Emp">
+    <!--下面的#{empid中的empid表示接口中形参Emp的属性名empid-->
+	select empid, ename, job, mgr from emp from emp where empid=#{empid}
+</select>
+
+<!--参数为多个-->
+<!--参数全部为基本类型：根据工资和部门编号查询员工信息，使用#{param1}，从接口方法从左至右开始，param1，param2，...-->
+<select id="selEmpBySalDept" resultType="com.bjsxt.pojo.Emp">
+    <!--下面的#{param2}表示形参中顺序数下去的第2个参数（注意，这里不让写#{1}了，应该写#{param2}）-->
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2} and sal>#{param1}
+</select>
+<!--参数全部为引用类型：根据工资和部门编号查询员工信息，使用#{param1.属性名}或param1为Map集合时应该使用#{param1.键名}-->
+<select id="selEmpBySalDept2" resultType="com.bjsxt.pojo.Emp">
+    <!--下面的#{param2.deptno}表示第二个参数Emp的deptno属性-->
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2.deptno} and sal>#{param1.sal}
+</select>
+<!--引用类型和基本类型混用：根据工资和部门编号查询员工信息-->
+<select id="selEmpBySalDept3" resultType="com.bjsxt.pojo.Emp">
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2} and sal>#{param1.sal}
+</select>
+```
+
+```java
+public interface EmpMapper{
+    // 查询所有的员工信息
+    List<Emp> selEmpMapper();
+    /**
+    * 带有参数的数据库操作
+    */
+    //// 只有一个形参
+    // 根据id查询员工信息：参数类型为基本类型
+    Emp selEmpById(Integer empid);
+    // 根据id查询员工信息：参数类型为引用类型
+    Emp selEmpById2(Emp emp);
+    
+    //// 参数有多个
+    // 参数全部为基本类型：根据工资和部门编号查询员工信息
+    List<Emp> selEmpBySalDept(Double sql, Integer deptno);
+    // 参数全部为引用类型：根据工资和部门编号查询员工信息
+    List<Emp> selEmpBySalDept2(Emp e1, Emp e2);
+    // 引用类型和基本类型混用：根据工资和部门编号查询员工信息
+    List<Emp> selEmpBySalDept3(Emp e1, Integer deptno);
+}
 ```
 
 
@@ -464,6 +560,29 @@ Mapper：
 </delete>
 ```
 
+## include标签和sql标签提取公共SQL脚本片段
+
+```xml
+<!--
+	问题：
+		我们发现在Mapper.xml文件中不同的sql语句中会存在相同的sql片段，如果每次我们都自己声明，会造成代码维护困难
+	解决：
+		将相同的sql脚本片段抽取出来，在外部声明，然后在sql标签中调用即可
+	实现：
+		sql标签：声明公共的sql脚本片段
+		include标签：引入公共的sql脚本片段
+-->
+<sql id="empSql">
+	empid,ename,job,mgr
+</sql>
+<!--查询所有的员工信息-->
+<select id="selEmpMapper" resultType="com.bjsxt.pojo.Emp">
+	select <include refid="empSql"></include> from emp 
+</select>
+```
+
+
+
 ## idea使用技巧
 
 ### 引入本地DTD文件
@@ -487,3 +606,4 @@ idea提供了大量的内置文件模板template，可以自定义模板，避�
 创建入口2：File---settings---editor---File and Code Templates
 
 使用入口：右键---new---选择模板名称
+
