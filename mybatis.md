@@ -1101,6 +1101,399 @@ ids.add(2);
 List<Emp> emps = empMapper.findEmpByNameAndIds("张三", ids);
 ```
 
+## 多表查询
+
+### 无级联查询
+
+开发者手动完成多表数据组装，需执行多条sql语句
+
+接口方法：
+
+EmpMapper.java：
+
+```java
+// 多对一：查询员工及其部门信息
+List<Emp> selEmpInfoMapper();
+
+// 一对多：查询部门及其员工信息
+List<Emp> selEmpInfoByDeptnoMapper(@Param("deptno")Integer deptno);
+```
+
+DeptMapper.java：
+
+```java
+// 多对一：查询员工及其部门信息
+// 根据部门编号获取部门信息
+Dept selDeptByIdMapper(@Param("deptno")Integer deptno);
+
+// 一对多：查询部门及其员工信息
+List<Dept> selDeptInfoMapper();
+```
+
+
+
+EmpMapper.xml文件：
+
+```xml
+<!--
+	多对一：查询员工及其部门信息
+-->
+<select id="selEmpInfoMapper" resultType="com.bjsxt.pojo.Emp">
+	select * from emp
+</select>
+
+<!--
+	一对多：查询部门及其员工信息
+-->
+<select id="selEmpInfoByDeptnoMapper" resultType="com.bjsxt.pojo.Dept">
+	select * from emp where deptno=#{deptno}
+</select>
+
+```
+
+DeptMapper.xml文件：
+
+```xml
+<!--
+	多对一：查询员工及其部门信息
+	根据部门编号获取部门信息
+-->
+<select id="selDeptByIdMapper" resultType="com.bjsxt.pojo.Dept">
+	select * from dept where deptno=#{deptno}
+</select>
+
+<!--
+	一对多：查询部门及其员工信息
+-->
+<select id="selDeptInfoMapper" resultType="com.bjsxt.pojo.Dept">
+	select * from dept
+</select>
+```
+
+
+
+测试文件（多对一：查询员工及其部门信息）：
+
+```java
+// 多对一：查询员工及其部门信息
+// 获取员工mapper
+EmpMapper empMapper = sqlSession.getMapper(EmpMapper.class);
+// 获取部门mapper
+DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+// 1、查询所有的员工信息
+List<Emp> emps = empMapper.selEmpInfoMapper();
+// 2、遍历结果，根据员工的部门编号获取部门信息，并存储到对应的员工对象中
+for(Emp emp: emps){
+    // 根据员工的部门编号获取部门信息
+    Dept dept = deptMapper.selDeptByIdMapper(emp.getDeptno());
+    emp.setDept(dept);
+}
+```
+
+测试文件（一对多：查询部门及其员工信息）：
+
+```java
+// 一对多：查询部门及其员工信息
+// 获取员工mapper
+EmpMapper empMapper = sqlSession.getMapper(EmpMapper.class);
+// 获取部门mapper
+DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+// 1、查询所有的部门信息
+List<Dept> depts = deptMapper.selDeptInfoMapper();
+// 2、循环查询部门的员工信息，并将结果存储到对应的部门对象中
+for(Dept dept: depts){
+    // 根据部门编号获取员工信息
+    List<Emp> emps = empMapper.selEmpInfoByDeptnoMapper(dept.getDeptno());
+    // 将结果存储到部门对象中
+    dept.setEmpList(emps);
+}
+```
+
+
+
+### 级联查询
+
+使用mybatis映射配置自动完成数据的组装，需执行多条sql语句
+
+接口方法：
+
+EmpMapper.java：
+
+```java
+// 级联查询
+// 多对一：查询员工及其部门信息
+List<Emp> selEmpInfoMapper();
+```
+
+DeptMapper.java：
+
+```java
+// 级联查询
+// 一对多：查询部门及其员工信息
+List<Dept> selDeptInfoMapper();
+```
+
+
+
+EmpMapper.xml文件：
+
+```xml
+<!--
+	级联查询
+	多对一：查询员工及其部门信息
+-->
+<resultMap id="rm2" type="com.bjsxt.pojo.Emp">
+	<result property="ename2" column="ename"></result>
+	<result property="job2" column="job"></result>
+    <!--注意：我们说resultMap中属性和字段一致的就可以省略不写，但是级联查询中很有可能出现两个表存在公共同名字段，那么两个表中的公共的字段不能省略，否则查出来的结果中该公共字段就会为null（原因是mybatis底层在将部门信息赋值到员工的时候会通过员工表的deptno去查询部门信息，这个时候相当于deptno就已经被用过一次了，那么它就不会被使用第二次，导致就不会再给员工信息表中的deptno赋值了，导致了查出来的结果中deptno为null）-->
+    <!--这个地方我们写清楚了公共字段deptno的映射，mybatis底层就一定会给deptno赋值-->
+    <result property="deptno" column="deptno"></result>
+	<!--mybatis实现级联查询的奥妙在这-->
+    <!--这里的column表示的意义就不一样了，它的作用是告诉select使用deptno的值去查；同时property表示的意义也不一样了，它的作用是select查出来的东西赋值给实体的dept属性-->
+    <association property="dept" column="deptno" select="com.bjsxt.mapper.DeptMapper.selDeptByIdMapper"></association>
+</resultMap>
+<select id="selEmpInfoMapper" resultMap="rm2">
+	select * from emp
+</select>
+```
+
+DeptMapper.xml文件：
+
+```xml
+<!--
+	级联查询
+	一对多：查询部门及其员工信息
+-->
+<resultMap id="rm" type="com.bjsxt.pojo.Dept">
+    <id property="deptno" column="deptno"></id>
+	<!--使用collection标签来表明员工信息的获取-->
+    <!--上面多对一的时候我们用了association标签，这里用了collection标签，怎么辨别到底用什么标签呢？很简单，多对一中一个实体对应一个实体，因此结果只可能是一个，所以用association；一对多中一个实体对应多个实体，因此结果可能有多个，所以用collection-->
+    <!--下面的ofType告诉mybatis对于empList的查询结果的类型是什么-->
+    <!--这里的column表示的意义就不一样了，它的作用是告诉select使用deptno的值去查；同时property表示的意义也不一样了，它的作用是select查出来的东西赋值给实体的empList属性-->
+    <collection property="empList" ofType="com.bjsxt.pojo.Emp" column="deptno" select="com.bjsxt.mapper.EmpMapper.selEmpInfoByDeptnoMapper"></collection>
+</resultMap>
+<select id="selDeptInfoMapper" resultMap="rm">
+	select * from dept
+</select>
+```
+
+
+
+测试文件：
+
+```java
+// 级联查询
+// 多对一：查询员工及其部门信息
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selEmpInfoMapper();
+// 一对多：查询部门及其员工信息
+DeptMapper mapper2 = sqlSession.getMapper(DeptMapper.class);
+// 查询
+List<Dept> depts = mapper2.selDeptInfoMapper(); // 注意：由于使用mybatis的级联查询，对于Dept实体中的List<Emp> empList中的Emp的查询，mybatis是按照属性字段名一致为前提去查询的，所以一旦属性字段名不一致，mybatis查出来的Emp中的某些属性字段名不一致的属性将会为null
+```
+
+#### 延迟加载
+
+认识N + 1（或者说1 + N）问题
+
+示例1：查询所有员工信息（含部门名称）
+
+```sql
+select * from emp;
+select * from dept where deptno = 20;
+select * from dept where deptno = 30;
+select * from dept where deptno = 30;
+```
+
+示例2：查询所有部门信息（含每个部门的员工信息）
+
+```sql
+select * from dept;
+select * from emp where deptno = 10;
+select * from emp where deptno = 20;
+select * from emp where deptno = 30;
+select * from emp where deptno = 40;
+```
+
+如果第一个查询有N条记录，随后对数据库进行N此查询，共计1+N次查询，对数据库查询次数多，服务器亚历山大，成为N+1问题。
+
+如何解决呢？
+
+- 延迟加载
+
+  关联表的数据只有等到真正使用的时候才进行查询。不使用不查询。多用在关联对象或集合中。
+
+  比如功能：查询所有员工的信息中只显示员工信息，而不显示部门信息；那对部门的sql语句不就白查询了吗，能否默认不查询，等真正使用的时候才查询，延迟一下查询的时间，这不就灵活了吗？
+
+  resultMap可以实现高级映射（使用 association、collection实现一对一及一对多映射），association、collection具备延迟加载设置功能。
+
+  延迟加载的好处：先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快
+
+- 连接查询
+
+  一条SQL语句查询到所有的数据。
+
+延迟加载的设置
+
+**方式一**：全局开关：在mybatis.xml配置文件中打开延迟加载的开关。配置完成后所有的association和collection元素都生效
+
+```xml
+<settings>
+    <!--lazyLoadingEnabled表示是否开启延迟加载。是mybatis是否启用懒加载的全局开关。当开启时，所有关联对象都会延迟加载。特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态-->
+	<seting name="lazyLoadingEnabled" value="true"/>
+	<!--aggressiveLazyLoading开启时，任何方法的调用都会加载懒加载对象的所有属性。否则，每个属性会按需加载-->
+    <seting name="aggressiveLazyLoading" value="true"/>
+</settings>
+```
+
+**方式二**：分开关：指定的association和collection元素中配置fetchType属性。eager：表示立刻加载；lazy：表示延迟加载。将会覆盖全局延迟设置。
+
+### 多表联合查询
+
+接口方法：
+
+```java
+// 查询员工及其部门信息
+// 多对一：查询员工及其部门信息
+List<Emp> selEmpInfoMapper();
+
+// 
+```
+
+mapper.xml文件：
+
+```xml
+<!--联合查询方式-->
+<!--多对一：查询员工及其部门信息-->
+<resultMap id="rm3" type="com.bjsxt.pojo.Emp">
+	<!--联合查询的时候属性字段映射不能省略！-->
+    <id property="empid" column="empid"></id>
+    <result property="ename" column="ename"></result>
+    <result property="job" column="job"></result>
+    <result property="mgr" column="mgr"></result>
+    <result property="deptno" column="deptno"></result>
+	<!--下面的association标签不用写column了，因为sql语句已经把数据都查出来了，但是需要写javaType指定property的数据的类型-->
+    <association property="dept" javaType="com.bjsxt.pojo.Dept">
+    	<id property="deptno" column="deptno"></id>
+        <result property="dname" column="dname"></result>
+        <result property="ddesc" column="ddesc"></result>
+    </association>
+</resultMap>
+<select id="selEmpInfoMapper" resultMap="rm3">
+	select * from emp e
+    join dept d
+    on e.deptno=d.deptno
+</select>
+```
+
+测试文件：
+
+```java
+// 多表联合查询
+// 多对一：查询员工及其部门信息
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Emp> emps = mapper.selEmpInfoMapper();
+```
+
+
+
+### 连接查询
+
+使用mybatis映射配置自动完成数据组装，只需执行一条sql语句
+
+## 查询结果注入规则：自动注入（Auto-Mapping）与手动注入（ResultMap）
+
+接口方法：
+
+```java
+// 自动注入-Autowired
+List<Emp> selEmpByAuto();
+// 手动注入-ResultMap
+List<Emp> selEmpByResultMap();
+```
+
+mapper.xml文件：
+
+```xml
+<!--注入规则-->
+<!--
+	自动注入：mybatis在完成查询后，会自动的按照实体类的属性名和查询结果的字段名一致的规则将数据注入到实体类对象中。
+	注意：
+		1、实体类的属性名必须和字段名一致
+		2、在查询标签上使用resultType表明要注入的实体类的全限定路径
+	
+	手动注入：如果我们设计的存储查询结果的实体类的属性名和查询结果的字段名不一致，需要手动配置实体类和查询结果之间的映射关系
+	使用：
+		1、在查询标签上使用ResultMap属性引入声明的规则的ID
+		2、使用resultMap标签表明映射关系
+	注意：
+		1、resultMap配置的映射关系中可以只写属性名和字段名不一致的那些字段
+-->
+<!--自动注入-->
+<select id="selEmpByAuto" resultType="com.bjsxt.pojo.Emp">
+	select * from emp
+</select>
+
+<!--手动注入-->
+<!--使用resultMap标签声明查询结果和实体类之间的映射关系-->
+<resultMap id="rm1" type="com.bjsxt.pojo.Emp">
+	<id property="empid" column="empid"></id>
+    <result property="ename2" column="ename"></result>
+    <result property="job2" column="job"></result>
+    <result property="mgr" column="mgr"></result>
+    <result property="sal" column="sal"></result>
+    <result property="deptno" column="deptno"></result>
+</resultMap>
+<select id="selEmpByResultMap" resultMap="rm1">
+    select * from emp
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+// 查询所有的员工信息（使用自动注入规则）
+List<Emp> emps = empMapper.selEmpByAuto(); // 此时如果实体类Emp中有属性ename2，但是数据库中没有该字段（或者说数据库中该字段叫ename），那么此时查到的结果中实体Emp的属性ename2将会是null
+
+// 查询所有的员工信息（使用手动注入规则）
+List<Emp> emps = empMapper.selEmpByResultMap();
+```
+
+### javaType
+
+property的类型，一个完整的类名，或者是一个类型别名。如果你匹配的是一个JavaBean，那mybatis通常会自行检测到。
+
+首先改属性可写可不写，因为mybatis底层通过反射就可以直接拿到数据的类型
+
+简单来讲它的作用：column=”empid“，property=”empid“，我希望column的值转到property的值的时候能转成javaType的属性
+
+用法示例：
+
+```xml
+<resultMap id="rm" type="com.bjsxt.pojo.Emp">
+	<id property="empid" javaType="java.lang.Integer" column="empid"></id>
+</resultMap>
+```
+
+### jdbcType
+
+column在数据库表中的类型。这个属性只在insert、update或delete的时候对允许空的列有用。JDBC需要这项，但Mybatis不需要。取值是JDBCType枚举的值
+
+这个属性也是可写可不写的
+
+用法示例：
+
+```xml
+<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from emp
+    where id = #{id,jdbcType=INTEGER}
+</select>
+```
+
+
+
 ## idea使用技巧
 
 ### 引入本地DTD文件
@@ -1125,3 +1518,8 @@ idea提供了大量的内置文件模板template，可以自定义模板，避�
 
 使用入口：右键---new---选择模板名称
 
+### 自动生成mapper.xml
+
+安装mybatisX插件（idea：点开File，点开settings，点开Pluign下载插件）
+
+这样的话我们一旦写好接口方法直接alt+enter就可以自动在mapper.xml中生成相应的标签
