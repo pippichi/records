@@ -1348,19 +1348,30 @@ select * from emp where deptno = 40;
 
 **方式二**：分开关：指定的association和collection元素中配置fetchType属性。eager：表示立刻加载；lazy：表示延迟加载。将会覆盖全局延迟设置。
 
-### 多表联合查询
+### 多表联合查询（连接查询）
+
+使用mybatis映射配置自动完成数据组装，只需执行一条sql语句
 
 接口方法：
 
+EmpMapper.java：
+
 ```java
-// 查询员工及其部门信息
 // 多对一：查询员工及其部门信息
 List<Emp> selEmpInfoMapper();
 
-// 
 ```
 
-mapper.xml文件：
+DeptMapper.java：
+
+```java
+// 一对多：查询部门及其员工信息
+List<Emp> selDeptInfoMapper();
+```
+
+
+
+EmpMapper.xml文件：
 
 ```xml
 <!--联合查询方式-->
@@ -1374,6 +1385,7 @@ mapper.xml文件：
     <result property="deptno" column="deptno"></result>
 	<!--下面的association标签不用写column了，因为sql语句已经把数据都查出来了，但是需要写javaType指定property的数据的类型-->
     <association property="dept" javaType="com.bjsxt.pojo.Dept">
+		<!--联合查询的时候属性字段映射不能省略！-->
     	<id property="deptno" column="deptno"></id>
         <result property="dname" column="dname"></result>
         <result property="ddesc" column="ddesc"></result>
@@ -1386,6 +1398,36 @@ mapper.xml文件：
 </select>
 ```
 
+DeptMapper.xml文件：
+
+```xml
+<!--联合查询方式-->
+<!--一对多：查询部门及其员工信息-->
+<resultMap id="rm3" type="com.bjsxt.pojo.Dept">
+	<!--联合查询的时候属性字段映射不能省略！-->
+	<id property="deptno" column="deptno"></id>
+    <result property="dname" column="dname"></result>
+    <result property="ddesc" column="ddesc"></result>
+    <collection property="empList" ofType="com.bjsxt.pojo.Emp">
+		<!--联合查询的时候属性字段映射不能省略！-->
+    	<id property="empid" column="empid"></id>
+        <result property="ename" column="ename"></result>
+        <result property="job" column="job"></result>
+        <result property="mgr" column="mgr"></result>
+        <result property="sal" column="sal"></result>
+        <result property="comm" column="comm"></result>
+        <result property="deptno" column="deptno"></result>
+    </collection>
+</resultMap>
+<select id="selDeptInfoMapper" resultMap="rm3">
+	select * from dept d
+    join emp e
+    on e.deptno=d.deptno
+</select>
+```
+
+
+
 测试文件：
 
 ```java
@@ -1393,13 +1435,13 @@ mapper.xml文件：
 // 多对一：查询员工及其部门信息
 EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
 List<Emp> emps = mapper.selEmpInfoMapper();
+
+// 一对多：查询部门及其员工信息
+DeptMapper mapper2 = sqlSession.getMapper(DeptMapper.class);
+List<Dept> emps = mapper2.selDeptInfoMapper();
 ```
 
 
-
-### 连接查询
-
-使用mybatis映射配置自动完成数据组装，只需执行一条sql语句
 
 ## 查询结果注入规则：自动注入（Auto-Mapping）与手动注入（ResultMap）
 
@@ -1490,6 +1532,33 @@ column在数据库表中的类型。这个属性只在insert、update或delete�
     from emp
     where id = #{id,jdbcType=INTEGER}
 </select>
+```
+
+## 使用注解代替mapper.xml
+
+注意：注解虽然可以完全替代mapper.xml文件，但是当写动态sql查询的时候注解会相当麻烦，此时最好还是用mapper.xml
+
+接口方法：
+
+```java
+// 查询所有的员工信息
+@Select("select * from emp")
+List<Emp> selEmpInfoMapper();
+// 根据id获取员工信息
+@Select("select * from emp where empid=#{empid}")
+Emp selEmpByIdMapper(@Param("empid")Integer empid);
+// 根据岗位和工资查询员工信息
+@Select("select * from emp where job like concat('%',#{job},'%') and sal>#{sal}")
+List<Emp> selEmpByJobSqlMapper(@Param("job")String job, @Param("sal")Double sal);
+// 新增员工信息
+@Insert("insert into emp values(default,#{ename},#{job},#{mgr},now(),#{sal},#{comm},#{deptno})")
+int addEmpMapper(Emp emp);
+// 更新员工信息
+@Update("update emp set ename=#{ename} where empid=#{empid}")
+int updateEmpMapper(@Param("ename")String ename, @Param("empid")String empid);
+// 删除
+@Delete("delete from emp where empid=#{empid}")
+int delEmp(@Param("empid")Integer empid);
 ```
 
 
