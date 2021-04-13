@@ -838,6 +838,269 @@ keyProperty：表示将查询到的数据绑定到哪个属性上
 
 
 
+## 动态SQL查询以及更新
+
+### if标签
+
+接口方法：
+
+```java
+// 根据员工的工作，部门，工资动态查询员工信息 ---if标签的使用
+List<Emp> findEmp(@Param("job") String job,
+                 @Param("deptno") Integer deptno,
+                 @Param("sal") Double sal);
+```
+
+mapper.xml文件：
+
+```xml
+<!--
+	根据员工的工作、部门、工资动态查询员工信息
+	使用if标签完成逻辑判定，完成SQL语句的拼接
+	使用：
+		在SQL标签中声明
+	属性：
+		test：值为判断的逻辑条件，直接使用@Param注解中声明的名字即可获取实参。不同的条件使用 and or 关键字连接
+-->
+<select id="findEmp" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where 1=1
+    <if test="job!=null and job!=''">
+    	and job=#{job}
+    </if>
+    <if test="deptno!=null and deptno!=''">
+    	and deptno=#{deptno}
+    </if>
+    <if test="sal!=null and sal!=''">
+    	and sal > #{sal}
+    </if>
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+// 动态SQL查询
+List<Emp> emps = empMapper.findEmp(null, 1, null);
+```
+
+### where标签
+
+接口方法：
+
+```java
+// 根据员工的工作，部门，工资动态查询员工信息 ---where标签的使用
+List<Emp> findEmp(@Param("job") String job,
+                 @Param("deptno") Integer deptno,
+                 @Param("sal") Double sal);
+```
+
+mapper.xml文件：
+
+```xml
+<!--
+	根据员工的工作、部门、工资动态查询员工信息
+	where标签的使用：
+		作用：相当于声明了where关键字
+		注意：
+			只有当条件成立时才会生成where关键字，并且会自动忽略第一个and关键字
+			因为无法预知哪个条件会成立，所以建议每个条件前都声明SQL语句的条件链接符号（and|or）
+
+-->
+<select id="findEmp" resultType="com.bjsxt.pojo.Emp">
+	select * from emp
+    <where>
+    	<if test="job!=null and job!=''">
+    		and job=#{job}
+        </if>
+        <if test="deptno!=null and deptno!=''">
+            and deptno=#{deptno}
+        </if>
+        <if test="sal!=null and sal!=''">
+            and sal > #{sal}
+        </if>
+    </where>
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+// 动态SQL查询
+List<Emp> emps = empMapper.findEmp(null, 1, null);
+```
+
+### bind标签
+
+接口方法：
+
+```java
+// 根据员工的工作，部门，工资动态查询员工信息 ---bind标签的使用
+List<Emp> findEmp(@Param("job") String job,
+                 @Param("deptno") Integer deptno,
+                 @Param("sal") Double sal);
+```
+
+mapper.xml文件：
+
+```xml
+<!--
+	根据员工的工作、部门、工资动态查询员工信息
+	bind标签的使用：
+		作用：将接收到的实参进行进一步的修饰后传递给SQL语句使用
+		使用：
+			<bind name="新的键名" value="原始数据的名字+'拼接的新数据'"/>
+			一般在模糊查询的时候使用（拼接%）
+-->
+<select id="findEmp" resultType="com.bjsxt.pojo.Emp">
+	<bind name="job_alias" value="job+'qq1'"/>
+    select * from emp where job=#{job_alias} and deptno=#{deptno} and sal=#{sal}
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+// 动态SQL查询
+List<Emp> emps = empMapper.findEmp("讲师", 1, 10000.0);
+```
+
+### set标签
+
+接口方法：
+
+```java
+// set标签的使用
+int updateEmp(Emp emp);
+```
+
+mapper.xml文件：
+
+```xml
+<!--
+	set标签的作用：
+		set标签用在update语句中给字段赋值。借助if的配置，可以只对有具体值的字段进行更新。set元素会自动帮助添加set关键字，自动去掉最后一个if语句的多余的逗号
+-->
+<update id="updateEmp">
+	update emp
+    <set>
+    	<if test="ename!=null and ename !=''">
+        	ename=#{ename},
+        </if>
+        <if test="job!=null and job !=''">
+        	job=#{job},
+        </if>
+        <if test="mgr!=null and mgr !=''">
+        	mgr=#{mgr},
+        </if>
+        <if test="sal!=null and sal !=''">
+        	sal=#{sal},
+        </if>
+        <!--写下面这一句的原因是：如果一个要更新的字段都没有，那么就会生成这样的sql语句：update emp where id=?，显然是会报错的，为了防止这种情况，更新一下empid即可（empid是一定存在的），这样的话就算一个要更新的字段都没，也会生成这样的sql语句：update emp set empid=? where empid=?，这样就不会报错了-->
+        empid=#{empid},
+    </set>
+</update>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+// set标签
+Emp emp = new Emp();
+emp.setEmpId(1);
+emp.setEmpName("qyf");
+int i = empMapper.updateEmp(emp);
+```
+
+### foreach标签
+
+接口方法：
+
+```java
+List<Emp> findEmpByIds(List<Integer> ids);
+```
+
+mapper.xml文件：
+
+```xml
+<!--
+	foreach标签的作用：
+		foreach标签是非常强大的，它允许你指定一个集合或数组，声明集合项和索引变量，他们可以用在标签内。它也允许你指定开放和关闭的字符串，在迭代之间放置分隔符。这个元素是很智能的，它不会偶然地附加多余的分隔符
+		注意：你可以传递一个List实例或者数组作为参数对象传给mybatis。当你这么做的时候，mybatis会自动将它包装在一个Map中，用名称在作为键。List实例将会以“list”作为键，而数组实例将会以“array”作为键
+		特别注意：在进行sql优化时有一点就是建议少用in语句，因为对性能有影响。如果in中元素很多的话，会对性能有较大影响，此时就不建议使用foreach语句了
+-->
+<select id="findEmpByIds" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where empid in
+    <foreach collection="list" open="(" close=")" separator="," item="id">
+    	#{id}
+    </foreach>
+</select>
+```
+
+当然也可以配合@Param使用：
+
+接口方法：
+
+```java
+List<Emp> findEmpByIds(@Param("ids") List<Integer> ids);
+```
+
+mapper.xml文件：
+
+```xml
+<select id="findEmpByIds" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where empid in
+    <foreach collection="ids" open="(" close=")" separator="," item="id">
+    	#{id}
+    </foreach>
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Integer> ids = new ArrayList<>();
+ids.add(1);
+ids.add(2);
+List<Emp> emps = empMapper.findEmpByIds(ids);
+```
+
+如果有这么一个需求：需要联合ids和ename进行查询，ename使用模糊查询。那么可以这么写：
+
+接口：
+
+```java
+List<Emp> findEmpByNameAndIds(@Param("ename")String ename, @Param("ids") List<Integer> ids);
+```
+
+mapper.xml文件：
+
+```xml
+<select id="findEmpByNameAndIds" resultType="com.bjsxt.pojo.Emp">
+	select * from emp where
+    ename like concat('%', #{ename}, '%')
+    and
+    empid in
+    <foreach collection="ids" open="(" close=")" separator="," item="id">
+    	#{id}
+    </foreach>
+</select>
+```
+
+测试文件：
+
+```java
+EmpMapper mapper = sqlSession.getMapper(EmpMapper.class);
+List<Integer> ids = new ArrayList<>();
+ids.add(1);
+ids.add(2);
+List<Emp> emps = empMapper.findEmpByNameAndIds("张三", ids);
+```
+
 ## idea使用技巧
 
 ### 引入本地DTD文件
