@@ -283,5 +283,28 @@ stu.setSid(1);
 Student stu = (Student)stu.selectById();
 // 其他的增删改可以自行测试，唯一要注意的是原先使用mp的时候比方说增加，可能是这么写的：xxx.insert(stu);但是现在的话它实体类本身就是有属性的，可以直接这么写：stu.insert();
 
+//// AR新增
+Student stu = new Student();
+stu.setAge(11);
+stu.setName("qq");
+boolean i = stu.insert();
+
+//// AR更新
+Student stu = new Student();
+stu.setId(1);
+stu.setName("yy");
+boolean i = stu.updateById();
+
+//// AR删除
+Student stu = new Student();
+stu.setId(1);
+boolean i = stu.deleteById();
+
+// 还有update(Wrapper queryWrapper)、delete(Wrapper queryWrapper)等方法（条件更新、条件删除等），具体的去看文档
 ```
 
+## mp代码生成器
+
+作用：
+
+​	根据数据库中的表动态生成表对应的mapper，service，pojo，controller层的基础代码，提升开发效率
