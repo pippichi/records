@@ -1096,3 +1096,39 @@ while ((ch = getchar()) != '\n') {
 }
 ```
 
+## strcat()与strncat()
+
+char\* strcat(char\* strDest, const char\* strSource);
+
+char\* strncat(char\* strDest, const char\* strSource, size_t count);
+
+字符串拼接
+
+注意：自己给自己追加的时候不能用strcat()而要用strncat()
+
+原因是strcat()的原理是找到第一个字符串的\\0，然后用第二个字符串一个字符一个字符地从第一个字符串的\\0开始往后追加（覆盖掉第一个字符串的\\0），直到到第二个字符的\\0为止
+
+所以这个时候如果是自己追加自己的话就会导致自己的第一个字符覆盖掉自己的\\0，导致最后找不到\\0而没办法停止而报错
+
+## strstr()
+
+用于判定是否是子字符串，是的话就找到并返回子字符串在字符串中的起始地址，不是的话就返回空指针
+
+示例：
+
+```c
+#include<stdio.h>
+int main(){
+	str1 = "abcde";
+    str2 = "bcd";
+    char* ret = strstr(str1, str2);
+    if(ret == NULL){
+        printf("%s\n", "没找到");
+    }else{
+        printf("子字符串在字符串中的起始地址是：%p\n", ret);
+        printf("子字符串是：%s\n", ret);
+    }
+    return 0;
+}
+```
+
