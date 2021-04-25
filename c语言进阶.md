@@ -1102,6 +1102,36 @@ char\* strcat(char\* strDest, const char\* strSource);
 
 char\* strncat(char\* strDest, const char\* strSource, size_t count);
 
+**strcat()**
+
+- 源字符串必须以'\\0'结束
+- 目标空间必须足够的大，能容纳下源字符串的内容
+- 目标空间必须可修改
+- 字符串自己追加自己是不行的
+
+- 手写strcat()
+
+  ```c
+  char* my_strcat(char* dest, const char* src){
+      char* ret = dest;
+      assert(dest);
+      assert(src);
+      // 找到目标字符串的'\0'
+      while(*dest != '\0'){
+          dest++;
+      }
+      // 追加
+      while(*dest++ = *src++){
+          ;
+      }
+      return ret;
+  }
+  ```
+
+  
+
+
+
 字符串拼接
 
 注意：自己给自己追加的时候不能用strcat()而要用strncat()
@@ -1142,4 +1172,30 @@ else printf("%s\n", "no");
 // 结果打印“yes”，因为无符号数做加减操作之后类型还是无符号数
 ```
 
-## 
+## strcpy()
+
+- 源字符串必须以'\\0'结束
+- 会将源字符串中的'\\0'拷贝到目标空间
+- 目标空间必须足够大，以确保存放源字符串
+- 目标空间必须可变（所以目标空间是常量字符串那是不行的）
+
+手写strcpy()：
+
+```c
+char* my_strcpy(char* dest, const char* src){
+    assert(dest);
+    assert(src);
+    char* ret = dest;
+    // 拷贝src指向的字符串的dest指向的空间，包含'\0'
+    // while(*src != '\0'){
+    //     *dest++ = *src++;
+    // }
+    // *dest = *src; // 赋值最后的'\0'
+    // 上面的代码可以简写成：
+    while(*dest++ = *src++){
+        ;
+    }
+    return ret;
+}
+```
+
