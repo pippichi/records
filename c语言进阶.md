@@ -1132,3 +1132,13 @@ int main(){
 }
 ```
 
+## strlen()
+
+要注意的是strlen返回的类型是size_t而size_t等同于unsigned int，因此下面这种歧义需要注意：
+
+```c
+if(strlen("abc") - strlen("abcde") > 0) printf("%s\n", "yes");
+else printf("%s\n", "no");
+// 结果打印“yes”，因为无符号数做加减操作之后类型还是无符号数
+```
+

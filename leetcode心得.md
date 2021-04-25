@@ -188,6 +188,53 @@
 
   注意点：1、Java中可以直接用 1 + “” 的方式将int转换成string，但是c++需要借助to_string()方法；2、不要忘记更新起始点；3、c++中查找字符串是否包含子串需要借助string::size_type、find()函数以及string::npos，而Java中我们可以使用contains()函数，也可以使用indexOf()函数来实现
 
+### 杨氏矩阵
+
+有一个数字矩阵，矩阵的每行从左到右是递增的，矩阵从上到下是递增的，要求在时间复杂度O(N)内在这样的矩阵中找到某个数字的存在
+
+分析：
+
+如果暴力求解，那么最差情况下就需要遍历整个数组，时间复杂度为O(N)，不符合要求
+
+根据矩阵的特征，右上角和左下角的数是特别的（右上角的元素是该行最大，该列最小，同理左下角），对于给定元素，要么就是在右上角元素的下面，要么就是在右上角元素的左边，同理左下角元素。所以从右上角或者左下角元素开始找能够更快地找到元素
+
+```c
+// 这里传*row和*col的原因是想要函数返回找到的元素的下标，如果我们直接在方法里面打印下标不符合函数干净简洁的原则，因此采取在外部直接传入坐标地址的方法来返回坐标值。
+int findNum(int arr[3][3], int target, int* row, int* col){
+    // 以右上角元素为基准，同理左下角
+    int x = 0;
+    int y = *col - 1;
+    while(x < *row && y >= 0){
+        if(arr[x][y] > target){
+            y--;
+        }
+        else if(arr[x][y] < target){
+            x++;
+        }
+        else{
+            *row = x;
+            *col = y;
+            return 1;
+        }
+    }
+    // 找不到
+    *row = -1;
+    *col = -1;
+    return 0;
+}
+int main(){
+    int arr[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+    int target = 7;
+    int x = 3;
+    int y = 3;
+    // 这种直接把参数地址传进去的叫做返回型参数
+    int res = findNum(arr, 7, &x, &y);
+    return 0;
+}
+```
+
+
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
