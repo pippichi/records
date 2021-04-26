@@ -1142,7 +1142,7 @@ char\* strncat(char\* strDest, const char\* strSource, size_t count);
 
 ## strstr()
 
-用于判定是否是子字符串，是的话就找到并返回子字符串在字符串中的起始地址，不是的话就返回空指针
+用于判定是否是子字符串，是的话就找到并返回子字符串在字符串中的起始地址（第一次出现的位置的地址），不是的话就返回空指针
 
 示例：
 
@@ -1161,6 +1161,35 @@ int main(){
     return 0;
 }
 ```
+
+手写strstr()：
+
+- 暴力遍历（BF算法）
+
+  ```c
+  char* my_strstr(const char* p1, const char* p2){
+      assert(p1 && p2);
+      char* s1 = p1;
+      char* s2 = p2;
+      char* cur = (char*)p1;// 不转的话会报警告
+      if(*p2 == '\0') return (char*)p1; // 因为p1的类型是const char*，因此要强转成char*返回
+      while(*cur){
+          s1 = cur;
+          s2 = (char*)p2;// 不转的话会报警告
+          while(*s1 && *s2 && (*s1 == *s2)){
+              s1++;
+              s2++;
+          }
+          if(*s2 == '\0') return cur; // 找到子串
+          cur++;
+      }
+      return NULL; // 找不到子串
+  }
+  ```
+
+- KMP算法
+
+  根据模式字符串计算出next数组，然后根据next数组跳过一些无意义的匹配。时间复杂度O(m+n)
 
 ## strlen()
 
@@ -1198,4 +1227,56 @@ char* my_strcpy(char* dest, const char* src){
     return ret;
 }
 ```
+
+## strcmp()
+
+int strcmp(const char\* str1, const char\* str2);
+
+- 第一个字符串大于第二个字符串，返回一个大于0的数字
+- 第一个字符串等于第二个字符串，返回0
+- 第一个字符串小于第二个字符串，返回一个小于0的数字
+
+手写strcmp()：
+
+```c
+int my_strcmp(const char* str1, const char* str2){
+    asseet(str1 && str2);
+    // 比较
+    while(*str1 == *str2){
+        if(*str1 == '\0') return 0;
+        str1++;
+        str2++;
+    }
+    // if(*str1 > *str2) return 1;
+    // else return -1;
+    // 或者说这么写：
+    return (*str1 - *str2);
+}
+```
+
+## strncpy()
+
+长度受限
+
+char\* strncpy(char\* destination, const char\* source, size_t num);
+
+- 拷贝num个字符从源字符串到目标空间
+- 如果源字符串的长度小于num，则拷贝完源字符串之后，在目标的后边追加0，直到num个
+
+## strncat()
+
+长度受限
+
+char\* strncat(char\* destination, const char\* source, size_t num);
+
+- 如果num <= source的长度，则在拼接之后会自动补一个\\0
+- 如果num > source的长度，则跟strcat()没有区别，超出长度的部分不会再补\\0
+
+ ## strncmp()
+
+长度受限
+
+int strncmp(const char\* str1, const char\* str2, size_t num);
+
+- 比较到出现另个字符不一样或者一个字符串结束或者num个字符全部比较完
 
