@@ -1386,7 +1386,7 @@ int tolower(int c); // 转小写
 
 int toupper(int c); // 转大写
 
-## memcpy()
+## memcpy()（专门处理不重叠的内存拷贝）
 
 void\* memcpy(void\* destination, const void\* source, size_t num);
 
@@ -1432,6 +1432,49 @@ int main(){
     struct S arr1[] = {{"颤三", 20}, {"里斯", 22}};
     struct S arr2[3] = {0};
     memcpy(arr2, arr1, sizeof(arr1));
+    return 0;
+}
+```
+
+注意，使用上面我们自己写的my_memcpy()自己拷贝自己的时候可能会出问题（数据可能会被覆盖掉）：
+
+```c
+int main(){
+    int arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int i = 0;
+    // 从arr头部开始拷贝5个数到arr + 2开始的位置，期望是得到：1 2 1 2 3 4 5 8 9 10
+    my_memcpy(arr + 2, arr, 5 * sizeof(int));
+    for(i = 0; i < 10; i++){
+        printf("%d\n", arr[i]);
+    } // 实际上打印输出的是 1 2 1 2 1 2 1 8 9 10，那是因为在赋值的过程中数据被覆盖了
+    return 0;
+}
+// 上面我们用的是自己写的内存拷贝函数（my_memcpy），实际上，如果使用库函数memcpy的话依然是可以得到1 2 1 2 3 4 5 8 9 10这个结果的。只不过，C语言标准规定：memcpy只需要专注于处理不重叠的内存拷贝，而memmove只需要专注于处理重叠的内存拷贝
+```
+
+这里是因为my_memcpy是从前往后拷贝的，所以导致了有用的数据被覆盖，那么能不能实现从后往前拷贝呢？看起来好像从后往前拷贝可以解决问题，实际上还是不行，试想一下如果是这样操作：
+
+```c
+my_memcpy(arr, arr + 2, 5 * sizeof(int)); // 从arr + 2开始的位置拷贝5个数到arr头部，期望得到：3 4 5 6 7 6 7 8 9 10
+// 事实上如果my_memcpy是从后往前的拷贝，我们依然会得到一个不符合预期的结果：7 6 7 6 7 6 7 8 9 10
+```
+
+可见memcpy不适合处理内存重叠（比如自己拷贝自己）的拷贝，那么有没有一个函数可以处理这种情况呢？有！它是memmove()
+
+## memmove()（专门处理重叠的内存拷贝）
+
+用于处理内存重叠（比如自己拷贝自己）情况的拷贝
+
+void\* memmove(void\* dest, const void\* src, size_t count);
+
+```c
+int main(){
+    int arr[] = {1,2,3,4,5,6,7,8,9,10};
+    int i = 0;
+    memmove(arr + 2, arr, 5 * sizeof(int));
+    for(i = 0; i < 10; i++){
+        printf("%d\n", arr[i]);
+    } // 输出1 2 1 2 3 4 5 8 9 10
     return 0;
 }
 ```
