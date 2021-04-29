@@ -1057,6 +1057,159 @@ int main(){
 
 ![image-20210324145911904](c语言进阶.assets/image-20210324145911904.png)
 
+# 自定义类型：结构体，枚举，联合
+
+## 结构体
+
+匿名结构体类型（省略结构体标签tag）
+
+```c
+struct
+{
+    int a;
+    char b;
+    float c;
+}x;
+struct
+{
+    int a;
+    char b;
+    float c;
+} *p1;
+struct
+{
+    int a;
+    char b;
+    float c;
+}a[10], *p2;
+
+int main(){
+    p1 = &x; // 非法的，会报警告 因为虽然上面第一个结构体和第二个结构体成员变量都一样，看似是同一个类型，但是编译器会将它们视为两个不同的类型。而不同的类型是做不了这个操作的（p1 = &x）
+    return 0;
+}
+```
+
+### 结构的自引用
+
+代码1：
+
+```c
+struct Node{
+    int data;
+    struct Node next;
+};
+// 可行吗？ 答案：不行！ 试想一下，如果可以的话sizeof(struct Node)将会是无穷大
+```
+
+代码2：
+
+```c
+struct Node{
+    int data; 
+    struct Node* next; //不存struct Node本身，而是存它的地址
+}
+// 可行吗？可以！
+```
+
+![image-20210429165905832](c语言进阶.assets/image-20210429165905832.png)
+
+对于这种结构体，它里面是分成一个数据域一个指针域
+
+### 结构体的重命名
+
+代码1：
+
+```c
+// 下面这种写法是错误的
+typedef struct{ // 结构体标签省略了，说明这里是想重命名匿名结构体
+    int data;
+    Node* next; // 这里的Node到底是先重命名结构体为Node再使用Node这个名称然后创建结构体呢还是先创建这个结构体，再重命名结构体为Node，再使用Node这个名称呢？是会有歧义的，所以这样写不行而且这样写编译器会报错！
+}Node;
+```
+
+代码2：
+
+```c
+// 所以建议就是在使用typedef的时候就不要省略结构体标签了
+typedef struct Node{
+    int data;
+    struct Node* next; // 这里的struct也不要省略
+}Node;
+```
+
+### 结构体变量的定义和初始化
+
+不想初始化：
+
+```c
+struct Node n1;
+```
+
+不想初始化但又不想里面的东西为空：
+
+```c
+struct Node n1 = {0};
+```
+
+全局初始化：
+
+```c
+struct Point{
+    int a;
+    int b;
+};
+struct Point p1 = {0}; // 全局初始化
+struct Node{
+    int data;
+    struct Point p;
+    struct Node* next;
+}n1 = {20, {5, 6}, NULL}; // 全局初始化
+
+int main(){
+    return 0;
+}
+```
+
+### 结构体内存对齐★
+
+结构体的对齐规则：
+
+- 第一个成员在与结构体变量偏移量为0的地址处（这里偏移量的单位其实就是字节，因为内存中是一个字节赋一个地址的）
+
+- 其他成员变量要对齐到某个数字（对齐数）的整数倍的地址处
+
+  **对齐数** = 编译器默认的一个对齐数 与 该成员大小的**较小值** 
+
+  VS中默认是8
+
+- 结构体总大小为最大对齐数（每个成员变量都有一个对齐数）的整数倍
+- 如果嵌套了结构体的情况，嵌套的结构体对齐到自己的最大对齐数的整数倍处，结构体的整体大小就是所有最大对齐数（含嵌套结构体的对齐数）的整数倍
+
+示例：
+
+```c
+struct S1{
+    char c1; // 第一个成员变量直接放在该结构体变量在内存中开始定义的那个地址的偏移量为0的地址处
+    // 后面的变量需要看对齐数
+    int a; // 对齐数VS中默认为8，而a是int型，大小为4，两者取较小值为4，因此a放到该结构体变量在内存中开始定义的那个地址的偏移量为4的倍数的地址处（一看发现只需要偏移量为4而不需要偏移量为8、12、...）。此时跟上面的c1变量是隔了三个字节的内存空间（被浪费掉了）
+    char c2; // 对齐数VS中默认为8，而c2是char型，大小为1，两者取较小值为1，因此c2放到该结构体变量在内存中开始定义的那个地址的偏移量为1的倍数的地址处，一看发现只需要放到变量a后面即可
+}; // 最后结构体总大小为最大对齐数的整数倍（由于最大对齐数是4，因此只能取4、8、12、...）又因为上面这些成员变量消耗掉的内存空间大小为：4 + 4 + 1 = 9，所以只能取12（意味着最后三个字节也是被浪费的）
+```
+
+![image-20210429180051230](c语言进阶.assets/image-20210429180051230.png)
+
+示例2：
+
+```c
+struct S1{
+    char c1; // 第一个变量放到偏移量为0的地址处
+    char c2; // 第二个变量对齐数是1，放到起始地址开始偏移量为1的倍数的地址处
+    int a; // 第三个变量对齐数是4，放到起始地址开始偏移量为4的倍数的地址处
+} // 最后由于上述变量耗费空间：1 + 1 + 2(浪费掉的空间) + 4 = 8，而8已经是4的倍数了，因此总大小就是8
+```
+
+![image-20210429184702296](c语言进阶.assets/image-20210429184702296.png)
+
 # c语言函数
 
 ## scanf和gets()
@@ -1475,6 +1628,72 @@ int main(){
     for(i = 0; i < 10; i++){
         printf("%d\n", arr[i]);
     } // 输出1 2 1 2 3 4 5 8 9 10
+    return 0;
+}
+```
+
+手写memmove
+
+```c
+void* my_memmove(void* dest, const void* src, size_t count){
+    void* ret = dest;
+    assert(dest && src);
+    if(dest < src){
+        // 从前往后拷贝字符
+        while(count--){
+            *(char*)dest = *(char*)src;
+            ++(char*)dest;
+            ++(char*)src;
+        }
+    }else{
+        // 从后往前拷贝字符
+        while(count--){
+            *((char*)dest + count) = *((char*)src + count);
+        }
+    }
+    return ret;
+}
+```
+
+## memcmp()
+
+int memcmp(const void\* ptr1, const void\* ptr2, size_t num);
+
+用于比较从ptr1和ptr2指针开始的num个字节
+
+示例：
+
+```c
+#include<stdio.h>
+int main(){
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {1, 2, 5, 4, 3};
+    int ret = memcmp(arr1, arr2, 2 * sizeof(int)); // 0
+    return 0;
+}    
+```
+
+## memset()
+
+void\* memset(void\* dest, int c, size_t count);
+
+示例：
+
+```c
+int main(){
+    char arr[5] = ""; // \0 \0 \0 \0 \0
+    memset(arr, '#', 5); //# # # # # 
+    return 0;
+}
+```
+
+示例2：
+
+```c
+int main(){
+    int arr[10] = {0};
+    memset(arr, 1, 10); // 意思是改arr的前10个字节，每个字节改成1
+    // 01 01 01 01 01 01 01 01 01 01 00 00 00 ...(40个字节)
     return 0;
 }
 ```
