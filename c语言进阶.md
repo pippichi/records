@@ -1829,7 +1829,150 @@ int main(){
 }
 ```
 
+4、使用free释放动态开辟内存的一部分
 
+```c
+int main(){
+    int* p = (int*)malloc(40);
+    if(p == NULL){
+        return 0;
+    }
+    int i = 0;
+    for(i = 0; i < 10; i++){
+        *p++ = i; // 这里指针p发生了变化
+    }
+    // 使用free释放动态开辟内存的一部分
+    free(p);
+    p = NULL;
+    return 0;
+} // 这段程序将会崩溃。如果要释放内存，必须从开辟的内存的起始位置开始释放，如果只释放了动态开辟内存的一部分（或者说上面的p指针发生了改变），程序将会崩溃
+```
+
+5、对同一块内动态内存的多次释放
+
+```
+int main(){
+    int* p = (int*)malloc(40);
+    if(p == NULL){
+        return 0;
+    }
+    ...
+    free(p);
+    ...
+    free(p); // err
+    return 0;
+}
+```
+
+如何来避免这种情况呢？
+
+- 保持原则：谁申请谁释放
+
+- 在释放掉之后将指针置为NULL
+
+  ```
+  free(p);
+  p = NULL;
+  ...
+  free(p); // 这里就算再次释放，也是不会报错的，因为p被赋值为NULL，free(NULL)是不会有问题的
+  ```
+
+6、动态开辟内存忘记释放（内存泄露）
+
+## 常见笔试题
+
+```c
+void GetMemory(char* p){
+    p = (char*)malloc(100);
+}
+void Test(void){
+    char* str = NULL;
+    GetMemory(str);
+    strcpy(str, "hello world");
+    printf(str);
+}
+int main(){
+    Test();
+    return 0;
+}
+// 1.运行的代码程序会出现崩溃的现象，崩溃是在“strcpy(str, "hello world");”这一句代码，原因是str此时是NULL
+// 2.程序存在内存泄漏的问题
+//  str以值传递的形式给p，因此p是对str的一份拷贝，p是GetMemory函数的形参，只能函数内部有效，等GetMemory函数返回之后，动态开辟内存尚未释放，并且无法找到，会造成内存泄漏
+```
+
+```c
+// 返回栈空间的地址的问题
+char* GetMemory(void){
+    char p[] = "hello world"; // 函数结束后被销毁
+    return p; // 返回局部变量p的首元素地址
+}
+void Test(void){
+    char* str = NULL;
+    str = GetMemory(); // 拿到了已经被销毁的元素的地址
+    printf(str); // 非法访问内存，所以打印出来的是随机值
+}
+int main(){
+    Test();
+    return 0;
+}
+```
+
+```c
+// 返回栈空间的地址的问题
+int* test(){
+    int a = 10;
+    return &a;
+}
+int main(){
+    int* p = test();
+    *p = 20; // 非法访问内存
+    return 0;
+}
+
+//// 但是如果是这样写：
+int* test(){
+    static int a = 10; // a变全局变量，函数结束之后也不会被销毁
+    return &a;
+}
+int main(){
+    int* p = test();
+    *p = 20;
+    return 0;
+}// 上面这个代码是完全没有问题的
+```
+
+```c
+// 释放的空间再次被使用
+void Test(void){
+    char* str = (char*)malloc(100);
+    strcpy(str, "hello");
+    free(str); // free释放str指向的空间后，并不会把str置为NULL
+    if(str != NULL){
+        strcpy(str, "world"); // 非法访问内存
+        printf(str);
+    }
+}
+int main(){
+    Test();
+    return 0;
+}
+```
+
+## c/c++程序的内存开辟
+
+![image-20210504005236542](c语言进阶.assets/image-20210504005236542.png)
+
+> c/c++程序内存分配的几个区域：
+>
+> 1、栈区（stack）：在执行函数时，函数内局部变量的存储单元都可以
+
+- 内核空间
+
+  比方说4个g的内存只有3个g分给用户使用，剩下的1个g让给操作系统使用了，这1个g的内存就叫内核空间
+
+- 数据段
+
+  就是静态区
 
 # c语言函数
 
