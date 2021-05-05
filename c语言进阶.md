@@ -2114,6 +2114,16 @@ int main(){
 
 > 文件的内容不一定是程序，而是程序运行时读写的数据。比如程序运行需要从中读取数据的文件，或者输出内容的文件
 
+## 文件名
+
+一个文件要有一个唯一的文件标识，以便用户识别和引用
+
+文件名包含3部分：文件路径+文件名主干+文件后缀
+
+例如：c:/code/test.txt
+
+为了方便起见，文件表示常被称为文件名
+
 ## 文件类型
 
 根据数据的组织形式，数据文件被称为**文本文件**或者**二进制文件**
@@ -2251,6 +2261,8 @@ int main(){
     if(pf != NULL){
         // 写文件
         fputs("hello world", pf);
+        fputs("hello\n", pf);
+        fputs("world", pf);
         fputc('b', pf);
         fputc('a', pf);
         fclose(pf);
@@ -2265,7 +2277,7 @@ int main(){
 示例2：
 
 ```c
-// 读
+// 读 fgetc
 #include<string.h>
 #include<stdio.h>
 #include<errno.h>
@@ -2286,6 +2298,119 @@ int main(){
 }
 ```
 
+示例3：
+
+```c
+// 读 fgets
+// char* fgets(char* string, int n, FILE* stream);
+#include<string.h>
+#include<stdio.h>
+#include<errno.h>
+int main(){
+    char buf[1024] = {0};
+    FILE* pf = fopen("test.txt", "r");
+    if(pf != NULL){
+        fgets(buf, 1024, pf);
+        // puts(buf); // puts()打印完之后会自动换行，如果打印的东西本身就有换行，那打印完之后它也会再换一行
+        printf("%s", buf);
+        fgets(buf, 1024, pf);
+        // puts(buf); // puts()打印完之后会自动换行，如果打印的东西本身就有换行，那打印完之后它也会再换一行
+        printf("%s", buf);
+        fclose(pf);
+        pf = NULL;
+    }else{
+        printf("%s\n", strerror(errno));
+    }
+    return 0;
+}
+```
+
+示例4：
+
+```c
+// 从键盘读取一行文本信息并显示到控制台
+int main(){
+    char buf[1024] = {0};
+    fgets(buf, 1024, stdin); // 从标准输入流读取
+    fputs(buf, stdout); // 输出到标准输出流
+    // 上面两行等价于下面两行：
+    // gets(buf);
+    // puts(buf);
+    return 0;
+}
+```
+
+示例5：
+
+```c
+// fprintf
+// int fprintf(FILE* stream, const char* format[, argument]...);
+#include<stdio.h>
+struct S{
+    int n;
+    float score;
+    char arr[10];
+};
+int main(){
+    struct S s = {100, 3.14f, "bit"};
+    FILE* pf = fopen("test.txt", "w");
+    if(pf == NULL){
+        return 0;
+    }
+    // 格式化的形式写文件
+    fprintf(pf, "%d %f %s", s.n, s.score, s.arr);
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+示例6：
+
+```c
+// fscanf
+// int fscanf(FILE* stream, const char* format[, argument]...);
+#include<stdio.h>
+struct S{
+    int n;
+    float score;
+    char arr[10];
+};
+int main(){
+    struct S s = {100, 3.14f, "bit"};
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL){
+        return 0;
+    }
+    // 格式化的输入数据
+    fscanf(pf, "%d %f %s", &(s.n), &(s.score), s.arr);
+    printf("%d %f %s\n", s.n, s.score, s.arr);
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+示例7：
+
+```c
+#include<stdio.h>
+#include<string.h>
+struct S{
+    int n;
+    float score;
+    char arr[10];
+};
+int main(){
+    struct S s = {0};
+    fscanf(stdin, "%d %f %s", &(s.n), &(s.score), s.arr);
+    fprintf(stdout, "%d %.2f %s", s.n, s.score, s.arr);
+    return 0;
+}
+```
+
+
+
 思考：从键盘输入和输出到屏幕
 
 其实键盘和屏幕都是外部设备，键盘是**标准输入设备**（stdin），而屏幕是**标准输出设备**（stdout），这两个都是一个程序开启的时候默认打开的两个流设备，这也是为什么一个程序起来的时候我们默认就可以通过键盘和屏幕与之进行交互的原因
@@ -2296,7 +2421,7 @@ int main(){
 - stdout
 - stderr
 
-示例3：
+示例8：
 
 ```c
 // 标准输入输出流
@@ -2305,6 +2430,75 @@ int main(){
     int ch = fgetc(stdin);
     // 使用标准输出流输出字符
     fputc(ch, stdout);
+    return 0;
+}
+```
+
+### fwrite与fread
+
+size_t fwrite(const void\* buffer, size_t size, size_t count, FILE\* stream);
+
+size_t fread(void\* buffer, size_t size, size_t count, FILE\* stream);
+
+```c
+struct S{
+    char name[20];
+    int age;
+    double score;
+};
+int main(){
+    // struct S s = {"张三", 20, 55.6};
+    struct S temp = {0};
+    // FILE* pf = fopen("test.txt", "wb");
+    FILE* pf = fopen("test.txt", "rb");
+    if(pf == NULL){
+        return 0;
+    }
+    //// 二进制的形式写文件
+    // fwrite(&s, sizeof(struct S), 1, pf);
+    //we'jin'zhi
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+
+
+### sscanf与sprintf
+
+int sscanf(const char\* buffer, const char\* format[, argument]...);
+
+int sprintf(char\* buffer, const char\* format[, argument]...);
+
+
+
+首先对比（scanf与fscanf与sscanf）以及（printf与fprintf与sprintf）：
+
+**scanf/pritnf** 是针对标准输入流/标准输出流的 格式化输入/输出语句
+
+**fscanf/fprintf** 是针对所有输入流/所有输出流的 格式化输入/输出语句
+
+**sscanf/sprintf** sscanf是从字符串中读取格式化的数据；sprintf是把格式化数据输出成（存储到）字符串
+
+示例：
+
+```c
+struct S s{
+    int n;
+    float score;
+    char arr[10];
+};
+int main(){
+    struct S s = {100, 3.14f, "abcdef"};
+    struct S temp = {0};
+    char buf[1024] = {0};
+    // 把格式化的数据转换成字符串存储到buf
+    sprintf(buf, "%d %f %s", s.n, s.score, s.arr);
+    // printf("%s\n", buf);
+    // 从buf中读取格式化的数据到temp中
+    sscanf(buf, "%d %f %s", &(temp.n), &(temp.score), temp.arr);
+    printf("%d %f %s\n", temp.n, temp.score, temp.arr);
     return 0;
 }
 ```
