@@ -2456,7 +2456,9 @@ int main(){
     }
     //// 二进制的形式写文件
     // fwrite(&s, sizeof(struct S), 1, pf);
-    //we'jin'zhi
+    // 二进制的形式读文件
+    fread(&temp, sizeof(struct S), 1, pf);
+    printf("%s %d %lf\n", temp.name, temp.age, temp.score);
     fclose(pf);
     pf = NULL;
     return 0;
@@ -2499,6 +2501,65 @@ int main(){
     // 从buf中读取格式化的数据到temp中
     sscanf(buf, "%d %f %s", &(temp.n), &(temp.score), temp.arr);
     printf("%d %f %s\n", temp.n, temp.score, temp.arr);
+    return 0;
+}
+```
+
+## 文件的随机读写
+
+**fseek**
+
+> 根据文件指针的位置和偏移量来定位文件指针
+
+int fseek(FILE\* stream, long int offset, int origin); 
+
+这里的第三个参数origin表示起始位置，有三个选项：
+
+- SEEK_CUR
+
+  文件指针的当前位置
+
+- SEEK_END
+
+  文件的末尾位置
+
+- SEEK_SET
+
+  文件的起始位置
+
+示例：
+
+```c
+int main(){
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL) return 0;
+    // 1.定位文件指针
+    fseek(pf, 2, SEEK_CUR); // 文件刚打开的时候文件指针默认就是指向起始位置，所以这里SEEK_CUR和SEEK_SET效果一样
+    // 2.读取文件
+    int ch = fgetc(pf);
+    printf("%c\n", ch);
+    // 1.定位文件指针
+    fseek(pf, -2, SEEK_END);
+    // 2.读取文件
+    ch = fgetc(pf);
+    printf("%c\n", ch);
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+**ftell**
+
+> 返回文件指针相对于起始位置的偏移量
+
+long int ftell(FILE\* stream);
+
+示例：
+
+```c
+int main(){
+    
     return 0;
 }
 ```
