@@ -2559,10 +2559,159 @@ long int ftell(FILE\* stream);
 
 ```c
 int main(){
-    
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL){
+        return 0;
+    }
+    // 1.定位文件指针
+    fseek(pf, -2, SEEK_END);
+    int pos = ftell(pf);
+    printf("%d\n", pos);
+    fgetc(pf);
+    int pos = ftell(pf);
+    printf("%d\n", pos);
+    fclose(pf);
+    pf = NULL;
     return 0;
 }
 ```
+
+**rewind**
+
+> 让文件指针的位置回到文件的起始位置
+
+void rewind(FILE\* stream);
+
+示例：
+
+```c
+int main(){
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL){
+        return 0;
+    }
+    int ch = fgetc(pf);
+    printf("%c\n", ch);
+    rewind(pf);
+    ch = fgetc(pf);
+    printf("%c\n", ch);
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+## 文件结束判定
+
+feof这个函数不是用来判断读取文件是否结束，而是用来得知当读取文件的代码结束的时候，它结束的原因到底是什么（是因为遇到了eof结束的，还是因为遇到某些原因读取失败而导致程序结束的）
+
+**被错误使用的feof**
+
+注意：在文件读取过程中，不能用feof函数的返回值直接用来判断文件是否结束。
+
+而是**应用于当文件读取结束的时候，判断是读取失败结束，还是遇到文件尾结束。**
+
+1、文本文件读取是否结束，判断返回值是否为EOF（fgetc），或者NULL（fgets）
+
+  例如：
+
+- fgetc判断是否为EOF
+- fgets判断返回值是否为NULL
+
+2、二进制文件的读取结束判断，判断返回值是否小于实际要读的个数
+
+  例如：
+
+- fread判断返回值是否小于实际要读的个数 
+
+```c
+// 首先来看看EOF，EOF其实就是-1
+int main(){
+    // EOF - end of file - 文件结束标志
+    FILE* pf = fopen("test.txt", "r"); // 假设test.txt是一个空文件
+    if(pf == NULL){
+        return 0;
+    }
+    int ch = fgetc(pf);
+    printf("%d\n", ch); // 由于test.txt是一个空文件，所以这里会打印-1
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+**feof的正确用法：**
+
+```c
+// 文本文件的例子
+int main(){
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL){
+        perror("open file test.txt");
+        return 0;
+    }
+    // 读文件
+    int ch = 0;
+    while((ch = fgetc(pf)) != EOF){
+        putcchar(ch);
+    }
+    if(ferror(pf)){
+        // 说明读取文件的时候出错了
+        printf("error\n");
+    }else if(feof(pf)){
+        // 说明已经读取到文件的末尾了
+        printf("end of file reached successfully");
+    }
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+```c
+// 二进制文件的例子
+enum{
+    SIZE = 5;
+}
+int main(){
+    double a[SIZE] = {1.0, 2.0, 3.0, 4.0, 5.0};
+    double b = 0.0;
+    size_t ret_code = 0;
+    FILE* pf = fopen("test.bin", "wb"); 
+    fwrite(a, sizeof(a), SIZE, pf);
+    fclose(pf);
+    pf = NULL;
+    
+    pf = fopen("test.bin", "rb");
+    // 读double的数组
+    while((ret_code = fread(&b, sizeof(double), 1, pf)) >= 1){
+        printf("%lf\n", b);
+    }
+    if(feof(pf)){
+        printf("遇到EOF\n");
+    }
+    else if(ferror(pf)){ // ferror这个函数用于检测流上是否发生错误（int ferror(FILE* stream);）
+        perror("读取失败\n");
+    }
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+# 程序的环境和预处理
+
+![image-20210506181055874](c语言进阶.assets/image-20210506181055874.png)
+
+## 程序的翻译环境和执行环境
+
+在ANSI C的任何一种实现中，存在两个不同的环境
+
+> 第1种是翻译环境，在这个环境种源代码被转换为可执行的机器指令。第2种是执行环境，它用于实际执行代码 
+
+## 详解编译+链接
+
+### 编译环境
 
 
 
@@ -2867,6 +3016,29 @@ if(pf == NULL){
     printf("%s\n", strerror(errno));
 }
 ```
+
+## perror()
+
+是strerror的加强版，用法比strerror更简单
+
+```c
+int main(){
+    FILE* pf = fopen("test.txt", "r");
+    if(pf == NULL){
+        // strerror - 把错误码对应的错误信息的字符串地址返回
+        // printf("%s\n", strerror(errno));
+        
+        // perror
+        perror("hehe"); // 如果发生错误，则会打印：hehe: No such file or directory.（相当于是定制化的错误信息的字符串 + 错误码对应的错误信息的字符串）
+        return 0;
+    }
+    fclose(pf);
+    pf = NULL;
+    return 0;
+}
+```
+
+
 
 ## 字符分类函数
 
