@@ -2980,61 +2980,208 @@ pf = NULL;
 
 >  \#define定义标识符
 >
-> 语法：
+>  语法：
 >
->   \#define name stuff
+>  \#define name stuff
 >
-> 举例：
+>  举例：
+>
+>  ```c
+>  #define MAX 1000
+>  #define STR "hehe"
+>  #define reg register // 为register这个关键字创建一个简短的名字
+>  #define do_forever for(;;) // 用更形象的符号来替换一种实现
+>  #define CASE break;case // 在写case语句的时候自动把break写上
+>  // 如果定义的stuff过长，可以分成几行写，除了最后一行外，每行的后面都加一个反斜杠（续航符）
+>  #define DEBUG_PRINT printf("file:%s\tline:%d\t \
+>  							date:%s\ttime:%s\n",\
+>                           __FILE__, __LINE__,\ 
+>                           __DATE__, __TIME__);
+>  ```
+>
+>  提问：
+>
+>  在define定义标识符的时候，要不要在最后加上分号？
+>
+>  答：
+>
+>  最好不要，这样容易导致问题。比如下面的场景：
+>
+>  ```c
+>  #define MAX 10;
+>  int main(){
+>   printf("%d\n", MAX); // 这里会报错，因为预处理后这边的代码就会变：printf("%d\n", 10;); 显然这是错误的语法。最坑爹的是，这个时候报的错你还不容易找到错误到底在哪里
+>  	return 0;
+>  }
+>  ```
+>
+>  
+>
+>  \#define定义宏
+>
+>  \#define机制包括了一个规定，允许把参数替换到文本中，这种实现通常称为宏（macro）或定义宏（define macro）
+>
+>  下面是宏的申明方式：
+>
+>  \#define name(parameter-list) stuff其中的parameter-list是一个由逗号隔开的符号表，它们可能出现在stuff中
+>
+>  **注意：**参数列表的左括号必须与name紧邻。如果两者之间有任何空白存在，参数列表就会被解释为stuff的一部分。
+>
+>  如：
+>
+>  ```c
+>  #define SQUARE( x ) x * x
+>  // 这个宏接收一个参数x，如果在上述声明之后，你把SQUARE(5);置于程序中，预处理器就会用下面这个表达式替换上面的表达式：5 * 5;
+>  ```
+>
+>  宏可能会引发的问题：
+>
+>  示例1：
+>
+>  ```c
+>  #define DOUBLE(X) X+X
+>  int main(){
+>      int a = 5;
+>      int ret = 10 * DOUBLE(a); // 这里在预处理的时候会变成：int ret = 10 * 5+5;
+>      printf("%d\n", ret); // 55
+>      return 0;
+>  }
+>  // 解决方法：给宏加括号，如下：
+>  #define DOUBLE(X) ((X) + (X)) // 这里如果是10 * DOUBLE(5);在预处理的时候也会变成：10 * ((5) + (5));
+>  ```
+>
+>  示例2：
+>
+>  ```c
+>  #define SQUARE(x) x*x
+>  int main(){
+>      int ret = SQUARE(5 + 1); // 这里在预处理的时候会变成：int ret = 5 + 1*5 + 1
+>      printf("%d\n", ret); // 11
+>      return 0;
+>  }
+>  // 解决方法：给宏加括号，如下：
+>  #define SQUARE(x) (x)*(x) // 这个时候就算是SQUARE(5 + 1); 在预处理的时候也会变成：(5 + 1)*(5 + 1)
+>  ```
+>
+>  小结：
+>
+>  > 用于对数值表达式进行求值的宏定义都应该用这种方式加上括号，避免在使用宏时由于参数中的操作符或邻近操作符之间不可预料的相互作用
+
+\#define替换规则：
+
+在程序中扩展\#define定义符号和宏时，需要涉及几个步骤：
+
+> 1、在调用宏时，首先对参数进行检查，看看是否包含任何由\#define定义的符号，如果是，它们首先被替换；
+>
+> 示例：
 >
 > ```c
-> #define MAX 1000
-> #define STR "hehe"
-> #define reg register // 为register这个关键字创建一个简短的名字
-> #define do_forever for(;;) // 用更形象的符号来替换一种实现
-> #define CASE break;case // 在写case语句的时候自动把break写上
-> // 如果定义的stuff过长，可以分成几行写，除了最后一行外，每行的后面都加一个反斜杠（续航符）
-> #define DEBUG_PRINT printf("file:%s\tline:%d\t \
-> 							date:%s\ttime:%s\n",\
->                             __FILE__, __LINE__,\ 
->                             __DATE__, __TIME__);
-> ```
->
-> 提问：
->
->   在define定义标识符的时候，要不要在最后加上分号？
->
-> 答：
->
->   最好不要，这样容易导致问题。比如下面的场景：
->
-> ```c
-> #define MAX 10;
+> #define MAX 100
+> #define DOUBLE(x) ((x)+(x))
 > int main(){
->     printf("%d\n", MAX); // 这里会报错，因为预处理后这边的代码就会变：printf("%d\n", 10;); 显然这是错误的语法。最坑爹的是，这个时候报的错你还不容易找到错误到底在哪里
-> 	return 0;
+>     int ret = 10 * DOUBLE(MAX + MAX); // DOUBLE(MAX + MAX) -> DOUBLE(100 + 100) -> ((100 + 100) + (100 + 100))
+>     return 0;
 > }
 > ```
 >
-> 
+> 2、替换文本随后被插入到程序中原来文本的位置。对于宏，参数名被它们的值替换；
 >
-> \#define定义宏
->
-> \#define机制包括了一个规定，允许把参数替换到文本中，这种实现通常称为宏（macro）或定义宏（define macro）
->
-> 下面是宏的申明方式：
->
-> \#define name(parameter-list) stuff其中的parameter-list是一个由逗号隔开的符号表，它们可能出现在stuff中
->
-> **注意：**参数列表的左括号必须与name紧邻。如果两者之间有任何空白存在，参数列表就会被解释为stuff的一部分。
->
-> 如：
->
-> ```c
-> #define SQUARE( x ) x * x
-> // 这个宏接收一个参数x，如果在上述声明之后，你把SQUARE(5);置于程序中，预处理器就会用下面这个表达式替换上面的表达式：5 * 5;
-> ```
->
-> 
+> 3、最后，再次对结果文件进行扫描，看看它是否包含任何由\#define定义的符号，如果是，就重复上述处理过程（一般来讲，替换完符号之后就开始替换宏了）
+
+注意：
+
+- 宏参数和\#define定义中可以出现其他\#define定义的变量，但是对于宏，不能出现递归
+
+- 当预处理器搜索\#define定义的符号的时候，字符串常量的内容并不被搜索
+
+  示例：
+
+  ```c
+  #define MAX 100
+  int main(){
+      printf("MAX: %d\n", MAX); // 字符串中的MAX不会被替换
+      return 0;
+  }
+  ```
+
+
+
+\#和\#\#：
+
+先来说\#的作用：
+
+> 如何把参数插入到字符串中？
+
+场景：
+
+```c
+void print(int a){
+    printf("the value of a is %d\n", a);
+}
+int main(){
+    int a = 10;
+    int b = 20;
+    print(a); // the value of a is 10 这里还可以
+    print(b); // the value of a is 20 这里就比较怪了，因为我们期望的是：the value of b is 20
+    return 0;
+}
+```
+
+首先来看一看下面的代码：
+
+```c
+int main(){
+    printf("hello world\n"); // hello world
+    printf("hel" "lo " "world\n"); // hello world
+    printf("hello " "world\n"); // hello world
+    char* p = "abc" "def";
+    printf("%s\n", p); // abcdef
+    return 0;
+}// 在c语言中当两个字符串紧挨着在一起的时候会被当成一个字符串去处理
+```
+
+现在我们来看看怎么去解决上面那个场景的问题：
+
+```c
+#define PRINT(X) printf("the value of "#X" is %d\n", X) // 这里#X中的X是不会被替换成10或者20的，而是会变成"a"或者"b"（PRINT(a)传进去的参数是a，那么#X就会变"a"，PRINT(b)传进去的参数是b，那么#X就会变"b"），也就是说#X表示的意思是X表达的内容所对应的字符串，举例来说就是：比方说是PRINT(a)，那么PRINT(a)就会被替换成：printf("the value of ""a"" is %d\n", a);
+int main(){
+    int a = 10;
+    int b = 20;
+    PRINT(a); // the value of a is 10
+    PRINT(b); // the value of b is 20
+    return 0;
+}
+```
+
+然后我们来说\#\#的作用：
+
+> \#\#可以把位于它两边的符号合成一个符号。它允许宏定义从分离的文本片段创建标识符
+
+示例1：
+
+```c
+#define CAT(X, Y) X##Y
+int main(){
+    int Class84 = 2021;
+    printf("%d\n", CAT(Class, 84)); // CAT(Class, 84) -> Class##84 -> Class84 -> printf("%d\n", Class84);
+    return 0;
+}
+```
+
+示例2：
+
+```c
+#define SUM(num, value) sum##num += value
+int main(){
+    int sum5 = 3;
+    // SUM(4, 10); // 报错，因为根本没有定义sum4这个变量
+    SUM(5, 10); // SUM(5, 10) -> sum##5 += 10 -> sum5 += 10
+    printf("%d\n", sum5); // 13
+    return 0;
+}
+```
+
+
 
 # c语言函数
 
