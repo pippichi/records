@@ -77,7 +77,7 @@ public static void main(String[] args) {
     * */
     public class Singleton {
         // 因为是静态方法，因此在类被加载的时候就会创建
-        public static final Singleton1 INSTANCE = new Singleton();
+        public static final Singleton INSTANCE = new Singleton();
         private Singleton(){}
     }
     
