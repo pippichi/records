@@ -390,3 +390,19 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 };
 ```
 
+# @Lazy
+
+@Lazy可以解决循环依赖，同时也可以实现延迟加载
+
+用法：
+
+- @Lazy(value = false)
+
+  如果是false，这个注解加了跟没加一样，对象不使用延迟加载，会在Spring启动的时候，或者说初始化的时候就直接创建
+
+- @Lazy(value = true)
+
+  使用延迟加载，在Spring启动的时候延迟加载bean，即在调用某个bean的时候再去初始化
+
+  降低了springIOC容器启动的加载时间，也可以解决循环依赖问题
+
