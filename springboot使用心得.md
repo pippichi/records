@@ -406,3 +406,5 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
   降低了springIOC容器启动的加载时间，也可以解决循环依赖问题
 
+# 线程池
+
