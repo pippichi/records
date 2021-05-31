@@ -191,3 +191,23 @@ public class AAA{
 UUID.randomUUID();
 ```
 
+# Websocket
+
+具体看`alg-manager`
+
+# 雪花算法
+
+具体使用方法查看hutool源码或deya门户项目源码
+
+# jarFile
+
+jarFile可用于读取jar文件中的内容
+
+应用场景：比方说有时候我们需要读取jar文件中某个class的注解，但是jar文件是被打包过的，没办法直接读取到它里面的内容，此时就可以用jarFile
+
+参考文章：https://blog.csdn.net/qq_40951086/article/details/78580665
+
+# RunTime
+
+用于执行shell命令、获取计算机cpu核数等
+

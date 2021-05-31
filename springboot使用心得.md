@@ -406,5 +406,64 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
   降低了springIOC容器启动的加载时间，也可以解决循环依赖问题
 
-# 线程池
+# @Async与SpringBoot线程池配置
 
+具体看张润华的`supcon-parent`
+
+**@Async与线程池搭配使用：**
+
+```java
+@Async("taskExecutorName") // 注意：如果不指定要使用的线程池名，比如直接这么用：@Async，那么在执行异步任务的时候spring是直接new一个thread去执行的
+```
+
+# filter
+
+过滤器，包括@WebFilter等，具体查网络资料
+
+# interceptor
+
+拦截器，具体查网络资料
+
+# listener
+
+监听器，具体查网络资料
+
+# @DependsOn
+
+当某个Bean需要依赖其他的Bean，即需要手动让依赖的Bean先加载，之后再加载这个Bean的时候就可以使用`@DependsOn`注解
+
+```java
+@Bean("supExecutor")
+@DependsOn({"threadPoolProperties", "springUtil"})
+@ConditionalOnMissingBean(name = "supExecutor")
+public Executor taskExecutor() {
+}
+```
+
+# @CrossOrigin
+
+跨域注解
+
+```java
+@CrossOrigin
+@PostMapping(value = "/executeToHere/{socketSessionId}")
+public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeToHereParam, @PathVariable @ApiParam("socketSessionId") String socketSessionId) {}
+```
+
+具体使用查看文章：https://blog.csdn.net/qq_18671415/article/details/109275495
+
+# @SpringBootApplication
+
+## 属性exclude
+
+```java
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+```
+
+该注解的作用是，排除自动注入数据源的配置（取消数据库配置），一般使用在客户端（消费者）服务中
+
+当前项目其实并不需要数据源。查其根源是依赖方提供的API依赖中引用了一些多余的依赖触发了该自动化配置的加载，那么使用exclude属性将它排除即可。
+
+# 使用aop读取到项目下所有被注解标注的类或方法
+
+具体查看网络资料
