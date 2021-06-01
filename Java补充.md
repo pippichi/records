@@ -211,3 +211,74 @@ jarFile可用于读取jar文件中的内容
 
 用于执行shell命令、获取计算机cpu核数等
 
+# java中的各种命令参数
+
+- 命令行参数
+
+  ```
+  命令行参数就是类似与c语言的命令行参数，这些参数会传给main函数，也就是java中 public static void main(String[] args) 的那个String数组。但是需要注意的是，c语言的main行数中传入的参数，arv[0]是程序本身的名字，比如program1 option1 option2,那么arv[0]就是program1本身。但是java的命令函参数确实从0开始的，也就是说，java中的第一个命令行参数是的args[0]，举个例子 java program1 option1 option2 运行一个java程序的话，args[0]获取到的是option1。
+  ```
+
+- 系统属性参数
+
+  ```
+  系统属性参数也是供应用程序使用的，并且是以key=value这样的形式提供的，在程序的任何一个地方，都可以通过System.getProperty("key")获取到对应的value值。
+  
+  在官方文档中对系统属性参数的描述是这样的：
+  Set a system property value. If value is a string that contains spaces, you must enclose the string in double quotes:
+  java -Dfoo="some string" SomeClass
+  
+  系统属性参数传入的时候需要带一个横杆和大写字母D，比如-Dfuck.abc="1234"这样的。在你业务代码中，你就可以使用它了：System.getProperty("fuck.abc")，获取"1234"。不过系统属性参数一般都是用来开启一些官方开关的，比如加入-Djdk.internal.lambda.dumpProxyClasses="/home/xxx"，你就可以把java8中lambda表达式的代理类字节码dump出来。
+  ```
+
+- jvm参数
+
+  ```
+  jvm参数就是和jvm相关的参数了，比如配置gc、配置堆大小、配置classpath等等
+  jvm参数分为标准参数、扩展参数和不稳定参数
+  标准参数是一定有效，向后兼容的，且所有的jvm都必须要实现的，比如-classpath，这类参数是横杆直接跟参数名
+  扩展参数是不保证向后向后兼容，不强值要求所有jvm实现都要支持，不保证后续版本不会取消的，这类参数的形式是-Xname，横杠和一个大写的X开头
+  不稳定参数就是非常不稳定，可能只是特定版本的，特点是-XXname，横杆后带两个大写X开头
+  ```
+
+如果想查看具体的参数的含义，最好的方法就是看官方文档，或者直接man java一下，也可以参考这篇文章[《Java 命令行运行参数》](https://www.cnblogs.com/jtlgb/p/8466138.html)
+
+其实，只要java -h以下，就可以看到这些说明。java命令的语法为：
+
+```
+java [-options] class [args...]
+           (to execute a class)
+```
+
+或者
+
+```
+java [-options] -jar jarfile [args...]
+           (to execute a jar file)
+```
+
+所以，前面说的严格意义上全都是不对的，java中的命令行参数只有option 和 args两类。上面说的三类中第一类对应args，后面两类都是属于option的，那才是jvm的参数。
+
+# spring boot 传递参数
+
+spring boot 打成jar包后 通过命令行传入的参数有3种实现方式：
+
+```
+java -jar xxx.jar aaa bbb cccc
+传了3个参数，分别是aaa,bbb,ccc
+通过main方法的参数获取
+```
+
+```
+java -jar xxx.jar -Da1=aaa -Db1=bbb -Dc1=ccc
+通过  System.getProperty("aaa","1"); 方式获取，作为环境变量
+注意：java -Xms10m -Xmx512m xx.jar -DconfigPath=/root 可能不生效-D配置，在程序中读取不到
+最好改成：java -Xms10m -Xmx512m -DconfigPath=/root xx.jar 这样就可以读取到了
+```
+
+```
+java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
+是springboot的写法，可以通过@Value("${a1}") 获取；
+--server.port=8080可以直接指定spring boot的端口号
+```
+
