@@ -282,3 +282,15 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 --server.port=8080可以直接指定spring boot的端口号
 ```
 
+# JUnit单元测试
+
+关于注解`@ExtendWith（SpringExtension.class）`与`@ExtendWith（MockitoExtension.class）`的讨论：
+
+```
+当涉及Spring时：
+如果你想在测试中使用Spring测试框架功能（例如@MockBean），则必须使用@ExtendWith(SpringExtension.class)。它取代了不推荐使用的JUnit4@RunWith(SpringJUnit4ClassRunner.class)
+
+当不涉及Spring时：
+如果你只想涉及Mockito而不必涉及Spring，比如当你只想使用@Mock/@InjectMocks注解时，你可能就会只想使用@ExtendWith(MockitoExtension.class)，因为它不会加载很多不需要的Spring的东西。它替换了不推荐使用的JUnit4 @RunWith(MockitoJUnitRunner.class)。
+```
+
