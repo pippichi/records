@@ -408,7 +408,7 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
 # @Async与SpringBoot线程池配置
 
-具体看张润华的`supcon-parent`
+具体看张润华的`supcon-parent`（**[详见项目infrastructure](https://github.com/pippichi/code_template)**）
 
 **@Async与线程池搭配使用：**
 
@@ -467,3 +467,4 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 # 使用aop读取到项目下所有被注解标注的类或方法
 
 具体查看网络资料
+
