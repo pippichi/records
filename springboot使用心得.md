@@ -420,6 +420,10 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
 过滤器，包括@WebFilter等，具体查网络资料
 
+- **OncePerRequestFilter**
+
+  每次请求的最开始都会执行这个过滤，适合做权限认证
+
 # interceptor
 
 拦截器，具体查网络资料
