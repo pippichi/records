@@ -468,6 +468,16 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 当前项目其实并不需要数据源。查其根源是依赖方提供的API依赖中引用了一些多余的依赖触发了该自动化配置的加载，那么使用exclude属性将它排除即可。
 
+# @ComponentScan
+
+如果一个类标注了该注解，那么该类所在目录的文件夹以及该文件夹下的所有子文件夹及子文件都会被扫描
+
+例子：
+
+![image-20210609194713563](springboot使用心得.assets/image-20210609194713563.png)
+
+`@SpringBootApplication`中包含了`@ComponentScan`，因此`OrderApplication80.java`所在目录的文件夹`springcloud`及其子文件与子文件夹（简单点讲就是文件夹`springcloud`下的所有文件）都会被扫描，而文件夹`myrule`不在文件夹`springcloud`下，因此`myrule`不会被扫描
+
 # 使用aop读取到项目下所有被注解标注的类或方法
 
 具体查看网络资料
