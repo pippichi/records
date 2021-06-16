@@ -319,6 +319,16 @@ int main(){
     }
     ```
 
+### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+
+- 递归
+
+  每次遍历节点都先遍历它的左孩子再遍历自己再遍历它的右孩子
+
+- 迭代
+
+  首先明确肯定是一层一层遍历树的左孩子的，直到遍历不下去之后再遍历自己，然后再遍历自己的右孩子的左孩子，如此往复即可
+
 ## 字符串
 
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
