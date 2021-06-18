@@ -233,7 +233,15 @@ int main(){
 }
 ```
 
+### [278. First Bad Version](https://leetcode-cn.com/problems/first-bad-version/)
 
+- 二分查找
+
+  心得：由于整个数组左边全是false，右边全是true，我们要找的是第一个为true的元素，那么此时如果中间元素是true，则说明它有可能是我们要找的，但如果是false，说明它一定不是我们要找的，所以如果是true的话就还不能把这个元素排除掉，而如果是false，就可以直接排除掉这个元素了
+
+### [283. Move Zeroes](https://leetcode-cn.com/problems/move-zeroes/)
+
+- 双指针
 
 ## 树
 
@@ -328,6 +336,40 @@ int main(){
 - 迭代
 
   首先明确肯定是一层一层遍历树的左孩子的，直到遍历不下去之后再遍历自己，然后再遍历自己的右孩子的左孩子，如此往复即可
+
+- Morris 中序遍历
+
+  核心思想就两点：
+
+  - 不想使用额外的栈来保存下一步应该访问什么结点，那么我们就需要手动找到并指定结点的下一个结点，比方说现在是中序遍历，那么结点的上一个结点一定是左孩子的最右的结点，那么就可以让左孩子最右结点指向当前结点。遍历的时候如果左孩子最右结点已经指向它的后一个结点（要清楚本来左孩子最右结点是空指针）说明当前结点的左子树已经遍历完，下一步就是遍历自己，再下一步就是遍历右子树；而如果左孩子最右结点是空指针，则表示已经找到了左孩子的最右结点，需要将它指向自己，并且自己要向左一步，来找到左孩子的左孩子的最右结点，如此往复。（巧妙的点在于当我们遍历完左子树时所处的结点一定是左孩子的最右结点，而此时最右结点又已经被我们指向了自己，这就是遍历的过程中能够在遍历完左子树之后直接遍历自己然后下一步能够遍历自己的右子树的原因）
+
+  - 如何走出循环？明确每次遍历完自己之后一定就是遍历右子树了，而右子树总有一天会是空指针，当右子树为空指针时说明遍历就已经完成了
+
+### [144. Binary Tree Preorder Traversal](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
+
+思路同[94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+
+Morris 中序遍历的时候不再是手动指定结点的下一个结点了，而是充分利用父节点来过渡到下一个结点（也就是父节点的右孩子）
+
+### [145. Binary Tree Postorder Traversal](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
+
+思路同[94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+
+迭代的时候要注意从底部反上来的时候自己的右孩子的下一个访问结点一定是自己，而自己因为存在右孩子所以又重新进入右孩子访问导致死循环（所以说需要记录右孩子，在访问完右孩子之后访问下一个结点也就是访问自己的时候如果自己的右孩子已经被访问过了就不要再访问了）
+
+另外一种迭代的方法是翻转列表（先按照`本节点 -> 右孩子 -> 左孩子`的顺序遍历，最后翻转结果列表即可）
+
+Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议从“如何完整构造出一个走完整个后序遍历的路径”的角度去思考（心得：找到中间结点就能找到左右孩子，从而找到整棵树）
+
+### [257. Binary Tree Paths](https://leetcode-cn.com/problems/binary-tree-paths/)
+
+- 深度
+
+  递归来传递当前结点形成的路径的信息
+
+- 广度
+
+  需要注意路径字符串是如何与每一条路径一一对应的（维护双队列）
 
 ## 字符串
 
@@ -558,7 +600,11 @@ c++可以通过c_str()将字符串转const char *c 指针指向型的字符数�
   }
   ```
 
-  
+### [290. Word Pattern](https://leetcode-cn.com/problems/word-pattern/)
+
+- 维护两个map用于key和value之间互相的映射
+
+  难点在于边界的处理
 
 ## 链表
 
@@ -1051,6 +1097,36 @@ double pow(int num, int k){ // 注意需要考虑k是负数的情况
 **给定数组，其中有三个数只出现了一次，别的数都是成对出现的，找出只出现一次的数**
 
 思路跟上面有两个数只出现了一次的题是一样的，这里只需要根据将所有数异或之后得到的二进制结果中出现1的二进制位的位置将所有数分成三组即可
+
+### [258. Add Digits](https://leetcode-cn.com/problems/add-digits/)
+
+- 递归
+- 迭代
+- 数学
+
+### [263. Ugly Number](https://leetcode-cn.com/problems/ugly-number/)
+
+- 数学
+
+### [268. Missing Number](https://leetcode-cn.com/problems/missing-number/)
+
+- 排序之后遍历
+
+  注意末尾元素需要单独判断
+
+- 哈希表
+
+  哈希表查询操作时间复杂度O(1)
+
+  可以先将元素放入集合中，再遍历查找缺的数
+
+- 位运算
+
+  利用相同的数异或运算为0的特性，让下标与数字都参与异或运算最后得到的结果就是缺的数
+
+- 数学
+
+  等差数列求和公式
 
 ## 思维题
 
