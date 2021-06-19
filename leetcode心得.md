@@ -243,6 +243,10 @@ int main(){
 
 - 双指针
 
+### [303. Range Sum Query - Immutable](https://leetcode-cn.com/problems/range-sum-query-immutable/)
+
+- 动态规划
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -1127,6 +1131,10 @@ double pow(int num, int k){ // 注意需要考虑k是负数的情况
 - 数学
 
   等差数列求和公式
+
+### [292. Nim Game](https://leetcode-cn.com/problems/nim-game/)
+
+- 数学题，找规律
 
 ## 思维题
 
