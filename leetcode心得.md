@@ -247,6 +247,28 @@ int main(){
 
 - 动态规划
 
+### [338. Counting Bits](https://leetcode-cn.com/problems/counting-bits/)
+
+- 暴力求解
+
+- 暴力求解优化
+
+  利用`i & (i - 1)`消除二进制最低位的1
+
+- 动态规划
+
+  - 最高有效位
+
+    `10111`比`00111`多一个1
+
+  - 最低有效位
+
+    `10110`比`10100`多一个1
+
+  - 最低设置位
+
+    `111`比`011`多一个1；`110`比`011`多0个1
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -1135,6 +1157,96 @@ double pow(int num, int k){ // 注意需要考虑k是负数的情况
 ### [292. Nim Game](https://leetcode-cn.com/problems/nim-game/)
 
 - 数学题，找规律
+
+### 将十进制数转成n进制数（n < 10）
+
+自研算法：
+
+```c++
+int hir(int pow_res, int org){
+	int ret = 1;
+	while(org >= pow_res * (ret + 1)){
+		ret++;
+	}
+	return ret;
+}
+
+string i2n(int n, int radix)
+{
+	string ret = "";
+	while(n){
+		int pos = 0;
+		int pow_res = pow(radix, pos);
+		while(n >= pow_res * radix){
+			pos++;
+			pow_res = pow(radix, pos);
+		}
+		if(ret == ""){
+			if(n < radix){
+				return to_string(n);
+			}else{
+				ret += '0' + hir(pow_res, n);
+				while(pos){
+					ret += '0';
+					pos--;
+				}
+				n -= pow_res * hir(pow_res, n);
+			}
+		}else{
+			if(n < radix){
+				ret[ret.length() - 1] = '0' + n;
+				n = 0;
+			}else{
+				ret[ret.length() - pos - 1] = '0' + hir(pow_res, n);
+				n -= pow_res * hir(pow_res, n);
+			}
+		}
+	}
+	return ret;
+}
+```
+
+### [326. Power of Three](https://leetcode-cn.com/problems/power-of-three/)
+
+- 循环迭代
+
+- 基准转换
+
+  10进制转3进制，并判断3进制的数中是否只有一个1打头其余都是0
+
+- 运算法
+
+  假设n符合条件，那么以3为底，n的对数一定是整数，借助换底公式做转换并将最后的结果除以1求余数，判断余数是否为0即可
+
+  需要注意的是该算法可能存在误差，因此需要将结果与`epsilon`进行比较：
+
+  ```java
+  return (Math.log(n) / Math.log(3) + epsilon) % 1 <= 2 * epsilon;
+  ```
+
+- 整数限制
+
+  我们发现传进来的参数是int型，那么只需要找到int型最大范围内某个数n，n能被3整除，则n除以要判断的数m得到的结果一定是整数
+
+  首先找到数n以3为底的整数幂x：
+
+  ```c++
+  int x = (int)(log(INT_MAX) / log(3));
+  ```
+
+  然后确定以3为底，x为幂的整数即为int型最大范围内的能被3整除的整数：
+
+  ```c++
+  int max_int = pow(3, x);
+  ```
+
+  最后拿这个数来作判断：
+
+  ```c++
+  return max_int % target == 0;
+  ```
+
+  
 
 ## 思维题
 
