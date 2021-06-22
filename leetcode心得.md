@@ -269,6 +269,25 @@ int main(){
 
     `111`比`011`多一个1；`110`比`011`多0个1
 
+### [344. Reverse String](https://leetcode-cn.com/problems/reverse-string/)
+
+双指针
+
+### [349. Intersection of Two Arrays](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
+
+- 两个集合取交集
+
+- 一个集合用作过滤器
+
+  注意集合中已经比对过的元素要及时删除
+
+- 排序之后双指针
+
+### [350. Intersection of Two Arrays II](https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/)
+
+- 排序之后双指针
+- 哈希表
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -631,6 +650,32 @@ c++可以通过c_str()将字符串转const char *c 指针指向型的字符数�
 - 维护两个map用于key和value之间互相的映射
 
   难点在于边界的处理
+
+### [345. Reverse Vowels of a String](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
+
+- 双指针
+
+  小心野指针
+
+### [383. Ransom Note](https://leetcode-cn.com/problems/ransom-note/)
+
+- 桶
+  - 数组
+  - 哈希表
+
+### [387. First Unique Character in a String](https://leetcode-cn.com/problems/first-unique-character-in-a-string/)
+
+- 使用哈希表存储每个字母的频数
+
+  技巧：字符先后顺序的信息可以去源字符串找
+
+- 使用哈希表存储索引
+
+  最后求出哈希表中有效索引的最小值即可
+
+- 使用队列维护只出现一次的字符
+
+  最后返回队列第一个元素即可
 
 ## 链表
 
@@ -1195,7 +1240,7 @@ string i2n(int n, int radix)
 		}else{
 			if(n < radix){
 				ret[ret.length() - 1] = '0' + n;
-				n = 0;
+				return ret;
 			}else{
 				ret[ret.length() - pos - 1] = '0' + hir(pow_res, n);
 				n -= pow_res * hir(pow_res, n);
@@ -1207,6 +1252,8 @@ string i2n(int n, int radix)
 ```
 
 ### [326. Power of Three](https://leetcode-cn.com/problems/power-of-three/)
+
+要注意边界的处理
 
 - 循环迭代
 
@@ -1246,7 +1293,35 @@ string i2n(int n, int radix)
   return max_int % target == 0;
   ```
 
-  
+### [342. Power of Four](https://leetcode-cn.com/problems/power-of-four/)
+
+注意边界的处理
+
+- 循环迭代
+
+- 二进制表示中1的位置
+
+  - `n >= 1`
+  - 二进制表示中只有一个1（`(n & (n - 1)) == 0`）
+  - 二进制表示中的1只能出现在奇数位上
+
+- 取模性质
+
+  关键在于区分n是4的幂还是2的幂，如果是4的幂，除以3取余一定是1，如果是2的幂，除以3取余一定是2
+
+### [367. Valid Perfect Square](https://leetcode-cn.com/problems/valid-perfect-square/)
+
+- 二分查找
+
+  注意内存溢出，这里有两种解决方法一种是使用long类型，一种是使用除法和余数而非乘法
+
+- 数学
+
+  使用牛顿迭代法求解
+
+### [374. Guess Number Higher or Lower](https://leetcode-cn.com/problems/guess-number-higher-or-lower/)
+
+- 二分查找
 
 ## 思维题
 
