@@ -677,6 +677,94 @@ c++可以通过c_str()将字符串转const char *c 指针指向型的字符数�
 
   最后返回队列第一个元素即可
 
+### KMP
+
+自己写的算法：
+
+```java
+// next数组
+public static List<Integer> nextNum(String s){
+    List<Integer> next = new ArrayList<>();
+    next.add(0);
+    int j = 0;
+    int i = 1;
+    while(i < s.length()){
+        if(s.charAt(i) == s.charAt(j)){
+            next.add(j + 1);
+            i++;
+            j++;
+        }else{
+            if(j != 0){
+                j = next.get(j - 1);
+                while(j != 0 && s.charAt(j) != s.charAt(i)){
+                    j = next.get(j - 1);
+                }
+            }
+            if(j == 0){
+                next.add(0);
+            }else{
+                next.add(next.get(j) + 1);
+            }
+            i++;
+        }
+    }
+    return next;
+}
+// KMP
+public static boolean isSubString(String pattern, String s){
+    List<Integer> next = nextNum(pattern);
+    int i = 0;
+    int j = 0;
+    while(i < pattern.length() && j < s.length()){
+        if(pattern.charAt(i) == s.charAt(j)){
+            i++;
+        }else{
+            if(i != 0){
+                i = next.get(i - 1);
+                while(i != 0 && pattern.charAt(i) != s.charAt(j)){
+                    i = next.get(i - 1);
+                }
+            }
+            if(pattern.charAt(i) == s.charAt(j)) {
+                i++;
+            }
+        }
+        j++;
+    }
+    return i == pattern.length();
+}
+```
+
+### [389. Find the Difference](https://leetcode-cn.com/problems/find-the-difference/)
+
+- 哈希表
+
+- 计数
+
+  先记录长度小的字符串中字符的频数，在此基础上减去另一个字符串中字符的频数，一旦出现频数为负的字符，该字符就是我们要求的字符
+
+- 求和
+
+  两个字符串求和之后相减即可
+
+- 位运算
+
+  原理跟求和一样
+
+### [392. Is Subsequence](https://leetcode-cn.com/problems/is-subsequence/)
+
+- 双指针
+
+- 动态规划
+
+  目标是记录大字符串每个字符后面所有字符出现的绝对下标位置
+
+  核心思想：大字符串后每个字符出现的位置要么就是当前下标，要么就是以后面的字符为基准当前字符的下标加1（上面这句话就能构建转移方程），而且如果是这么来做的话就需要从大字符串尾部开始往前遍历做记录
+
+  我们使用一个二维数组来维护这些下标
+
+  此后遍历小字符串，我们能以时间复杂度`O(1)`直接找到每个字符在大字符串中的位置，如果有一个字符找不到下标就直接返回`false`
+
 ## 链表
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
