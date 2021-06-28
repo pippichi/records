@@ -298,6 +298,13 @@ int main(){
 
   取10位二进制，前4位为时，后6位为分，从这10位二进制所能表达的所有数中去做筛选
 
+### [414. Third Maximum Number](https://leetcode-cn.com/problems/third-maximum-number/)
+
+- 直接排序，设置计数器，得到第三大的数
+- 使用集合
+  - 将数放入集合中，维护三个变量`a、b、c`放前三大的数，遍历一遍之后`c`即为第三大的数
+  - 将数放入集合中，使用`reverse_iterator`得到第三大的数
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -425,6 +432,14 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 - 广度
 
   需要注意路径字符串是如何与每一条路径一一对应的（维护双队列）
+
+### [404. Sum of Left Leaves](https://leetcode-cn.com/problems/sum-of-left-leaves/)
+
+- 深度优先
+  - 递归
+  - 迭代
+- 广度优先
+  - 迭代
 
 ## 字符串
 
@@ -774,6 +789,35 @@ public static boolean isSubString(String pattern, String s){
   我们使用一个二维数组来维护这些下标
 
   此后遍历小字符串，我们能以时间复杂度`O(1)`直接找到每个字符在大字符串中的位置，如果有一个字符找不到下标就直接返回`false`
+
+### [409. Longest Palindrome](https://leetcode-cn.com/problems/longest-palindrome/)
+
+- 贪心
+
+  核心思想：统计所有字符出现的频数，然后计算以每个频数本身为最大界限的最大偶数，相加，如果出现频数为奇数的情况，最终的加和结果需要再加一（回文字符串中只能出现0或1个频数为奇数的字符，如：`abba`、`abcccba`）
+
+  - 使用hash表存储频数
+  - 使用数组存储频数
+
+### [412. Fizz Buzz](https://leetcode-cn.com/problems/fizz-buzz/)
+
+- 模拟法
+
+  先判断能不能被3和5整除，再判断能不能被3整除，再判断能不能被5整除
+
+- 字符串拼接
+
+  如果能被3整除，则拼入`Fizz`，如果能被5整除，则拼入`Buzz`
+
+  这种做法比起上面的模拟法更加优雅，更好扩展
+
+- 二叉树
+
+  在字符串拼接法的基础上，将`3`对应`“Fizz”`，`5`对应`“Buzz”`这些条件放入有序map中维护，使得映射关系更加自由
+
+- 哈希表
+
+  核心思想：在`1 <= i <= n`的范围内，所有3的倍数的数都追加`"Fizz"`，所有5的倍数的数都直接追加`"Buzz"`，配合哈希表，我们就可以得到`1 - n`范围内所有3或5的倍数的数对应的字符串是哪个了
 
 ## 链表
 
@@ -1420,6 +1464,16 @@ string i2n(int n, int radix)
 ### [374. Guess Number Higher or Lower](https://leetcode-cn.com/problems/guess-number-higher-or-lower/)
 
 - 二分查找
+
+### [405. Convert a Number to Hexadecimal](https://leetcode-cn.com/problems/convert-a-number-to-hexadecimal/)
+
+- 二进制的4位能算出十六进制的1位
+  - 逻辑右移
+    - `c++`中需要使用无符号数，然后使用`>>`
+    - `c++`中也可以不使用无符号数，限制数右移的次数也可（假设在32位机器上，每一次右移4位，则限制移8次）
+    - `Java`中需要使用`>>>`
+    - Java中也可以使用`>>`，限制数右移的次数即可（假设在32位机器上，每一次右移4位，则限制移8次）
+  - 维护一个大小为32的int型数组用于保存数的二进制形式，再4位4位地计算出数的十六进制形式
 
 ## 思维题
 
