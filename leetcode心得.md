@@ -305,6 +305,83 @@ int main(){
   - 将数放入集合中，维护三个变量`a、b、c`放前三大的数，遍历一遍之后`c`即为第三大的数
   - 将数放入集合中，使用`reverse_iterator`得到第三大的数
 
+### [448. Find All Numbers Disappeared in an Array](https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/)
+
+- 维护一个数组用于记录范围内哪些数是出现过的哪些数是没有出现过的
+
+- 上面法一的空间复杂度为`O(n)`，现在我们要将它优化为`O(1)`
+
+  既然要将空间复杂度优化为`O(1)`，那么就不能再像法一那样维护一个额外的数组了，这里我们使用原数组本身
+
+  核心思想：原数组长度为`n`，原数组中出现的数的范围都在`1-n`之间，那么遍历原数组，遍历到的每个数减一之后的数当作下标，该下标对应的数增加`n`，再次遍历原数组，如果遇到数小于或等于`n`，则表示该数对应的下标加一之后的数没有出现在原数组
+
+### [453. Minimum Moves to Equal Array Elements](https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/)
+
+- 暴力法
+
+  开启一个最外层while循环，循环内部遍历找到数组最大最小值所对应的下标（`max_index`和`min_index`），判断这两个下标对应的数是否相等，如果相等则退出最外层循环，反之遍历数组，让不是`max_index`的下标所对应的数都加一，同时计数器加一，重复操作直到退出最外层循环，最终计数器的值就是我们要求的值
+
+- 暴力法改进
+
+  暴力法中我们将不是`max_index`的下标所对应的数都加一，事实上我们可以维护一个变量`diff`，它保存最大最小值之差，因为最终目的一定是让最小值加到跟最大值一样大，所以干脆直接一步到位，将不是`max_index`的下标所对应的数都加`diff`，同时计数器也加`diff`，其余操作跟暴力法一致，最终计数器的值就是我们要求的值
+
+- 利用排序
+
+  排序之后可以以时间复杂度`O(1)`得到最大最小值之差。因为最终目的一定是让最小值加到跟最大值一样大，所以第一次加完之后`a[0] == a[n - 1]`，此时`a[n - 2]`变最大值，而最小值仍然是`a[0]`，依次的，每加完一次，最大值就会变成`a[n - 3]、a[n - 4]、a[n - 5]、...`，而每次加的步长也很好求，就是最大最小值之差，而这些步长的累加就是我们要求的值
+
+- 动态规划
+
+  - 记录步长，并作累加。根据前一步累加的步长，更新自身的值
+
+    ```c++
+    int minMoves(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int i = 1;
+        int ret = 0;
+        int size_nums = nums.size();
+        for(; i < size_nums; i++){
+            int diff = ret + nums[i] - nums[i - 1];
+            nums[i] += ret;
+            ret += diff;
+        }
+        return ret;
+    }
+    ```
+
+  - 记录步长，并作累加
+
+    ```c++
+    int minMoves(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int i = 1;
+        int size_nums = nums.size();
+        int diff = 0;
+        int ret = 0;
+        for(; i < size_nums; i++){
+            // 步长累加
+            diff = diff + nums[i] - nums[i - 1];
+            ret += diff;
+        }
+        return ret;
+    }
+    ```
+
+- 数学
+
+  核心思想：将除了一个元素之外的全部元素`+1`，等价于将该元素`-1`
+
+  所以只需要将所有元素减到跟最小值一样，记录步长即可
+
+  用数学语言表述：`求得数组最小值为min_num，对于数组中的每个数i，累加(i - min_num)`
+
+  - 可以先累加数组中所有的数，再减去最小值乘数组长度（一次for循环累加数的同时找到最小值）
+
+    这样做可能会导致整型溢出
+
+  - 也可以即时求出每个数与最小值之间的差值，然后做累加（一次for循环找到最小值，一次for循环做累加）
+
+    这样做就能解决整型溢出的问题了
+
 ## 树
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
@@ -818,6 +895,20 @@ public static boolean isSubString(String pattern, String s){
 - 哈希表
 
   核心思想：在`1 <= i <= n`的范围内，所有3的倍数的数都追加`"Fizz"`，所有5的倍数的数都直接追加`"Buzz"`，配合哈希表，我们就可以得到`1 - n`范围内所有3或5的倍数的数对应的字符串是哪个了
+
+### [415. Add Strings](https://leetcode-cn.com/problems/add-strings/)
+
+- 模拟法
+
+  按照算盘加减法来写即可
+
+### [434. Number of Segments in a String](https://leetcode-cn.com/problems/number-of-segments-in-a-string/)
+
+- 内置函数
+
+- 朴素遍历
+
+  根据事物客观现象直接写出代码
 
 ## 链表
 
@@ -1474,6 +1565,15 @@ string i2n(int n, int radix)
     - `Java`中需要使用`>>>`
     - Java中也可以使用`>>`，限制数右移的次数即可（假设在32位机器上，每一次右移4位，则限制移8次）
   - 维护一个大小为32的int型数组用于保存数的二进制形式，再4位4位地计算出数的十六进制形式
+
+### [441. Arranging Coins](https://leetcode-cn.com/problems/arranging-coins/)
+
+- 数学
+
+  根据题意结合等差数列求和公式可以得到：`(1 + k) * k / 2 <= n`，从而得到`k`的取值范围，之后可以使用：
+
+  - 朴素遍历得到范围中符合题意的最大的`k`
+  - 二分查找得到符合题意的最大的`k`
 
 ## 思维题
 
