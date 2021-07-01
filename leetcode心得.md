@@ -10,6 +10,34 @@
 
   用哈希表维护已经被遍历过的元素
 
+### [14. Longest Common Prefix](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+- 横向扫描
+
+  以字符串为单位对比
+
+- 纵向扫描
+
+  以字符为单位对比
+
+- 分治
+
+  以字符串为单位分组
+
+- 二分查找
+
+  以字符为单位分组
+
+### [26. Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+- 双指针（快慢指针）
+
+### [27. Remove Element](https://leetcode-cn.com/problems/remove-element/)
+
+- 双指针
+  - 快慢指针，慢指针可以顺便计数
+  - 头尾指针，头指针可以顺便计数
+
 ### [70. Climbing Stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
 - 动态规划
@@ -534,6 +562,12 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 
 - 模拟法
 
+### [20. Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/)
+
+- 栈和哈希表
+
+  注意括号必须以正确的顺序闭合，并且交叉闭合是不允许的，如`"([)]"`是不允许的
+
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
 - 先去除非数字字母的字符，最后reverse()对比两个字符串是否相等
@@ -925,6 +959,55 @@ public static boolean isSubString(String pattern, String s){
   根据事物客观现象直接写出代码
 
 ## 链表
+
+### [21. Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+- 迭代
+
+- 递归
+
+  - 法一
+
+    ```c++
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* temp = nullptr;
+        if(l1 && l2){
+            if(l1 -> val > l2 -> val){
+                temp = l2;
+                l2 = l2 -> next;
+            }else{
+                temp = l1;
+                l1 = l1 -> next;
+            }
+            temp -> next = mergeTwoLists(l1, l2);
+        }else if(l1){
+            temp = l1;
+        }else if(l2){
+            temp = l2;
+        }
+        return temp;
+    }
+    ```
+
+  - 法二
+
+    ```c++
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == nullptr){
+            return l2;
+        }else if(l2 == nullptr){
+            return l1;
+        }else if(l1 -> val > l2 -> val){
+            l2 -> next = mergeTwoLists(l1, l2 -> next);
+            return l2;
+        }else{
+            l1 -> next = mergeTwoLists(l1 -> next, l2);
+            return l1;
+        }
+    }
+    ```
+
+    
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
 
