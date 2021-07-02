@@ -38,6 +38,10 @@
   - 快慢指针，慢指针可以顺便计数
   - 头尾指针，头指针可以顺便计数
 
+### [35. Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)
+
+- 二分查找
+
 ### [70. Climbing Stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
 - 动态规划
@@ -568,6 +572,14 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 
   注意括号必须以正确的顺序闭合，并且交叉闭合是不允许的，如`"([)]"`是不允许的
 
+### [28. Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+
+- 暴力匹配
+
+  要注意在匹配过程中主串下标可能会越界
+
+- KMP
+
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
 - 先去除非数字字母的字符，最后reverse()对比两个字符串是否相等
@@ -841,7 +853,6 @@ public static List<Integer> nextNum(String s){
     while(i < s.length()){
         if(s.charAt(i) == s.charAt(j)){
             next.add(j + 1);
-            i++;
             j++;
         }else{
             if(j != 0){
@@ -850,13 +861,14 @@ public static List<Integer> nextNum(String s){
                     j = next.get(j - 1);
                 }
             }
-            if(j == 0){
-                next.add(0);
-            }else{
+            if(s.charAt(j) == s.charAt(i)){
                 next.add(next.get(j) + 1);
+                j++;
+            }else{
+                next.add(0);
             }
-            i++;
         }
+        i++;
     }
     return next;
 }
