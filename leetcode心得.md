@@ -42,6 +42,16 @@
 
 - 二分查找
 
+### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
+
+- 动态规划
+
+  维护两个变量，一个记录局部最优，另一个记录诸多局部最优中的最大值
+
+- 分治
+
+  抽象来看，每一个段都可以分成左半段和右半段，而左半段和右半段又各自为一个段。假设每一个段有4个属性：`lSum（左半段部分连续元素加和能得到的最大值）`、`rSum（右半段部分连续元素加和能得到的最大值）`、`iSum（整段元素加和的值）`、`mSum（该段元素部分连续元素加和能得到的最大值）`，那么每一个段的`mSum`就是`左半段的mSum`、`右半段的mSum`、`左半段的rSum + 右半段的lSum`这三者的最大值，对于`iSum`，`iSum = 左半段iSum + 右半段iSum`，对于`lSum`，`lSum = max(左半段lSum, 左半段iSum + 右半段lSum)`，对于`rSum`，`rSum = max(右半段rSum, 右半段iSum + 左半段rSum)`。按照这个逻辑，最终求得的整个段的`mSum`即为解。
+
 ### [70. Climbing Stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
 - 动态规划
@@ -579,6 +589,10 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
   要注意在匹配过程中主串下标可能会越界
 
 - KMP
+
+### [58. Length of Last Word](https://leetcode-cn.com/problems/length-of-last-word/)
+
+- 尾指针
 
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
