@@ -52,6 +52,12 @@
 
   抽象来看，每一个段都可以分成左半段和右半段，而左半段和右半段又各自为一个段。假设每一个段有4个属性：`lSum（左半段部分连续元素加和能得到的最大值）`、`rSum（右半段部分连续元素加和能得到的最大值）`、`iSum（整段元素加和的值）`、`mSum（该段元素部分连续元素加和能得到的最大值）`，那么每一个段的`mSum`就是`左半段的mSum`、`右半段的mSum`、`左半段的rSum + 右半段的lSum`这三者的最大值，对于`iSum`，`iSum = 左半段iSum + 右半段iSum`，对于`lSum`，`lSum = max(左半段lSum, 左半段iSum + 右半段lSum)`，对于`rSum`，`rSum = max(右半段rSum, 右半段iSum + 左半段rSum)`。按照这个逻辑，最终求得的整个段的`mSum`即为解。
 
+### [66. Plus One](https://leetcode-cn.com/problems/plus-one/)
+
+- 数学
+
+  逢十进一
+
 ### [70. Climbing Stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
 - 动态规划
@@ -594,6 +600,63 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 
 - 尾指针
 
+### [67. Add Binary](https://leetcode-cn.com/problems/add-binary/)
+
+- 先将两个数转成10进制，相加之后再转成2进制字符串
+
+  需要注意整型溢出
+
+  该方法事实上不健壮，设想如果给定的二进制字符串非常长，那么它肯定是会导致整型溢出的
+
+- 模拟
+
+  逢二进一
+
+  ```java
+  public String addBinary(String a, String b) {
+      StringBuffer ans = new StringBuffer();
+      int n = Math.max(a.length(), b.length()), carry = 0;
+      for (int i = 0; i < n; ++i) {
+          carry += i < a.length() ? (a.charAt(a.length() - 1 - i) - '0') : 0;
+          carry += i < b.length() ? (b.charAt(b.length() - 1 - i) - '0') : 0;
+          ans.append((char) (carry % 2 + '0'));
+          carry /= 2;
+      }
+      if (carry > 0) {
+          ans.append('1');
+      }
+      ans.reverse();
+      return ans.toString();
+  }
+  ```
+
+- 位运算
+
+  首先两个二进制数相加，如果不考虑进位的话其实就是一个异或运算，如果在此基础上再考虑上进位的话就是相加的真正结果
+
+  我们可以设计这样的算法来计算：
+
+  ​	1、把 `a` 和 `b` 转换成整型数字 `x` 和 `y`，在接下来的过程中，`x` 保存结果，`y` 保存进位。
+
+  ​	2、当进位不为 `0` 时：
+  ​			计算当前 `x` 和`y`的无进位相加结果：`answer = x ^ y`
+  ​			计算当前 `x` 和 `y` 的进位：`carry = (x & y) << 1`
+  ​			完成本次循环，更新 `x = answer`，`y = carry`
+
+  ​	3、退出循环，返回 `x` 的二进制形式
+
+  ```python
+  def addBinary(self, a, b) -> str:
+      x, y = int(a, 2), int(b, 2)
+      while y:
+          answer = x ^ y
+          carry = (x & y) << 1
+          x, y = answer, carry
+      return bin(x)[2:] # '0bxxxx' -> 'xxxx'
+  ```
+
+
+
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
 - 先去除非数字字母的字符，最后reverse()对比两个字符串是否相等
@@ -1033,7 +1096,9 @@ public static boolean isSubString(String pattern, String s){
     }
     ```
 
-    
+### [83. Remove Duplicates from Sorted List](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+- 单指针单次遍历
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
 
@@ -1258,6 +1323,25 @@ public static boolean isSubString(String pattern, String s){
   注意奇数的处理（翻转后让较大的数除以10）
 
 - 将数转成字符串后使用双指针
+
+### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
+
+- 袖珍计算器算法
+
+  将`sqrt`算式转化为以`e`为底的算式，再计算
+
+  注意： 由于计算机无法存储浮点数的精确值，而指数函数和对数函数的参数和返回值均为浮点数，因此运算过程中会存在误差。例如当 `x = 2147395600`时的计算结果与正确值 `4634046340` 相差 `10^-11` ，这样在对结果取整数部分时，会得到 `4633946339` 这个错误的结果。
+
+  因此在得到结果的整数部分`x`后，我们应当找出`x`和`x + 1`哪一个才是真正的答案。
+
+
+- 二分查找
+
+  注意整型溢出
+
+- 牛顿迭代
+
+  思路：可以将问题转化为求曲线`f(x) = x ^ 2 + C`在`x轴`的正交点，假设点`(xi, xi ^ xi + C)`在曲线`f(x)`上，则可以求出经过该点且斜率为在曲线`f(x)`上该点的斜率的直线方程（确定一个点，确定斜率，则一定可以求出直线的直线方程），此时根据牛顿迭代求该直线`y(x) = 0`的解即为相较于`xi`更靠近真实解的一个解`xj`，由于牛顿迭代只能无限接近真实解，因此当`xi`和`xj`之差小于`epsilon（这里我们设定为1e-7）`，即可跳出迭代，此时`xj`的整数部分即为解。根据上述逻辑我们就能写代码编程求解了。
 
 ### [172. Factorial Trailing Zeroes](https://leetcode-cn.com/problems/factorial-trailing-zeroes/)
 
