@@ -1,5 +1,57 @@
 ## 数组
 
+### [1. Two Sum](https://leetcode-cn.com/problems/two-sum/)
+
+- 暴力枚举
+
+- 哈希表
+
+  遍历一次
+
+  用哈希表维护已经被遍历过的元素
+
+### [14. Longest Common Prefix](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+- 横向扫描
+
+  以字符串为单位对比
+
+- 纵向扫描
+
+  以字符为单位对比
+
+- 分治
+
+  以字符串为单位分组
+
+- 二分查找
+
+  以字符为单位分组
+
+### [26. Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+- 双指针（快慢指针）
+
+### [27. Remove Element](https://leetcode-cn.com/problems/remove-element/)
+
+- 双指针
+  - 快慢指针，慢指针可以顺便计数
+  - 头尾指针，头指针可以顺便计数
+
+### [35. Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)
+
+- 二分查找
+
+### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
+
+- 动态规划
+
+  维护两个变量，一个记录局部最优，另一个记录诸多局部最优中的最大值
+
+- 分治
+
+  抽象来看，每一个段都可以分成左半段和右半段，而左半段和右半段又各自为一个段。假设每一个段有4个属性：`lSum（左半段部分连续元素加和能得到的最大值）`、`rSum（右半段部分连续元素加和能得到的最大值）`、`iSum（整段元素加和的值）`、`mSum（该段元素部分连续元素加和能得到的最大值）`，那么每一个段的`mSum`就是`左半段的mSum`、`右半段的mSum`、`左半段的rSum + 右半段的lSum`这三者的最大值，对于`iSum`，`iSum = 左半段iSum + 右半段iSum`，对于`lSum`，`lSum = max(左半段lSum, 左半段iSum + 右半段lSum)`，对于`rSum`，`rSum = max(右半段rSum, 右半段iSum + 左半段rSum)`。按照这个逻辑，最终求得的整个段的`mSum`即为解。
+
 ### [70. Climbing Stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
 - 动态规划
@@ -520,6 +572,28 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 
 ## 字符串
 
+### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
+
+- 模拟法
+
+### [20. Valid Parentheses](https://leetcode-cn.com/problems/valid-parentheses/)
+
+- 栈和哈希表
+
+  注意括号必须以正确的顺序闭合，并且交叉闭合是不允许的，如`"([)]"`是不允许的
+
+### [28. Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+
+- 暴力匹配
+
+  要注意在匹配过程中主串下标可能会越界
+
+- KMP
+
+### [58. Length of Last Word](https://leetcode-cn.com/problems/length-of-last-word/)
+
+- 尾指针
+
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
 - 先去除非数字字母的字符，最后reverse()对比两个字符串是否相等
@@ -793,7 +867,6 @@ public static List<Integer> nextNum(String s){
     while(i < s.length()){
         if(s.charAt(i) == s.charAt(j)){
             next.add(j + 1);
-            i++;
             j++;
         }else{
             if(j != 0){
@@ -802,13 +875,14 @@ public static List<Integer> nextNum(String s){
                     j = next.get(j - 1);
                 }
             }
-            if(j == 0){
-                next.add(0);
-            }else{
+            if(s.charAt(j) == s.charAt(i)){
                 next.add(next.get(j) + 1);
+                j++;
+            }else{
+                next.add(0);
             }
-            i++;
         }
+        i++;
     }
     return next;
 }
@@ -911,6 +985,55 @@ public static boolean isSubString(String pattern, String s){
   根据事物客观现象直接写出代码
 
 ## 链表
+
+### [21. Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+- 迭代
+
+- 递归
+
+  - 法一
+
+    ```c++
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* temp = nullptr;
+        if(l1 && l2){
+            if(l1 -> val > l2 -> val){
+                temp = l2;
+                l2 = l2 -> next;
+            }else{
+                temp = l1;
+                l1 = l1 -> next;
+            }
+            temp -> next = mergeTwoLists(l1, l2);
+        }else if(l1){
+            temp = l1;
+        }else if(l2){
+            temp = l2;
+        }
+        return temp;
+    }
+    ```
+
+  - 法二
+
+    ```c++
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == nullptr){
+            return l2;
+        }else if(l2 == nullptr){
+            return l1;
+        }else if(l1 -> val > l2 -> val){
+            l2 -> next = mergeTwoLists(l1, l2 -> next);
+            return l2;
+        }else{
+            l1 -> next = mergeTwoLists(l1 -> next, l2);
+            return l1;
+        }
+    }
+    ```
+
+    
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
 
@@ -1117,6 +1240,24 @@ public static boolean isSubString(String pattern, String s){
   该方法巧妙且充分地利用了两个栈的空间，思路非常值得学习
 
 ## 数
+
+### [7. Reverse Integer](https://leetcode-cn.com/problems/reverse-integer/)
+
+- 数学
+
+  需要注意的是传进来的实参就是int型，因此极限状况下最高位是不可能大于2的，这是一个关键点，因为题目不让用64位整数，所以在向左进位的时候只能提前判断数是否会整型溢出，但是在加末尾数的时候是不需要提前判断的，原因是我们已经得知在极限状况下最高位数不可能大于2，而极限状况下int型数最大值末尾数是7，而7一定是大于2的所以在加末尾数的时候是一定不会溢出的
+
+### [9. Palindrome Number](https://leetcode-cn.com/problems/palindrome-number/)
+
+- 将数翻转后再比较是否与原数相等
+
+  注意整型溢出
+
+- 将数从左向右翻转一半后与另一半比较大小
+
+  注意奇数的处理（翻转后让较大的数除以10）
+
+- 将数转成字符串后使用双指针
 
 ### [172. Factorial Trailing Zeroes](https://leetcode-cn.com/problems/factorial-trailing-zeroes/)
 

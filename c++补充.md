@@ -578,3 +578,19 @@ boost::intrusive_ptr属于 boost 库，定义在 namespace boost 中，包含头
 4、在需要访问 boost::shared_ptr 对象，而又不想改变其引用计数的情况下，使用boost::weak_ptr，一般常用于软件框架设计中。
 
 5、最后一点，也是要求最苛刻一点：在你的代码中，不要出现 delete 关键字（或 C 语言的free 函数），因为可以用智能指针去管理。
+
+# 函数
+
+## `min_element`
+
+根据规则从容器中找到某个元素
+
+示例：
+
+```c++
+int minSize(vector<string>& strs) {
+	int ret = min_element(strs.begin(), strs.end(), [](const string* s1, const string& s2) -> bool { return s1.size() < s2.size(); }) -> size();
+    return ret;
+}
+```
+
