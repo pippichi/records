@@ -159,6 +159,32 @@
 
   由于给定数组有序，因此采用头尾指针，如果指向元素之和小于目标值，就将头指针向后移，反之尾指针向前移，直到找到元素
 
+### [169. Majority Element](https://leetcode-cn.com/problems/majority-element/)
+
+- 哈希表
+
+- 排序
+
+  首先顺序排序
+
+  如果数组长度是奇数则取中间元素；如果长度是偶数则取中间位置右边的元素
+
+- 随机化
+
+  由于是选众数，因此随机选出的数很有可能就是众数
+
+- 分治
+
+  可以通过反证法证得：假设`a`是数组`nums`的众数，如果将`nums`分成左右两半，那么`a`一定也是左半边的众数或者右半边的众数。那么就可以先求得右半边和左半边的众数，再来确定这两个数谁才是数组真正的众数。
+
+  我们使用经典的分治算法递归求解，直到所有的子问题都是长度为 `1 `的数组。长度为 `1` 的子数组中唯一的数显然是众数，直接返回即可。如果回溯后某区间的长度大于` 1`，我们必须将左右子区间的值合并。如果它们的众数相同，那么显然这一段区间的众数是它们相同的值。否则，我们需要比较两个众数在整个区间内出现的次数来决定该区间的众数。
+
+- `Boyer-Moore 投票算法`
+
+  如果我们把众数记为 `+1`，把其他数记为`-1`，将它们全部加起来，显然和大于 `0`
+
+  那么就可以维护一个`candidate`变量，其初始值为数组第一个元素，我们假设它就是众数，随后开始遍历数组，如果遇到的数就是`candidate`，则计数器`+1`，反之`-1`，当计数器为`0`的时候，`candidate`变量在下一次遍历的时候发生改变，变为下一次遍历到的数，并且计数器`+1`，如此，当遍历到数组末尾的时候，如果存在众数，计数器必定大于`0`，并且此时`candidate`变量的值就是众数
+
 ### [198. House Robber](https://leetcode-cn.com/problems/house-robber/)
 
 - 典型的动态规划
@@ -440,7 +466,16 @@ int main(){
 
     这样做就能解决整型溢出的问题了
 
+### [455. Assign Cookies](https://leetcode-cn.com/problems/assign-cookies/)
+
+- 排序 + 贪心
+
 ## 树
+
+### [100. Same Tree](https://leetcode-cn.com/problems/same-tree/)
+
+- 深度优先遍历
+- 广度优先遍历
 
 ### [101. Symmetric Tree](https://leetcode-cn.com/problems/symmetric-tree/)
 
@@ -459,10 +494,24 @@ int main(){
   
   - 本质上就是将上述的两种方法结合的一种方法，只不过是在上述递归的基础上调用函数时由原先的function(root->left, root->right)变为function(root, root)，当然函数内部的一些细节还需要进行一些修改
 
+### [104. Maximum Depth of Binary Tree](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+
+- 深度优先
+
+  每次递归返回左树和右树深度的较大值加1
+
+- 广度优先
+
+  每遍历完树的一层，层数加1
+
 ### [107. Binary Tree Level Order Traversal II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/)
 
 - 迭代，可以选择对树的每一层做一个for循环遍历
 - 递归，用pair结构记录每一层的结点及其高度从而判断是否要向数组头部插入新数组，之后再向数组头部的数组添加元素，然后左右子树递归
+
+### [108. Convert Sorted Array to Binary Search Tree](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/)
+
+- 中序遍历，选择中间位置右边或左边的数字作为根节点
 
 ### [110. Balanced Binary Tree](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
@@ -490,6 +539,41 @@ int main(){
   - 技巧在于每次迭代都保存该结点的上层结点的值
   - 维护两个队列，一个用于保存结点，另一个用于保存该结点的值
   - 最后的判定条件为计算分支走到叶子结点的时候用于保存值的队列中的相应位置的值与该叶子结点的值之和，只要有一个分支通过这样的计算之后的值等于总合sum那就是符合题意的一棵树
+
+### [226. Invert Binary Tree](https://leetcode-cn.com/problems/invert-binary-tree/)
+
+- 递归
+
+  左右子树互换
+
+  - 解法一
+
+    ```c++
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return root;
+        TreeNode* temp = root -> left ;
+        root -> left = root -> right;
+        root -> right = temp;
+        invertTree(root -> left);
+        invertTree(root -> right);
+        return root;
+    }
+    ```
+
+  - 解法二
+
+    ```c++
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root) return root;
+        TreeNode* left = invertTree(root -> left);
+        TreeNode* right = invertTree(root -> right);
+        root -> left = right;
+        root -> right = left;
+        return root;
+    }
+    ```
+
+
 
 ### [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
 
@@ -1250,6 +1334,13 @@ public static boolean isSubString(String pattern, String s){
   
   注意点：1、如果最后在得出结果的同时我们还不希望原链表被修改，还可以再将第二段链表再反转一下，并将其拼接到第一段链表后面
 
+### [237. Delete Node in a Linked List](https://leetcode-cn.com/problems/delete-node-in-a-linked-list/)
+
+删除当前结点可以这么删：
+
+- 更改前结点指向为当前结点的下一个结点，并释放当前结点所占资源
+- 假设操作不了前结点，若当前结点不是链表末尾结点，则可以将下一个结点`a`的内容复制到当前结点，并更改当前结点指向为下下个结点，并按需释放`a`结点所占的资源；若当前结点是链表末尾结点，由于不能操作前结点的`next`指针，因此无法做删除
+
 ## 栈
 
 ### [155. Min Stack](https://leetcode-cn.com/problems/min-stack/)
@@ -1918,6 +2009,10 @@ int main(){
 
 ## SQL
 
+### [175. Combine Two Tables](https://leetcode-cn.com/problems/combine-two-tables/)
+
+- 联表查询
+
 ### [176. Second Highest Salary](https://leetcode-cn.com/problems/second-highest-salary/)
 
 - 注意去重
@@ -1928,6 +2023,11 @@ int main(){
 ### [181. Employees Earning More Than Their Managers](https://leetcode-cn.com/problems/employees-earning-more-than-their-managers/)
 
 联表查询，语法可以用sql92的也可以用sql99的
+
+### [182. Duplicate Emails](https://leetcode-cn.com/problems/duplicate-emails/)
+
+- 使用 `GROUP BY` 和临时表
+- 使用 `GROUP BY` 和 `HAVING` 条件
 
 ### [183. Customers Who Never Order](https://leetcode-cn.com/problems/customers-who-never-order/)
 
