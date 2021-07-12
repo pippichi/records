@@ -660,6 +660,95 @@ Morris 中序遍历的解法非常有技巧也非常复杂非常极限，建议�
 - 广度优先
   - 迭代
 
+### rubiks_rectangle
+
+有矩阵：
+
+```
+k1 k2 k3 k4
+k8 k7 k6 k5
+```
+
+现有三种变换：
+
+- row exchange
+
+  ```
+  k1 k2 k3 k4		->		k8 k7 k6 k5
+  k8 k7 k6 k5				k1 k2 k3 k4
+  ```
+
+- right circular shift
+
+  ```
+  k1 k2 k3 k4		->		k4 k1 k2 k3
+  k8 k7 k6 k5				k5 k8 k7 k6
+  ```
+
+- middle clockwise rotation
+
+  ```
+  k1 k2 k3 k4		->		k1 k7 k2 k4
+  k8 k7 k6 k5				k8 k6 k3 k5
+  ```
+
+假设对于给定矩阵，一定能通过上述三种变换并且在有限步骤之内变成另一个给定矩阵，求出这个过程中的最短步长是多少？
+
+- dfs
+
+  ```python
+  # 变换1
+  def c1(arr):
+      for i in range(4):
+          temp = arr[0][i]
+          arr[0][i] = arr[1][i]
+          arr[1][i] = temp
+      return arr
+  # 变换2
+  def c2(arr):
+      for i in range(2):
+          temp = arr[i][3]
+          for j in range(3, 0, -1):
+              arr[i][j] = arr[i][j - 1]
+          arr[i][0] = temp
+      return arr
+  # 变换3
+  def c3(arr):
+      temp = arr[0][1]
+      arr[0][1] = arr[1][1]
+      arr[1][1] = arr[1][2]
+      arr[1][2] = arr[0][2]
+      arr[0][2] = temp
+      return arr
+  def check(arr1, arr2):
+      for i in range(2):
+          for j in range(4):
+              if(arr1[i][j] != arr2[i][j]):
+                  return False
+      return True
+  
+  # dfs
+  def dfs(start_state, final_state):
+      q = [(start_state, 1)]
+      while q:
+          state_temp, counter = q[0]
+          del q[0]
+          state_temp_copy = deepcopy(state_temp)
+          if(check(state_temp_copy, final_state)):
+              return counter
+          new_state = c1(state_temp_copy)
+          q.append(tuple((new_state, counter + 1)))
+          state_temp_copy = deepcopy(state_temp)
+          new_state = c2(state_temp_copy)
+          q.append(tuple((new_state, counter + 1)))
+          state_temp_copy = deepcopy(state_temp)
+          new_state = c3(state_temp_copy)
+          q.append(tuple((new_state, counter + 1)))
+      return -1
+  ```
+
+  
+
 ## 字符串
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
@@ -1130,6 +1219,69 @@ public static boolean isSubString(String pattern, String s){
 - 朴素遍历
 
   根据事物客观现象直接写出代码
+
+### [459. Repeated Substring Pattern](https://leetcode-cn.com/problems/repeated-substring-pattern/)
+
+- 枚举
+
+  需要注意遍历枚举的时候起始下标应该要在`[1, n/2]`的范围之内（n为字符串长度）
+
+  还要注意枚举的字符串m应该满足`n % m == 0`（n为字符串长度）
+
+- 字符串匹配
+
+  可以证明得到`s 若为 s + s 的子串（s在s + s中的起始位置不应该是下标0或n（n为s的长度）），则s满足题目要求`这个命题的充分性和必要性
+
+  之后就可以给出代码：
+
+  ```c++
+  bool repeatedSubstringPattern(string s) {
+      return (s + s).find(s, 1) != s.size(); // find(s, 1)中的1表示从字符串下标为1的地方开始匹配
+  }
+  ```
+
+- kmp
+
+  思路跟`字符串匹配`方法的一样，只不过换用了kmp去匹配
+
+  需要注意的是不能使用一般的kmp去处理，因为`模式字符串s在s + s中的起始位置不应该是下标0或n（n为s的长度）`，言下之意还需要修改kmp算法，让模式字符串的起始位置不为0或n
+
+- 优化的kmp
+
+  易通过反证法证得：
+
+  - `满足题意的字符串的next数组fail中最后一个元素fail[n - 1] != -1（言下之意最后一个字符一定存在公共前缀）`
+
+  - `最短公共前后缀（类似于"aabaabaab"中的"aab"）的长度m一定满足：n % m == 0`。
+
+    思考一下这里的最短公共前后缀该怎么求？其实很简单：`若是满足题意的字符串，则最短公共前后缀 = 字符串长度 - (最长公共前缀 + 1（当前字符自身长度）)，由于官解的next数组fail中每个元素的初始值为-1，因此按照-1为初始值来求的话next数组中存放的元素其实就是当前下标字符的最长公共前缀，也就是说fail[n - 1]就是字符串最后一个字符的最长公共前缀，由此可以得到：最短公共前后缀x = s.size() - (fail[n - 1] + 1)`
+
+  经过分析可以给出代码：
+
+  ```c++
+  bool kmp(const string& pattern) {
+      int n = pattern.size();
+      // next数组
+      vector<int> fail(n, -1);
+      for (int i = 1; i < n; ++i) {
+          int j = fail[i - 1];
+          while (j != -1 && pattern[j + 1] != pattern[i]) {
+              j = fail[j];
+          }
+          if (pattern[j + 1] == pattern[i]) {
+              fail[i] = j + 1;
+          }
+      }
+      // 判定条件
+      return fail[n - 1] != -1 && n % (n - fail[n - 1] - 1) == 0;
+  }
+  
+  bool repeatedSubstringPattern(string s) {
+      return kmp(s);
+  }
+  ```
+
+  
 
 ## 链表
 
@@ -1890,6 +2042,22 @@ string i2n(int n, int radix)
 
   - 朴素遍历得到范围中符合题意的最大的`k`
   - 二分查找得到符合题意的最大的`k`
+
+### [461. Hamming Distance](https://leetcode-cn.com/problems/hamming-distance/)
+
+- 异或操作后使用内置位计数功能
+
+  比如Java的`Integer.bitCount()`
+
+- 异或操作后使用移位实现位计数
+
+- 使用Brian Kernighan 算法实现位计数
+
+  ```
+  x &= (x - 1)
+  ```
+
+  
 
 ## 思维题
 
