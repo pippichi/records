@@ -2057,7 +2057,6 @@ string i2n(int n, int radix)
   x &= (x - 1)
   ```
 
-  
 
 ## 思维题
 

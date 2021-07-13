@@ -377,6 +377,90 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
 
+## AutowireCapableBeanFactory
+
+以下是一段spring的applicationContext中的代码：
+
+```java
+/**
+* Expose AutowireCapableBeanFactory functionality for this context.
+* <p>This is not typically used by application code, except for the purpose
+* of initializing bean instances that live outside the application context,
+* applying the Spring bean lifecycle (fully or partly) to them.
+* <p>Alternatively, the internal BeanFactory exposed by the
+* {@link ConfigurableApplicationContext} interface offers access to the
+* AutowireCapableBeanFactory interface too. The present method mainly
+* serves as convenient, specific facility on the ApplicationContext
+* interface itself.
+* @return the AutowireCapableBeanFactory for this context
+* @throws IllegalStateException if the context does not support
+* the AutowireCapableBeanFactory interface or does not hold an autowire-capable
+* bean factory yet (usually if {@code refresh()} has never been called)
+* @see ConfigurableApplicationContext#refresh()
+* @see ConfigurableApplicationContext#getBeanFactory()
+*/
+AutowireCapableBeanFactory getAutowireCapableBeanFactory() throws IllegalStateException;
+```
+
+这里说的意思就是通过getAutowireCapableBeanFactory这个方法将 AutowireCapableBeanFactory这个接口暴露给外部使用， AutowireCapableBeanFactory这个接口一般在applicationContext的内部是较少使用的，它的功能主要是为了装配applicationContext管理之外的Bean。
+
+另一段是AutowireCapableBeanFactory接口中的源码：
+
+```java
+/**
+* Autowire the bean properties of the given bean instance by name or type.
+* Can also be invoked with {@code AUTOWIRE_NO} in order to just apply
+* after-instantiation callbacks (e.g. for annotation-driven injection).
+* <p>Does <i>not</i> apply standard {@link BeanPostProcessor BeanPostProcessors}
+* callbacks or perform any further initialization of the bean. This interface
+* offers distinct, fine-grained operations for those purposes, for example
+* {@link #initializeBean}. However, {@link InstantiationAwareBeanPostProcessor}
+* callbacks are applied, if applicable to the configuration of the instance.
+* @param existingBean the existing bean instance
+* @param autowireMode by name or type, using the constants in this interface
+* @param dependencyCheck whether to perform a dependency check for object
+* references in the bean instance
+* @throws BeansException if wiring failed
+* @see #AUTOWIRE_BY_NAME
+* @see #AUTOWIRE_BY_TYPE
+* @see #AUTOWIRE_NO
+*/
+void autowireBeanProperties(Object existingBean, int autowireMode, boolean dependencyCheck) throws BeansException;
+```
+
+这个方法的作用就是将传入的第一个参数按照spring中按name或者按type装备的方法将传入的Bean的各个properties给装配上。
+
+总结来讲：
+
+```
+	对于想要拥有自动装配能力，并且想把这种能力暴露给外部应用的BeanFactory类需要实现此接口。 
+	正常情况下，不要使用此接口，应该更倾向于使用BeanFactory或者ListableBeanFactory接口。此接口主要是针对框架之外，没有向Spring托管Bean的应用。通过暴露此功能，Spring框架之外的程序，具有自动装配等Spring的功能。 
+	需要注意的是，ApplicationContext接口并没有实现此接口，因为应用代码很少用到此功能，如果确实需要的话，可以调用ApplicationContext的getAutowireCapableBeanFactory方法，来获取此接口的实例。 
+	如果一个类实现了此接口，那么很大程度上它还需要实现BeanFactoryAware接口。它可以在应用上下文中返回BeanFactory。
+```
+
+示例：
+
+```java
+@Component
+public class JobFactory extends AdaptableJobFactory {
+
+    @Autowired
+    private AutowireCapableBeanFactory  capableBeanFactory;
+
+    @Override
+    protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception {
+        // 调用父类的方法
+        Object jobInstance = super.createJobInstance(bundle);
+        // 进行注入
+        capableBeanFactory.autowireBean(jobInstance);
+        return jobInstance;
+    }
+}
+```
+
+
+
 # 静态文件存储位置
 
 在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
