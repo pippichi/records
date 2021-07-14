@@ -470,6 +470,18 @@ int main(){
 
 - 排序 + 贪心
 
+### [463. Island Perimeter](https://leetcode-cn.com/problems/island-perimeter/)
+
+- 迭代
+
+  叠加岛屿格子符合题意的边
+
+- 深度优先
+
+  找到一个岛屿格子，从该格子开始向四周递归蔓延叠加符合题意的边
+
+  需要注意重复遍历的问题
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -2435,3 +2447,21 @@ int main(){
 - grep -vc "^$" file.txt
 - ...
 
+## 多线程
+
+### [1114. Print in Order](https://leetcode-cn.com/problems/print-in-order/)
+
+- 使用原子变量
+- lock锁
+- semaphore信号量
+- CountDownLatch
+- 阻塞队列
+
+### [1115. Print FooBar Alternately](https://leetcode-cn.com/problems/print-foobar-alternately/)
+
+- BlockingQueue阻塞队列
+- CyclicBarrier循环栅栏
+- 自旋锁 + 让出CPU
+- 可重入锁 + Condition
+- synchronized + 标志位 + 唤醒
+- Semaphore信号量
