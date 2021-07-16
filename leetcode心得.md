@@ -2452,10 +2452,11 @@ int main(){
 ### [1114. Print in Order](https://leetcode-cn.com/problems/print-in-order/)
 
 - 使用原子变量
-- lock锁
+- 可重入锁 + Condition
+- synchronized + 标志位 + 唤醒
 - semaphore信号量
 - CountDownLatch
-- 阻塞队列
+- BlockingQueue阻塞队列
 
 ### [1115. Print FooBar Alternately](https://leetcode-cn.com/problems/print-foobar-alternately/)
 
