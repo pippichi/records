@@ -2457,6 +2457,7 @@ int main(){
 - semaphore信号量
 - CountDownLatch
 - BlockingQueue阻塞队列
+- LockSupport + AtomicReference（或ConcurrentHashMap）
 
 ### [1115. Print FooBar Alternately](https://leetcode-cn.com/problems/print-foobar-alternately/)
 
@@ -2466,3 +2467,16 @@ int main(){
 - 可重入锁 + Condition
 - synchronized + 标志位 + 唤醒
 - Semaphore信号量
+- LockSupport + AtomicReference（或ConcurrentHashMap）
+
+### [1116. Print Zero Even Odd](https://leetcode-cn.com/problems/print-zero-even-odd/)
+
+- BlockingQueue阻塞队列
+- 自旋锁 + 让出CPU
+- 可重入锁 + Condition
+- synchronized + 标志位 + 唤醒
+- Semaphore信号量
+- CyclicBarrier循环栅栏（超时）
+- 使用原子变量（超时）
+- LockSupport + AtomicReference（或ConcurrentHashMap）
+
