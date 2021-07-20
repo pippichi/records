@@ -578,3 +578,10 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 
 要将Client模块下的`application.yml`文件改为`bootstrap.yml`这是很关键的，因为`bootstrap.yml`是比`application.yml`先加载的，`bootstrap.yml`优先级高于`application.yml`
 
+# 接口文档生成与增强
+
+使用swagger配合knife4j
+
+# 文件系统
+
+可以使用minio或者fdfs

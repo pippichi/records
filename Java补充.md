@@ -963,3 +963,8 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 如果你只想涉及Mockito而不必涉及Spring，比如当你只想使用@Mock/@InjectMocks注解时，你可能就会只想使用@ExtendWith(MockitoExtension.class)，因为它不会加载很多不需要的Spring的东西。它替换了不推荐使用的JUnit4 @RunWith(MockitoJUnitRunner.class)。
 ```
 
+# Stream
+
+对于流其实已经了解的差不多了，包括里面的重点：平行流（`parallel()和parallelStream()`）和串行流（`sequential`），再补充一个`IntStream`
+
+具体使用参考博客：https://blog.csdn.net/qq_31865983/article/details/106443244
