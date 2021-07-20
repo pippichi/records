@@ -2480,3 +2480,11 @@ int main(){
 - 使用原子变量（超时）
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
+### [1117. Building H2O](https://leetcode-cn.com/problems/building-h2o/)
+
+- BlockingQueue阻塞队列
+- BlockingQueue + CyclicBarrier
+- 可重入锁 + Condition
+- synchronized + 标志位 + 唤醒
+- Semaphore信号量
+- Semaphore + CyclicBarrier
