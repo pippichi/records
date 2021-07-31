@@ -585,3 +585,8 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 # 文件系统
 
 可以使用minio或者fdfs
+
+# 网页报表系统
+
+可以使用Ureport2
+
