@@ -205,6 +205,15 @@ String pwd = ""; // 加密后的密文
 JasyptUtil.decyptPwd(password, pwd)
 ```
 
+# @RequestMapping
+
+url路径还能这么写：
+
+```java
+@RequestMapping("/**") // **表示 路径 / 之后的所有内容都匹配
+@RequestMapping("/xx/**") // **表示 路径 /xx/ 之后的所有内容都匹配
+```
+
 
 
 # @ControllerAdvice
