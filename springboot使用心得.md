@@ -571,6 +571,12 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 `@SpringBootApplication`中包含了`@ComponentScan`，因此`OrderApplication80.java`所在目录的文件夹`springcloud`及其子文件与子文件夹（简单点讲就是文件夹`springcloud`下的所有文件）都会被扫描，而文件夹`myrule`不在文件夹`springcloud`下，因此`myrule`不会被扫描
 
+# @Scope与@SessionScope、@RequestScope
+
+`@Scope参考博客：`https://www.cnblogs.com/nemowang1996/p/11195266.html
+
+`@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
+
 # 使用aop读取到项目下所有被注解标注的类或方法
 
 具体查看网络资料
@@ -598,4 +604,3 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 # 网页报表系统
 
 可以使用Ureport2
-
