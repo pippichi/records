@@ -2495,7 +2495,9 @@ int main(){
 - synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - 可重入锁 + Condition
 - LockSupport + AtomicReference（或ConcurrentHashMap）
-- BlockingQueue阻塞队列
-- Semaphore信号量
+- BlockingQueue阻塞队列（使用多个BlockingQueue）
+- Semaphore信号量（使用多个Semaphore）
 - CyclicBarrier（思路很棒！）
+- Semaphore信号量（使用一个Semaphore，大致思路跟CyclicBarrier一样）（思路很棒！）
+- BlockingQueue阻塞队列（使用一个BlockingQueue，大致思路跟CyclicBarrier一样）（思路很棒！）
 
