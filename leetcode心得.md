@@ -2453,7 +2453,7 @@ int main(){
 
 - 使用原子变量
 - 可重入锁 + Condition
-- synchronized + 标志位 + 唤醒
+- synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - semaphore信号量
 - CountDownLatch
 - BlockingQueue阻塞队列
@@ -2465,7 +2465,7 @@ int main(){
 - CyclicBarrier循环栅栏
 - 自旋锁 + 让出CPU
 - 可重入锁 + Condition
-- synchronized + 标志位 + 唤醒
+- synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - Semaphore信号量
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
@@ -2474,7 +2474,7 @@ int main(){
 - BlockingQueue阻塞队列
 - 自旋锁 + 让出CPU
 - 可重入锁 + Condition
-- synchronized + 标志位 + 唤醒
+- synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - Semaphore信号量
 - CyclicBarrier循环栅栏（超时）
 - 使用原子变量（超时）
@@ -2485,6 +2485,17 @@ int main(){
 - BlockingQueue阻塞队列
 - BlockingQueue + CyclicBarrier
 - 可重入锁 + Condition
-- synchronized + 标志位 + 唤醒
+- synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - Semaphore信号量
 - Semaphore + CyclicBarrier
+- LockSupport + AtomicReference（或ConcurrentHashMap）
+
+### [1195. Fizz Buzz Multithreaded](https://leetcode-cn.com/problems/fizz-buzz-multithreaded/)
+
+- synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
+- 可重入锁 + Condition
+- LockSupport + AtomicReference（或ConcurrentHashMap）
+- BlockingQueue阻塞队列
+- Semaphore信号量
+- CyclicBarrier（思路很棒！）
+
