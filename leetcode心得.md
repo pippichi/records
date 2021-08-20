@@ -2500,4 +2500,23 @@ int main(){
 - CyclicBarrier（思路很棒！）
 - Semaphore信号量（使用一个Semaphore，大致思路跟CyclicBarrier一样）（思路很棒！）
 - BlockingQueue阻塞队列（使用一个BlockingQueue，大致思路跟CyclicBarrier一样）（思路很棒！）
+- 自旋锁 + 让出CPU
+
+### [1226. The Dining Philosophers](https://leetcode-cn.com/problems/the-dining-philosophers/)
+
+- 串行，不加锁，同一时间只有一个人能吃饭
+
+- 并行
+
+  关键点在于避免死锁，易知死锁原因是：所有人都获得了右/左叉子，都在等左/右叉子，而左/右叉子都在别人身上导致死锁
+
+  - Semaphore或BlockingQueue限制就餐人数并使用Lock锁住资源（叉子），由于叉子是独立的，因此每一个叉子都要配备一把锁（至于如何区分叉子，可以尝试基于人的编号对叉子进行编号）
+
+  - 设置领域（领域抽象起来其实也是一把锁）并使用Lock锁住资源（叉子），在线程抢叉子之前，必须先进入领域才行，抢到叉子之后释放领域，让别的线程也能抢叉子，吃完后释放叉子
+
+  - 易知，可以让部分人先抢右叉子后抢左叉子，部分人先抢左叉子后抢右叉子来避免死锁
+
+  - 上面三种方法使用了Lock，此外还能使用自旋锁 + 让出CPU的方法来代替Lock（volatile + CAS = AtomicInteger，这一点值得思考：原子变量是可以替代Lock的）
+
+    
 
