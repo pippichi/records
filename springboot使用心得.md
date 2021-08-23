@@ -575,6 +575,8 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 `@Scope参考博客：`https://www.cnblogs.com/nemowang1996/p/11195266.html
 
+`@Scope的属性proxyMode（代理模式）的使用场景（坑点：在代理模式为TARGET_CLASS时，可能会导致Bean的set方法失效，具体案例：在mcs项目的websocket配置中注入了Bean，使用代理模式为：TARGET_CLASS，该Bean的set方法失效）`：https://blog.csdn.net/z1353095373/article/details/108234954
+
 `@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
 
 # 使用aop读取到项目下所有被注解标注的类或方法
@@ -604,3 +606,4 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 # 网页报表系统
 
 可以使用Ureport2
+
