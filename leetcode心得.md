@@ -482,6 +482,53 @@ int main(){
 
   需要注意重复遍历的问题
 
+### [485. Max Consecutive Ones](https://leetcode-cn.com/problems/max-consecutive-ones/)
+
+- 一次遍历，注意要考虑边界情况
+
+### [495. Teemo Attacking](https://leetcode-cn.com/problems/teemo-attacking/)
+
+- 法一
+
+  计算理想情况下所有的秒数，再减去多算的
+
+  ```c++
+  int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+      int sTimeSeries = timeSeries.size();
+      // 为了防止整型溢出，我们做了如下处理：
+      unsigned long long ret = (unsigned long long)sTimeSeries * (unsigned long long)duration;
+      for (int i = 1; i < sTimeSeries; i++) {
+          if (timeSeries[i] - timeSeries[i - 1] < duration) {
+              ret -= duration - (timeSeries[i] - timeSeries[i - 1]);
+          }
+      }
+      return ret;
+  }
+  ```
+
+- 法二
+
+  逐步计算累加
+
+  ```c++
+  int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+      int ret = 0;
+      for (int i = 1; i < timeSeries.size(); i++) {
+          ret += min(timeSeries[i] - timeSeries[i - 1], duration);
+      }
+      ret += duration;
+      return ret;
+  }
+  ```
+
+### [496. Next Greater Element I](https://leetcode-cn.com/problems/next-greater-element-i/)
+
+- 暴力法
+
+- 单调栈 + hashmap
+
+  遍历大的数组，如果栈内没有元素或者栈顶元素大于等于当前遍历到的数，则入栈，反之，栈内所有元素出栈，并将他们映射到当前遍历到的数，映射关系写到hashmap中。然后遍历小的数组，直接从hashmap取值，取不到则为`-1`，将结果放入列表中，该列表即为最终解。这里我们利用了栈内元素的单调性：**栈中的元素从栈顶到栈底是单调不降的**。
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -1293,7 +1340,9 @@ public static boolean isSubString(String pattern, String s){
   }
   ```
 
-  
+### [482. License Key Formatting](https://leetcode-cn.com/problems/license-key-formatting/)
+
+- 倒过来遍历，遇到`'-'`就跳过，反之就将字符加进字符串尾部，直到加字符的次数等于k次就在字符串尾部加`'-'`，最后用一个while循环去掉字符串尾部所有`'-'`，再将字符串反转即可。整个过程相当于将字符串中`'-'`全部去掉，然后从尾部向前以长度k来分割字符串，分割符号为`'-'`。需要注意在访问字符串的时候不要越界。
 
 ## 链表
 
@@ -2069,6 +2118,71 @@ string i2n(int n, int radix)
   x &= (x - 1)
   ```
 
+### [476. Number Complement](https://leetcode-cn.com/problems/number-complement/)
+
+- 暴力法
+
+  求数的二进制形式，再求其补数，最后再转十进制（注意整型溢出）
+
+- 异或运算
+
+  求得数的二进制形式的最高位的位数，将数字1左移这些位数（注意整型溢出）后减一，再与原数做异或运算
+
+### [492. Construct the Rectangle](https://leetcode-cn.com/problems/construct-the-rectangle/)
+
+- 使用内置函数sqrt后再找到差值最小的两个因数
+
+- 自己写sqrt，然后找到差值最小的两个因数
+
+  难点在于如何编写sqrt函数，参考最终代码：
+
+  ```python
+  def constructRectangle(self, num: int) -> List[int]:
+  	left, right = 1, num
+      while left < right:
+          mid = left + (right - left) // 2
+          temp = mid * mid
+          if temp <= num:
+              left = mid + 1
+          else: 
+              right = mid - 1
+      # 此时 left 或 (left - 1) 即是int(sqrt(num))
+      while left >= 0:
+          if num % left == 0:
+              return [int(num / left), left] if int(num / left) > left else [left, int(num / left)]
+          left -= 1
+      return [num, 1]
+  ```
+
+  对于c++来讲，还需要注意整型溢出（`temp = mid * mid`这里），参考最终代码：
+
+  ```c++
+  vector<int> constructRectangle(int area) {
+      int left = 1, right = area;
+      while (left < right) {
+          int mid = left + (right - left) / 2;
+          if (area / mid >= mid) { // 将乘法改成了除法，防止整型溢出
+              left = mid + 1;
+          } else {
+              right = mid - 1;
+          }
+      }
+  	// 此时 left 或 (left - 1) 即是(int)sqrt(num)
+      while (left >= 0) {
+          if (area % left == 0) {
+              if (area / left > left) {
+                  return { area / left, left };
+              } else {
+                  return { left, area / left };
+              }
+          }
+          left--;
+      }
+      return { area, 1 };
+  }
+  ```
+
+  
 
 ## 思维题
 
