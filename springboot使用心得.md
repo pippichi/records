@@ -583,7 +583,7 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 具体查看网络资料
 
-# 配置文件`application.yml`和`bootstrap.yml`
+# 配置文件`application.yml`、`bootstrap.yml`以及`application-override.yml`
 
 `application.yml`是用户级的资源配置项
 
@@ -594,6 +594,8 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 `Bootstrap`属性有高优先级，默认情况下，它们不会被本地配置覆盖，`Bootstrap Context`和`Application Context`有着不同的约定，所以新增了一个`bootstrap.yml`文件，保证`Bootstrap Context`和`Application Context`配置的分离。
 
 要将Client模块下的`application.yml`文件改为`bootstrap.yml`这是很关键的，因为`bootstrap.yml`是比`application.yml`先加载的，`bootstrap.yml`优先级高于`application.yml`
+
+`application-override.yml`用于强制覆盖父工程`.yml`中的配置
 
 # 接口文档生成与增强
 
@@ -606,4 +608,10 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 # 网页报表系统
 
 可以使用Ureport2
+
+# 系统监控
+
+除了使用`Spring Boot Admin`之外，还可以用`Prometheus`配合`Spring Boot Admin`来使用
+
+参考：https://blog.csdn.net/forezp/article/details/107465307
 
