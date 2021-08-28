@@ -501,7 +501,7 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
 # @Async与SpringBoot线程池配置
 
-具体看张润华的`supcon-parent`（**[详见项目infrastructure](https://github.com/pippichi/code_template)**）
+具体看张润华的`supcon-parent`
 
 **@Async与线程池搭配使用：**
 
