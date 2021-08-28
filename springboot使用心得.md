@@ -583,7 +583,9 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 具体查看网络资料
 
-# 配置文件`application.yml`、`bootstrap.yml`以及`application-override.yml`
+# 配置文件
+
+## `application.yml`、`bootstrap.yml`以及`application-override.yml`
 
 `application.yml`是用户级的资源配置项
 
@@ -596,6 +598,50 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 要将Client模块下的`application.yml`文件改为`bootstrap.yml`这是很关键的，因为`bootstrap.yml`是比`application.yml`先加载的，`bootstrap.yml`优先级高于`application.yml`
 
 `application-override.yml`用于强制覆盖父工程`.yml`中的配置
+
+## 激活其他配置文件
+
+`spring:profiles:include的妙用`
+
+参考博客：https://blog.csdn.net/jasnet_u/article/details/82995845
+
+## 激活配置文件组
+
+`spring:profiles:group配合spring:profiles:include`
+
+示例：
+
+```yaml
+# 假设有配置文件：
+	# application.yml
+	# application-base-log-prod.yml
+	# application-base-mp.yml
+	# application-base-json.yml
+	# application-base-admin.yml
+	# application-base-i18n.yml
+	# application-base-knif4j.yml
+	# application-base-fegin.yml
+	# application-base-log-dev.yml
+	# application-base-log.yml
+
+# 那么在配置文件application.yml中我们这样写就可以对配置文件进行分组并且激活base-prod组
+---
+spring:
+  profiles:
+    group:
+      base-prod: base-log-prod,base-mp,base-json,base-admin,base-i18n,base-knif4j,base-fegin
+---
+spring:
+  profiles:
+    group:
+      base-dev: base-log-dev,base-mp,base-json,base-admin,base-i18n,base-knif4j,base-fegin
+---
+spring:
+  profiles:
+    include: base-prod
+```
+
+
 
 # 接口文档生成与增强
 
@@ -615,3 +661,6 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 
 参考：https://blog.csdn.net/forezp/article/details/107465307
 
+# SpringCloud+Spring Security+OAuth2 + JWT + Gateway
+
+参考：https://blog.csdn.net/lbjfish/article/details/109187316
