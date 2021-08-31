@@ -1344,6 +1344,10 @@ public static boolean isSubString(String pattern, String s){
 
 - 倒过来遍历，遇到`'-'`就跳过，反之就将字符加进字符串尾部，直到加字符的次数等于k次就在字符串尾部加`'-'`，最后用一个while循环去掉字符串尾部所有`'-'`，再将字符串反转即可。整个过程相当于将字符串中`'-'`全部去掉，然后从尾部向前以长度k来分割字符串，分割符号为`'-'`。需要注意在访问字符串的时候不要越界。
 
+### [500. Keyboard Row](https://leetcode-cn.com/problems/keyboard-row/)
+
+- 暴力解法（可以配合集合或者数组）
+
 ## 链表
 
 ### [21. Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
