@@ -806,7 +806,10 @@ k8 k7 k6 k5
       return -1
   ```
 
-  
+### [501. Find Mode in Binary Search Tree](https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/)
+
+- 递归或迭代遍历树配合哈希表存放结点出现的频数（由于是有序二叉树，所以中序遍历的顺序是非递减的，因此还可以通过维护变量来代替哈希表，从而降低空间复杂度）
+- Morris遍历树配合哈希表存放结点出现的频数（由于是有序二叉树，所以中序遍历的顺序是非递减的，因此还可以通过维护变量来代替哈希表，从而降低空间复杂度）
 
 ## 字符串
 
@@ -1346,7 +1349,9 @@ public static boolean isSubString(String pattern, String s){
 
 ### [500. Keyboard Row](https://leetcode-cn.com/problems/keyboard-row/)
 
-- 暴力解法（可以配合集合或者数组）
+- 暴力解法
+
+  键盘字母与行数的对应关系可以存放在集合或者数组中
 
 ## 链表
 

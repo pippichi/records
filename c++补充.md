@@ -130,6 +130,30 @@ getAge()方法被调用了10次
 
 参考：https://blog.csdn.net/weixin_39640298/article/details/84641726
 
+## default
+
+可以用于默认构造函数：
+
+```c++
+class X{
+public:
+	X()= default; // Inline default 默认构造函数
+	X(int i){
+		a = i;
+	}
+    X(const X&);
+    ~X() = default; // Inline default 析构函数
+private:
+	int a;
+};
+X::X(const X&) = default; //Out-of-line default 拷贝构造函数
+
+// 上面的代码，编译器会自动生成默认构造函数 X::X(){}，该函数可以比用户自己定义的默认构造函数获得更高的代码效率。
+// default 函数特性仅适用于类的特殊成员函数，且该特殊成员函数没有默认参数。
+```
+
+参考博客：https://blog.csdn.net/weixin_42414947/article/details/117212295
+
 ## 注意点
 
 mutable不能修饰const 和 static 类型的变量
