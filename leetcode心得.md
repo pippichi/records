@@ -529,6 +529,12 @@ int main(){
 
   遍历大的数组，如果栈内没有元素或者栈顶元素大于等于当前遍历到的数，则入栈，反之，栈内所有比当前遍历到的数小的元素都出栈，并将他们映射到当前遍历到的数，映射关系写到hashmap中。然后遍历小的数组，直接从hashmap取值，取不到则为`-1`，将结果放入列表中，该列表即为最终解。这里我们利用了栈内元素的单调性：**栈中的元素从栈顶到栈底是单调不降的**。
 
+### [506. Relative Ranks](https://leetcode-cn.com/problems/relative-ranks/)
+
+- 排序 + 哈希表记录排名
+- 排序 + 二分查找法查找排名
+- 利用map的自动排序将原数组的元素及其下标记录到map中并按照元素大小倒序。创建一个固定大小数组x（大小为原数组大小），遍历map，根据元素下标将排名信息逐一写回到数组x的对应下标位置中
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -2188,6 +2194,42 @@ string i2n(int n, int radix)
           left--;
       }
       return { area, 1 };
+  }
+  ```
+
+### [504. Base 7](https://leetcode-cn.com/problems/base-7/)
+
+- 朴素法（配合递归或迭代）（注意边界情况）
+
+  思考如何求出当前数7进制形式最高位以及如何往后补0，补0的时候需要注意边界情况
+
+- 递归
+
+- 迭代
+
+### [507. Perfect Number](https://leetcode-cn.com/problems/perfect-number/)
+
+- 枚举
+
+  在枚举时，我们只需要从 `1` 到 `根号n` 进行枚举。这是因为如果 `n` 有一个大于 `根号n` 的因数 `x`， 那么它一定有一个小于 `根号n` 的因数 `n/x`。因此我们可以从 `1` 到 `根号n` 枚举 `n` 的因数，当出现一个 `n` 的因数 `x` 时，我们还需要算上 `n/x`。此外还需要考虑特殊情况，即 `x=n/x`，这时我们不能重复计算。
+
+- `欧几里得-欧拉定理；梅森素数`
+
+  每个偶数（奇数的完全数还未被发现）如果是完全数都可以写成：`2^(p - 1) * (2^p - 1)`，其中`p和(2^p - 1)`都是素数。题目让我们计算的是`10^8`以内的所有完全数，如果套用上述公式，p是可以有限枚举的：`{2, 3, 5, 7, 13, 17, 19, 31}`，因此可以直接算出`10^8`以内的所有完全数。代码如下：
+
+  ```c++
+  // 欧几里得-欧拉定理计算完全数的公式
+  long pn(long p) {
+      // 注意整型溢出
+      return ((long)1 << (p - 1)) * (((long)1 << p) - 1);
+  }
+  bool checkPerfectNumber(int num) {
+      // int primes[] = {2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107}; // 梅森数
+      int primes[8] = { 2, 3, 5, 7, 13, 17, 19, 31 };
+      for (int& prime: primes) {
+          if (pn(prime) == num) return true;
+      }
+      return false;
   }
   ```
 

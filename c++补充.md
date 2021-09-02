@@ -126,6 +126,10 @@ int main()
 getAge()方法被调用了10次
 ```
 
+**注意：**
+
+mutable不能修饰const 和 static 类型的变量
+
 ## using
 
 参考：https://blog.csdn.net/weixin_39640298/article/details/84641726
@@ -154,9 +158,143 @@ X::X(const X&) = default; //Out-of-line default 拷贝构造函数
 
 参考博客：https://blog.csdn.net/weixin_42414947/article/details/117212295
 
-## 注意点
+## override
 
-mutable不能修饰const 和 static 类型的变量
+参考：https://blog.csdn.net/qq_33485434/article/details/78418012
+
+示例：
+
+```c++
+class Base ｛
+	virtual void f();
+};
+class Derived : public Base {
+	void f() override; // 表示派生类重写基类虚函数f
+	void F() override; // 错误：函数F没有重写基类任何虚函数
+};
+```
+
+## public、private、protected
+
+参考：https://blog.csdn.net/wuguangbin1230/article/details/76796891
+
+## typename
+
+参考：https://blog.csdn.net/lyn631579741/article/details/110730145
+
+示例1：
+
+```c++
+template<typename T>
+const T& max(const T& x, const T& y) {
+    if (y < x) {
+        return x;
+    }
+    return y;
+}
+```
+
+示例2：
+
+```c++
+template<typename T>
+void fun(const T& proto) {
+    typename T::const_iterator it(proto.begin()); // 使用typename修饰来告诉编译器 T::const_iterator 是类型而不是变量
+}
+```
+
+# 左值、右值、左值引用、右值引用
+
+参考：https://blog.csdn.net/u012198575/article/details/83142419
+
+## std::move、std::forward
+
+`std::move`和`std::forward`本质就是一个转换函数，`std::move`执行到右值的无条件转换，`std::forward`执行到右值的有条件转换，在参数都是右值时，二者就是等价的。
+
+参考：https://www.jianshu.com/p/b90d1091a4ff
+
+# stl
+
+## map
+
+与`unordered_map`比可排序。我们来看他的构造方法：
+
+```c++
+template < class Key, // map::key_type
+           class T, // map::mapped_type
+           class Compare = less<Key>, // map::key_compare，自定义排序
+           class Alloc = allocator<pair<const Key,T>> // map::allocator_type
+           > class map;
+```
+
+# 其他库函数
+
+## functional
+
+### std::greater
+
+自带比较函数，用法：
+
+```c++
+// greater example
+#include <functional>   // std::greater
+#include <algorithm>    // std::sort
+#include <map> 			// std::map
+
+int main () {
+  int numbers[]={20,40,50,10,30};
+  std::sort (numbers, numbers+5, std::greater<int>()); // 排序
+  map<int, int, std::greater<int>> m; // 自定义排序的map
+  return 0;
+}
+```
+
+### std::less
+
+自带的比较函数，用法：
+
+```c++
+// less example
+#include <functional>   // std::less
+#include <algorithm>    // std::sort, std::includes
+
+int main () {
+  int foo[]={10,20,5,15,25};
+  int bar[]={15,10,20};
+  std::sort (foo, foo+5, std::less<int>());  // 5 10 15 20 25
+  std::sort (bar, bar+3, std::less<int>());  //   10 15 20
+  map<int, int, std::less<int>> m; // 自定义排序的map
+  return 0;
+}
+```
+
+## typeinfo
+
+用于获取变量类型
+
+示例：
+
+```c++
+#include <iostream>
+#include <typeinfo> 
+using namespace std;
+
+int main(){
+    int v1 = 1;
+    char v2 = 'a';
+    double v3 = 1;
+    float v4 = 1.1;
+    bool v5 = false; 
+    cout << typeid(v1).name() << endl;
+    cout << typeid(v2).name() << endl;
+    cout << typeid(v3).name() << endl;
+    cout << typeid(v4).name() << endl;
+    cout << typeid(v5).name() << endl;
+    return 0;
+}
+```
+
+
 
 # 智能指针
 
