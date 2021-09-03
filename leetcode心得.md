@@ -2233,7 +2233,19 @@ string i2n(int n, int radix)
   }
   ```
 
-  
+### 快速幂算法、矩阵快速幂
+
+参考：https://blog.csdn.net/qq_19782019/article/details/85621386（快速幂算法）
+
+https://blog.csdn.net/zhangxiaoduoduo/article/details/81807338（矩阵快速幂）
+
+### [509. Fibonacci Number](https://leetcode-cn.com/problems/fibonacci-number/)
+
+- 动态规划
+- 递归
+- 迭代
+- 矩阵快速幂
+- 通项公式
 
 ## 思维题
 
