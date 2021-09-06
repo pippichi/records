@@ -817,6 +817,13 @@ k8 k7 k6 k5
 - 递归或迭代遍历树配合哈希表存放结点出现的频数（由于是有序二叉树，所以中序遍历的顺序是非递减的，因此还可以通过维护变量来代替哈希表，从而降低空间复杂度）
 - Morris遍历树配合哈希表存放结点出现的频数（由于是有序二叉树，所以中序遍历的顺序是非递减的，因此还可以通过维护变量来代替哈希表，从而降低空间复杂度）
 
+### [530. Minimum Absolute Difference in BST](https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/)
+
+- 中序遍历寻找前驱结点与当前结点差值的最小值
+  - 递归
+  - 迭代
+  - Morris
+
 ## 字符串
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
@@ -1358,6 +1365,98 @@ public static boolean isSubString(String pattern, String s){
 - 暴力解法
 
   键盘字母与行数的对应关系可以存放在集合或者数组中
+
+### [520. Detect Capital](https://leetcode-cn.com/problems/detect-capital/)
+
+- 逐步分析
+
+  逐步分析可以有好几种逻辑，最根本逻辑就一个：有一个大写字母开头之后，后面的字母要么全是大写要么全是小写；有一个小写字母开头之后，后面的字母只能全是小写。
+
+  - 法一
+
+    ```c++
+    bool detectCapitalUse(string word) {
+        int sWord = word.size();
+        int x = 0;
+        for (char& c: word) {
+            if (isupper(c)) {
+                x += 1;
+            }
+        }
+        return x == 0 || x == sWord || (x == 1 && isupper(word[0]));
+    }
+    ```
+
+  - 法二
+
+    ```c++
+    bool detectCapitalUse(string word) {
+        int sWord = word.size();
+        if (sWord == 1) return true;
+        if (islower(word[0])){
+            for (int i = 1; i < sWord; i++) {
+                if (isupper(word[i])) return false;
+            }
+        } else {
+            bool headA = false, headB = false;
+            for (int i = 1; i < sWord; i++) {
+                if (islower(word[i])) headA = true;
+                if (isupper(word[i])) headB = true;
+                if (headB && headA) return false;
+            }
+        }
+        return true;
+    }
+    ```
+
+### 求字符串的所有子字符串
+
+例如`"abc"`，它的子字符串有：`"abc","ab","ac","bc","a","b","c"`
+
+- 暴力法
+
+  可以利用位，构成`"abc"`的子字符串在原字符串中的位置可以用0和1来表示（0表示没有用到该位置的字符，1表示用到了）：`111、110、101、011、100、010、001`。代码如下：
+
+  ```c++
+  vector<string> getAllSubString(string str) {
+      vector<string> ret;
+      string temp;
+      for (int i = 0; i < (1 << str.size()); i++) {
+          temp = "";
+          for (int j = 0; j < str.size(); j++) {
+              if ((i >> j) & 1 != 0) {
+                  temp += str[j];
+              }
+          }
+          ret.emplace_back(temp);
+      }
+      return ret;
+  }
+  ```
+
+### [521. Longest Uncommon Subsequence I](https://leetcode-cn.com/problems/longest-uncommon-subsequence-i/)
+
+- 暴力枚举
+
+  将两个字符串的所有子字符串都枚举出来并放入哈希表中，key为字符串本身，value为该字符串出现的次数，最后遍历哈希表，找到所有value为1的key的长度的最大值
+
+- 脑筋急转弯
+
+  仔细一想，其实两个字符串就只有三种情况：
+
+  1、两字符串相等，则返回`-1`；
+
+  2、两字符串长度相等，但内容不等，则返回某一个字符串的长度即可；
+
+  3、两字符串长度不等，则较长的一定不是较短的的子字符串，则直接返回较长的字符串的长度即可
+
+  ```c++
+  int findLUSlength(string a, string b) {
+  	return a == b ? -1 : max(a.size(), b.size());
+  }
+  ```
+
+
 
 ## 链表
 

@@ -213,6 +213,10 @@ void fun(const T& proto) {
 
 参考：https://www.jianshu.com/p/b90d1091a4ff
 
+# C++ 值传递和地址传递和引用传递
+
+参考：https://blog.csdn.net/qq_43587345/article/details/104395788
+
 # stl
 
 ## map
@@ -227,7 +231,13 @@ template < class Key, // map::key_type
            > class map;
 ```
 
-# 其他库函数
+# 库函数
+
+## ctype
+
+### isalpha、isalnum、islower、isupper
+
+参考笔记中的c文档
 
 ## functional
 
