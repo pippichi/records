@@ -1456,6 +1456,22 @@ public static boolean isSubString(String pattern, String s){
   }
   ```
 
+### [541. Reverse String II](https://leetcode-cn.com/problems/reverse-string-ii/)
+
+- 模拟法
+
+  直接根据题意模拟，反转每个下标从 2k 的倍数开始的，长度为 k 的子串，若该子串长度不足 k ，则反转整个子串：
+
+  ```c++
+  string reverseStr(string s, int k) {
+      int n = s.size();
+      for (int i = 0; i < n; i += 2 * k) {
+          reverse(s.begin() + i, s.begin() + min(i + k, n));
+      }
+      return s;
+  }
+  ```
+
 
 
 ## 链表
