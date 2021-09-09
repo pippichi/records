@@ -217,6 +217,29 @@ void fun(const T& proto) {
 
 参考：https://blog.csdn.net/qq_43587345/article/details/104395788
 
+# 推荐使用`pass-by-reference-to-const`替代`pass-by-value`的原因以及多态与如何避免对象切割
+
+参考：https://blog.csdn.net/cqk0100/article/details/72897504
+
+# c++虚函数与纯虚函数
+
+**首先：强调一个概念**
+
+```
+定义一个函数为虚函数，不代表函数为不被实现的函数。
+定义他为虚函数是为了允许用基类的指针来调用子类的这个函数。
+定义一个函数为纯虚函数，才代表函数没有被实现。
+定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。
+```
+
+具体介绍请参考：https://blog.csdn.net/hackbuteer1/article/details/7558868、https://blog.csdn.net/qq_36221862/article/details/61413619
+
+C++可以用纯虚函数实现类似于JAVA中接口的功能
+
+# c++虚基类与虚继承解决命名冲突问题以及不可避免的二义性问题
+
+参考：http://c.biancheng.net/view/2280.html
+
 # stl
 
 ## map

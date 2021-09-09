@@ -423,7 +423,7 @@ int main(){
         int i = 1;
         int ret = 0;
         int size_nums = nums.size();
-        for(; i < size_nums; i++){
+        for(; i < size_nums; i++) {
             int diff = ret + nums[i] - nums[i - 1];
             nums[i] += ret;
             ret += diff;
@@ -534,6 +534,40 @@ int main(){
 - 排序 + 哈希表记录排名
 - 排序 + 二分查找法查找排名
 - 利用map的自动排序将原数组的元素及其下标记录到map中并按照元素大小倒序。创建一个固定大小数组x（大小为原数组大小），遍历map，根据元素下标将排名信息逐一写回到数组x的对应下标位置中
+
+### [561. Array Partition I](https://leetcode-cn.com/problems/array-partition-i/)
+
+- 排序
+
+  排序后计算数组中下标为`0、2、4、6、...`位置的数的和即可
+
+### [566. Reshape the Matrix](https://leetcode-cn.com/problems/reshape-the-matrix/)
+
+- 模拟
+
+  遍历原数组，生成一个新维度数组
+
+- 数学
+
+  可以直接算出下标映射，代码如下：
+
+  ```c++
+  vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+      int m = nums.size();
+      int n = nums[0].size();
+      if (m * n != r * c) {
+          return nums;
+      }
+      vector<vector<int>> ans(r, vector<int>(c));
+      for (int x = 0; x < m * n; ++x) {
+          // 下标映射
+          ans[x / c][x % c] = nums[x / n][x % n];
+      }
+      return ans;
+  }
+  ```
+
+
 
 ## 树
 
@@ -824,7 +858,53 @@ k8 k7 k6 k5
   - 迭代
   - Morris
 
-## 字符串
+### [543. Diameter of Binary Tree](https://leetcode-cn.com/problems/diameter-of-binary-tree/)
+
+- 深度优先遍历
+
+  这题用递归比较好做。代码如下：
+
+  ```c++
+  int maxP = INT_MIN;
+  int depth(TreeNode* node) {
+      if (node == nullptr) {
+          return 0;
+      }
+      int leftP = depth(node -> left);
+      int rightP = depth(node -> right);
+      int sumP = leftP + rightP;
+      this -> maxP = max(sumP, this -> maxP);
+      return max(leftP, rightP) + 1;
+  }
+  int diameterOfBinaryTree(TreeNode* root) {
+      depth(root);
+      return this -> maxP;
+  }
+  ```
+
+### [559. Maximum Depth of N-ary Tree](https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/)
+
+- 递归
+
+  使用数组维护所有孩子节点的最大高度，使用`max_element()`拿到最大值，加1之后返回给上层递归。注意边界的处理
+
+- 迭代
+
+  - 广度优先遍历
+
+    每遍历完一层就加1
+
+  - 深度优先遍历
+
+    将节点及其当前深度打包成`pair`，放入栈，遍历到每个节点的时候先出栈，该节点所有孩子节点的深度为自身深度加1，再将所有孩子节点及其深度打包成`pair`放入栈，重复上述操作直到栈为空，拿到最深的深度即可。这里要注意在操作所有孩子节点之前需要先判断自身是否为空，否则会存在空指针异常。
+
+### [563. Binary Tree Tilt](https://leetcode-cn.com/problems/binary-tree-tilt/)
+
+- 递归
+
+  递归计算当前节点树所有节点加和的同时，叠加当前节点左右子树相减的绝对值
+
+##  Valid Parentheses
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
 
@@ -1472,7 +1552,21 @@ public static boolean isSubString(String pattern, String s){
   }
   ```
 
+### [551. Student Attendance Record I](https://leetcode-cn.com/problems/student-attendance-record-i/)
 
+- 模拟
+
+  根据题意直接模拟，一次遍历即可
+
+### [557. Reverse Words in a String III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
+
+- 模拟
+
+  遇到空字符后翻转之前的子字符串
+
+  - 可以使用`reverse()`
+  - 可以创建一个新的空字符串，并维护一个变量记录遇到空字符的下标，然后将之前的子字符串逆序地插入新的空字符串中
+  - 也可以不创建新的空字符串，直接在原字符串上进行修改，只需维护一个变量记录遇到空字符的下标，然后将之前的子字符串首尾翻转
 
 ## 链表
 
