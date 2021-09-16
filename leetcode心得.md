@@ -1302,6 +1302,38 @@ public static boolean isSubString(String pattern, String s){
 }
 ```
 
+比较简洁的写法：
+
+```c++
+bool kmp(string sOrder, string tOrder) {
+    int sLen = sOrder.size(), tLen = tOrder.size();
+    vector <int> fail(tOrder.size(), -1);
+    for (int i = 1, j = -1; i < tLen; ++i) {
+        while (j != -1 && tOrder[i] != tOrder[j + 1]) {
+            j = fail[j];
+        }
+        if (tOrder[i] == tOrder[j + 1]) {
+            ++j;
+        }
+        fail[i] = j;
+    }
+    for (int i = 0, j = -1; i < sLen; ++i) {
+        while (j != -1 && sOrder[i] != tOrder[j + 1]) {
+            j = fail[j];
+        }
+        if (sOrder[i] == tOrder[j + 1]) {
+            ++j;
+        }
+        if (j == tLen - 1) {
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+
+
 ### [389. Find the Difference](https://leetcode-cn.com/problems/find-the-difference/)
 
 - 哈希表
@@ -2455,6 +2487,28 @@ https://blog.csdn.net/zhangxiaoduoduo/article/details/81807338（矩阵快速幂
 - 迭代
 - 矩阵快速幂
 - 通项公式
+
+### 求质数(prime)
+
+```c++
+// 求n以内的所有质数
+vector<int> getPrime(int n) {
+    vector<int> vis(n);
+    vector<int> p(n);
+    int tot = 0;
+    vis[0] = vis[1] = 1;
+    for (int i = 2; i < n; ++i) {
+        if (!vis[i]) p[++tot] = i;
+        for (int j = 1; j <= tot && i * p[j] < MAX_N; ++j) {
+            vis[i * p[j]] = 1;
+            if (i % p[j] == 0) break;
+        }
+    }
+    return p;
+}
+```
+
+
 
 ## 思维题
 

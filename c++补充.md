@@ -254,6 +254,16 @@ template < class Key, // map::key_type
            > class map;
 ```
 
+使用auto来遍历map：
+
+```c++
+for (const auto &[k, v]: map) {
+    ...
+}
+```
+
+
+
 # 库函数
 
 ## ctype
