@@ -608,6 +608,20 @@ void permute(int* nums, int cur, int size) {
 
   将数组array的数全部放入哈希集合set中，返回：`min(set.size(), array.length / 2)`
 
+### [594. Longest Harmonious Subsequence](https://leetcode-cn.com/problems/longest-harmonious-subsequence/)
+
+- 枚举
+
+  对于每一个元素，都遍历全体数组，寻找符合题意的数并做计数，最后拿到计数值的最大值
+
+- 哈希表 + 双次遍历
+
+  使用哈希表存放每个元素出现的次数，再次遍历哈希表，找到相邻元素个数之和的最大值
+
+- 哈希表 + 单次遍历
+
+  遍历数组的时候我们会使用哈希表存放每个元素出现的次数，同时，我们维护一个变量记录相邻元素个数之和的最大值x，当遍历完成之后，也就自然得到了最大的x
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -2859,6 +2873,21 @@ int main(){
 
   之后再比较今日和昨日的温度得到答案
 
+### [595. Big Countries](https://leetcode-cn.com/problems/big-countries/)
+
+- 直接查询
+
+- 使用UNION
+
+  where语句里面如果带有or条件，myisam表能用到索引，innodb不行。参考：https://www.cnblogs.com/microtiger/p/9075242.html
+
+  所以尽可能使用union来代替or
+
+### [596. Classes More Than 5 Students](https://leetcode-cn.com/problems/classes-more-than-5-students/)
+
+- 使用`GROUP BY`子句和子查询
+- 使用`GROUP BY`和`HAVING`条件
+
 ## 位操作
 
 ### [190. Reverse Bits](https://leetcode-cn.com/problems/reverse-bits/)
@@ -2869,7 +2898,7 @@ int main(){
 
 - 带记忆化的按字节（8位）颠倒
 
-  ![在这里插入图片描述](https://pic.leetcode-cn.com/365599a4030d26a019d37ad97c201e64e2fa3ae9fd7b43d689e8a4d7f802141e-file_1585801736122)
+  ![image-20210922170216235](leetcode心得.assets/image-20210922170216235.png)
 
   在处理长字节流时，每字节（8 位的比特位）反转可能更有效，但是本题输入的是固定的 32 位整数，所以字节颠倒可能更有效
 
