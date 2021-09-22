@@ -622,6 +622,34 @@ void permute(int* nums, int cur, int size) {
 
   遍历数组的时候我们会使用哈希表存放每个元素出现的次数，同时，我们维护一个变量记录相邻元素个数之和的最大值x，当遍历完成之后，也就自然得到了最大的x
 
+### [598. Range Addition II](https://leetcode-cn.com/problems/range-addition-ii/)
+
+- 暴力法
+
+  新建一个`m * n`的矩阵，初始化为0，对所有操作都逐一将范围内的元素加一，最后数一遍最大元素的数目即可（注意，由于每次操作都会影响到下标为(0, 0)的元素，因此该元素总是最大的，所有操作完成后，只需要数一下值与下标(0, 0)元素相同的元素个数即可）
+
+- 贪心
+
+  我们希望找到每次操作都能覆盖的区域（假设每次操作的区域的长和宽分别为x和y），根据题意，每次对矩阵的操作都是从左上角往右下的方向去做覆盖的，因此每次操作都取x的最小值和y的最小值，这样就能确保每次操作都能覆盖当前`x * y`大小的区域（以矩阵左上角为起点），当遍历完所有操作之后，以矩阵左上角为起点的`x * y`的区域中的元素一定是该矩阵中值最大的那几个元素
+
+  ```c++
+  /**
+   * @param m 矩阵长
+   * @param n 矩阵宽
+   * @param ops 操作集合
+   */
+  int maxCount(int m, int n, vector<vector<int>>& ops) {
+      for (vector<int>& op: ops) {
+          // op中一定存在且只存在两个元素
+          m = min(m, op[0]);
+          n = min(n, op[1]);
+      }
+      return m * n;
+  }
+  ```
+
+
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
