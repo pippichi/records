@@ -567,7 +567,46 @@ int main(){
   }
   ```
 
+### 求数组中元素的排列组合
 
+代码如下：
+
+```c++
+/**
+ * @param size 数组长度
+ */
+void permute(int* nums, int cur, int size) {
+    if (cur == size - 1) {
+        for (int i = 0; i < size; i++) {
+            cout << nums[i] << ' ';
+        }
+        cout << endl;
+    }
+    for (int i = cur; i < size; i++) {
+        swap(nums[i], nums[cur]);
+        permute(nums, cur + 1, size);
+        swap(nums[i], nums[cur]);
+    }
+}
+```
+
+### [575. Distribute Candies](https://leetcode-cn.com/problems/distribute-candies/)
+
+- 暴力法
+
+  求出数组中元素的排列组合，每一次排列组合都计算数组前半段元素中只出现过一次的数的个数n，并求得n的最大值
+
+- 优化的暴力法
+
+  双重遍历（需要注意遍历结束条件的设置），第二层遍历将数组后续元素中与当前元素相等的所有元素都设置为某个数组中不可能出现的值，比如`INT_MIN`，后续只要第一层遍历遍历到的数不为`INT_MIN`，计数器就加1，最终范围计数器的值
+
+- 排序
+
+  先排序，后记录数组前半段中只出现过一次的数的个数（可以使用计数器，当前一个元素与当前元素不同的时候，计数器就加1），最后返回计数器的值
+
+- 使用哈希集合
+
+  将数组array的数全部放入哈希集合set中，返回：`min(set.size(), array.length / 2)`
 
 ## 树
 
@@ -913,6 +952,112 @@ k8 k7 k6 k5
 - 树哈希
 
   计算目标树每棵子树包括目标树自身的哈希值（哈希算法可自定义，构造哈希函数的时候应该本着尽量减少冲突的原则去设计）并存入集合x中，再计算匹配树整棵树的哈希值y，如果集合x中存在y，则说明匹配树是目标树的子树
+
+### [589. N-ary Tree Preorder Traversal](https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/)
+
+- 递归
+- 迭代
+
+### [590. N-ary Tree Postorder Traversal](https://leetcode-cn.com/problems/n-ary-tree-postorder-traversal/)
+
+- 递归
+
+- 迭代
+
+  - 准备两个栈s1、s2，s1用于辅助s2记录所有节点的顺序
+
+    ```c++
+    vector<int> postorder(Node* root) {
+        vector<int> ret;
+        if (!root) return ret;
+        stack<Node*> s1;
+        stack<Node*> s2;
+        s1.emplace(root);
+        while (!s1.empty()) {
+            root = s1.top();
+            s1.pop();
+            s2.emplace(root);
+            for (Node* n: root -> children) {
+                s1.emplace(n);
+            }
+        }
+        while (!s2.empty()) {
+            ret.emplace_back(s2.top() -> val);
+            s2.pop();
+        }
+        return ret;
+    }
+    ```
+
+  - 从根节点开始遍历，如果有孩子，则将所有孩子倒序入栈，并在入栈之后将孩子列表清空；如果没有孩子，则直接将该节点的值放入结果集，并从栈中弹出该元素
+
+    ```c++
+    vector<int> postorder(Node* root) {
+        vector<int> ret;
+        if (root == nullptr) return ret;
+        stack<Node*> s;
+        s.emplace(root);
+        while (!s.empty()) {
+            root = s.top();
+            if (!root -> children.empty()) {
+                int sChildren = root -> children.size();
+                for (int i = sChildren - 1; i >= 0; i--) {
+                    s.emplace(root -> children[i]);
+                }
+                root -> children.clear();
+                continue;
+            }
+            ret.emplace_back(root -> val);
+            s.pop();
+        }
+        return ret;
+    }
+    ```
+
+  - 假设有树：根节点root，root的左孩子l1，root的右孩子r1，l1的左孩子l2，l1的右孩子r2，r1的左孩子l3。那么后序遍历其实可以看成是这种遍历的翻转：`root -> r1 -> l3 -> l1 -> r2 -> l2`，翻转后即为后序遍历：`l2 -> r2 -> l1 -> l3 -> r1 -> root`。这种遍历方法的好处在于更加简单，因为它将后序遍历自底向上的遍历顺序变成了自顶向下
+
+    - 使用该种遍历，最后进行翻转
+
+      ```c++
+      vector<int> postorder(Node* root) {
+          vector<int> ret;
+          if (root == nullptr) return ret;
+          stack<Node*> s;
+          s.emplace(root);
+          while (!s.empty()) {
+              root = s.top();
+              s.pop();
+              ret.emplace_back(root -> val);
+              for (Node* n: root -> children) {
+                  s.emplace(n);
+              }
+          }
+          reverse(ret.begin(), ret.end());
+          return ret;
+      }
+      ```
+
+    - 使用该种遍历，最后不进行翻转
+
+      ```c++
+      vector<int> postorder(Node* root) {
+          vector<int> ret;
+          if (root == nullptr) return ret;
+          stack<Node*> s;
+          s.emplace(root);
+          while (!s.empty()) {
+              root = s.top();
+              s.pop();
+              ret.emplace(ret.begin(), root -> val);
+              for (Node* n: root -> children) {
+                  s.emplace(n);
+              }
+          }
+          return ret;
+      }
+      ```
+
+
 
 ##  字符串
 
