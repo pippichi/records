@@ -648,7 +648,53 @@ void permute(int* nums, int cur, int size) {
   }
   ```
 
+### [599. Minimum Index Sum of Two Lists](https://leetcode-cn.com/problems/minimum-index-sum-of-two-lists/)
 
+- 使用哈希表
+
+  key为两个下标之和，value为对应的那个字符串
+
+- 遍历两个下标之和的所有可能性
+
+  假设列表1长度m，列表2长度n，那么两个下标之和的所有可能性x的范围为：`0 <= x <= m + n - 2`，遍历所有可能的x，并遍历对于当前x下所有可能的两个下标的组合，如果找到了符合题意的字符串s，则将s放入结果列表ret，易知当前的x绝对是最小的，因此直接返回ret即可
+
+- 使用哈希表
+
+  遍历第一个列表，使用哈希表h存储信息，其中key为字符串，value为对应的下标，遍历第二个列表，配合哈希表h以及一个用于维护最小下标之和的全局变量minSum来找到符合题意的字符串即可（注意，遍历第二个列表时的下标`i`应满足一个条件：`i <= minSum`，因为易知如果`i > minSum`了，再遍历都没必要了）
+
+### [605. Can Place Flowers](https://leetcode-cn.com/problems/can-place-flowers/)
+
+- 贪心
+
+  在整段数组中符合规则的前提下尽可能多的种树，可以转化为：将数组根据1分段，相邻的1之间为一小段（这一小段中全部都是0），从贪心的角度考虑，只需要想办法在每一小段中种尽可能多的树，最后在整段数组中种的树就是最多的。试想一下：对于每一小段中0的个数`i`，当`i`是偶数时，最多可以种`(i - 1) / 2`棵树；当`i`是奇数时，最多可以种`i / 2`棵树（且由于是奇数，`i / 2 == (i - 1) / 2`），因此对于每一小段，能种最多`f(i) = (i - 1) / 2`棵树。再来考虑数组前端边界情况，假设前端有`i`个0，易知最多能种树`i / 2`棵树。对于数组后端边界，我们采用补一个0再补一个1来将其去特殊化。
+
+  ```c++
+  bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+      // 数组最后补一个0，再补一个1。这样做考虑了数组末尾边界情况（末尾是两个连续的0）的同时也保证了遍历过程中一定能碰到一个1（如果遍历过程中一个1都没碰到，计数器就不会进行计数），并且最后这个1也顺带解决了遍历过程中数组末尾边界情况由于没有遇到1而不进行计数的问题
+      flowerbed.emplace_back(0);
+      flowerbed.emplace_back(1);
+      int prev = -1;
+      int sFlowerbed = flowerbed.size();
+      int counter = 0;
+      for (int i = 0; i < sFlowerbed; i++) {
+          if (flowerbed[i] == 1) {
+              if (prev == -1) {
+                  // 之所以不在数组前端补0是因为在这里我们已经处理了数组开头边界的特殊情况
+                  counter += i / 2;
+              } else {
+                  counter += (i - prev - 2) / 2;
+              }
+              if (counter >= n) {
+                  return true;
+              }
+              prev = i;
+          }
+      }
+      return false;
+  }
+  ```
+
+  
 
 ## 树
 
@@ -3109,7 +3155,7 @@ int main(){
 
 ## 多线程
 
-### [1114. Print in Order](https://leetcode-cn.com/problems/print-in-order/)
+### [1114. Print in Order[M]](https://leetcode-cn.com/problems/print-in-order/)
 
 - 使用原子变量
 - 可重入锁 + Condition
@@ -3119,7 +3165,7 @@ int main(){
 - BlockingQueue阻塞队列
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
-### [1115. Print FooBar Alternately](https://leetcode-cn.com/problems/print-foobar-alternately/)
+### [1115. Print FooBar Alternately[M]](https://leetcode-cn.com/problems/print-foobar-alternately/)
 
 - BlockingQueue阻塞队列
 - CyclicBarrier循环栅栏
@@ -3129,7 +3175,7 @@ int main(){
 - Semaphore信号量
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
-### [1116. Print Zero Even Odd](https://leetcode-cn.com/problems/print-zero-even-odd/)
+### [1116. Print Zero Even Odd[M]](https://leetcode-cn.com/problems/print-zero-even-odd/)
 
 - BlockingQueue阻塞队列
 - 自旋锁 + 让出CPU
@@ -3140,7 +3186,7 @@ int main(){
 - 使用原子变量（超时）
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
-### [1117. Building H2O](https://leetcode-cn.com/problems/building-h2o/)
+### [1117. Building H2O[M]](https://leetcode-cn.com/problems/building-h2o/)
 
 - BlockingQueue阻塞队列
 - BlockingQueue + CyclicBarrier
@@ -3150,7 +3196,7 @@ int main(){
 - Semaphore + CyclicBarrier
 - LockSupport + AtomicReference（或ConcurrentHashMap）
 
-### [1195. Fizz Buzz Multithreaded](https://leetcode-cn.com/problems/fizz-buzz-multithreaded/)
+### [1195. Fizz Buzz Multithreaded[M]](https://leetcode-cn.com/problems/fizz-buzz-multithreaded/)
 
 - synchronized + 标志位 + 唤醒（synchronized 也可以加方法上）
 - 可重入锁 + Condition
@@ -3162,7 +3208,7 @@ int main(){
 - BlockingQueue阻塞队列（使用一个BlockingQueue，大致思路跟CyclicBarrier一样）（思路很棒！）
 - 自旋锁 + 让出CPU
 
-### [1226. The Dining Philosophers](https://leetcode-cn.com/problems/the-dining-philosophers/)
+### [1226. The Dining Philosophers[M]](https://leetcode-cn.com/problems/the-dining-philosophers/)
 
 - 串行，不加锁，同一时间只有一个人能吃饭
 
