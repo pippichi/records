@@ -1149,6 +1149,245 @@ k8 k7 k6 k5
 
 ##  字符串
 
+### [3. Longest Substring Without Repeating Characters[M]](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
+- 滑动窗口
+
+  - 使用哈希集合与双指针
+
+    - 法一（驱动前指针）
+
+      ```c++
+      int lengthOfLongestSubstring(string s) {
+          unordered_set<char> set;
+          int sS = s.size();
+          int ret = 0;
+          int left = 0;
+          for (int i = 0; i < sS; i++) {
+              while (set.count(s[i]) > 0) {
+                  set.erase(s[left]);
+                  left++;
+              }
+              ret = max(ret, i - left + 1);
+              set.emplace(s[i]);
+          }
+          return ret;
+      }
+      ```
+
+    - 法二（驱动后指针）
+
+      ```c++
+      int lengthOfLongestSubstring(string s) {
+          unordered_set<char> set;
+          int right = 0;
+          int ret = 0;
+          int sS = s.size();
+          for (int i = 0; i < sS; i++) {
+              if (!set.empty() && i != 0) {
+                  set.erase(s[i - 1]);
+              }
+              while (right < sS && set.count(s[right]) == 0) {
+                  set.emplace(s[right]);
+                  right++;
+              }
+              ret = max(ret, right - 1 - i + 1);
+              if (right == sS) {
+                  break;
+              }
+          }
+          return ret;
+      }
+      ```
+
+  - 使用哈希表与双指针
+
+    ```c++
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char, int> m;
+        int left = 0;
+        int ret = 0;
+        int sS = s.size();
+        for (int i = 0; i < sS; i++) {
+            if (m.count(s[i]) > 0) {
+                // 解释一下这里为什么要用max(left, m[s[i]] + 1)
+                // 因为前指针left之前的所有坐标位置都已经失效了，不应该再被使用了，否则很可能会使得字符串中再次出现重复字符
+                left = max(left, m[s[i]] + 1);
+            }
+            ret = max(ret, i - left + 1);
+            m[s[i]] = i;
+        }
+        return ret;
+    }
+    ```
+
+### [5. Longest Palindromic Substring[M]](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+
+- 暴力法
+
+  暴力枚举，记录符合题意的最长字符串及其起始位置
+
+  ```c++
+  string longestPalindrome(string s) {
+      int sS = s.size();
+      if (sS < 2) {
+          return s;
+      }
+      int maxLength = 1;
+      int right = 0;
+      for (int i = 0; i < sS - 1; i++) {
+          for (int j = i + 1; j < sS; j++) {
+              if (j - i + 1 > maxLength && isValid(s, i, j)) {
+                  maxLength = j - i + 1;
+                  right = i;
+              }
+          }
+      }
+      return s.substr(right, maxLength);
+  }
+  bool isValid(const string& s, int left, int right) {
+      while (left < right) {
+          if (s[right] != s[left]) {
+              return false;
+          }
+          left++;
+          right--;
+      }
+      return true;
+  }
+  ```
+
+- 动态规划
+
+  `abccba`是回文字符串的前提是`bccb`是回文字符串，而`bccb`是回文字符串的前提是`cc`是回文字符串
+
+  ```c++
+  string longestPalindrome(string s) {
+      int sS = s.size();
+      if (sS < 2) return s;
+      vector<vector<bool>> states(sS, vector<bool>(sS));
+      for (int i = 0; i < sS; i++) {
+          states[i][i] = true;
+      }
+      int right = 0;
+      int maxLength = 1;
+      for (int len = 2; len <= sS; len++) {
+          for (int i = 0; i < sS; i++) {
+              int j = i + len - 1;
+              if (j >= sS) {
+                  break;
+              }
+              if (s[i] == s[j]) {
+                  if (len <= 3) {
+                      states[i][j] = true;
+                  } else {
+                      states[i][j] = states[i + 1][j - 1];
+                  }
+              } else {
+                  states[i][j] = false;
+              }
+              if (states[i][j] && len > maxLength) {
+                  maxLength = len;
+                  right = i;
+              }
+          }
+      }
+      return s.substr(right, maxLength);
+  }
+  ```
+
+- 中心扩展算法
+
+  从某个字符开始往两边扩展，寻找当前字符为中心时的最长回文字符串
+
+  ```c++
+  pair<int, int> expandAroundCenter(const string& s, int left, int right) {
+      while (left >= 0 && right <= s.size() && s[left] == s[right]) {
+          left--;
+          right++;
+      }
+      return {left + 1, right - 1};
+  }
+  string longestPalindrome(string s) {
+      int start = 0, end = 0;
+      int sS = s.size();
+      for (int i = 0; i < sS - 1; i++) {
+          auto [left1, right1] = expandAroundCenter(s, i, i);
+          auto [left2, right2] = expandAroundCenter(s, i, i + 1);
+          if (right1 - left1 > end - start) {
+              start = left1;
+              end = right1;
+          }
+          if (right2 - left2 > end - start) {
+              start = left2;
+              end = right2;
+          }
+      }
+      return s.substr(start, end - start + 1);
+  }
+  ```
+
+- Manacher 算法
+
+  配合中心扩展算法或者动态规划
+
+  利用了回文字符串的镜像对称的性质，减少计算次数
+
+  ```c++
+  string padding(const string& s) {
+      string ret = "#";
+      for (char c: s) {
+          ret += c;
+          ret += "#";
+      }
+      ret += "#";
+      return ret;
+  }
+  string handling(const string& s, const int left, const int right) {
+      string ret;
+      for (int i = left; i <= right; i++) {
+          if (s[i] != '#') {
+              ret += s[i];
+          }
+      }
+      return ret;
+  }
+  int expand(const string& s, int left, int right) {
+      while (left >= 0 && right <= s.size() && s[left] == s[right]) {
+          left--;
+          right++;
+      }
+      return (right - 1 - (left + 1)) / 2;
+  }
+  string longestPalindrome(string s) {
+      int start = 0, end = -1;
+      s = padding(s);
+      vector<int> arm_len;
+      int right = -1, j = -1;
+      for (int i = 0; i < s.size(); i++) {
+          int cur_arm_len;
+          if (right >= i) {
+              int i_sym = j * 2 - i;
+              int min_arm_len = min(arm_len[i_sym], right - i);
+              cur_arm_len = expand(s, i - min_arm_len, i + min_arm_len);
+          } else {
+              cur_arm_len = expand(s, i, i);
+          }
+          arm_len.emplace_back(cur_arm_len);
+          if (i + cur_arm_len > right) {
+              right = i + cur_arm_len;
+              j = i;
+          }
+          if (cur_arm_len * 2 + 1 > end - start) {
+              start = i - cur_arm_len;
+              end = i + cur_arm_len;
+          }
+      }
+      s = handling(s, start, end);
+      return s;
+  }
+  ```
+
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
 
 - 模拟法
@@ -1844,6 +2083,10 @@ bool kmp(string sOrder, string tOrder) {
   - 也可以不创建新的空字符串，直接在原字符串上进行修改，只需维护一个变量记录遇到空字符的下标，然后将之前的子字符串首尾翻转
 
 ## 链表
+
+#### [2. Add Two Numbers[M]](https://leetcode-cn.com/problems/add-two-numbers/)
+
+- 模拟法，注意不要忘记最后的进位
 
 ### [21. Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
