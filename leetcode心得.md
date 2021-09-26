@@ -1298,7 +1298,7 @@ k8 k7 k6 k5
 
 - 中心扩展算法
 
-  从某个字符开始往两边扩展，寻找当前字符为中心时的最长回文字符串
+  从某个字符开始往两边扩展或者从某个字符及其相邻的字符开始往两边扩展，寻找当前字符或者当前字符及其相邻字符为中心时的最长回文字符串
 
   ```c++
   pair<int, int> expandAroundCenter(const string& s, int left, int right) {
@@ -1334,59 +1334,74 @@ k8 k7 k6 k5
   利用了回文字符串的镜像对称的性质，减少计算次数
 
   ```c++
+  vector<int> arms;
+  /**
+   * 使用'#'填充原字符串，使得不管是偶数长度字符串还是奇数长度字符串都可以统一做处理
+   * abc -> #a#b#c#
+   */
   string padding(const string& s) {
       string ret = "#";
       for (char c: s) {
           ret += c;
-          ret += "#";
+          ret += '#';
       }
-      ret += "#";
       return ret;
   }
-  string handling(const string& s, const int left, const int right) {
+  /**
+   * 清洗带有'#'的字符串
+   * #a#b#c# -> abc
+   */
+  string clearing(const string& s, int center) {
+      // 通过最大回文中心center来得到最长臂展maxArmLength
+      int maxArmLength = this -> arms[center];
+      // 由最长臂展和最大回文中心得到字符串起始下标， 由于我们使用'#'填充了原字符串，因此字符串中任意一个回文字符串首尾一定是'#'，因此这里的 '+ 1'操作巧妙的跳过了第一个'#'（'#'无关紧要，理应被去掉）
+      int begin = center - maxArmLength + 1;
       string ret;
-      for (int i = left; i <= right; i++) {
-          if (s[i] != '#') {
-              ret += s[i];
-          }
+      while (maxArmLength > 0) {
+          ret += s[begin];
+          // 每次遍历都'+ 2'来跳过'#'
+          begin += 2;
+          maxArmLength--;
       }
       return ret;
-  }
-  int expand(const string& s, int left, int right) {
-      while (left >= 0 && right <= s.size() && s[left] == s[right]) {
-          left--;
-          right++;
-      }
-      return (right - 1 - (left + 1)) / 2;
   }
   string longestPalindrome(string s) {
-      int start = 0, end = -1;
+      if (s.size() < 2) return s;
       s = padding(s);
-      vector<int> arm_len;
-      int right = -1, j = -1;
-      for (int i = 0; i < s.size(); i++) {
-          int cur_arm_len;
-          if (right >= i) {
-              int i_sym = j * 2 - i;
-              int min_arm_len = min(arm_len[i_sym], right - i);
-              cur_arm_len = expand(s, i - min_arm_len, i + min_arm_len);
-          } else {
-              cur_arm_len = expand(s, i, i);
+      int sS = s.size();
+      // 用于记录当前回文字符串的回文中心
+      int curC = 0;
+      // 用于记录全局最长回文字符串的回文中心
+      int maxC = 0;
+      // 用于记录目前已经探索到的字符串的最大长度
+      int curRight = 0;
+      this -> arms = vector<int>(sS, 0);
+      for (int i = 0; i < sS; i++) {
+          // Manacher
+          int eachA = i > curRight ? 1 : min(curRight - i, this -> arms[2 * curC - i]);
+          // 使用了中心扩展算法
+          while (i - eachA >= 0 && i + eachA < sS && s[i - eachA] == s[i + eachA]) {
+              eachA++;
           }
-          arm_len.emplace_back(cur_arm_len);
-          if (i + cur_arm_len > right) {
-              right = i + cur_arm_len;
-              j = i;
+          // 记录当前回文字符串最长臂展
+          this -> arms[i] = --eachA;
+          if (i + eachA > curRight) {
+              // 记录当前回文字符串的回文中心
+              curC = i;
+              // 记录目前已经探索到的字符串的最大长度
+              curRight = i + eachA;
           }
-          if (cur_arm_len * 2 + 1 > end - start) {
-              start = i - cur_arm_len;
-              end = i + cur_arm_len;
+          if (eachA > this -> arms[maxC]) {
+              // 记录全局最长回文字符串的回文中心
+              maxC = i;
           }
       }
-      s = handling(s, start, end);
+      s = clearing(s, maxC);
       return s;
   }
   ```
+  
+  ![image-20210926151453163](leetcode心得.assets/image-20210926151453163.png)
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
 
