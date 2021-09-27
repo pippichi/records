@@ -694,7 +694,7 @@ void permute(int* nums, int cur, int size) {
   }
   ```
 
-  
+
 
 ## 树
 
@@ -1145,7 +1145,55 @@ k8 k7 k6 k5
       }
       ```
 
+### [606. Construct String from Binary Tree](https://leetcode-cn.com/problems/construct-string-from-binary-tree/)
 
+- 递归
+
+  ```c++
+  string tree2str(TreeNode* root) {
+      if (root == nullptr) return "";
+      if (root -> left == nullptr && root -> right == nullptr) return to_string(root -> val);
+      if (root -> right == nullptr) return to_string(root -> val) + "(" + tree2str(root -> left) + ")";
+      return to_string(root -> val) + "(" + tree2str(root -> left) + ")(" + tree2str(root -> right) + ")";
+  }
+  ```
+
+- 迭代（迭代的难点在于什么时候去添加`')'`，这里我们使用哈希集合维护访问过的节点，当节点出栈的时候如果发现已经是第二次访问了该节点，就应该给字符串追加`')'`）
+
+  ```c++
+  string tree2str(TreeNode* root) {
+      if (!root) return "";
+      stack<TreeNode*> stack;
+      // 用于维护访问过的节点
+      unordered_set<TreeNode*> set;
+      stack.emplace(root);
+      string ret;
+      while (!stack.empty()) {
+          root = stack.top();
+          if (set.count(root) > 0) {
+              // 发现该节点之前已经被访问过一次了
+              ret += ")";
+              set.erase(root);
+              stack.pop();
+          } else {
+              // 该节点第一次被访问
+              set.emplace(root);
+              ret += "(" + to_string(root -> val);
+              if (!root -> left && root -> right) {
+                  ret += "()";
+              }
+              if (root -> right) {
+                  stack.emplace(root -> right);
+              }
+              if (root -> left) {
+                  stack.emplace(root -> left);
+              }
+          }
+      }
+      // 去掉首尾的 '(' 和 ')'
+      return ret.substr(1, ret.size() - 2);
+  }
+  ```
 
 ##  字符串
 
@@ -1402,6 +1450,86 @@ k8 k7 k6 k5
   ```
   
   ![image-20210926151453163](leetcode心得.assets/image-20210926151453163.png)
+
+### [6. ZigZag Conversion[M]](https://leetcode-cn.com/problems/zigzag-conversion/)
+
+- 按行排序
+
+  使用`vector<string> rows`存放每一行的字符串
+
+  ```c++
+  string convert(string s, int numRows) {
+      if (numRows == 1) return s;
+      vector<string> rows(min(int(s.size()), numRows));
+      int curRow = 0;
+      bool flag = false;
+      for (char& c: s) {
+          rows[curRow] += c;
+          if (curRow == 0 || curRow == numRows - 1) flag = !flag;
+          curRow += flag ? 1 : -1;
+      }
+      string ret;
+      for (string& s: rows) {
+          ret += s;
+      }
+      return ret;
+  }
+  ```
+
+- 数学，按行访问
+
+  直接计算出`row == 0`、`row == numRows - 1`以及`0 < row < numRows - 1`这三种情况下字符在字符串中的下标（由于是直接计算的，效率非常高，所以以后遇到这种看起来就有数学规律的，尽量直接得出数学计算公式进行计算）
+
+  ```c++
+  string convert(string s, int numRows) {
+      if (numRows == 1) return s;
+      int circleNum = 2 * numRows - 2;
+      string ret;
+      for (int row = 0; row < numRows; row++) {
+          for (int k = 0; k < s.size(); k++) {
+              int index;
+              int nextIndex;
+              if (row == 0) {
+                  index = k * circleNum;
+              } else if (row == numRows - 1) {
+                  index = k * circleNum + numRows - 1;
+              } else {
+                  index = k * circleNum + row;
+                  nextIndex = (k + 1) * circleNum - row;
+              }
+              if (index >= s.size()) {
+                  break;
+              }
+              ret += s[index];
+              if (nextIndex < s.size()) {
+                  ret += s[nextIndex];
+              }
+          }
+      }
+      return ret;
+  }
+  ```
+
+  更简洁的写法：
+
+  ```c++
+  string convert(string s, int numRows) {
+      if (numRows == 1) return s;
+      int circleNum = 2 * numRows - 2;
+      string ret;
+      for (int row = 0; row < numRows; row++) {
+          for (int k = 0; k + row < s.size(); k += circleNum) {
+              ret += s[k + row];
+              if (row != 0 && row != numRows - 1 && k + circleNum - row < s.size()) {
+                  ret += s[k + circleNum - row];
+              }
+          }
+      }
+      return ret;
+  }
+  ```
+
+
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
 
@@ -2099,7 +2227,7 @@ bool kmp(string sOrder, string tOrder) {
 
 ## 链表
 
-#### [2. Add Two Numbers[M]](https://leetcode-cn.com/problems/add-two-numbers/)
+### [2. Add Two Numbers[M]](https://leetcode-cn.com/problems/add-two-numbers/)
 
 - 模拟法，注意不要忘记最后的进位
 
