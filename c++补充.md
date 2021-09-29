@@ -337,7 +337,27 @@ int main(){
 }
 ```
 
+# 正则表达式
 
+参考：https://blog.csdn.net/bgzclxqq/article/details/90262904
+
+# lambda表达式
+
+使用lambda表达式快速创建一个函数：
+
+```c++
+int main() {
+    int min = INT_MAX;
+    auto function = [&](int cur) {
+    	if (cur < min) {
+            min = cur;
+        }  
+    };
+    function(5);
+    cout << min << endl; // 5
+	return 0;
+}
+```
 
 # 智能指针
 

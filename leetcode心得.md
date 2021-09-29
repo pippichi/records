@@ -10,6 +10,16 @@
 
   用哈希表维护已经被遍历过的元素
 
+### [11. Container With Most Water[M]](https://leetcode-cn.com/problems/container-with-most-water/)
+
+- 双指针暴力法（超时）
+
+  计算每一个可能的面积，取最大
+
+- 双指针
+
+  取首尾双指针，计算当前双指针构成的面积，然后向内移动双指针（移动当前高度较低的那个指针），直到两指针相遇，返回面积最大值即可
+
 ### [14. Longest Common Prefix](https://leetcode-cn.com/problems/longest-common-prefix/)
 
 - 横向扫描
@@ -27,6 +37,125 @@
 - 二分查找
 
   以字符为单位分组
+
+### [15. 3Sum[M]](https://leetcode-cn.com/problems/3sum/)
+
+- 排序 + 双指针
+
+  原理其实跟[1. Two Sum](https://leetcode-cn.com/problems/two-sum/)是一样的，Two Sum中假设有`x + y = target`，我们先拿到`x`，再去找`target - x`，如果找到了，就是符合条件的`x和y`。这里也是一样，假设有`x + y + z = target`， 先找到`x和y`，再去找`target - x - y`，如果找到了，就是符合条件的`x、y和z`。
+
+  而且这里还有一点：由于经过了排序，假设有第一层遍历遍历到某数`i`，第二层遍历遍历到某数`j`，第三层遍历我们采取一个后指针往前遍历的方式来遍历，遍历到某数`k`，有两种情况：1、如果找到了符合条件的`k`，那么下一次第二层遍历遍历到的数将会是`m(m > j)`，而此时我们不需要将第三层遍历再从最末尾开始重新向前遍历，而应该从原先`k`的位置继续往前遍历，因为就算在这次遍历中第三层遍历找到了符合条件的数`z`，`z`也一定会小于`k`；2、如果没有找到符合条件的`k`，那么就没有必要再执行下一个第二层以及第三层遍历了，因为下一次第二层遍历遍历到的数`m(m > j)`，那么第三层将更加找不到符合条件的数。
+
+  ```c++
+  vector<vector<int>> threeSum(vector<int>& nums) {
+      int sNums = nums.size();
+      sort(nums.begin(), nums.end());
+      vector<vector<int>> ans;
+      for (int i = 0; i < sNums; i++) {
+          if (i > 0 && nums[i] == nums[i - 1]) continue;
+          int last = sNums - 1;
+          int target = -nums[i];
+          // 下面这种写法看似是一个二重遍历，其实就是双指针向内移动的写法
+          for (int j = i + 1; j < sNums; j++) {
+              if (j > i + 1 && nums[j] == nums[j - 1]) continue;
+              while (j < last && nums[last] + nums[j] > target) {
+                  last--;
+              }
+              if (j == last) {
+                  break;
+              }
+              if (nums[last] + nums[j] == target) {
+                  vector<int> temp = {nums[i], nums[j], nums[last]};
+                  ans.emplace_back(temp);
+              }
+          }
+      }
+      return ans;
+  }
+  ```
+
+  为了更清晰的体现出双指针，我们换种写法：
+
+  ```c++
+  vector<vector<int>> threeSum(vector<int>& nums) {
+      vector<vector<int>> ret;
+      int sNums = nums.size();
+      sort(nums.begin(), nums.end());
+      for (int i = 0; i < sNums; i++) {
+          if (i > 0 && nums[i] == nums[i - 1]) continue;
+          int target = -nums[i];
+          int last = sNums - 1;
+          int first = i + 1;
+          // 双指针
+          while (first < last) {
+              int sum = nums[first] + nums[last];
+              if (target == sum) {
+                  vector<int> temp = {nums[i], nums[first], nums[last]};
+                  ret.emplace_back(temp);
+              }
+              if (sum < target) {
+                  first++;
+                  while (first < last && nums[first] == nums[first - 1]){
+                      first++;
+                  }
+              } else {
+                  last--;
+                  while (first < last && nums[last] == nums[last + 1]) {
+                      last--;
+                  }
+              }
+          }
+      }
+      return ret;
+  }
+  ```
+
+### [16. 3Sum Closest[M]](https://leetcode-cn.com/problems/3sum-closest/)
+
+- 排序 + 双指针
+
+  思路跟[15. 3Sum[M]](https://leetcode-cn.com/problems/3sum/)一样
+
+  ```c++
+  int threeSumClosest(vector<int>& nums, int target) {
+      sort(nums.begin(), nums.end());
+      int ans;
+      int minSum = INT_MAX;
+      auto update = [&](int cur){
+          if (abs(target - cur) < minSum) {
+              minSum = abs(target - cur);
+              ans = cur;
+          }
+      };
+      int sNums = nums.size();
+      for (int i = 0; i < sNums; i++) {
+          if (i > 0 && nums[i] == nums[i - 1]) continue;
+          int left = i + 1, right = sNums - 1;
+          while (left < right) {
+              int sum = nums[i] + nums[left] + nums[right];
+              if (sum == target) {
+                  return sum;
+              }
+              update(sum);
+              // 双指针向内移动
+              if (sum < target) {
+                  left++;
+                  while (left < right && left > i + 1 && nums[left] == nums[left - 1]) {
+                      left++;
+                  }
+              } else {
+                  right--;
+                  while (left < right && right < sNums - 1 && nums[right] == nums[right + 1]) {
+                      right--;
+                  }
+              }
+          }
+      }
+      return ans;
+  }
+  ```
+
+
 
 ### [26. Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 
@@ -1195,6 +1324,31 @@ k8 k7 k6 k5
   }
   ```
 
+### [617. Merge Two Binary Trees](https://leetcode-cn.com/problems/merge-two-binary-trees/)
+
+- 递归
+
+  ```c++
+  TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+      if (!root1) return root2;
+      if (!root2) return root1;
+      root1 -> val += root2 -> val;
+      root1 -> left = mergeTrees(root1 -> left, root2 -> left);
+      root1 -> right = mergeTrees(root1 -> right, root2 -> right);
+      return root1;
+  }
+  ```
+
+- 迭代
+
+  - 补节点
+
+    对于某一位置，如果两棵树只有其中一棵树存在节点，则给另一棵树补一个值为0的节点`new TreeNode(0)`
+
+  - 不补节点
+
+    创建新树，对于某一位置，如果两棵树都存在节点，则相加他们的值，以相加的值创建新节点，作为新树的左孩子或右孩子，并进入下一次迭代；如果两棵树只有其中一棵树存在节点，假设存在节点的树为x，则新树的左孩子或右孩子就设置为x的左孩子或右孩子；而如果两棵树都不存在节点，则不需要再进行操作了
+
 ##  字符串
 
 ### [3. Longest Substring Without Repeating Characters[M]](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
@@ -1529,7 +1683,72 @@ k8 k7 k6 k5
   }
   ```
 
+### [8. String to Integer (atoi)[M]](https://leetcode-cn.com/problems/string-to-integer-atoi/)
 
+- 模拟法
+
+  按照既定规则写出程序，难点在于逻辑判断太多，而且某些判断的先后顺序不能写反。而且最关键的是，这样写出来的程序非常难维护，一旦再加几个限制条件，程序就要大改。因此不推荐这种写法
+
+- 自动机（状态转移机）
+
+  ![image-20210929093914161](leetcode心得.assets/image-20210929093914161.png)
+
+  接下来编程部分就非常简单了：我们只需要把上面这个状态转换表抄进代码即可
+
+  ```c++
+  class Automaton {
+      string state = "start";
+      unordered_map<string, vector<string>> states = {
+          {"start", {"start", "signed", "number", "end"}},
+          {"signed", {"end", "end", "number", "end"}},
+          {"number", {"end", "end", "number", "end"}},
+          {"end", {"end", "end", "end", "end"}}
+      };
+  
+      int getState(char c) {
+          if (c == ' ') return 0;
+          if (c == '+' || c == '-') return 1;
+          if (c >= 48 && c <= 57) return 2;
+          return 3;
+      }
+  
+  public: 
+      int sign = 1;
+      long long ans = 0;
+      string cal(char c) {
+          state = states[state][getState(c)];
+          if (state == "start") {
+              return "start";
+          } else if (state == "number") {
+              ans = ans * 10 + c - '0';
+              ans = sign == 1 ? min((long long)INT_MAX, ans) : min(ans, -(long long)INT_MIN);
+              return "number";
+          } else if (state == "signed") {
+              sign = c == '+' ? 1 : -1;
+              return "signed";
+          } else {
+              return "end";
+          }
+      }
+  };
+  
+  class Solution {
+  public:
+      int myAtoi(string s) {
+          Automaton automaton;
+          for (char& c: s) {
+              if (automaton.cal(c) == "end") {
+                  break;
+              }
+          }
+          return (int)(automaton.sign * automaton.ans);
+      }
+  };
+  ```
+
+- 正则表达式
+
+  去除字符串开头可能存在的空格，再使用正则表达式匹配符合题意的字符串，再进行后续的计算即可
 
 ### [13. Roman to Integer](https://leetcode-cn.com/problems/roman-to-integer/)
 
@@ -2513,6 +2732,65 @@ bool kmp(string sOrder, string tOrder) {
 
 - 将数转成字符串后使用双指针
 
+### [12. Integer to Roman[M]](https://leetcode-cn.com/problems/integer-to-roman/)
+
+- 模拟
+
+  ```c++
+  const pair<int, string> valueSymbols[] = {
+      {1000, "M"},
+      {900, "CM"},
+      {500, "D"},
+      {400, "CD"},
+      {100, "C"},
+      {90, "XC"},
+      {50, "L"},
+      {40, "XL"},
+      {10, "X"},
+      {9, "IX"},
+      {5, "V"},
+      {4, "IV"},
+      {1, "I"},
+  };
+  class Solution {
+  public:
+      string intToRoman(int num) {
+          string ret;
+          for (const auto& [key, value] : valueSymbols) {
+              while (num >= key) {
+                  ret += value;
+                  num -= key;
+              }
+              if (num == 0) break;
+          }
+          return ret;
+      }
+  };
+  ```
+
+- 硬编码数字
+
+  ![image-20210929110436523](leetcode心得.assets/image-20210929110436523.png)
+
+  由于题目给定了数的范围最大到3999，可以发现：
+
+  - 千位数字只能由`M`表示
+  - 百位数字只能由`C，CD，D和CM`表示
+  - 十位数字只能由`X，XL，L和XC`表示
+  - 个位数字只能由`I，IV，V和IX`表示
+
+  整数num的十进制表示中的每一个数字都是可以单独处理的，因此可以计算出每个数字在每个位上的表示形式，整理成一张硬编码表，如下图所示，其中 0 对应的是空字符串：
+
+  ![image-20210929131948451](leetcode心得.assets/image-20210929131948451.png)
+
+  根据 num 每个位上的数字，在硬编码表中查找对应的罗马字符，并将结果拼接在一起，即为 num 对应的罗马数字：
+
+  ```c++
+  string intToRoman(int num) {
+      return thousands[num / 1000] + hundreds[num % 1000 / 100] + tens[num % 100 / 10] + ones[num % 10];
+  }
+  ```
+
 ### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
 
 - 袖珍计算器算法
@@ -3347,6 +3625,16 @@ int main(){
 
 - 使用`GROUP BY`子句和子查询
 - 使用`GROUP BY`和`HAVING`条件
+
+### [620. Not Boring Movies](https://leetcode-cn.com/problems/not-boring-movies/)
+
+- 单条sql语句即可查出答案
+
+  关于mysql判断奇数偶数，并思考效率的问题，可以参考：https://blog.csdn.net/zhazhagu/article/details/80452473
+
+### [627. Swap Salary](https://leetcode-cn.com/problems/swap-salary/)
+
+- `UPDATE`配合`CASE...WHEN...`
 
 ## 位操作
 
