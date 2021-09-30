@@ -155,7 +155,95 @@
   }
   ```
 
+### [17. Letter Combinations of a Phone Number[M]](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
 
+首先假设`digits`
+
+- 深度优先
+
+  假设有`[a, b, c]、[d, e, f]、[g, h, i]，求排列组合，那么adg、adh、...、cfi一定是先有ad、ae、...、fi之后才有的，而ad、ae、...、fi一定是先有某一个数组比方说[g, h, i]中的某个字符，然后再第二层遍历其它两个数组中的某一个数组得来的`。按照这样的思路就可以递归求解
+
+  ```c++
+  假设有`[a, b, c]、[d, e, f]、[g, h, i]vector<string> mapping = {
+      "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+  };
+  vector<string> letterCombinations(string digits) {
+      vector<string> ans;
+      if (digits == "") return ans;
+      vector<string> temp = letterCombinations(digits.substr(1, digits.size()));
+      for (char& c: mapping[digits[0] - '0']) {
+          if (!temp.empty()) {
+              for (string& cT: temp) {
+                  ans.emplace_back(c + cT);
+              }
+          } else {
+              string tempStr = "";
+              tempStr += c;
+              ans.emplace_back(tempStr);
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 广度优先
+
+  假设有`[a, b, c]、[d, e, f]、[g, h, i]`，第一次遍历某一个数组比方说`[a, b, c]`，得到：`a、b、c`，放入集合x中维护，第二次遍历其他两个数组中的某一个数组比方说`[d, e, f]`，得到：`ad、ae、af、bd、be、bf、cd、ce、cf`，此时将x中上次遍历留下的内容删除（这里删除`a、b、c`）。依此类推即可
+
+  ```c++
+  vector<string> mapping = {
+      "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+  };
+  vector<string> letterCombinations(string digits) {
+      vector<string> ans;
+      if (digits == "") return ans;
+      int sDigits = digits.size();
+      for (int i = 0; i < sDigits; i++) {
+          if (ans.empty()) {
+              for (char c: mapping[digits[i] - '0']) {
+                  string temp = "";
+                  temp += c;
+                  ans.emplace_back(temp);
+              }
+          } else {
+              int sAns = ans.size();
+              for (int j = 0; j < sAns; j++) {
+                  for (char c: mapping[digits[i] - '0']) {
+                      ans.emplace_back(ans[j] + c);
+                  }
+              }
+              ans.erase(ans.begin(), ans.begin() + sAns);
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 回溯（求排列组合的神器）
+
+  ```c++
+  vector<string> mapping = {
+      "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+  };
+  vector<string> ans;
+  string helper;
+  vector<string> letterCombinations(string digits) {
+      if (digits.empty()) return ans;
+      backTrack(digits, 0);
+      return ans;
+  }
+  void backTrack(const string& digits, int index) {
+      if (index == digits.size()) {
+          ans.emplace_back(helper);
+      } else {
+          for (char c: mapping[digits[index] - '0']) {
+              helper += c;
+              backTrack(digits, index + 1);
+              helper.erase(helper.end() - 1);
+          }
+      }
+  }
+  ```
 
 ### [26. Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 
