@@ -164,7 +164,7 @@
   假设有`[a, b, c]、[d, e, f]、[g, h, i]，求排列组合，那么adg、adh、...、cfi一定是先有ad、ae、...、fi之后才有的，而ad、ae、...、fi一定是先有某一个数组比方说[g, h, i]中的某个字符，然后再第二层遍历其它两个数组中的某一个数组得来的`。按照这样的思路就可以递归求解
 
   ```c++
-  假设有`[a, b, c]、[d, e, f]、[g, h, i]vector<string> mapping = {
+  vector<string> mapping = {
       "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
   };
   vector<string> letterCombinations(string digits) {
@@ -244,6 +244,10 @@
       }
   }
   ```
+
+### [18. 4Sum[M]](https://leetcode-cn.com/problems/4sum/)
+
+- 思路跟[15. 3Sum[M]](https://leetcode-cn.com/problems/3sum/)一样，也是排序 + 双指针
 
 ### [26. Remove Duplicates from Sorted Array](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 
@@ -2537,6 +2541,57 @@ bool kmp(string sOrder, string tOrder) {
 ### [2. Add Two Numbers[M]](https://leetcode-cn.com/problems/add-two-numbers/)
 
 - 模拟法，注意不要忘记最后的进位
+
+### [19. Remove Nth Node From End of List[M]](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+常用技巧：可以通过创建临时头部节点来避免边界情况（比方说需要去除的是头部节点，这个时候如果不用临时头部节点那操作起来就会很麻烦）
+
+- 计算链表总长度，再去除指定位置节点
+
+  ```c++
+  int getLength(ListNode* node) {
+      int ans = 0;
+      while (node) {
+          ++ans;
+          node = node -> next;
+      }
+      return ans; 
+  }
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode* cur = new ListNode(0, head), *temp = cur;
+      int counter = getLength(head) - n;
+      while (counter--) {
+          temp = temp -> next;
+      }
+      temp -> next = temp -> next -> next;
+      ListNode* ans = cur -> next;
+      delete cur;
+      cur = nullptr;
+      return ans;
+  }
+  ```
+
+- 使用双指针（快慢指针）
+
+  ```c++
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+      ListNode* cur = new ListNode(0, head), *slower = cur, *faster = cur;
+      while (n-- && faster && faster -> next) {
+          faster = faster -> next;
+      }
+      while (faster && faster -> next) {
+          faster = faster -> next;
+          slower = slower -> next;
+      }
+      slower -> next = slower -> next -> next;
+      ListNode* ans = cur -> next;
+      delete cur;
+      cur = nullptr;
+      return ans;
+  }
+  ```
+
+- 使用栈
 
 ### [21. Merge Two Sorted Lists](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
