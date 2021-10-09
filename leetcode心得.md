@@ -1852,6 +1852,115 @@ k8 k7 k6 k5
 
   注意括号必须以正确的顺序闭合，并且交叉闭合是不允许的，如`"([)]"`是不允许的
 
+### [22. Generate Parentheses[M]](https://leetcode-cn.com/problems/generate-parentheses/)
+
+- 暴力回溯
+
+  ```c++
+  class Solution {
+      vector<string> result;
+      bool valid(const string& str) {
+          int balance = 0;
+          for (char c : str) {
+              if (c == '(') {
+                  ++balance;
+              } else {
+                  --balance;
+              }
+              if (balance < 0) {
+                  return false;
+              }
+          }
+          return balance == 0;
+      }
+  
+      void generate_all(string& current, int n) {
+          if (n == current.size()) {
+              if (valid(current)) {
+                  result.emplace_back(current);
+              }
+              return;
+          }
+          current += '(';
+          generate_all(current, n);
+          current.pop_back();
+          current += ')';
+          generate_all(current, n);
+          current.pop_back();
+      }
+  public:
+      vector<string> generateParenthesis(int n) {
+          string current;
+          generate_all(current, n * 2);
+          return result;
+      }
+  };
+  ```
+
+- 优化后的回溯
+
+  ```c++
+  class Solution {
+      vector<string> ans;
+      void backtrack(string& s, int open, int close, int n) {
+          if (s.size() == 2 * n) {
+              ans.emplace_back(s);
+              return;
+          }
+          if (open < n) {
+              s += '(';
+              backtrack(s, open + 1, close, n);
+              s.pop_back();
+          }
+          if (close < open) {
+              s += ')';
+              backtrack(s, open, close + 1, n);
+              s.pop_back();
+          }
+      }
+  public:
+      vector<string> generateParenthesis(int n) {
+          string s;
+          backtrack(s, 0, 0, n);
+          return ans; 
+      }
+  };
+  ```
+
+- 按括号序列的长度递归
+
+  核心思想：每一个括号序列都可以用`(a)b`来表示，其中`a`与`b`分别是一个合法的括号序列（可以为空）
+
+  ```c++
+  class Solution {
+      shared_ptr<vector<string>> cache[100] = {nullptr};
+      shared_ptr<vector<string>> generate(int n) {
+          if (cache[n] != nullptr) return cache[n];
+          if (n == 0) {
+              cache[n] = shared_ptr<vector<string>>(new vector<string>{""});
+          } else {
+              auto result = shared_ptr<vector<string>>(new vector<string>);
+              for (int i = 0; i < n; i++) {
+                  // 这个for循环是为了枚举所有可能的lefts、rights
+                  auto lefts = generate(i);
+                  auto rights = generate(n - i - 1);
+                  for (const string& left: *lefts) {
+                      for (const string& right: *rights) {
+                          result -> emplace_back("(" + left + ")" + right);
+                      }
+                  }
+              }
+              cache[n] = result;
+          }
+          return cache[n];
+      }
+  public:
+      vector<string> generateParenthesis(int n) {
+          return *generate(n);
+      }
+  };
+  ```
+
 ### [28. Implement strStr()](https://leetcode-cn.com/problems/implement-strstr/)
 
 - 暴力匹配
