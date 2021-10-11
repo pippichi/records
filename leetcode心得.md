@@ -2749,6 +2749,39 @@ bool kmp(string sOrder, string tOrder) {
     }
     ```
 
+### [24. Swap Nodes in Pairs[M]](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
+
+- 递归
+
+  ```c++
+  ListNode* swapPairs(ListNode* head) {
+      if (head == nullptr || head -> next == nullptr) return head;
+      ListNode* next = head -> next;
+      head -> next = swapPairs(next -> next);
+      next -> next = head;
+      return next;
+  }
+  ```
+
+- 迭代
+
+  ```c++
+  ListNode* swapPairs(ListNode* head) {
+      if (head == nullptr || head -> next == nullptr) return head;
+      ListNode* dummy = new ListNode(0), *temp = dummy;
+      dummy -> next = head;
+      while (temp -> next && temp -> next -> next) {
+          ListNode* node1 = temp -> next;
+          ListNode* node2 = temp -> next -> next;
+          temp -> next = node2;
+          node1 -> next = node2 -> next;
+          node2 -> next = node1;
+          temp = temp -> next -> next;
+      }
+      return dummy -> next;
+  }
+  ```
+
 ### [83. Remove Duplicates from Sorted List](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 
 - 单指针单次遍历
