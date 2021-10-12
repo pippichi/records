@@ -3672,6 +3672,25 @@ string i2n(int n, int radix)
 
 https://blog.csdn.net/zhangxiaoduoduo/article/details/81807338（矩阵快速幂）
 
+### 快速乘算法
+
+参考：https://blog.csdn.net/maxichu/article/details/45459715
+
+```c++
+// 参考模板
+long long qPow(long long a, long long b) {
+    long long ans = 0L;
+    while (b) {
+        if (b & 1) {
+            ans += a;
+        }
+        b >>= 1;
+        a += a;
+    }
+    return ans;
+}
+```
+
 ### [509. Fibonacci Number](https://leetcode-cn.com/problems/fibonacci-number/)
 
 - 动态规划
