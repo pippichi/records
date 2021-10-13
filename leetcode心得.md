@@ -3076,6 +3076,162 @@ bool kmp(string sOrder, string tOrder) {
   }
   ```
 
+### [29. Divide Two Integers[M]](https://leetcode-cn.com/problems/divide-two-integers/)
+
+由于不能用乘法和除法，我们用加法来代替
+
+- 暴力法
+
+  使用`long long`来避免整型溢出，使用循环加法来求解，注意边界情况的处理
+
+- 优化的暴力法
+
+  使用指数来做优化
+
+  ```c++
+  int divide(int dividend, int divisor) {
+      int sign = ((dividend ^ divisor) >> 31 & 0x1 == 1) ? -1 : 1;
+      long long ans = 0;
+      long long dividendLong = abs((long long)dividend);
+      long long divisorLong = abs((long long)divisor);
+      while (dividendLong >= divisorLong) {
+  		// 指数优化
+          long long i = 1;
+          long long temp = divisorLong;
+          while (dividendLong >= temp) {
+              dividendLong -= temp;
+              ans += i;
+              i <<= 1;
+              temp <<= 1;
+          }
+      }
+      ans *= sign;
+      if (ans > INT_MAX || ans < INT_MIN) {
+          return INT_MAX;
+      }
+      return (int)ans;
+  }
+  ```
+
+- 快速乘算法 + 二分法
+
+  使用快速乘来判断某数`x`是否满足`dividend / divisor = x`；使用二分法来快速找到该`x`
+
+  ```c++
+  int divide(int dividend, int divisor) {
+      if (dividend == INT_MIN) {
+          if (divisor == -1) {
+              return INT_MAX;
+          }
+          if (divisor == 1) {
+              return INT_MIN;
+          }
+      }
+      if (divisor == INT_MIN) {
+          if (dividend == INT_MIN) {
+              return 1;
+          }
+          return 0;
+      }
+  
+      bool sign = false;
+      if (dividend > 0) {
+          dividend = -dividend;
+          sign = !sign;
+      }
+      if (divisor > 0) {
+          divisor = -divisor;
+          sign = !sign;
+      }
+  
+      auto check = [](int dividend, int divisor, int mid) {
+          int result = 0;
+          while (mid) {
+              if (mid & 1) {
+                  if (result < dividend - divisor) {
+                      return false;
+                  }
+                  result += divisor;
+              }
+              if (mid != 1) {
+                  if (divisor < dividend - divisor) {
+                      return false;
+                  }
+                  divisor += divisor;
+              }
+              mid >>= 1;
+          }
+          return true;
+      };
+  
+      int left = 1, right = INT_MAX, ans = 0;
+      while (left <= right) {
+          int mid = left + ((right - left) >> 1);
+          if (check(dividend, divisor, mid)) {
+              ans = mid;
+              if (mid == INT_MAX) {
+                  break;
+              }
+              left = mid + 1;
+          } else {
+              right = mid - 1;
+          }
+      }
+      return sign ? -ans : ans;
+  }
+  ```
+
+- 指数法 / 类二分查找
+
+  ```c++
+  int divide(int dividend, int divisor) {
+      // 考虑被除数为最小值的情况
+      if (dividend == INT_MIN) {
+          if (divisor == 1) {
+              return INT_MIN;
+          }
+          if (divisor == -1) {
+              return INT_MAX;
+          }
+      }
+      // 考虑除数为最小值的情况
+      if (divisor == INT_MIN) {
+          return dividend == INT_MIN ? 1 : 0;
+      }
+      // 考虑被除数为 0 的情况
+      if (dividend == 0) {
+          return 0;
+      }
+  
+      // 一般情况，使用类二分查找
+      // 将所有的正数取相反数，这样就只需要考虑一种情况
+      bool rev = false;
+      if (dividend > 0) {
+          dividend = -dividend;
+          rev = !rev;
+      }
+      if (divisor > 0) {
+          divisor = -divisor;
+          rev = !rev;
+      }
+  
+      vector<int> candidates = {divisor};
+      // 注意溢出
+      while (candidates.back() >= dividend - candidates.back()) {
+          candidates.push_back(candidates.back() + candidates.back());
+      }
+      int ans = 0;
+      for (int i = candidates.size() - 1; i >= 0; --i) {
+          if (candidates[i] >= dividend) {
+              ans += (1 << i);
+              dividend -= candidates[i];
+          }
+      }
+  
+      return rev ? -ans : ans;
+  }
+  ```
+
 ### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
 
 - 袖珍计算器算法
