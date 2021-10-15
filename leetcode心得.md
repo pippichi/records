@@ -10,6 +10,162 @@
 
   用哈希表维护已经被遍历过的元素
 
+### [4. Median of Two Sorted Arrays[H]](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+
+- 合并 + 排序
+
+  ```c++
+  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+      nums1.insert(nums1.end(), nums2.begin(), nums2.end());
+      sort(nums1.begin(), nums1.end());
+      int sNums1 = nums1.size();
+      if (sNums1 % 2 == 1) {
+          return nums1[sNums1 / 2];
+      } else {
+          return (nums1[sNums1 / 2 - 1] + nums1[sNums1 / 2]) / 2.0;
+      }
+  }
+  ```
+
+- 双指针排序
+
+  ```c++
+  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+      int sNums1 = nums1.size(), sNums2 = nums2.size();
+      int pointer1 = 0, pointer2 = 0;
+      int dest = (sNums1 + sNums2 + 1) / 2;
+      bool flag = ((sNums1 + sNums2) & 1) == 1;
+      int ans1;
+      while (dest && (pointer1 < sNums1 || pointer2 < sNums2)) {
+          if (pointer1 < sNums1 && pointer2 < sNums2) {
+              if (nums1[pointer1] <= nums2[pointer2]) {
+                  ans1 = nums1[pointer1];
+                  ++pointer1;
+              } else {
+                  ans1 = nums2[pointer2];
+                  ++pointer2;
+              }
+          } else if (pointer1 < sNums1) {
+              ans1 = nums1[pointer1];
+              ++pointer1;
+          } else {
+              ans1 = nums2[pointer2];
+              ++pointer2;
+          }
+          --dest;
+      }
+      if (flag) {
+          return ans1;
+      } else {
+          if (pointer1 < sNums1 && pointer2 < sNums2) {
+              int ans2 = nums1[pointer1] <= nums2[pointer2] ? nums1[pointer1] : nums2[pointer2];
+              return (ans1 + ans2) / 2.0;
+          } else if (pointer1 < sNums1) {
+              return (ans1 + nums1[pointer1]) / 2.0;
+          } else {
+              return (ans1 + nums2[pointer2]) / 2.0;
+          }
+      }
+  }
+  ```
+
+- 二分查找
+
+  ```c++
+  class Solution {
+  public:
+      int getKthElement(const vector<int>& nums1, const vector<int>& nums2, int k) {
+          /* 主要思路：要找到第 k (k>1) 小的元素，那么就取 pivot1 = nums1[k/2-1] 和 pivot2 = nums2[k/2-1] 进行比较
+           * 这里的 "/" 表示整除
+           * nums1 中小于等于 pivot1 的元素有 nums1[0 .. k/2-2] 共计 k/2-1 个
+           * nums2 中小于等于 pivot2 的元素有 nums2[0 .. k/2-2] 共计 k/2-1 个
+           * 取 pivot = min(pivot1, pivot2)，两个数组中小于等于 pivot 的元素共计不会超过 (k/2-1) + (k/2-1) <= k-2 个
+           * 这样 pivot 本身最大也只能是第 k-1 小的元素
+           * 如果 pivot = pivot1，那么 nums1[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 "删除"，剩下的作为新的 nums1 数组
+           * 如果 pivot = pivot2，那么 nums2[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 "删除"，剩下的作为新的 nums2 数组
+           * 由于我们 "删除" 了一些元素（这些元素都比第 k 小的元素要小），因此需要修改 k 的值，减去删除的数的个数
+           */
+  
+          int m = nums1.size();
+          int n = nums2.size();
+          int index1 = 0, index2 = 0;
+  
+          while (true) {
+              // 边界情况
+              if (index1 == m) {
+                  return nums2[index2 + k - 1];
+              }
+              if (index2 == n) {
+                  return nums1[index1 + k - 1];
+              }
+              if (k == 1) {
+                  return min(nums1[index1], nums2[index2]);
+              }
+  
+              // 正常情况
+              int newIndex1 = min(index1 + k / 2 - 1, m - 1);
+              int newIndex2 = min(index2 + k / 2 - 1, n - 1);
+              int pivot1 = nums1[newIndex1];
+              int pivot2 = nums2[newIndex2];
+              if (pivot1 <= pivot2) {
+                  k -= newIndex1 - index1 + 1;
+                  index1 = newIndex1 + 1;
+              }
+              else {
+                  k -= newIndex2 - index2 + 1;
+                  index2 = newIndex2 + 1;
+              }
+          }
+      }
+      double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+          int totalLength = nums1.size() + nums2.size();
+          if (totalLength % 2 == 1) {
+              return getKthElement(nums1, nums2, (totalLength + 1) / 2);
+          }
+          else {
+              return (getKthElement(nums1, nums2, totalLength / 2) + getKthElement(nums1, nums2, totalLength / 2 + 1)) / 2.0;
+          }
+      }
+  };
+  ```
+
+- 划分数组
+
+  ```c++
+  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+      if (nums1.size() > nums2.size()) {
+          return findMedianSortedArrays(nums2, nums1);
+      }
+      int sNums1 = nums1.size(), sNums2 = nums2.size();
+      int left = 0, right = sNums1;
+      // median1：前一部分的最大值
+      // median2：后一部分的最小值
+      int median1 = 0, median2 = 0;
+      while (left <= right) {
+          // 前一部分包含 nums1[0 .. i-1] 和 nums2[0 .. j-1]
+          // 后一部分包含 nums1[i .. m-1] 和 nums2[j .. n-1]
+          int i = (left + right) >> 1;
+          int j = ((sNums1 + sNums2 + 1) >> 1) - i;
+  
+          // nums1Left, nums1Right, nums2Left, nums2Right 分别表示 nums1[i-1], nums1[i], nums2[j-1], nums2[j]
+          int nums1Left = (i == 0 ? INT_MIN : nums1[i - 1]);
+          int nums1Right = (i == sNums1 ? INT_MAX : nums1[i]);
+          int nums2Left = (j == 0 ? INT_MIN : nums2[j - 1]);
+          int nums2Right = (j == sNums2 ? INT_MAX : nums2[j]);
+  
+          // 这里采取的思路是nums1Left <= nums2Right，另一种是nums2Left <= nums1Right
+          if (nums1Left <= nums2Right) {
+              median1 = max(nums1Left, nums2Left);
+              median2 = min(nums1Right, nums2Right);
+              left = i + 1;
+          } else {
+              right = i - 1;
+          }
+      }
+      return (sNums1 + sNums2) % 2 == 0 ? (median1 + median2) / 2.0 : median1;
+  }
+  ```
+
 ### [11. Container With Most Water[M]](https://leetcode-cn.com/problems/container-with-most-water/)
 
 - 双指针暴力法（超时）
