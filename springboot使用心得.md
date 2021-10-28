@@ -659,7 +659,7 @@ spring:
 
 除了使用`Spring Boot Admin`之外，还可以用`Prometheus`配合`Spring Boot Admin`来使用
 
-参考：https://blog.csdn.net/forezp/article/details/107465307
+参考：https://blog.csdn.net/forezp/article/details/107465307（Spring Boot集成普罗米修斯）、https://blog.csdn.net/forezp/article/details/86105850（Spring Boot Admin）、https://blog.csdn.net/feidie436/article/details/81381841（Spring Boot Admin配置属性详解）
 
 # SpringCloud+Spring Security+OAuth2 + JWT + Gateway
 
