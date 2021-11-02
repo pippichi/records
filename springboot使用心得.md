@@ -468,7 +468,9 @@ public class JobFactory extends AdaptableJobFactory {
 }
 ```
 
+## SpringBoot使用AspectJ（CTW）下不能注入SpringIOC容器中的Bean的解决方案
 
+参考：https://blog.csdn.net/weixin_43697006/article/details/105289423
 
 # 静态文件存储位置
 
