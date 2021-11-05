@@ -666,3 +666,11 @@ spring:
 # SpringCloud+Spring Security+OAuth2 + JWT + Gateway
 
 参考：https://blog.csdn.net/lbjfish/article/details/109187316
+
+# SpringBoot整合websocket
+
+简单整合使用非常简单，直接看mcs项目
+
+我们来看看websocket详细配置，比方说websocket拦截器、websocket监听器、websocket用户权限认证等
+
+参考：https://blog.csdn.net/a2231476020/article/details/99465532（WebSocket拦截器和监听器）、https://blog.csdn.net/russle/article/details/86376030（WebSocket拦截器）、https://blog.csdn.net/July_whj/article/details/108947207?ivk_sa=1024320u（WebSocket增加用户权限验证）
