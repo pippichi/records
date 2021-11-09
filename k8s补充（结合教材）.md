@@ -8,6 +8,10 @@
 
 
 
+另外，k8s使用的负载均衡是IPVS，他非常强大，为国人开发
+
+pod与pod之间的访问，包括svc的负载均衡都需要借助kube proxy，kube proxy默认操作防火墙，去进行pod映射
+
 ## k8s核心概念
 
 ![image-20210519140226038](k8s补充（结合教材）.assets/image-20210519140226038.png)
@@ -19,6 +23,10 @@
 **有状态应用部署**
 
 需要有特定条件才可以使用
+
+## etcd
+
+参考尚硅谷Kubenetes教程（k8s从入门到精通）`第1-6_尚硅谷_组件说明 -2`集
 
 ## 搭建k8s集群
 
@@ -165,6 +173,8 @@ Pause容器（根容器）也可以叫做info容器，在创建业务容器之�
 ![image-20211019104302289](k8s补充（结合教材）.assets/image-20211019104302289.png)
 
 上面那个"vip（虚拟ip）"是指service对外的ip地址
+
+service使用的负载均衡算法是roundrobin
 
 实验常用Service类型（ClusterIP、NodePort、LoadBalancer）：
 
@@ -342,6 +352,14 @@ pvc如何绑定pv呢？通过存储容量和匹配模式，比方说pvc要找pv�
 
 ![image-20211108093709531](k8s补充（结合教材）.assets/image-20211108093709531.png)
 
+### SC
+
+Storage Class(SC)：对接后端存储服务器(Storage)的驱动(插件)，配置 Storage Class 对象时，需要提供对接存储的相关信息，比如存储地址、认证用户名和密码等。
+
+Storage：真实存储数据的服务器，包含服务器地址和认证等信息。
+
+参考：https://www.cnblogs.com/panwenbin-logs/p/12196286.html（k8s学习笔记之StorageClass+NFS）、https://www.cnblogs.com/mybxy/p/13994931.html（k8s 持久卷使用记录 ( PV + PVC + SC + NFS )）
+
 ## 集群资源监控
 
 ![image-20211019104422123](k8s补充（结合教材）.assets/image-20211019104422123.png)
@@ -418,3 +436,4 @@ haproxy默认监听端口是16443：
 ![image-20211019104512058](k8s补充（结合教材）.assets/image-20211019104512058.png)
 
 ![image-20211019104524845](k8s补充（结合教材）.assets/image-20211019104524845.png)
+
