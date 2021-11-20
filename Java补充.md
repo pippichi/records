@@ -968,3 +968,7 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 对于流其实已经了解的差不多了，包括里面的重点：平行流（`parallel()和parallelStream()`）和串行流（`sequential`），再补充一个`IntStream`
 
 具体使用参考博客：https://blog.csdn.net/qq_31865983/article/details/106443244
+
+# lambda表达式分组、过滤、求和、最值、排序、去重
+
+参考：https://blog.csdn.net/gsls200808/article/details/86501905（java 8 lambda表达式list操作分组、过滤、求和、最值、排序、去重）
