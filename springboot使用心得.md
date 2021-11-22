@@ -674,3 +674,25 @@ spring:
 我们来看看websocket详细配置，比方说websocket拦截器、websocket监听器、websocket用户权限认证等
 
 参考：https://blog.csdn.net/a2231476020/article/details/99465532（WebSocket拦截器和监听器）、https://blog.csdn.net/russle/article/details/86376030（WebSocket拦截器）、https://blog.csdn.net/July_whj/article/details/108947207?ivk_sa=1024320u（WebSocket增加用户权限验证）
+
+# 循环依赖问题
+
+使用构造器注入就算没用@Async也会有循环依赖问题，在没有使用@Async的情况下最好不要用构造器注入以免发生循环依赖：
+
+```java
+@Service
+public class WarningHistoryServiceImpl implements IWarningHistoryService {
+    
+    // 不要用构造器注入，以免发生循环依赖
+//    private final IWarningItemService warningItemService;
+//    public WarningHistoryServiceImpl(IWarningItemService warningItemService) {
+//    	this.warningItemService = warningItemService;
+//    }
+    
+    // 直接这么写虽然会有警告提示，但是不会导致循环依赖
+    @Autowired
+    private IWarningItemService warningItemService;
+}
+```
+
+对于@Async导致的循环依赖，可以使用：@Lazy懒加载或@ComponentScan(lazyInit = true)来解决，具体参考：https://www.cnblogs.com/iceggboom/p/14393725.html（Spring:解决因@Async引起的循环依赖报错）
