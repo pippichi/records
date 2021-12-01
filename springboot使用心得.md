@@ -118,6 +118,17 @@
 }
 ```
 
+## @JsonFormat
+
+作用域在从后端返回数据给前端的时候
+
+举例：
+
+```java
+@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+private LocalDateTime time; // 返回前端的time会被格式化
+```
+
 # 加密
 
 ## Jasypt实现配置文件中密码字符串加密配置
