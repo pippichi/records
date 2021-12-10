@@ -134,6 +134,15 @@ private LocalDateTime time; // 返回前端的time会被格式化
 private Long id;
 ```
 
+## @JsonSerialize
+
+参考：https://mp.baomidou.com/guide/faq.html#%E5%85%B3%E4%BA%8E-long-%E5%9E%8B%E4%B8%BB%E9%94%AE%E5%A1%AB%E5%85%85%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98（ 关于 Long 型主键填充不生效的问题）
+
+```java
+@JsonSerialize(using= ToStringSerializer.class) // 可以将返回前端的字段自动转成string类型，避免js接到long型数据时精度丢失问题
+private Long indexId;
+```
+
 # 加密
 
 ## Jasypt实现配置文件中密码字符串加密配置
