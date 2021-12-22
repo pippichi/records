@@ -118,21 +118,32 @@
 }
 ```
 
-## @JsonFormat
+## @JsonFormat与@DateTimeFormat
 
-作用域在后端接收从前端传过来的参数以及从后端返回数据给前端的时候
+@JsonFormat作用域在后端接收从前端传过来的参数以及从后端返回数据给前端的时候
 
 举例：
 
 ```java
 @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-private LocalDateTime time; // 返回前端的time会被格式化
+private LocalDateTime time; // 返回前端的time会被格式化，从前端接收的字符串类型的time会被自动转成LocalDateTime
 ```
 
 ```java
 @JsonFormat(shape = JsonFormat.Shape.STRING)
 private Long id;
 ```
+
+@DateTimeFormat作用域在后端接收从前端传过来的参数的时候
+
+举例：
+
+```java
+@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+private LocalDateTime time; // 从前端接收的字符串类型的time会被自动转成LocalDateTime
+```
+
+两者之间的差别请参考：https://blog.csdn.net/zhou520yue520/article/details/81348926（@DateTimeFormat注解 和 @JsonFormat注解）
 
 ## @JsonSerialize
 
