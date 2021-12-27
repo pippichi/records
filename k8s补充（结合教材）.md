@@ -44,6 +44,10 @@ pod与pod之间的访问，包括svc的负载均衡都需要借助kube proxy，k
 
 ![image-20211019103957921](k8s补充（结合教材）.assets/image-20211019103957921.png)
 
+搭建完毕之后可以使用命令`kubectl get node`查看集群节点：
+
+![image-20211227104233498](k8s补充（结合教材）.assets/image-20211227104233498.png)
+
 ## kubectl
 
 ![image-20211019104008109](k8s补充（结合教材）.assets/image-20211019104008109.png)
