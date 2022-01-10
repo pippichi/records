@@ -415,6 +415,12 @@
   - 快慢指针，慢指针可以顺便计数
   - 头尾指针，头指针可以顺便计数
 
+### [31. 下一个排列[M]](https://leetcode-cn.com/problems/next-permutation/)
+
+- 两遍扫描
+
+  假设数组为nums，从后往前扫描，找到`nums[lowerIndex] < nums[lowerIndex + 1]`的第一个`lowerIndex`，即为较小值的下标，然后再次从后往前扫描，由于上一次扫描可以确定数组nums中从下标`(lowerIndex + 1)`到数组末尾元素单调递减，因此可以不使用额外空间保存较大值，直接找到`nums[greaterThanLowerIndex] > nums[lowerIndex]`的第一个`greaterThanLowerIndex`，即为较大值的下标，`swap(nums[lowerIndex], nums[greaterThanLowerIndex])`，然后将下标`lowerIndex`之后的所有元素翻转即可；如果找不到符合条件的下标`lowerIndex`，则翻转所有元素。由于找不到`lowerIndex`的时候`lowerIndex`必为`-1`，因此这两种情况可以总结为一行代码：`reverse(nums.begin() + lowerIndex + 1, nums.end())`
+
 ### [35. Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)
 
 - 二分查找
@@ -1071,7 +1077,23 @@ void permute(int* nums, int cur, int size) {
   }
   ```
 
+### [628. 三个数的最大乘积](https://leetcode-cn.com/problems/maximum-product-of-three-numbers/)
 
+- 排序
+
+  先排序，之后分两种情况：
+
+  - 全正数或全负数
+
+    那么最后三个数的乘积显然是最大的
+
+  - 一半正数一半负数
+
+    那么最大乘积既可能是三个最大正数的乘积，也可能是两个最小负数（即绝对值最大）与最大正数的乘积
+
+- 线性扫描
+
+  根据上面排序法的思想，我们只需要一次遍历找到最大的三个值max1、max2、max3与最小的两个值min1、min2即可得出最大乘积为：`max(max1 * max2 * max3, min1 * min2 * max1)`
 
 ## 树
 
@@ -2014,10 +2036,11 @@ k8 k7 k6 k5
 
   ```c++
   class Solution {
-      vector<string> result;
-      bool valid(const string& str) {
+  private:
+      shared_ptr<vector<string>> ans = nullptr;
+      static bool valid(const string& str) {
           int balance = 0;
-          for (char c : str) {
+          for (char c: str) {
               if (c == '(') {
                   ++balance;
               } else {
@@ -2029,26 +2052,26 @@ k8 k7 k6 k5
           }
           return balance == 0;
       }
-  
-      void generate_all(string& current, int n) {
+      void generateAll(string & current, int n) {
           if (n == current.size()) {
               if (valid(current)) {
-                  result.emplace_back(current);
+                  this -> ans -> emplace_back(current);
               }
               return;
           }
           current += '(';
-          generate_all(current, n);
+          generateAll(current, n);
           current.pop_back();
           current += ')';
-          generate_all(current, n);
+          generateAll(current, n);
           current.pop_back();
       }
   public:
+      Solution(): ans(shared_ptr<vector<string>>(new vector<string>)){}
       vector<string> generateParenthesis(int n) {
           string current;
-          generate_all(current, n * 2);
-          return result;
+          generateAll(current, n * 2);
+          return *(this -> ans);
       }
   };
   ```
@@ -2057,28 +2080,30 @@ k8 k7 k6 k5
 
   ```c++
   class Solution {
-      vector<string> ans;
-      void backtrack(string& s, int open, int close, int n) {
-          if (s.size() == 2 * n) {
-              ans.emplace_back(s);
+  private:
+      shared_ptr<vector<string>> ans = nullptr;
+      void backTrack(string& str, int open, int close, int n) {
+          if (str.size() == 2 * n) {
+              this -> ans -> emplace_back(str);
               return;
           }
           if (open < n) {
-              s += '(';
-              backtrack(s, open + 1, close, n);
-              s.pop_back();
+              str += '(';
+              backTrack(str, open + 1, close, n);
+              str.pop_back();
           }
           if (close < open) {
-              s += ')';
-              backtrack(s, open, close + 1, n);
-              s.pop_back();
+              str += ')';
+              backTrack(str, open, close + 1, n);
+              str.pop_back();
           }
       }
   public:
+      Solution(): ans(shared_ptr<vector<string>>(new vector<string>)) {}
       vector<string> generateParenthesis(int n) {
-          string s;
-          backtrack(s, 0, 0, n);
-          return ans; 
+          string str;
+          backTrack(str, 0, 0, n);
+          return *(this -> ans);
       }
   };
   ```
@@ -2089,6 +2114,7 @@ k8 k7 k6 k5
 
   ```c++
   class Solution {
+  private:
       shared_ptr<vector<string>> cache[100] = {nullptr};
       shared_ptr<vector<string>> generate(int n) {
           if (cache[n] != nullptr) return cache[n];
@@ -4514,5 +4540,39 @@ int main(){
 
   - 上面三种方法使用了Lock，此外还能使用自旋锁 + 让出CPU的方法来代替Lock（volatile + CAS = AtomicInteger，这一点值得思考：原子变量是可以替代Lock的）
 
-    
+## 经典算法
+
+### 树与图
+
+参考：https://blog.csdn.net/weixin_37551036/article/details/100065267（【数据结构】图的应用（普利姆算法、克鲁斯卡尔算法、迪杰斯特拉算法、弗洛伊德算法、拓扑排序））
+
+#### 并查集
+
+参考：https://zhuanlan.zhihu.com/p/93647900/
+
+#### 最小生成树（kruskal算法）
+
+参考：https://blog.csdn.net/qq_41754350/article/details/81460643
+
+#### 最小生成树（Prim算法）
+
+参考：https://blog.csdn.net/gettogetto/article/details/53216951、https://www.cnblogs.com/biyeymyhjob/archive/2012/07/30/2615542.html
+
+#### 最短路径之Dijkstra(迪杰斯特拉)算法（无向图）
+
+参考：https://blog.csdn.net/qq_37334150/article/details/79004785
+
+#### 最短路径算法之Floyd（弗洛伊德）算法（无向图）
+
+参考：https://blog.csdn.net/qq_30091945/article/details/77964810
+
+#### 拓扑排序（有向无环图）
+
+参考：https://blog.csdn.net/lisonglisonglisong/article/details/45543451
+
+### 运筹学
+
+#### 线性规划
+
+参考：https://blog.csdn.net/shulianghan/article/details/102671536
 

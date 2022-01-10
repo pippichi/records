@@ -209,6 +209,35 @@ void fun(const T& proto) {
 
 参考：http://c.biancheng.net/view/169.html
 
+## static
+
+C++中静态成员变量可以在类内部声明但要在类外部再定义或初始化，否则会产生错误。
+
+原因是：
+
+-  在类中，只是声明了静态变量，并没有定义
+
+- 声明只是表明了变量的数据类型和属性，并不分配内存，而定义则是需要分配内存的
+
+  注意：如果在类里面这么写：`int a;` 那么是既声明了变量，也定义了变量，两者合在一起了
+
+- 静态成员是“类级别”的，也就是它和类的地位等同，而普通成员是“对象（实例）级别”的。 类级别的成员，先于该类任何对象的存在而存在，它被该类所有的对象共享
+
+- 现在假定要实例化类的一个对象
+
+  静态成员肯定要出现在这个对象里面的，那么这时候才去定义那个静态成员吗？
+
+  这显然是不合适的，因为，比如有另外一个线程也要创建该类的对象，那么也要按照这个方式去定义那个静态成员。  
+
+  这会产生两种可能的情况：
+
+  - 重复定义
+  - 就算不产生重复定义的情况，也会产生竞争，从而造成死锁的问题，以至于对象无法创建
+
+  很显然，编译器不能这么干。那么合理的解决办法就是事先在类的外部把它定义好，然后再供所有的对象共享。      
+
+  当然这样做，还是有可能产生线程安全的问题，但不管怎么说对象是创建好了，而这种线程安全问题，可以在编程中予以解决。
+
 # 左值、右值、左值引用、右值引用
 
 参考：https://blog.csdn.net/u012198575/article/details/83142419
@@ -371,16 +400,30 @@ int main() {
 
 # 函数
 
-## `min_element`
+## `min_element`与`max_element`
 
 根据规则从容器中找到某个元素
 
-示例：
+vector示例：
 
 ```c++
 int minSize(vector<string>& strs) {
 	int ret = min_element(strs.begin(), strs.end(), [](const string* s1, const string& s2) -> bool { return s1.size() < s2.size(); }) -> size();
     return ret;
+}
+```
+
+map示例：
+
+```c++
+bool cmpValue(const pair<int, int> left, const pair<int, int> right) {
+    return left.second < right.second;
+}
+int maxValue(unordered_map<int, int>& valueMap) {
+//    ans是迭代器，返回key-value
+    auto ans = max_element(valueMap.begin(), valueMap.end(), cmpValue);
+    cout << ans -> first << " - " << ans -> second << endl;
+    return ans -> second;
 }
 ```
 
