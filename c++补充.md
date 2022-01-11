@@ -238,46 +238,15 @@ C++中静态成员变量可以在类内部声明但要在类外部再定义或�
 
   当然这样做，还是有可能产生线程安全的问题，但不管怎么说对象是创建好了，而这种线程安全问题，可以在编程中予以解决。
 
-# 左值、右值、左值引用、右值引用
+## namespace
 
-参考：https://blog.csdn.net/u012198575/article/details/83142419
+参考：https://blog.csdn.net/qq_21033779/article/details/78921997
 
-## std::move、std::forward
+# 库函数
 
-`std::move`和`std::forward`本质就是一个转换函数，`std::move`执行到右值的无条件转换，`std::forward`执行到右值的有条件转换，在参数都是右值时，二者就是等价的。
+## stl
 
-参考：https://www.jianshu.com/p/b90d1091a4ff
-
-# C++ 值传递和地址传递和引用传递
-
-参考：https://blog.csdn.net/qq_43587345/article/details/104395788
-
-# 推荐使用`pass-by-reference-to-const`替代`pass-by-value`的原因以及多态与如何避免对象切割
-
-参考：https://blog.csdn.net/cqk0100/article/details/72897504
-
-# c++虚函数与纯虚函数
-
-**首先：强调一个概念**
-
-```
-定义一个函数为虚函数，不代表函数为不被实现的函数。
-定义他为虚函数是为了允许用基类的指针来调用子类的这个函数。
-定义一个函数为纯虚函数，才代表函数没有被实现。
-定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。
-```
-
-具体介绍请参考：https://blog.csdn.net/hackbuteer1/article/details/7558868、https://blog.csdn.net/qq_36221862/article/details/61413619
-
-C++可以用纯虚函数实现类似于JAVA中接口的功能
-
-# c++虚基类与虚继承解决命名冲突问题以及不可避免的二义性问题
-
-参考：http://c.biancheng.net/view/2280.html
-
-# stl
-
-## map
+### map
 
 与`unordered_map`比可排序。我们来看他的构造方法：
 
@@ -296,10 +265,6 @@ for (const auto &[k, v]: map) {
     ...
 }
 ```
-
-
-
-# 库函数
 
 ## ctype
 
@@ -372,35 +337,15 @@ int main(){
 }
 ```
 
-# 正则表达式
+## optional（c++ 17）
 
-参考：https://blog.csdn.net/bgzclxqq/article/details/90262904
+优雅地返回NULL
 
-# lambda表达式
+参考：https://blog.csdn.net/janeqi1987/article/details/100567933
 
-使用lambda表达式快速创建一个函数：
+## algorithm
 
-```c++
-int main() {
-    int min = INT_MAX;
-    auto function = [&](int cur) {
-    	if (cur < min) {
-            min = cur;
-        }  
-    };
-    function(5);
-    cout << min << endl; // 5
-	return 0;
-}
-```
-
-# 智能指针
-
-参考：https://blog.csdn.net/xt_xiaotian/article/details/5714477、https://blog.csdn.net/code_peak/article/details/119722167、https://blog.csdn.net/flowing_wind/article/details/81301001、https://blog.csdn.net/runner668/article/details/80539221
-
-# 函数
-
-## `min_element`与`max_element`
+### `min_element`与`max_element`
 
 根据规则从容器中找到某个元素
 
@@ -427,3 +372,152 @@ int maxValue(unordered_map<int, int>& valueMap) {
 }
 ```
 
+# 构造器的几种写法
+
+案例：
+
+```c++
+class Name {
+private:
+    string name; 
+    static string gen() {
+        return "generating...";
+    }
+public:
+    // 写法一：
+    Name(const string& name) {
+        this -> name = name;
+    }
+    // 写法二：
+    Name(const string& name): name(name) {
+    }
+    // 写法三：
+    Name(const string& name): name{ name } {
+    }
+    // 写法四：
+    Name(): name(Name::gen()) {
+    }
+    // 写法五：
+    Name(): name{ Name::gen() } {
+    }
+}
+```
+
+# 左值、右值、左值引用、右值引用
+
+参考：https://blog.csdn.net/u012198575/article/details/83142419
+
+## std::move、std::forward
+
+`std::move`和`std::forward`本质就是一个转换函数，`std::move`执行到右值的无条件转换，`std::forward`执行到右值的有条件转换，在参数都是右值时，二者就是等价的。
+
+参考：https://www.jianshu.com/p/b90d1091a4ff
+
+# C++ 值传递和地址传递和引用传递
+
+参考：https://blog.csdn.net/qq_43587345/article/details/104395788
+
+# 推荐使用`pass-by-reference-to-const`替代`pass-by-value`的原因以及多态与如何避免对象切割
+
+参考：https://blog.csdn.net/cqk0100/article/details/72897504
+
+# c++虚函数与纯虚函数
+
+**首先：强调一个概念**
+
+```
+定义一个函数为虚函数，不代表函数为不被实现的函数。
+定义他为虚函数是为了允许用基类的指针来调用子类的这个函数。
+定义一个函数为纯虚函数，才代表函数没有被实现。
+定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数。
+```
+
+具体介绍请参考：https://blog.csdn.net/hackbuteer1/article/details/7558868、https://blog.csdn.net/qq_36221862/article/details/61413619
+
+C++可以用纯虚函数实现类似于JAVA中接口的功能
+
+# c++虚基类与虚继承解决命名冲突问题以及不可避免的二义性问题
+
+参考：http://c.biancheng.net/view/2280.html
+
+# c++函数返回NULL的解决方案
+
+假设有某一个函数，返回类型为`std::string&`，此时我想返回NULL
+
+注意C++引用不能为空！
+
+解决方案：
+
+- 如果返回是一个对象的引用，这个对象的生存期与函数调用的范围没有关系，比如数据成员，则可以安全地返回一个原始指针（推荐指向const的指针）
+
+  ```c++
+  std::string const* foo::bar() const { 
+      if (condition) {
+      	return &some_data_member; 
+      } else {
+          return nullptr; 
+      }
+  }
+  ```
+
+- 如果不是，最佳解决方案是C++ 17[`std::optional`](http://en.cppreference.com/w/cpp/experimental/optional)或使用包装类型等（[`boost::optional`](http://www.boost.org/doc/libs/release/libs/optional/doc/html/index.html)）。这可以通过值返回一个可选对象（性能好），但它也是[self-documenting](https://en.wikipedia.org/wiki/Self-documenting_code)
+
+  ```c++
+  std::optional<std::string> foo::bar() const { 
+      if (condition) { 
+       	return "hello, world"; 
+      } else { 
+       	return std::nullopt; 
+      } 
+  } 
+  ```
+
+- 或者，可以返回一个指针，该指针可以为null。但是，返回一个原始指针会引发谁负责删除动态分配的字符串的问题。在这种情况下，返回[`std::unique_ptr`](http://en.cppreference.com/w/cpp/memory/unique_ptr)将是最好的选择，因为所有权显式传递给调用者
+
+  ```c++
+  std::unique_ptr<std::string> foo::bar() const { 
+      if (condition) { 
+       	return std::make_unique<std::string>("hello, world"); 
+      } else { 
+       	return nullptr; 
+      } 
+  } 
+  ```
+
+- 或者甚至更简单，直接返回一个空字符串
+
+  ```c++
+  std::string foo::bar() const { 
+      if (condition) { 
+       	return "hello, world"; 
+      } else { 
+       	return ""; 
+      } 
+  }
+  ```
+
+# 正则表达式
+
+参考：https://blog.csdn.net/bgzclxqq/article/details/90262904
+
+# lambda表达式
+
+使用lambda表达式快速创建一个函数：
+
+```c++
+int main() {
+    int min = INT_MAX;
+    auto function = [&](int cur) {
+    	if (cur < min) {
+            min = cur;
+        }  
+    };
+    function(5);
+    cout << min << endl; // 5
+	return 0;
+}
+```
+
+# 智能指针
+
+参考：https://blog.csdn.net/xt_xiaotian/article/details/5714477、https://blog.csdn.net/code_peak/article/details/119722167、https://blog.csdn.net/flowing_wind/article/details/81301001、https://blog.csdn.net/runner668/article/details/80539221

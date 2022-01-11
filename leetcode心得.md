@@ -4574,5 +4574,7 @@ int main(){
 
 #### 线性规划
 
-参考：https://blog.csdn.net/shulianghan/article/details/102671536
+图解法参考：https://blog.csdn.net/shulianghan/article/details/102671536
+
+单纯形法求解参考：https://zhuanlan.zhihu.com/p/69247131
 
