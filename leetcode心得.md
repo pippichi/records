@@ -421,6 +421,96 @@
 
   假设数组为nums，从后往前扫描，找到`nums[lowerIndex] < nums[lowerIndex + 1]`的第一个`lowerIndex`，即为较小值的下标，然后再次从后往前扫描，由于上一次扫描可以确定数组nums中从下标`(lowerIndex + 1)`到数组末尾元素单调递减，因此可以不使用额外空间保存较大值，直接找到`nums[greaterThanLowerIndex] > nums[lowerIndex]`的第一个`greaterThanLowerIndex`，即为较大值的下标，`swap(nums[lowerIndex], nums[greaterThanLowerIndex])`，然后将下标`lowerIndex`之后的所有元素翻转即可；如果找不到符合条件的下标`lowerIndex`，则翻转所有元素。由于找不到`lowerIndex`的时候`lowerIndex`必为`-1`，因此这两种情况可以总结为一行代码：`reverse(nums.begin() + lowerIndex + 1, nums.end())`
 
+### [33. 搜索旋转排序数组[M]](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+
+- 二分查找（常规思路）
+
+  将数组一分为二，其中一定有一个是有序的，另一个可能是有序，也能是部分有序。此时有序部分用二分法查找。无序部分再一分为二，其中一个一定有序，另一个可能有序，可能无序。
+
+- 二分查找（官解）
+
+  ```c++
+  int search(vector<int>& nums, int target) {
+      int n = (int)nums.size();
+      if (!n) {
+          return -1;
+      }
+      if (n == 1) {
+          return nums[0] == target ? 0 : -1;
+      }
+      int l = 0, r = n - 1;
+      while (l <= r) {
+          int mid = (l + r) / 2;
+          // 为了让下面的代码以mid为分割线，这里单独判断nums[mid]是否等于target
+          if (nums[mid] == target) return mid;
+          if (nums[0] <= nums[mid]) {
+              // 可以断定数组下标0到mid单调递增
+              // 因此可以断定如果target不在0到mid之间，则一定在mid到n - 1之间，又因为上面代码排除了nums[mid] == target的可能，因此target只能在mid + 1到n - 1之间
+              if (nums[0] <= target && target < nums[mid]) {
+                  r = mid - 1;
+              } else {
+                  l = mid + 1;
+              }
+          } else {
+              // 可以断定数组下标mid到n - 1单调递增
+              // 因此可以断定如果target不在mid到n - 1之间，则一定在0到mid之间，又因为上面代码排除了nums[mid] == target的可能，因此target只能在0到mid - 1之间
+              if (nums[mid] < target && target <= nums[n - 1]) {
+                  l = mid + 1;
+              } else {
+                  r = mid - 1;
+              }
+          }
+      }
+      return -1;
+  }
+  ```
+
+### [34. 在排序数组中查找元素的第一个和最后一个位置[M]](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+注意点：1、平时的二分查找找到了就返回，但是这里得接着找；2、如果找到了，由于得接着找，right指针和left指针应该如何移动
+
+- 二分查找（常规思路）
+
+  采用两遍二分查找，找到元素之后，一个往回找，一个往前找
+
+- 二分查找（官解）
+
+  其实跟常规思路是一样的，只是写法不一样而已
+
+  如果出现这两种情况：1、`nums[mid] > target`；2、查找低边界时`nums[mid] >= target`。就往前找（`right - 1`），并且我们打算利用`nums[mid] >= target`中这个等号找到最低边界（`ans = mid`），反之就往后找（`left + 1`）
+
+  由于找到元素之后不能立刻返回，因此这里干脆就不处理`nums[mid] = target`的情况了，那么就会导致查找高边界时找到的下标需要减一才是真正的最高边界下标
+
+  而且这里的`ans`不可靠，在最后需要做判断才能确定找到的是不是正确的最高最低边界下标
+
+  ```c++
+  class Solution {
+  private:
+      int bSearch(vector<int>& nums, const int& target, const bool& isLower) {
+          int left = 0, right = nums.size() - 1, ans = nums.size();
+          while (left <= right) {
+              int mid = left + ((right - left) >> 1);
+              if (nums[mid] > target || (isLower && nums[mid] >= target)) {
+                  right = mid - 1;
+                  ans = mid;
+              } else {
+                  left = mid + 1;
+              }
+          }
+          return ans;
+      }
+  public:
+      vector<int> searchRange(vector<int>& nums, int target) {
+          int lowerBoundary = bSearch(nums, target, true);
+          int upperBoundary = bSearch(nums, target, false) - 1;
+          if (lowerBoundary <= upperBoundary && upperBoundary < nums.size() && nums[lowerBoundary] == target && nums[upperBoundary] == target) {
+              return { lowerBoundary, upperBoundary };
+          }
+          return { -1, -1 };
+      }
+  };
+  ```
+
 ### [35. Search Insert Position](https://leetcode-cn.com/problems/search-insert-position/)
 
 - 二分查找
@@ -513,6 +603,218 @@
 - 一次遍历
   - 思路还是上面的峰谷法，但这次我们不再寻找波峰和波谷
   - 理论上如果函数一直上升的话到某一个波峰的时候他的总收益（波峰 - 波谷）是等于每一段上升的价格累计之和，因此我们只需要累加上升的价格，跳过下降的价格即可得到最优收益
+
+### [128. 最长连续序列[M]](https://leetcode-cn.com/problems/longest-consecutive-sequence/)
+
+- 排序
+
+  排序之后找最长连续上升序列
+
+- 暴力法
+
+  遍历数组中每一个元素x，再次遍历数组，如果找到元素`x + 1`，则计数器加1，且`++x`，直到内层循环找不到`x + 1`，此时break内层循环，当前计数器值即为外层循环元素x的最长连续上升序列长度，如此往复，遍历完外层循环，找到最长长度即可（当然，也可以不使用计数器，换用`尾 - 首 + 1`替代也可）
+
+- 哈希集合
+
+  首先将元素放入哈希集合去重，然后遍历集合，为了避免重复计算，当前元素满足为连续上升序列头部元素这个条件时，才开始计算（代码中表现为：`if (!set.count(x - 1)) {...}`），内层循环判断`x + 1`是否存在集合中，如果存在，计数器加1，且`++x`，直到集合中不存在`x + 1`，当前计数器值即为外层循环元素x的最长连续上升序列长度，如此往复，遍历完外层循环，找到最长长度即可（当然，也可以不使用计数器，换用`尾 - 首 + 1`替代也可）
+
+- 哈希表记录右边界
+
+  ```c++
+  int longestConsecutive(vector<int>& nums) {
+      // key表示num，value表示num最远到达的连续右边界
+      unordered_map<int, int> numMap;
+      // 初始化每个num的右边界为自己
+      for (const int& num: nums) {
+          numMap[num] = num;
+      }
+      int ans = 0;
+      for (const int& num: nums) {
+          int right = numMap[num];
+          // 遍历得到最远的右边界
+          while (numMap.count(right + 1)) {
+              right = numMap[right + 1];
+          }
+          // 更新右边界
+          numMap[num] = right;
+          ans = max(ans, right - num + 1);
+      }
+      return ans;
+  }
+  ```
+
+- 哈希表记录连续区间长度（动态规划）
+
+  ```c++
+  int longestConsecutive(vector<int>& nums) {
+      // key表示num，value表示num所在连续区间的长度
+      unordered_map<int, int> numMap;
+      int ans = 0;
+      for (const int& num: nums) {
+          // 当map中不包含num，也就是num第一次出现
+          if (!numMap.count(num)) {
+              // left为num-1所在连续区间的长度，更进一步理解为：左连续区间的长度
+              int left = numMap.count(num - 1) == 0 ? 0 : numMap[num - 1];
+              // right为num+1所在连续区间的长度，更进一步理解为：右连续区间的长度
+              int right = numMap.count(num + 1) == 0 ? 0 : numMap[num + 1];
+              // 当前连续区间的总长度
+              int curLen = left + right + 1;
+              ans = max(ans, curLen);
+              // 将num加入map中，表示已经遍历过该值。其对应的value可以为任意值。
+              numMap[num] = -1;
+              // 更新当前连续区间左边界和右边界对应的区间长度
+              numMap[num - left] = curLen;
+              numMap[num + right] = curLen;
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 并查集
+
+  ```c++
+  class MergeFind {
+  private:
+      // 记录每个节点的父节点
+      shared_ptr<unordered_map<int, int>> parents;
+  public:
+      MergeFind(vector<int>& nums): parents(shared_ptr<unordered_map<int, int>>(new unordered_map<int, int>)) {
+          // 初始化父节点为自身
+          for (const int& num: nums) {
+              (*parents)[num] = num;
+          }
+      }
+      ~MergeFind() {}
+      // 寻找x的父节点，实际上也就是x的最远连续右边界
+      std::optional<int> find(int x) {
+          // nums不包含x
+          if (!parents -> count(x)) {
+              return std::nullopt;
+          }
+          // 遍历找到x的父节点
+          while (x != (*parents)[x]) {
+              // 路径压缩
+              (*parents)[x] = (*parents)[(*parents)[x]];
+              x = (*parents)[x];
+          }
+          return x;
+      }
+      // 合并两个连通分量，在本题中用来将num+1并入到num的连续区间中
+      void merge(int x, int y) {
+          auto rootX = find(x);
+          auto rootY = find(y);
+          if (rootX == std::nullopt || rootY == std::nullopt) {
+              return;
+          }
+          if (*rootX == *rootY) {
+              return;
+          }
+          // 谁是儿子谁是父亲值得思考
+          (*parents)[*rootY] = *rootX;
+      }
+  };
+  
+  class Solution {
+  public:
+      int longestConsecutive(vector<int>& nums) {
+          auto mf = shared_ptr<MergeFind>(new MergeFind(nums));
+          int ans = 0;
+          for (const int& num: nums) {
+              // 当num+1存在，将num+1合并到num所在集合中
+              if (mf -> find(num + 1) != std::nullopt) {
+                  mf -> merge(num, num + 1);
+              }
+          }
+          for (const int& num: nums) {
+              // 找到num的最远连续右边界
+              int right = *mf -> find(num);
+              // abs是因为right - num的实际意义有点类似两点之间的距离，应该为正数
+              ans = max(ans, abs(right - num) + 1);
+          }
+          return ans;
+      }
+  };
+  ```
+
+- 并查集优化
+
+  使用counter记录每个连通分量的节点个数，有点类似于并查集代码中用于记录树深度的rank（秩）
+
+  ```c++
+  class MergeFind {
+  private:
+      // 记录每个节点的父节点
+      shared_ptr<unordered_map<int, int>> parents;
+      // 记录节点所在连通分量的节点个数
+      shared_ptr<unordered_map<int, int>> counter;
+  public:
+      MergeFind(vector<int>& nums): parents(shared_ptr<unordered_map<int, int>>(new unordered_map<int, int>)),
+      counter(shared_ptr<unordered_map<int, int>>(new unordered_map<int, int>)) {
+          for (const int& num: nums) {
+              // 初始化父节点为自身
+              (*parents)[num] = num;
+              // 所属连通分量即为自身，因此初始化为1
+              (*counter)[num] = 1;
+          }
+      }
+      ~MergeFind() {}
+      // 寻找x的父节点，实际上也就是x的最远连续右边界
+      std::optional<int> find(int x) {
+          if (!parents -> count(x)) {
+              return std::nullopt;
+          }
+          // 遍历找到x的父节点
+          while (x != (*parents)[x]) {
+              // 进行路径压缩
+              (*parents)[x] = (*parents)[(*parents)[x]];
+              x = (*parents)[x];
+          }
+          return x;
+      }
+      // 合并两个连通分量，用来将num并入到num+1的连续区间中
+      // 返回值为x所在连通分量的节点个数
+      std::optional<int> merge(int x, int y) {
+          auto rootX = find(x);
+          auto rootY = find(y);
+          if (rootX == std::nullopt || rootY == std:: nullopt) {
+              return std::nullopt;
+          }
+          if (*rootX == *rootY) {
+              return std::nullopt;
+          }
+          (*parents)[*rootY] = *rootX;
+          // 更新该根结点连通分量的节点个数
+          (*counter)[*rootX] += (*counter)[*rootY];
+          return (*counter)[*rootX];
+      }
+  };
+  class Solution {
+  public:
+      int longestConsecutive(vector<int>& nums) {
+          // 去除nums为空的特例
+          if (nums.empty()) {
+              return 0;
+          }
+          auto mf = shared_ptr<MergeFind>(new MergeFind(nums));
+          int ans = 1;
+          for (const int& num: nums) {
+              if (mf -> find(num + 1) == std::nullopt) {
+                  continue;
+              }
+              // merge会返回num所在连通分量的节点个数
+              auto curCounter = mf -> merge(num, num + 1);
+              if (curCounter == std::nullopt) {
+                  continue;
+              }
+              ans = max(ans, *curCounter);
+          }
+          return ans;
+      }
+  };
+  ```
+
+  
 
 ### [136. Single Number](https://leetcode-cn.com/problems/single-number/)
 
