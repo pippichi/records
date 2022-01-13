@@ -547,6 +547,78 @@
   }
   ```
 
+### [39. 组合总和[M]](https://leetcode-cn.com/problems/combination-sum/)
+
+- 搜索回溯
+
+  对于这类寻找所有可行解的题，我们都可以尝试用「搜索回溯」的方法来解决。
+
+  ```c++
+  class Solution {
+      shared_ptr<vector<vector<int>>> ans;
+  public:
+      Solution(): ans(shared_ptr<vector<vector<int>>>(new vector<vector<int>>)) {}
+      void dfs(vector<int>& candidates, vector<int>& combine, const int& target, int index) {
+          if (index == candidates.size()) {
+              return;
+          }
+          if (target == 0) {
+              ans -> emplace_back(combine);
+              return;
+          }
+          // 深度优先搜索
+          dfs(candidates, combine, target, index + 1);
+          if (target - candidates[index] >= 0) {
+              combine.emplace_back(candidates[index]);
+              dfs(candidates, combine, target - candidates[index], index);
+              combine.pop_back();
+          }
+      }
+      vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+          vector<int> combine;
+          dfs(candidates, combine, target, 0);
+          return *ans;
+      }
+  };
+  ```
+
+- 搜索回溯（剪枝）
+
+  ```c++
+  class Solution {
+      shared_ptr<vector<vector<int>>> ans;
+  public:
+      Solution(): ans(shared_ptr<vector<vector<int>>>(new vector<vector<int>>)) {}
+      std::optional<int> dfs(vector<int>& candidates, vector<int>& combine, const int& target, int index) {
+          if (index == candidates.size()) {
+              return std::nullopt;
+          }
+          if (target == 0) {
+              ans -> emplace_back(combine);
+              return std::nullopt;
+          }
+          auto nextNum = dfs(candidates, combine, target, index + 1);
+          // 剪枝
+          if (nextNum != std::nullopt && *nextNum == candidates[index]) {
+              return candidates[index];
+          }
+          if (target - candidates[index] >= 0) {
+              combine.emplace_back(candidates[index]);
+              dfs(candidates, combine, target - candidates[index], index);
+              combine.pop_back();
+          }
+          return candidates[index];
+      }
+      vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+          // 因为要剪枝，所以要排序
+          sort(candidates.begin(), candidates.end());
+          vector<int> combine;
+          dfs(candidates, combine, target, 0);
+          return *ans;
+      }
+  };
+  ```
+
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
 - 动态规划
@@ -3745,6 +3817,37 @@ bool kmp(string sOrder, string tOrder) {
       }
   
       return rev ? -ans : ans;
+  }
+  ```
+
+### [38. 外观数列[M]](https://leetcode-cn.com/problems/count-and-say/)
+
+- 朴素遍历生成
+
+  注意边界问题
+
+- 双指针朴素遍历（官解）
+
+  利用双指针巧妙地解决了当前元素保存和长度保存的问题
+
+  并且官解的写法巧妙地解决了边界问题
+
+  ```c++
+  string countAndSay(int n) {
+      string prev = "1";
+      for (int i = 2; i <= n; ++i) {
+          int pos = 0, start = 0;
+          string cur = "";
+          while (pos < prev.size()) {
+              while (pos < prev.size() && prev[pos] == prev[start]) {
+                  ++pos;
+              }
+              cur += to_string(pos - start) + prev[start];
+              start = pos;
+          }
+          prev = cur;
+      }
+      return prev;
   }
   ```
 

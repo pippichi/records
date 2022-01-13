@@ -502,6 +502,8 @@ C++可以用纯虚函数实现类似于JAVA中接口的功能
 
 # lambda表达式
 
+参考：https://blog.csdn.net/u010984552/article/details/53634513
+
 使用lambda表达式快速创建一个函数：
 
 ```c++
