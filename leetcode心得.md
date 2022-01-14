@@ -619,6 +619,106 @@
   };
   ```
 
+### [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
+
+难点在于重复数字的处理，举个例子：`[2,1,3,7,1,4]中找和为8的`，如果结果集合可以重复，那么简单的回溯即可，但是题目要求不可重复，此时如何避免出现`[[1,7],[7,1],...]`这样的情况呢？
+
+- 回溯（不剪枝）
+
+  可以先用哈希表`hm`存储元素及其出现的次数，然后对`hm`进行递归回溯即可，他的核心在于处理重复数字情况下所有组合的求解，而且可以保证结果集合不重复
+
+  ```c++
+  class Solution {
+      // 用于收集每个元素及其出现的次数
+      unordered_map<int, int> numCount;
+      vector<vector<int>> ans;
+      vector<int> combine;
+      void dfs(const int& target, unordered_map<int, int>::iterator iter) {
+          if (target == 0) {
+              ans.emplace_back(combine);
+              return;
+          }
+          if (iter == numCount.end()) {
+              return;
+          }
+          unordered_map<int, int>::iterator iterCopy = iter;
+          // 等同于 ++iterCopy
+          advance(iterCopy, 1);
+          // 深度优先
+          dfs(target, iterCopy);
+          int most = min(target / iter -> first, iter -> second);
+          // 核心就在于此
+          // 对于每一次回溯，不急着combine.pop_back()，因为我就是要求出组合中重复数字为1个、2个、3个、...的情况下所有的组合情况
+          for (int i = 1; i <= most; ++i) {
+              combine.emplace_back(iter -> first);
+              iterCopy = iter;
+              advance(iterCopy, 1);
+              dfs(target - iter -> first * i, iterCopy);
+          }
+          // 等到这个时候，再去全部combine.pop_back()
+          for (int i = 1; i <= most; ++i) {
+              combine.pop_back();
+          }
+      }
+  public:
+      vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+          for (const int& c: candidates) {
+              if (!numCount.count(c)) {
+                  numCount[c] = 1;
+              } else {
+                  ++numCount[c];
+              }
+          }
+          dfs(target, numCount.begin());
+          return ans;
+      }
+  };
+  ```
+
+- 回溯（剪枝）
+
+  ```c++
+  class Solution {
+      // 由于排序了，因此可以使用线性数组代替哈希表，遍历起来更加方便
+      vector<pair<int, int>> numCount;
+      vector<vector<int>> ans;
+      vector<int> combine;
+      void dfs(const int& target, int pos) {
+          if (target == 0) {
+              ans.emplace_back(combine);
+              return;
+          }
+          // 剪枝，如果当前元素已经大于target，由于有序递增，后续的元素肯定大于target，直接跳过即可
+          if (pos == numCount.size() || target < numCount[pos].first) {
+              return;
+          }
+          dfs(target, pos + 1);
+          int most = min(target / numCount[pos].first, numCount[pos].second);
+          for (int i = 1; i <= most; ++i) {
+              combine.emplace_back(numCount[pos].first);
+              dfs(target - i * numCount[pos].first, pos + 1);
+          }
+          for (int i = 1; i <= most; ++i) {
+              combine.pop_back();
+          }
+      }
+  public:
+      vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+          // 由于需要剪枝，因此排序
+          sort(candidates.begin(), candidates.end());
+          for (const int& c: candidates) {
+              if (numCount.empty() || numCount.back().first != c) {
+                  numCount.emplace_back(c, 1);
+              } else {
+                  ++numCount.back().second;
+              }
+          }
+          dfs(target, 0);
+          return ans;
+      }
+  };
+  ```
+
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
 - 动态规划

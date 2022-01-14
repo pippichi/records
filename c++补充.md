@@ -1,3 +1,7 @@
+# API Reference Document
+
+https://www.apiref.com/
+
 # 关键字
 
 ## const
@@ -242,6 +246,12 @@ C++中静态成员变量可以在类内部声明但要在类外部再定义或�
 
 参考：https://blog.csdn.net/qq_21033779/article/details/78921997
 
+## concept与requires
+
+概念与约束
+
+参考：https://www.apiref.com/cpp-zh/cpp/language/constraints.html
+
 # 库函数
 
 ## stl
@@ -263,6 +273,32 @@ template < class Key, // map::key_type
 ```c++
 for (const auto &[k, v]: map) {
     ...
+}
+```
+
+### advance
+
+迭代器无法`+1`，但可以通过`std::advance(it, 1)`实现同样的效果，也可以自己定义一个`operator+`：
+
+```c++
+#include <iostream>
+#include <map>
+#include <iterator>
+#include <concepts>
+
+using namespace std;
+
+template<class It, class Distance> requires bidirectional_iterator<It>
+It operator+(It lhs, Distance distance) {
+    std::advance(lhs, distance);
+    return lhs;
+}
+int main() {
+    std::map<int, int> m = { {1, 11}, {2, 22} };
+    auto it = m.begin();
+    it = it + 1;
+    cont << it -> first << "\n";
+    return 0;
 }
 ```
 
