@@ -2657,6 +2657,209 @@ k8 k7 k6 k5
 
 - KMP
 
+### [43. 字符串相乘[M]](https://leetcode-cn.com/problems/multiply-strings/)
+
+- 做加法
+
+  配合[415. Add Strings](https://leetcode-cn.com/problems/add-strings/)的字符串加法函数，用加法来模拟乘法
+
+  具体有两种做法：
+
+  - 对于两个数i和j，i从低位向高位遍历，遍历到的数字为m，就加m次j，然后补“0”（注意补“0”的个数）
+
+    ```c++
+    class Solution {
+    public:
+        // 省略，参考 https://leetcode-cn.com/problems/add-strings/（415. Add Strings）
+        string addStrings(const string& num1, const string& num2);
+        string multiply(string num1, string num2) {
+            if (num1.empty() || num2.empty() || num1 == "0" || num2 == "0") {
+                return "0";
+            }
+            int sNum1 = num1.size() - 1;
+            string ans;
+            int addition = 0;
+            while (sNum1 >= 0) {
+                int cur = num1[sNum1] - '0';
+                string temp = "0";
+                while (cur > 0) {
+                    temp = addStrings(temp, num2);
+                    --cur;
+                }
+                for (int i = 0; i < addition; ++i) {
+                    temp += "0";
+                }
+                ans = addStrings(ans, temp);
+                ++addition;
+                --sNum1;
+            }
+            return ans;
+        }
+    };
+    ```
+
+  - 上面的方法对于j来讲是整个j整个j地加上去的，官解将j也拆成一位一位去加
+
+    ```c++
+    class Solution {
+    public:
+        // 省略，参考 https://leetcode-cn.com/problems/add-strings/（415. Add Strings）
+        string addStrings(const string& num1, const string& num2);
+        string multiply(string num1, string num2) {
+            if (num1.empty() || num2.empty() || num2 == "0" || num1 == "0") {
+                return "0";
+            }
+            string ans = "0";
+            int sNum1 = num1.size(), sNum2 = num2.size();
+            for (int i = sNum1 - 1; i >= 0; --i) {
+                string temp;
+                int add = 0;
+                for (int j = sNum1 - 1; j > i; --j) {
+                    temp += "0";
+                }
+                int y = num1[i] - '0';
+                for (int j = sNum2 - 1; j >= 0; --j) {
+                    int x = num2[j] - '0';
+                    int ret = x * y + add;
+                    temp += ret % 10 + '0';
+                    add = ret / 10;
+                }
+                while (add) {
+                    temp += add % 10 + '0';
+                    add /= 10;
+                }
+                reverse(temp.begin(), temp.end());
+                ans = addStrings(ans, temp);
+            }
+            return ans;
+        }
+    };
+    ```
+
+- 做乘法
+
+  对每一位做乘法叠加，然后基于10做一下进位
+
+  ```c++
+  string multiply(string num1, string num2) {
+      if (num1.empty() || num2.empty() || num1 == "0" || num2 == "0") {
+          return "0";
+      }
+      int sNum1 = num1.size(), sNum2 = num2.size();
+      // 为什么要申请sNum1 + sNum2的空间值得思考
+      auto tempArr = vector<int>(sNum1 + sNum2);
+      for (int i = sNum1 - 1; i >= 0; --i) {
+          int x = num1[i] - '0';
+          for (int j = sNum2 - 1; j >= 0; --j) {
+              int y = num2[j] - '0';
+              // 为什么是i + j + 1值得思考
+              tempArr[i + j + 1] += x * y;
+          }
+      }
+      for (int i = sNum1 + sNum2 - 1; i > 0; --i) {
+          tempArr[i - 1] += tempArr[i] / 10;
+          tempArr[i] %= 10;
+      }
+      int startIndex = tempArr[0] == 0 ? 1 : 0;
+      string ans;
+      while (startIndex < sNum1 + sNum2) {
+          ans += tempArr[startIndex] + '0';
+          ++startIndex;
+      }
+      return ans;
+  }
+  ```
+
+- 快速傅里叶变换
+
+  快速傅里叶变换的运用主要是用来加速多项式的乘法
+
+  那么对于上面“做乘法”这种方法，可以想象成是多项式相乘，然后用快速傅里叶变换去做计算优化即可
+
+  ```c++
+  class Solution {
+  public:
+      using CP = complex <double>;
+      
+      static constexpr int MAX_N = 256 + 5;
+  
+      double PI;
+      int n, aSz, bSz;
+      CP a[MAX_N], b[MAX_N], omg[MAX_N], inv[MAX_N];
+  
+      void init() {
+          PI = acos(-1);
+          for (int i = 0; i < n; ++i) {
+              omg[i] = CP(cos(2 * PI * i / n), sin(2 * PI * i / n));
+              inv[i] = conj(omg[i]);
+          }
+      }
+  
+      void fft(CP *a, CP *omg) {
+          int lim = 0;
+          while ((1 << lim) < n) ++lim;
+          for (int i = 0; i < n; ++i) {
+              int t = 0;
+              for (int j = 0; j < lim; ++j) {
+                  if((i >> j) & 1) t |= (1 << (lim - j - 1));
+              }
+              if (i < t) swap(a[i], a[t]);
+          }
+          for (int l = 2; l <= n; l <<= 1) {
+              int m = l / 2;
+              for (CP *p = a; p != a + n; p += l) {
+                  for (int i = 0; i < m; ++i) {
+                      CP t = omg[n / l * i] * p[i + m];
+                      p[i + m] = p[i] - t;
+                      p[i] += t;
+                  }
+              }
+          }
+      }
+  
+      string run() {
+          n = 1;
+          while (n < aSz + bSz) n <<= 1;
+          init();
+          fft(a, omg);
+          fft(b, omg);
+          for (int i = 0; i < n; ++i) a[i] *= b[i];
+          fft(a, inv);
+          int len = aSz + bSz - 1;
+          vector <int> ans;
+          for (int i = 0; i < len; ++i) {
+              ans.push_back(int(round(a[i].real() / n)));
+          }
+          // 处理进位
+          int carry = 0;
+          for (int i = ans.size() - 1; i >= 0; --i) {
+              ans[i] += carry;
+              carry = ans[i] / 10;
+              ans[i] %= 10;
+          }
+          string ret;
+          if (carry) {
+              ret += to_string(carry);
+          }
+          for (int i = 0; i < ans.size(); ++i) {
+              ret.push_back(ans[i] + '0');
+          }
+          // 处理前导零
+          int zeroPtr = 0;
+          while (zeroPtr < ret.size() - 1 && ret[zeroPtr] == '0') ++zeroPtr;
+          return ret.substr(zeroPtr, INT_MAX);
+      }
+  
+      string multiply(string num1, string num2) {
+          aSz = num1.size();
+          bSz = num2.size();
+          for (int i = 0; i < aSz; ++i) a[i].real(num1[i] - '0');
+          for (int i = 0; i < bSz; ++i) b[i].real(num2[i] - '0');
+          return run();
+      }
+  };
+  ```
+
 ### [58. Length of Last Word](https://leetcode-cn.com/problems/length-of-last-word/)
 
 - 尾指针
@@ -5118,3 +5321,7 @@ int main(){
 ### 快速傅里叶变换
 
 参考：https://zhuanlan.zhihu.com/p/31584464（快速傅里叶变换）
+
+### `Cooley-Tukey`
+
+参考：https://zhuanlan.zhihu.com/p/108942208（理解`Cooley-Tukey`快速傅里叶变换算法与其应用）

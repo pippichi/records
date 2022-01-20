@@ -302,6 +302,18 @@ int main() {
 }
 ```
 
+### valarray
+
+valarray 是面向数值计算的数组，在C++11中才支持，他支持很多数值数组操作，如求数组总和、最大数、最小数等
+
+参考：https://blog.csdn.net/xiamentingtao/article/details/48243389
+
+### slice
+
+`std::slice` 表示一个valarray切片选择器
+
+参考：https://www.apiref.com/cpp-zh/cpp/numeric/valarray/slice.html
+
 ## ctype
 
 ### isalpha、isalnum、islower、isupper
@@ -407,6 +419,14 @@ int maxValue(unordered_map<int, int>& valueMap) {
     return ans -> second;
 }
 ```
+
+## ios
+
+### `std::fixed`、`std::scientific`、`std::hexfloat`、`std::defaultfloat`
+
+用于输入输出格式化
+
+参考：https://www.apiref.com/cpp-zh/cpp/io/manip/fixed.html
 
 # 构造器的几种写法
 
