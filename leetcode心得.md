@@ -2776,6 +2776,11 @@ k8 k7 k6 k5
 
   那么对于上面“做乘法”这种方法，可以想象成是多项式相乘，然后用快速傅里叶变换去做计算优化即可
 
+
+- `Cooley-Tukey`算法 （蝶形算法）
+
+  另一种FFT的实现
+
   ```c++
   class Solution {
   public:
@@ -5324,4 +5329,5 @@ int main(){
 
 ### `Cooley-Tukey`
 
-参考：https://zhuanlan.zhihu.com/p/108942208（理解`Cooley-Tukey`快速傅里叶变换算法与其应用）
+参考：https://zhuanlan.zhihu.com/p/108942208（理解`Cooley-Tukey`快速傅里叶变换算法与其应用）、https://blog.csdn.net/xxinliu/article/details/7438429（`Cooley-Tukey`算法 （蝶形算法））
+
