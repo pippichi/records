@@ -5323,19 +5323,30 @@ int main(){
 
 单纯形法求解参考：https://zhuanlan.zhihu.com/p/69247131
 
-### 傅里叶级数与傅里叶变换
+### 傅里叶变换
 
-参考：https://zhuanlan.zhihu.com/p/19763358（非常详细）
+参考：https://zhuanlan.zhihu.com/p/19763358（傅里叶分析之掐死教程（完整版））、https://zhuanlan.zhihu.com/p/66117227（傅里叶变换学习心得）
 
-### 离散傅里叶变换
+#### 离散傅里叶变换
 
-参考：https://zhuanlan.zhihu.com/p/71582795
+参考：https://zhuanlan.zhihu.com/p/71582795、https://www.zhihu.com/question/21314374
 
-### 快速傅里叶变换
+#### 连续傅里叶变换
+
+暂时没有找到资源
+
+#### 快速傅里叶变换
 
 参考：https://zhuanlan.zhihu.com/p/31584464（快速傅里叶变换）
 
-### `Cooley-Tukey`
+#### `Cooley-Tukey`
 
 参考：https://zhuanlan.zhihu.com/p/108942208（理解`Cooley-Tukey`快速傅里叶变换算法与其应用）、https://blog.csdn.net/xxinliu/article/details/7438429（`Cooley-Tukey`算法 （蝶形算法））
 
+### 拉普拉斯变换
+
+参考：https://zhuanlan.zhihu.com/p/416317648
+
+### 复数的物理意义
+
+参考：https://www.zhihu.com/question/23234701/answer/26017000
