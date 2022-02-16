@@ -732,3 +732,7 @@ public class WarningHistoryServiceImpl implements IWarningHistoryService {
 ```
 
 对于@Async导致的循环依赖，可以使用：@Lazy懒加载或@ComponentScan(lazyInit = true)来解决，具体参考：https://www.cnblogs.com/iceggboom/p/14393725.html（Spring:解决因@Async引起的循环依赖报错）
+
+# AutowireCapableBeanFactory（容器外的Bean使用依赖注入）
+
+参考：https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
