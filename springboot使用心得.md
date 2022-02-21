@@ -24,6 +24,8 @@
 
 注意一个实体中只能出现一次
 
+
+
 ## @JsonIgnoreProperties及其属性value
 
 @JsonIgnoreProperties(value = {"xx1", "xx2"})
@@ -422,13 +424,21 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 - 注解在非静态方法上。
 - 可以回滚测试方法引起的数据库修改。
 
-# 注入
+# 注入以及上下文环境
 
 ## @Import注入类
 
 原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
 
 利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
+
+## ApplicationContextAware接口获取上下文环境
+
+参考：https://www.cnblogs.com/loong-hon/p/10917755.html（ApplicationContextAware接口的作用）
+
+## AutowireCapableBeanFactory对容器外的Bean进行依赖注入
+
+参考：https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
 
 ## AutowireCapableBeanFactory
 
@@ -624,6 +634,10 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 `@Scope的属性proxyMode（代理模式）的使用场景（坑点：在代理模式为TARGET_CLASS时，可能会导致Bean的set方法失效，具体案例：在mcs项目的websocket配置中注入了Bean，使用代理模式为：TARGET_CLASS，该Bean的set方法失效）`：https://blog.csdn.net/z1353095373/article/details/108234954
 
 `@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
+
+# Spring Boot使用CommandLineRunner接口完成资源初始化
+
+参考：https://blog.csdn.net/lk142500/article/details/90270592
 
 # 使用aop读取到项目下所有被注解标注的类或方法
 
