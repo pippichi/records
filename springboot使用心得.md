@@ -250,7 +250,15 @@ url路径还能这么写：
 @RequestMapping("/xx/**") // **表示 路径 /xx/ 之后的所有内容都匹配
 ```
 
+## 属性produces以及consumers
 
+参考：https://blog.csdn.net/bingguang1993/article/details/82253639（RequestMapping中produces属性作用）、https://blog.csdn.net/gyfd123/article/details/121578581（SpingMVC的@RequestMapping注解属性）、https://www.dazhuanlan.com/liufeng126/topics/1534697（RequestMapping 属性解释）
+
+# @Produces
+
+作用类似`@RequestMapping中的属性produces`
+
+参考：https://blog.csdn.net/shadowcw/article/details/88093081
 
 # @ControllerAdvice
 

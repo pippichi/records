@@ -850,7 +850,11 @@ public class AAA{
 }
 ```
 
+## @Produces
 
+作用类似springmvc中`@RequestMapping中的属性produces`
+
+参考：https://blog.csdn.net/shadowcw/article/details/88093081
 
 # 生成随机值
 
