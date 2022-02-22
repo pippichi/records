@@ -526,6 +526,57 @@ public class JobFactory extends AdaptableJobFactory {
 
 参考：https://blog.csdn.net/weixin_43697006/article/details/105289423
 
+## AnnotationConfigApplicationContext获取配置类中注入的Bean
+
+示例：
+
+首先创建Person类：
+
+```java
+@Data
+public class Person {
+    private String name;
+    private Integer age;
+}
+```
+
+创建BeanConfig类，用于配置两个Person实例并注入：
+
+```java
+@Configuration
+public class BeanConfig {
+    @Bean(name = "bill")
+    public Person person1() {
+        return new Person("Bill Gates", 62);
+    }
+    @Bean(name = "linus")
+    public Person person2() {
+        return new Person("Linus", 48);
+    }
+}
+```
+
+接着写一个测试类进行验证这两个Bean是否注入成功：
+
+```java
+public class ConditionalTest {
+    AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfig.class);
+    @Test
+    public void test1() {
+        Map<String, Person> map = applicationContext.getBeansOfType(Person.class);
+        System.out.println(map);
+    }
+}
+```
+
+输出结果：
+
+![image-20220222094908261](springboot使用心得.assets/image-20220222094908261.png)
+
+## @Conditional条件注入
+
+参考：https://blog.csdn.net/xcy1193068639/article/details/81491071
+
 # 静态文件存储位置
 
 在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
