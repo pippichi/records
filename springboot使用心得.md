@@ -778,7 +778,11 @@ spring:
 
 # SpringBoot整合websocket
 
-简单整合使用非常简单，直接看mcs项目
+简单整合使用非常简单，直接看mcs项目，或者参考：https://blog.csdn.net/moshowgame/article/details/80275084（SpringBoot2.0集成WebSocket）
+
+需要注意的是，除了@OnOpen、@OnClose、@OnMessage之外，还有@OnEvent、@OnError、@OnBinary等：
+
+![image-20220302102328863](springboot使用心得.assets/image-20220302102328863.png)
 
 我们来看看websocket详细配置，比方说websocket拦截器、websocket监听器、websocket用户权限认证等
 
