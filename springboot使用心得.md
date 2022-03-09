@@ -616,6 +616,17 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 @Async("taskExecutorName") // 注意：如果不指定要使用的线程池名，比如直接这么用：@Async，那么在执行异步任务的时候spring是直接new一个thread去执行的
 ```
 
+注意：@Async默认是用无界LinkedBlockingQueue，需要在配置文件里去设置一下大小，不然容易内存溢出：
+
+```yaml
+spring:
+  # @Async默认是用无界LinkedBlockingQueue，需要在配置文件里去设置一下大小，不然容易内存溢出
+  task:
+    execution:
+      pool:
+        queue-capacity: 100
+```
+
 # filter
 
 过滤器，包括@WebFilter等，具体查网络资料
