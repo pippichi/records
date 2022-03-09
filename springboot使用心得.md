@@ -813,3 +813,12 @@ public class WarningHistoryServiceImpl implements IWarningHistoryService {
 # AutowireCapableBeanFactory（容器外的Bean使用依赖注入）
 
 参考：https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
+
+# Hutool
+
+Hutool是一个小而全的Java工具类库，通过静态方法封装，降低相关API的学习成本，提高工作效率，使Java拥有函数式语言般的优雅。
+
+Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高效
+
+官方文档：https://www.hutool.cn/
+
