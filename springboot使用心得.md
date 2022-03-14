@@ -833,3 +833,8 @@ Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高�
 
 官方文档：https://www.hutool.cn/
 
+# MessageSource
+
+可以用于国际化信息的制作
+
+参考：https://blog.csdn.net/sid1109217623/article/details/84065725（Spring源码分析之MessageSource）
