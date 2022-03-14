@@ -424,6 +424,16 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 - 注解在非静态方法上。
 - 可以回滚测试方法引起的数据库修改。
 
+## @SpringBootTest、@ExtendWith与@RunWith
+
+@SpringBootTest顾名思义涉及到Spring框架
+
+@ExtendWith可以不涉及Spring框架，且相较于@SpringBootTest会更“轻”一些
+
+@RunWith被@ExtendWith替代了，不推荐使用
+
+参考：https://www.cnblogs.com/pass-ion/p/15064785.html（单元测试 注入方法 @ExtendWith与@RunWith）
+
 # 注入以及上下文环境
 
 ## @Import注入类
