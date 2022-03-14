@@ -769,6 +769,12 @@ spring:
 
 使用swagger配合knife4j
 
+## Swagger
+
+### @ApiResponses 和 @ApiResponse
+
+参考：https://blog.csdn.net/dejunyang/article/details/89527330（Swagger注解 @ApiResponses 和 @ApiResponse）
+
 # 文件系统
 
 可以使用minio或者fdfs
