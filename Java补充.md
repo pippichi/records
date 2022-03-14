@@ -976,3 +976,7 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 # lambda表达式分组、过滤、求和、最值、排序、去重
 
 参考：https://blog.csdn.net/gsls200808/article/details/86501905（java 8 lambda表达式list操作分组、过滤、求和、最值、排序、去重）
+
+# SLF4J及其MDC详解
+
+参考：https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
