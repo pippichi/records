@@ -854,3 +854,21 @@ Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高�
 可以用于国际化信息的制作
 
 参考：https://blog.csdn.net/sid1109217623/article/details/84065725（Spring源码分析之MessageSource）
+
+# 监听应用启动与关闭的回调钩子
+
+当应用启动成功后的回调：
+
+- ApplicationRunner
+
+  参考：https://www.jianshu.com/p/1d32058eef48（ApplicationRunner接口实现资源初始化）
+
+- CommandLineRunner
+
+  参考：https://blog.csdn.net/lk142500/article/details/90270592（CommandLineRunner接口实现资源初始化以及它与ApplicationRunner接口的区别）
+
+当应用正要被销毁前的回调：
+
+- DisposableBean
+
+  参考：https://blog.csdn.net/zhangduilei/article/details/78606636（DisposableBean接口实现资源销毁）
