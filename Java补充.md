@@ -980,3 +980,38 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 # SLF4J及其MDC详解
 
 参考：https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
+
+# 在线诊断工具 Arthas
+
+导读：虽然已经有很多分析工具 `jvisualvm,jstat,jmap,jstack,Memory Analyzer`等。但可能不是大杂烩或者线上无法分析等。所以看看`arthas`的功能，好用就用它了。
+
+Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇到以下类似问题而束手无策时，Arthas可以帮助你解决：
+
+- 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？
+- 我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？
+- 遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？
+- 线上遇到某个用户的数据处理有问题，但线上同样无法 debug，线下无法重现！
+- 是否有一个全局视角来查看系统的运行状况？
+- 有什么办法可以监控到JVM的实时运行状态？
+- 怎么快速定位应用的热点，生成火焰图？
+
+参考：https://arthas.aliyun.com/doc/（Arthas官方文档）
+
+# BIO与NIO、AIO的区别
+
+参考：
+
+- https://blog.csdn.net/ty497122758/article/details/78979302?utm_source=app&app_version=5.1.1（Java BIO与NIO、AIO的区别）
+- https://blog.csdn.net/m0_38109046/article/details/89449305（Java面试常考的 BIO，NIO，AIO 总结）
+- https://my.oschina.net/u/3471412/blog/2966696（Java 核心 深入理解BIO、NIO、AIO）
+- https://blog.csdn.net/liuningwjt/article/details/82379364（IO/NIO/AIO 基本概念）
+- https://blog.csdn.net/scugxl/article/details/86742171（Java中的BIO,NIO,AIO详解以及Echo实现示例）
+
+# 高性能网络应用框架 Netty
+
+参考：
+
+- https://www.jianshu.com/p/b9f3f6a16911（Netty入门教程1——认识Netty）、https://www.jianshu.com/p/ed0177a9b2e3（Netty入门教程2——动手搭建HttpServer）、https://www.jianshu.com/p/fd815bd437cd（Netty入门教程3——Decoder和Encoder）、https://www.jianshu.com/p/9d89b2299ce4（Netty入门教程4——实现长连接）
+
+- https://blog.csdn.net/haoyuyang/article/details/53243785（Netty基本使用介绍）
+- https://blog.csdn.net/lmdsoft/article/details/105618052（Netty介绍）
