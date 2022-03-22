@@ -587,6 +587,12 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/xcy1193068639/article/details/81491071
 
+## @Autowired和lombok的@RequiredArgsConstructor
+
+@RequiredArgsConstructor可以代替@Autowired
+
+参考：https://blog.csdn.net/qq_37256896/article/details/115869717（注解 @RequiredArgsConstructor）
+
 # 静态文件存储位置
 
 在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
