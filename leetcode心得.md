@@ -719,6 +719,53 @@
   };
   ```
 
+### [45. 跳跃游戏 II[M]](https://leetcode-cn.com/problems/jump-game-ii/)
+
+这道题是典型的贪心算法，通过局部最优解得到全局最优解。以下两种方法都是使用贪心算法实现，只是贪心的策略不同。
+
+- 反向查找出发位置
+
+  ```c++
+  int jump(vector<int>& nums) {
+      int position = nums.size() - 1;
+      int ans = 0;
+      while (position > 0) {
+          for (int i = 0; i < position; ++i) {
+              if (i + nums[i] >= position) {
+                  position = i;
+                  ++ans;
+                  break;
+              }
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 正向查找可到达的最大位置
+
+  ```c++
+  int jump(vector<int>& nums) {
+      // end用于记录本次跳跃能到达的最大边界
+      int end = 0;
+      int maxPos = 0, n = nums.size(), step = 0;
+      // 当i == n - 1时，已经跳到了最后一个位置，step不需要再加1了，因此i == n - 1这一步可以不做计算（搞清楚for循环的目的就是++step）
+      for (int i = 0; i < n - 1; ++i) {
+          if (maxPos >= i) {
+              maxPos = max(maxPos, i + nums[i]);
+              // i == end时，maxPos已经记录了到end为止最大的跳跃边界
+              if (i == end) {
+                  end = maxPos;
+                  ++step;
+              }
+          }
+      }
+      return step;
+  }
+  ```
+
+  
+
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
 - 动态规划
