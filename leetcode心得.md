@@ -5045,6 +5045,63 @@ int main(){
 
   之后再比较今日和昨日的温度得到答案
 
+### [511. 游戏玩法分析 I](https://leetcode-cn.com/problems/game-play-analysis-i/)
+
+- MIN + GROUP BY
+
+  ```mysql
+  SELECT
+      `player_id`,
+      MIN(`event_date`) AS `first_login`
+  FROM `Activity`
+  GROUP BY `player_id`;
+  ```
+
+- DENSE_RANK
+
+  使用DENSE_RANK函数以`player_id`为组，根据`event_date`正序排序，选出排序后的第一条记录即可
+
+  ```mysql
+  SELECT
+      `player_id`,
+      `first_login`
+  FROM (
+      SELECT
+          `player_id`,
+          `event_date` AS `first_login`,
+          DENSE_RANK() OVER (PARTITION BY `player_id` ORDER BY `event_date`) AS `dense_rank`
+      FROM `Activity`
+  ) AS `I`
+  WHERE `I`.`dense_rank` = 1;
+  ```
+
+  需要注意的是，经过实验发现，内表查询使用条件过滤的时候不能使用AS别名字段，只能使用原字段，否则会识别不出来
+
+### [584. 寻找用户推荐人](https://leetcode-cn.com/problems/find-customer-referee/)
+
+- 使用 `<>` (`!=`) 和 `IS NULL`
+
+  ```mysql
+  SELECT 
+      `name`
+  FROM `customer`
+  WHERE `referee_id` IS NULL
+  OR `referee_id` <> 2;
+  ```
+
+### [586. 订单最多的客户](https://leetcode-cn.com/problems/customer-placing-the-largest-number-of-orders/)
+
+- 使用GROUP BY + ORDER BY + LIMIT
+
+  ```mysql
+  SELECT
+      `customer_number`
+  FROM `Orders`
+  GROUP BY `customer_number`
+  ORDER BY COUNT(*) DESC
+  LIMIT 1;
+  ```
+
 ### [595. Big Countries](https://leetcode-cn.com/problems/big-countries/)
 
 - 直接查询
@@ -5059,6 +5116,25 @@ int main(){
 
 - 使用`GROUP BY`子句和子查询
 - 使用`GROUP BY`和`HAVING`条件
+
+### [607. 销售员](https://leetcode-cn.com/problems/sales-person/)
+
+- 使用NOT IN + LEFT JOIN
+
+  ```mysql
+  SELECT
+      `name`
+  FROM `SalesPerson`
+  WHERE `sales_id`
+  NOT IN (
+      SELECT
+          `sales_id`
+      FROM `Orders` AS `O`
+      LEFT JOIN `Company` AS `C`
+      ON `O`.`com_id` = `C`.`com_id`
+      WHERE `C`.`name` = "RED"
+  );
+  ```
 
 ### [620. Not Boring Movies](https://leetcode-cn.com/problems/not-boring-movies/)
 
