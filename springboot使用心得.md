@@ -879,10 +879,56 @@ Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高�
 
   参考：https://blog.csdn.net/zhangduilei/article/details/78606636（DisposableBean接口实现资源销毁）
 
-# Feign拦截器（RequestInterceptor）
+# Feign
+
+## Feign过期时间设置
+
+Feign过期时间分为connectTimeout（连接超时）和readTimeout（读取超时）
+
+参考：https://blog.csdn.net/u011523825/article/details/120819416（Feign超时时间设置）
+
+![image-20220412141641909](springboot使用心得.assets/image-20220412141641909.png)
+
+上面是设置全局默认超时时间，还可以使用`Request.Options`来设置超时时间，示例：
+
+```java
+@FeignClient(name = "algorithm-manager",
+    url = "${service.supibd.algorithm-manager}",
+    configuration = FeignClientConfigure.class,
+    fallbackFactory = AlgorithmManagerFeign.DataProviderFeignFallBack.class
+)
+public interface AlgorithmManagerFeign {
+    
+    @PostMapping(value = "/flow/executeFlowTaskManagement")
+    @ApiOperation("任务管理服务调用-执行流程")
+    @SysServiceLog(moduleName = "流程管理模块-执行流程", operateType = OperateTypeEnum.LOG_TYPE_UPDATE)
+    // 这里的options参数即可用于设置超时时间，调用示例：SupResult<Boolean> booleanSupResult = algorithmManagerFeign.executeFlowTaskManagement(flowId, new Request.Options(10, TimeUnit.SECONDS, cycleSeconds, TimeUnit.SECONDS, true));
+    SupResult<Boolean> executeFlowTaskManagement(@RequestParam @ApiParam("流程id") String id, Request.Options options);
+
+    @Slf4j
+    @Component
+    class DataProviderFeignFallBack implements FallbackFactory<AlgorithmManagerFeign> {
+        @Override
+        public AlgorithmManagerFeign create(Throwable cause) {
+            log.error("取数服务调用失败：", cause);
+            return new AlgorithmManagerFeign() {
+                @Override
+                public SupResult<Boolean> executeFlowTaskManagement(String id, Request.Options options) {
+                    return SupResult.error("/flow/executeFlowTaskManagement 接口调用异常!");
+                }
+            };
+        }
+    }
+}
+```
+
+参考：[`schedule-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## Feign拦截器（RequestInterceptor）
 
 参考：https://blog.csdn.net/wudiyong22/article/details/103801874（`feign拦截器--RequestInterceptor`）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # ConstraintValidator完成自定义校验注解
 
 参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、[王立平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
