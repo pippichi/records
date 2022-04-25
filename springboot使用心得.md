@@ -1,4 +1,4 @@
-# 序列化
+# Jackson
 
 ## @Transient
 
@@ -10,13 +10,9 @@
 
 3、将@Transient注解加在parentName属性的set方法上，数据库不会创建parent_name字段，查询可以获取值；
 
-
-
 ## @JsonProperty
 
 设置字段别名
-
-
 
 ## @JsonValue
 
@@ -24,29 +20,21 @@
 
 注意一个实体中只能出现一次
 
-
-
 ## @JsonIgnoreProperties及其属性value
 
 @JsonIgnoreProperties(value = {"xx1", "xx2"})
 
 则序列化的时候字段xx1和xx2会被忽略
 
-
-
 ## @JsonIgnore
 
 不序列化这个字段
-
-
 
 ## @Column及其属性columnDefinition
 
 ```java
 @Column(name = "password", length = 255, columnDefinition = "VARCHAR(255) NOT NULL DEFAULT '' COMMENT '密码'")
 ```
-
-
 
 ## @ManyToOne与@JoinColumn
 
@@ -55,16 +43,12 @@
 @JoinColumn(name = "skill_id", foreignKey = @ForeignKey(name = "FK_Reference_48"), columnDefinition = "INT NOT NULL COMMENT '外键skill_id'")
 ```
 
-
-
 ## @Lob与@Basic
 
 ```java
 @Lob
 @Basic(fetch = FetchType.LAZY) // 由于是大文本，需要配合懒加载
 ```
-
-
 
 ## @JsonManagedReference与@JsonBackReference
 
@@ -73,8 +57,6 @@
 @JsonBackReference和@JsonIgnore很相似，都可用于循环序列化时解决栈溢出的问题（比方说自关联或相互关联的情况）
 
 但是当反序列化的时候@JsonIgnore是无法给关联的对象的字段赋值的，而@JsonBackReference和@JsonManagedReference联用之后就可以使得反序列化的时候给关联的对象的字段也赋值
-
-
 
 ## @JsonIdentifyInfo
 
@@ -945,3 +927,9 @@ public interface AlgorithmManagerFeign {
 # Gateway网关
 
 网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# TaskDecorator
+
+异步多线程中传递上下文等变量
+
+参考：https://blog.csdn.net/qq_29569183/article/details/111311632（TaskDecorator——异步多线程中传递上下文等变量）
