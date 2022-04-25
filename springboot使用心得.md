@@ -442,6 +442,12 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
 
+## ApplicationContext
+
+ApplicationContext可以干很多事情，比如遍历扫描容器中所有的Bean
+
+参考：https://blog.csdn.net/yangye1225/article/details/79525713（ApplicationContext介绍）
+
 ## ApplicationContextAware接口获取上下文环境
 
 参考：https://www.cnblogs.com/loong-hon/p/10917755.html（ApplicationContextAware接口的作用）
@@ -531,6 +537,10 @@ public class JobFactory extends AdaptableJobFactory {
     }
 }
 ```
+
+## RequestMappingHandlerMapping
+
+参考：https://www.cnblogs.com/minikobe/p/11233908.html（RequestMappingHandlerMapping详解）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 ## SpringBoot使用AspectJ（CTW）下不能注入SpringIOC容器中的Bean的解决方案
 
@@ -932,3 +942,6 @@ public interface AlgorithmManagerFeign {
 
 参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、[王立平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
+# Gateway网关
+
+网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
