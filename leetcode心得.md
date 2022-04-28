@@ -764,7 +764,71 @@
   }
   ```
 
-  
+### [46. 全排列[M]](https://leetcode-cn.com/problems/permutations/)
+
+- 回溯
+
+  ```c++
+  class Solution {
+  public:
+      shared_ptr<vector<vector<int>>> ans = shared_ptr<vector<vector<int>>>(new vector<vector<int>>);
+      void backtrack(vector<int>& nums, int first, const int len) {
+          // 所有数都填完了
+          if (first == len) {
+              ans -> emplace_back(nums);
+              return;
+          }
+          for (int i = first; i < len; ++i) {
+              // 动态维护数组
+              swap(nums[first], nums[i]);
+              // 继续递归填下一个数
+              backtrack(nums, first + 1, len);
+              // 撤销操作
+              swap(nums[first], nums[i]);
+          }
+      }
+      vector<vector<int>> permute(vector<int>& nums) {
+          backtrack(nums, 0, nums.size());
+          return *ans;
+      }
+  };
+  ```
+
+### [47. 全排列 II[M]](https://leetcode-cn.com/problems/permutations-ii/)
+
+- 搜索回溯
+
+  ```c++
+  class Solution {
+  public:
+      shared_ptr<vector<vector<int>>> ans = shared_ptr<vector<vector<int>>>(new vector<vector<int>>);
+      // 用于避免计算重复数字
+      shared_ptr<vector<int>> vis = shared_ptr<vector<int>>(new vector<int>);
+      void backtrack(const vector<int>& nums, int idx, vector<int>& perm) {
+          if (idx == nums.size()) {
+              ans -> emplace_back(perm);
+              return;
+          }
+          for (int i = 0; i < nums.size(); ++i) {
+              if ((*vis)[i] || (i > 0 && nums[i] == nums[i - 1] && !(*vis)[i - 1])) {
+                  continue;
+              }
+              perm.emplace_back(nums[i]);
+              (*vis)[i] = 1;
+              backtrack(nums, idx + 1, perm);
+              (*vis)[i] = 0;
+              perm.pop_back();
+          }
+      }
+      vector<vector<int>> permuteUnique(vector<int>& nums) {
+          vis -> resize(nums.size());
+          vector<int> perm;
+          sort(nums.begin(), nums.end());
+          backtrack(nums, 0, perm);
+          return *ans;
+      }
+  };
+  ```
 
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
