@@ -614,6 +614,8 @@ private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{
 
   降低了springIOC容器启动的加载时间，也可以解决循环依赖问题
 
+注意，新版springboot只需要setter注入（不要构造器注入）就能自动解决循环依赖
+
 # @Async与SpringBoot线程池配置
 
 具体看张润华的`supcon-parent`
@@ -704,6 +706,10 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 `@Scope的属性proxyMode（代理模式）的使用场景（坑点：在代理模式为TARGET_CLASS时，可能会导致Bean的set方法失效，具体案例：在mcs项目的websocket配置中注入了Bean，使用代理模式为：TARGET_CLASS，该Bean的set方法失效）`：https://blog.csdn.net/z1353095373/article/details/108234954
 
 `@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
+
+# @Validated和@Valid
+
+参考：https://blog.csdn.net/qq_32352777/article/details/108424932（@Validated注解详解，分组校验，嵌套校验，@Valid和@Validated 区别，Spring Boot @Validated）
 
 # Spring Boot使用CommandLineRunner接口完成资源初始化
 
