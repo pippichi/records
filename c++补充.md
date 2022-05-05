@@ -252,6 +252,48 @@ C++中静态成员变量可以在类内部声明但要在类外部再定义或�
 
 参考：https://www.apiref.com/cpp-zh/cpp/language/constraints.html
 
+## decltype
+
+decltype是C++11新增的一个关键字，和auto的功能一样，用来在编译时期进行自动类型推导。引入decltype是因为auto并不适用于所有的自动类型推导场景，在某些特殊情况下auto用起来很不方便或无法使用。
+
+```c++
+auto varName=value;
+decltype(exp) varName=value;
+```
+
+- auto根据=右边的初始值推导出变量的类型，decltype根据exp表达式推导出变量的类型，跟=右边的value没有关系
+
+- auto要求变量必须初始化，这是因为auto根据变量的初始值来推导变量类型的，如果不初始化，变量的类型也就无法推导；而decltype不要求，因此可以写成如下形式
+
+  ```c++
+  decltype(exp) varName;
+  ```
+
+
+  原则上讲，exp只是一个普通的表达式，它可以是任意复杂的形式，但必须保证exp的结果是有类型的，不能是void；如exp为一个返回值为void的函数时，exp的结果也是void类型，此时会导致编译错误
+
+参考：https://blog.csdn.net/qq_38196982/article/details/118578967
+
+decltype与typeid的区别：typeid的作用与decltype相似，都可以得到一个变量或者表达式的类型，不同的是，typeid方法得到的类型不能用于定义变量，可以用来进行类型的比较
+
+为`unordered_map`自定义哈希函数的案例（里面刚好用到了decltype）：
+
+```c++
+// 自定义对array<int, 26>类型的哈希函数
+auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
+    return accumulate(arr.begin(), arr.end(), 0u, [&](size_t acc, int num) {
+        return (acc << 1) ^ fn(num);
+    })
+}
+unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
+```
+
+## typeid
+
+RTTI(`Run-TimeType Information`, 运行时类型信息)，它提供了运行时确定对象类型的方法。在C++中，为了支持RTTI提供了两个操作符：`dynamic_cast`和typeid
+
+参考：https://blog.csdn.net/fengbingchun/article/details/51866559
+
 # 库函数
 
 ## stl
@@ -274,6 +316,18 @@ template < class Key, // map::key_type
 for (const auto &[k, v]: map) {
     ...
 }
+```
+
+为`unordered_map`自定义哈希函数：
+
+```c++
+// 自定义对array<int, 26>类型的哈希函数
+auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
+    return accumulate(arr.begin(), arr.end(), 0u, [&](size_t acc, int num) {
+        return (acc << 1) ^ fn(num);
+    })
+}
+unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
 ```
 
 ### advance
@@ -428,6 +482,28 @@ int maxValue(unordered_map<int, int>& valueMap) {
 
 参考：https://www.apiref.com/cpp-zh/cpp/io/manip/fixed.html
 
+## tuple
+
+### tie
+
+类似于js中的解构
+
+可用于交换变量值，举例：
+
+```c++
+int i, j, k;
+// i -> j ; j -> k ; k -> i
+// 原先是这样做的：
+int temp = k;
+k = j;
+j = i;
+i = temp;
+// 使用tie之后就不必这样麻烦了：
+tie(j, k, i) = make_tuple(i, j, k);
+```
+
+参考：http://www.cplusplus.com/reference/tuple/tie/
+
 # 构造器的几种写法
 
 案例：
@@ -580,6 +656,41 @@ int main() {
 }
 ```
 
+自定义对 `array<int, 26>`类型的哈希函数：
+
+```c++
+auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
+    return accumulate(arr.begin(), arr.end(), 0u, [&](size_t acc, int num) {
+        return (acc << 1) ^ fn(num);
+    })
+}
+```
+
+
+
 # 智能指针
 
 参考：https://blog.csdn.net/xt_xiaotian/article/details/5714477、https://blog.csdn.net/code_peak/article/details/119722167、https://blog.csdn.net/flowing_wind/article/details/81301001、https://blog.csdn.net/runner668/article/details/80539221
+
+# 浅拷贝（值拷贝）和深拷贝（位拷贝）
+
+参考：https://blog.csdn.net/haoaoweitt/article/details/81204336
+
+# 对自定义类型做hash操作
+
+参考：https://blog.csdn.net/qq_45311905/article/details/121488048
+
+hash是非常重要的概念，诸如哈希map、哈希set这些容器中都有用到hash操作
+
+为`unordered_map`自定义哈希函数：
+
+```c++
+// 自定义对array<int, 26>类型的哈希函数
+auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
+    return accumulate(arr.begin(), arr.end(), 0u, [&](size_t acc, int num) {
+        return (acc << 1) ^ fn(num);
+    })
+}
+unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
+```
+

@@ -830,6 +830,74 @@
   };
   ```
 
+### [48. 旋转图像[M]](https://leetcode.cn/problems/rotate-image/)
+
+- 使用辅助数组
+
+  本质在于计算出元素旋转之后的下标位置
+
+  ```c++
+  void rotate(vector<vector<int>>& matrix) {
+      int n = matrix.size();
+      // C++ 这里的 = 拷贝是深拷贝，会得到一个新的数组
+      auto matrix_new = matrix;
+      for (int i = 0; i < n; ++i) {
+          for (int j = 0; j < n; ++j) {
+              matrix_new[j][n - i - 1] = matrix[i][j];
+          }
+      }
+      // 这里也是深拷贝
+      matrix = matrix_new;
+  }
+  ```
+
+- 原地旋转
+
+  本质也在于计算出元素旋转之后的下标位置
+
+  是法一的改良版，法一需要使用辅助数组，该方法不需要
+
+  ```c++
+  void rotate(vector<vector<int>>& matrix) {
+      int n = matrix.size();
+      for (int i = 0; i < n / 2; ++i) {
+          // j < (n + 1) / 2 考虑到了图像行数或列数是奇数或偶数时的两种情况
+          for (int j = 0; j < (n + 1) / 2; ++j) {
+              // 以下是c++17的写法，tie类似js的解构
+              // 如果是c++11那么会使用变量temp辅助元素交换
+              tie(matrix[i][j], matrix[n - j - 1][i], matrix[n - i - 1][n - j - 1], matrix[j][n - i - 1]) \
+                  = make_tuple(matrix[n - j - 1][i], matrix[n - i - 1][n - j - 1], matrix[j][n - i - 1], matrix[i][j]);
+          }
+      }
+  }
+  ```
+
+  ![image-20220505142726479](leetcode心得.assets/image-20220505142726479.png)
+
+  ![image-20220505142754921](leetcode心得.assets/image-20220505142754921.png)
+
+- 用翻转代替旋转
+
+  水平翻转 + 主对角线翻转 = 旋转
+
+  ```c++
+  void rotate(vector<vector<int>>& matrix) {
+      int n = matrix.size();
+      // 水平翻转
+      for (int i = 0; i < n / 2; ++i) {
+          for (int j = 0; j < n; ++j) {
+              swap(matrix[i][j], matrix[n - i - 1][j]);
+          }
+      }
+      // 主对角线翻转
+      for (int i = 0; i < n; ++i) {
+          for (int j = 0; j < i; ++j) {
+              swap(matrix[i][j], matrix[j][i]);
+          }
+      }
+  }
+  ```
+
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
 - 动态规划
@@ -2974,6 +3042,53 @@ k8 k7 k6 k5
           return run();
       }
   };
+  ```
+
+### [49. 字母异位词分组[M]](https://leetcode.cn/problems/group-anagrams/)
+
+- 排序
+
+  ```c++
+  vector<vector<string>> groupAnagrams(vector<string>& strs) {
+      unordered_map<string, vector<string>> mp;
+      for (string& str: strs) {
+          string key = str;
+          sort(key.begin(), key.end());
+          mp[key].emplace_back(str);
+      }
+      vector<vector<string>> ans;
+      for (auto it = mp.begin(); it != mp.end(); ++it) {
+          ans.emplace_back(it->second);
+      }
+      return ans;
+  }
+  ```
+
+- 计数 + 自定义哈希
+
+  ```c++
+  vector<vector<string>> groupAnagrams(vector<string>& strs) {
+      // 自定义对 array<int, 26> 类型的哈希函数
+      auto arrayHash = [fn = hash<int>{}] (const array<int, 26>& arr) -> size_t {
+          return accumulate(arr.begin(), arr.end(), 0u, [&](size_t acc, int num) {
+              return (acc << 1) ^ fn(num);
+          });
+      };
+      unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
+      for (string& str: strs) {
+          array<int, 26> counts{};
+          int length = str.length();
+          for (int i = 0; i < length; ++i) {
+              counts[str[i] - 'a'] ++;
+          }
+          mp[counts].emplace_back(str);
+      }
+      vector<vector<string>> ans;
+      for (auto it = mp.begin(); it != mp.end(); ++it) {
+          ans.emplace_back(it->second);
+      }
+      return ans;
+  }
   ```
 
 ### [58. Length of Last Word](https://leetcode-cn.com/problems/length-of-last-word/)
