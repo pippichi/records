@@ -898,6 +898,23 @@
   }
   ```
 
+### [50. Pow(x, n)[M]](https://leetcode.cn/problems/powx-n/)
+
+- 快速幂
+
+  - 迭代
+  - 递归
+
+  ```c++
+  // 可以使用迭代或递归实现快速幂
+  double fastPower(double base, long long power);
+  double myPow(double x, int n) {
+      // 防止整型溢出
+      long long N = n;
+      return N >= 0 ? fastPower(x, N) : 1.0 / fastPower(x, -N);
+  }
+  ```
+
 ### [53. Maximum Subarray](https://leetcode-cn.com/problems/maximum-subarray/)
 
 - 动态规划
@@ -907,6 +924,91 @@
 - 分治
 
   抽象来看，每一个段都可以分成左半段和右半段，而左半段和右半段又各自为一个段。假设每一个段有4个属性：`lSum（左半段部分连续元素加和能得到的最大值）`、`rSum（右半段部分连续元素加和能得到的最大值）`、`iSum（整段元素加和的值）`、`mSum（该段元素部分连续元素加和能得到的最大值）`，那么每一个段的`mSum`就是`左半段的mSum`、`右半段的mSum`、`左半段的rSum + 右半段的lSum`这三者的最大值，对于`iSum`，`iSum = 左半段iSum + 右半段iSum`，对于`lSum`，`lSum = max(左半段lSum, 左半段iSum + 右半段lSum)`，对于`rSum`，`rSum = max(右半段rSum, 右半段iSum + 左半段rSum)`。按照这个逻辑，最终求得的整个段的`mSum`即为解。
+
+### [54. 螺旋矩阵[M]](https://leetcode.cn/problems/spiral-matrix/)
+
+- 模拟
+
+  ```c++
+  static constexpr int direcitons[4][2] = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
+  vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      if (matrix.empty()|| matrix[0].empty()) {
+          return {};
+      }
+      int rows = matrix.size(), cols = matrix[0].size();
+      int total = rows * cols;
+      int row = 0, col = 0;
+      int curDirection = 0;
+      vector<vector<bool>> visited(rows, vector<bool>(cols));
+      vector<int> ans(total);
+      for (int i = 0; i < total; ++i) {
+          ans[i] = matrix[row][col];
+          visited[row][col] = true;
+          int nextRow = row + direcitons[curDirection][0], nextCol = col + direcitons[curDirection][1];
+          if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols || visited[nextRow][nextCol]) {
+              curDirection = (curDirection + 1) % 4;
+          }
+          row += direcitons[curDirection][0];
+          col += direcitons[curDirection][1];
+      }
+      return ans;
+  }
+  ```
+
+- 按层模拟
+
+  ```c++
+  vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      if (matrix.empty() || matrix[0].empty()) {
+          return {};
+      }
+      int rows = matrix.size(), cols = matrix[0].size();
+      int top = 0, bottom = rows - 1, left = 0, right = cols - 1;
+      vector<int> ans;
+      while (left <= right && top <= bottom) {
+          for (int col = left; col <= right; ++col) {
+              ans.emplace_back(matrix[top][col]);
+          }
+          for (int row = top + 1; row <= bottom; ++row) {
+              ans.emplace_back(matrix[row][right]);
+          }
+          // 防止重复访问上面两个for循环已经访问过的元素
+          if (left < right && top < bottom) {
+              for (int col = right - 1; col >= left; --col) {
+                  ans.emplace_back(matrix[bottom][col]);
+              }
+              for (int row = bottom - 1; row > top; --row) {
+                  ans.emplace_back(matrix[row][left]);
+              }
+          }
+          ++top;
+          --bottom;
+          ++left;
+          --right;
+      }
+      return ans;
+  }
+  ```
+
+### [55. 跳跃游戏[M]](https://leetcode.cn/problems/jump-game/)
+
+- 贪心
+
+  ```c++
+  bool canJump(vector<int>& nums) {
+      int maxStep = 0;
+      int numsSize = nums.size();
+      for (int i = 0; i < numsSize; ++i) {
+          if (i <= maxStep) {
+              maxStep = max(maxStep, i + nums[i]);
+              if (maxStep >= numsSize - 1) {
+                  return true; 
+              }
+          }
+      }
+      return false;
+  }
+  ```
 
 ### [66. Plus One](https://leetcode-cn.com/problems/plus-one/)
 
@@ -4977,9 +5079,21 @@ string i2n(int n, int radix)
 
 ### 快速幂算法、矩阵快速幂
 
-参考：https://blog.csdn.net/qq_19782019/article/details/85621386（快速幂算法）
+参考：https://blog.csdn.net/qq_19782019/article/details/85621386（快速幂算法）、
 
 https://blog.csdn.net/zhangxiaoduoduo/article/details/81807338（矩阵快速幂）
+
+上述参考中给出的是迭代法的快速幂，还可以用递归来实现快速幂：
+
+```c++
+double fastPower(double base, long long power) {
+    if (power == 0) {
+        return 1.0;
+    }
+    double y = fastPower(base, power / 2);
+    return power % 2 == 0 ? y * y : y * y * base;
+}
+```
 
 ### 快速乘算法
 
