@@ -162,6 +162,12 @@ X::X(const X&) = default; //Out-of-line default 拷贝构造函数
 
 参考博客：https://blog.csdn.net/weixin_42414947/article/details/117212295
 
+## delete
+
+c++11中有“`= delete;`”的用法，表示deleted函数，对于deleted函数，编译器会对其禁用，从而避免某些非法的函数调用或者类型转换，从而提高代码的安全性。
+
+参考：https://blog.csdn.net/fengbingchun/article/details/52475108
+
 ## override
 
 参考：https://blog.csdn.net/qq_33485434/article/details/78418012
@@ -693,4 +699,20 @@ auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
 }
 unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
 ```
+
+# 线程安全
+
+## 锁
+
+参考：https://blog.csdn.net/kangjianflying/article/details/105637015
+
+## `lock_guard`与它的加强版`unique_lock`
+
+参考：https://blog.csdn.net/u010990478/article/details/107410841（`lock_guard`用法）、
+
+https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解）
+
+## `thread_local`
+
+参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 

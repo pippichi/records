@@ -999,14 +999,76 @@
       int maxStep = 0;
       int numsSize = nums.size();
       for (int i = 0; i < numsSize; ++i) {
-          if (i <= maxStep) {
-              maxStep = max(maxStep, i + nums[i]);
-              if (maxStep >= numsSize - 1) {
-                  return true; 
-              }
+          // 如果i大于maxStep，说明有地方跳不过去了
+          if (i > maxStep) {
+              break;
+          }
+          maxStep = max(maxStep, i + nums[i]);
+          if (maxStep >= numsSize - 1) {
+              return true; 
           }
       }
       return false;
+  }
+  ```
+
+### [56. 合并区间[M]](https://leetcode.cn/problems/merge-intervals/)
+
+- 排序
+
+  ```c++
+  vector<vector<int>> merge(vector<vector<int>>& intervals) {
+      if (intervals.empty()) {
+          return {};
+      }
+      sort(intervals.begin(), intervals.end());
+      vector<vector<int>> merged;
+      for (int i = 0; i < intervals.size(); ++i) {
+          int l = intervals[i][0], r = intervals[i][1];
+          if (merged.empty() || merged.back()[1] < l) {
+              merged.push_back({ l, r });
+          } else {
+              merged.back()[1] = max(merged.back()[1], r);
+          }
+      }
+      return merged;
+  }
+  ```
+
+### [57. 插入区间[M]](https://leetcode.cn/problems/insert-interval/)
+
+- 排序
+
+  参考[56. 合并区间[M]](https://leetcode.cn/problems/merge-intervals/)
+
+- 模拟
+
+  ```c++
+  vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+      int l = newInterval[0], r = newInterval[1];
+      bool placed = false;
+      vector<vector<int>> ans;
+      for (const auto& interval : intervals) {
+          if (r < interval[0]) {
+              // 在插入区间的右侧且无交集
+              if (!placed) {
+                  ans.push_back({ l, r });
+                  placed = true;
+              }
+              ans.emplace_back(interval);
+          } else if (l > interval[1]) {
+              // 在插入区间的左侧且无交集
+              ans.emplace_back(interval);
+          } else {
+              // 与插入区间有交集，计算它们的并集
+              l = min(l, interval[0]);
+              r = max(r, interval[1]);
+          }
+      }
+      if (!placed) {
+          ans.push_back({ l, r });
+      }
+      return ans;
   }
   ```
 
