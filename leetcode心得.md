@@ -946,6 +946,7 @@
           visited[row][col] = true;
           int nextRow = row + direcitons[curDirection][0], nextCol = col + direcitons[curDirection][1];
           if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols || visited[nextRow][nextCol]) {
+              // 涉及到循环了，就要想到取余
               curDirection = (curDirection + 1) % 4;
           }
           row += direcitons[curDirection][0];
@@ -1071,6 +1072,13 @@
       return ans;
   }
   ```
+
+### [59. 螺旋矩阵 II[M]](https://leetcode.cn/problems/spiral-matrix-ii/)
+
+思路参考[54. 螺旋矩阵[M]](https://leetcode.cn/problems/spiral-matrix/)
+
+- 模拟
+- 按层模拟
 
 ### [66. Plus One](https://leetcode-cn.com/problems/plus-one/)
 
@@ -4065,6 +4073,78 @@ bool kmp(string sOrder, string tOrder) {
           temp = temp -> next -> next;
       }
       return dummy -> next;
+  }
+  ```
+
+### [61. 旋转链表[M]](https://leetcode.cn/problems/rotate-list/)
+
+- 模拟
+
+  一次旋转一步，旋转k次
+
+  ```c++
+  // 求链长
+  int length(ListNode* head) {
+      ListNode* temp = head;
+      int ans = 0;
+      while (temp) {
+          ++ans;
+          temp = temp -> next;
+      }
+      return ans;
+  }
+  // 旋转一步
+  ListNode* rotateOnce(ListNode* head) {
+      int before = head -> val, temp;
+      ListNode* nextNode = head -> next;
+      while (nextNode) {
+          temp = nextNode -> val;
+          nextNode -> val = before;
+          before = temp;
+          nextNode = nextNode -> next;
+      }
+      head -> val = temp;
+      return head;
+  }
+  ListNode* rotateRight(ListNode* head, int k) {
+      if (head == nullptr || head -> next == nullptr || k == 0) {
+          return head;
+      }
+      int headSize = length(head);
+      k %= headSize;
+      while (k--) {
+          head = rotateOnce(head);
+      }
+      return head;
+  }
+  ```
+
+- 闭合为环
+
+  此解法需要结合图形分析
+
+  ```c++
+  ListNode* rotateRight(ListNode* head, int k) {
+      if (k == 0 || head == nullptr || head->next == nullptr) {
+          return head;
+      }
+      int n = 1;
+      ListNode* iter = head;
+      while (iter -> next != nullptr) {
+          iter = iter -> next;
+          ++n;
+      }
+      int add = n - k % n;
+      if (add == n) {
+          return head;
+      }
+      iter -> next = head;
+      while (add--) {
+          iter = iter -> next;
+      }
+      ListNode* ans = iter -> next;
+      iter -> next = nullptr;
+      return ans;
   }
   ```
 
