@@ -4651,6 +4651,25 @@ bool kmp(string sOrder, string tOrder) {
   }
   ```
 
+- 动态规划滚动数组
+
+  利用滚动数组思维将二维的空间复杂度压缩成一维
+
+  ```c++
+  int uniquePaths(int m, int n) {
+      vector<long long> temp(n);
+      temp[n - 1] = 1;
+      for (int i = m - 1; i >= 0; --i) {
+          for (int j = n - 1; j >= 0; --j) {
+              if (j + 1 < n) {
+                  temp[j] += temp[j + 1];
+              }
+          }
+      }
+      return temp[0];
+  }
+  ```
+
 - 组合数学（无序排列组合）
 
   ```c++
@@ -4664,6 +4683,68 @@ bool kmp(string sOrder, string tOrder) {
       return ans;
   }
   ```
+
+### [63. 不同路径 II[M]](https://leetcode.cn/problems/unique-paths-ii/)
+
+- 动态规划
+
+  ```c++
+  int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+      int rows = obstacleGrid.size(), cols = obstacleGrid.at(0).size();
+      vector<vector<long long>> temp(rows, vector<long long>(cols));
+      for (int j = cols - 1; j >= 0; --j) {
+          if (obstacleGrid[rows - 1][j] == 1) {
+              break;
+          }
+          temp[rows - 1][j] = 1;
+      }
+      for (int i = rows - 1; i >= 0; --i) {
+          if (obstacleGrid[i][cols - 1] == 1) {
+              break;
+          }
+          temp[i][cols - 1] = 1;
+      }
+      for (int i = rows - 2; i >= 0; --i) {
+          for (int j = cols - 2; j >= 0; --j) {
+              if (obstacleGrid[i][j] == 1) {
+                  temp[i][j] = 0;
+              } else {
+                  temp[i][j] = temp[i + 1][j] + temp[i][j + 1];
+              }
+          }
+      }
+      return temp[0][0];
+  }
+  ```
+
+- 动态规划滚动数组
+
+  利用滚动数组思维将二维的空间复杂度压缩成一维
+
+  ```c++
+  int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+      int rows = obstacleGrid.size(), cols = obstacleGrid.at(0).size();
+      vector<long long> temp(cols);
+      temp[cols - 1] = (obstacleGrid[rows - 1][cols - 1] != 1);
+      if (temp[cols - 1] == 0) {
+          return 0;
+      }
+      for (int i = rows - 1; i >= 0; --i) {
+          for (int j = cols - 1; j >= 0; --j) {
+              if (obstacleGrid[i][j] == 1) {
+                  temp[j] = 0;
+                  continue;
+              }
+              if (j + 1 < cols && obstacleGrid[i][j + 1] != 1) {
+                  temp[j] += temp[j + 1];
+              }
+          }
+      }
+      return temp[0];
+  }
+  ```
+
+  
 
 ### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
 
