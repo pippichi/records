@@ -143,7 +143,7 @@
       int median1 = 0, median2 = 0;
       while (left <= right) {
           // 前一部分包含 nums1[0 .. i-1] 和 nums2[0 .. j-1]
-          // 后一部分包含 nums1[i .. m-1] 和 nums2[j .. n-1]
+          // 后一部分包含 nums1[i .. sNums1-1] 和 nums2[j .. sNums2-1]
           int i = (left + right) >> 1;
           int j = ((sNums1 + sNums2 + 1) >> 1) - i;
   
@@ -1079,6 +1079,33 @@
 
 - 模拟
 - 按层模拟
+
+### [64. 最小路径和[M]](https://leetcode.cn/problems/minimum-path-sum/)
+
+- 动态规划
+
+  ```c++
+  int minPathSum(vector<vector<int>>& grid) {
+      if (grid.empty() || grid.at(0).empty()) {
+          return 0;
+      }
+      int rows = grid.size(), cols = grid.at(0).size();
+      vector<vector<long long>> temp(rows, vector<long long>(cols));
+      temp[0][0] = grid[0][0];
+      for (int i = 1; i < cols; ++i) {
+          temp[0][i] = temp[0][i - 1] + grid[0][i];
+      }
+      for (int i = 1; i < rows; ++i) {
+          temp[i][0] = temp[i - 1][0] + grid[i][0];
+      }
+      for (int i = 1; i < rows; ++i) {
+          for (int j = 1; j < cols; ++j) {
+              temp[i][j] = min(temp[i - 1][j], temp[i][j - 1]) + grid[i][j];
+          }
+      }
+      return temp[rows - 1][cols - 1];
+  }
+  ```
 
 ### [66. Plus One](https://leetcode-cn.com/problems/plus-one/)
 
@@ -2663,71 +2690,74 @@ k8 k7 k6 k5
   利用了回文字符串的镜像对称的性质，减少计算次数
 
   ```c++
-  vector<int> arms;
-  /**
-   * 使用'#'填充原字符串，使得不管是偶数长度字符串还是奇数长度字符串都可以统一做处理
-   * abc -> #a#b#c#
-   */
-  string padding(const string& s) {
-      string ret = "#";
-      for (char c: s) {
-          ret += c;
-          ret += '#';
-      }
-      return ret;
-  }
-  /**
-   * 清洗带有'#'的字符串
-   * #a#b#c# -> abc
-   */
-  string clearing(const string& s, int center) {
-      // 通过最大回文中心center来得到最长臂展maxArmLength
-      int maxArmLength = this -> arms[center];
-      // 由最长臂展和最大回文中心得到字符串起始下标， 由于我们使用'#'填充了原字符串，因此字符串中任意一个回文字符串首尾一定是'#'，因此这里的 '+ 1'操作巧妙的跳过了第一个'#'（'#'无关紧要，理应被去掉）
-      int begin = center - maxArmLength + 1;
-      string ret;
-      while (maxArmLength > 0) {
-          ret += s[begin];
-          // 每次遍历都'+ 2'来跳过'#'
-          begin += 2;
-          maxArmLength--;
-      }
-      return ret;
-  }
-  string longestPalindrome(string s) {
-      if (s.size() < 2) return s;
-      s = padding(s);
-      int sS = s.size();
-      // 用于记录当前回文字符串的回文中心
-      int curC = 0;
-      // 用于记录全局最长回文字符串的回文中心
-      int maxC = 0;
-      // 用于记录目前已经探索到的字符串的最大长度
-      int curRight = 0;
-      this -> arms = vector<int>(sS, 0);
-      for (int i = 0; i < sS; i++) {
-          // Manacher
-          int eachA = i > curRight ? 1 : min(curRight - i, this -> arms[2 * curC - i]);
-          // 使用了中心扩展算法
-          while (i - eachA >= 0 && i + eachA < sS && s[i - eachA] == s[i + eachA]) {
-              eachA++;
+  class Solution {
+  public:
+      vector<int> arms;
+      /**
+       * 使用'#'填充原字符串，使得不管是偶数长度字符串还是奇数长度字符串都可以统一做处理
+       * abc -> #a#b#c#
+       */
+      string padding(const string& s) {
+          string ret = "#";
+          for (char c: s) {
+              ret += c;
+              ret += '#';
           }
-          // 记录当前回文字符串最长臂展
-          this -> arms[i] = --eachA;
-          if (i + eachA > curRight) {
-              // 记录当前回文字符串的回文中心
-              curC = i;
-              // 记录目前已经探索到的字符串的最大长度
-              curRight = i + eachA;
-          }
-          if (eachA > this -> arms[maxC]) {
-              // 记录全局最长回文字符串的回文中心
-              maxC = i;
-          }
+          return ret;
       }
-      s = clearing(s, maxC);
-      return s;
-  }
+      /**
+       * 清洗带有'#'的字符串
+       * #a#b#c# -> abc
+       */
+      string clearing(const string& s, int center) {
+          // 通过最大回文中心center来得到最长臂展maxArmLength
+          int maxArmLength = this -> arms[center];
+          // 由最长臂展和最大回文中心得到字符串起始下标， 由于我们使用'#'填充了原字符串，因此字符串中任意一个回文字符串首尾一定是'#'，因此这里的 '+ 1'操作巧妙的跳过了第一个'#'（'#'无关紧要，理应被去掉）
+          int begin = center - maxArmLength + 1;
+          string ret;
+          while (maxArmLength > 0) {
+              ret += s[begin];
+              // 每次遍历都'+ 2'来跳过'#'
+              begin += 2;
+              maxArmLength--;
+          }
+          return ret;
+      }
+      string longestPalindrome(string s) {
+          if (s.size() < 2) return s;
+          s = padding(s);
+          int sS = s.size();
+          // 用于记录当前回文字符串的回文中心
+          int curC = 0;
+          // 用于记录全局最长回文字符串的回文中心
+          int maxC = 0;
+          // 用于记录目前已经探索到的字符串的最大长度
+          int curRight = 0;
+          this -> arms = vector<int>(sS, 0);
+          for (int i = 0; i < sS; i++) {
+              // Manacher
+              int eachA = i > curRight ? 1 : min(curRight - i, this -> arms[2 * curC - i]);
+              // 使用了中心扩展算法
+              while (i - eachA >= 0 && i + eachA < sS && s[i - eachA] == s[i + eachA]) {
+                  eachA++;
+              }
+              // 记录当前回文字符串最长臂展
+              this -> arms[i] = --eachA;
+              if (i + eachA > curRight) {
+                  // 记录当前回文字符串的回文中心
+                  curC = i;
+                  // 记录目前已经探索到的字符串的最大长度
+                  curRight = i + eachA;
+              }
+              if (eachA > this -> arms[maxC]) {
+                  // 记录全局最长回文字符串的回文中心
+                  maxC = i;
+              }
+          }
+          s = clearing(s, maxC);
+          return s;
+      }
+  };
   ```
   
   ![image-20210926151453163](leetcode心得.assets/image-20210926151453163.png)
