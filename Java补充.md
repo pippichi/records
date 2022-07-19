@@ -1015,3 +1015,8 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 - https://blog.csdn.net/haoyuyang/article/details/53243785（Netty基本使用介绍）
 - https://blog.csdn.net/lmdsoft/article/details/105618052（Netty介绍）
+
+# 高性能网络请求开源库okhttp3
+
+参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）
+

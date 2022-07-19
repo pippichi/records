@@ -934,8 +934,30 @@ public interface AlgorithmManagerFeign {
 
 网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
+# HandlerMethodArgumentResolver(参数解析器)
+
+一般用于接口调用之前的权限校验，参考https://blog.csdn.net/qq_36408229/article/details/104436508、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# AsyncConfigurer接口
+
+用于线程池配置
+
+参考：https://blog.csdn.net/qq_30281443/article/details/83340909、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # TaskDecorator
 
 异步多线程中传递上下文等变量
 
 参考：https://blog.csdn.net/qq_29569183/article/details/111311632（TaskDecorator——异步多线程中传递上下文等变量）
+
+# WebSocketHandler接口、AbstractWebSocketHandler、HandshakeInterceptor接口（websocket握手的拦截器配置）
+
+websocket深度配置，参考：[张润华`system-component-websocket`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# RequestInterceptor（feign拦截器）
+
+参考：https://blog.csdn.net/wudiyong22/article/details/103801874、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# okhttp3
+
+参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）

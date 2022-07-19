@@ -1126,6 +1126,111 @@
 - 另外还可以通过矩阵快速幂优化斐波那契的计算过程（事实上就是矩阵运算的化简），最终得到一个方程式来进行编程求解
 - 另外还可以通过斐波那契的计算公式（可以通过特征值求解方程可行解得到）来进行求解
 
+### [73. 矩阵置零[M]](https://leetcode.cn/problems/set-matrix-zeroes/)
+
+- 使用标记数组
+
+  ```c++
+  void setZeroes(vector<vector<int>>& matrix) {
+      int m = matrix.size();
+      int n = matrix[0].size();
+      vector<int> row(m), col(n);
+      for (int i = 0; i < m; i++) {
+          for (int j = 0; j < n; j++) {
+              if (!matrix[i][j]) {
+                  row[i] = col[j] = true;
+              }
+          }
+      }
+      for (int i = 0; i < m; i++) {
+          for (int j = 0; j < n; j++) {
+              if (row[i] || col[j]) {
+                  matrix[i][j] = 0;
+              }
+          }
+      }
+  }
+  ```
+
+- 使用两个标记变量
+
+  我们可以用矩阵的第一行和第一列代替方法一中的两个标记数组，以达到 O(1) 的额外空间。再额外使用两个标记变量分别记录第一行和第一列是否原本包含 0 。
+
+  ```c++
+  void setZeroes(vector<vector<int>>& matrix) {
+      int m = matrix.size(), n = matrix[0].size();
+      bool flag_col0 = false, flag_row0 = false;
+      for (int i = 0; i < m; ++i) {
+          if (!matrix[i][0]) {
+              flag_col0 = true;
+              break;
+          }
+      }
+      for (int i = 0; i < n; ++i) {
+          if (!matrix[0][i]) {
+              flag_row0 = true;
+              break;
+          }
+      }
+      for (int i = 1; i < m; ++i) {
+          for (int j = 1; j < n; ++j) {
+              if (!matrix[i][j]) {
+                  matrix[i][0] = matrix[0][j] = 0;
+              }
+          }
+      }
+      for (int i = 1; i < m; ++i) {
+          for (int j = 1; j < n; ++j) {
+              if (!matrix[i][0] || !matrix[0][j]) {
+                  matrix[i][j] = 0;
+              }
+          } 
+      }
+      if (flag_col0) {
+          for (int i = 0; i < m; ++i) {
+              matrix[i][0] = 0;
+          }
+      }
+      if (flag_row0) {
+          for (int i = 0; i < n; ++i) {
+              matrix[0][i] = 0;
+          }
+      }
+  }
+  ```
+
+- 使用一个标记变量
+
+  我们可以对方法二进一步优化，只使用一个标记变量记录第一列是否原本存在 0 。这样，第一列的第一个元素即可以标记第一行是否出现 0 。但为了防止每一列的第一个元素被提前更新，我们需要从最后一行开始，倒序地处理矩阵元素。
+
+  ```c++
+  void setZeroes(vector<vector<int>>& matrix) {
+      int m = matrix.size();
+      int n = matrix[0].size();
+      int flag_col0 = false;
+      for (int i = 0; i < m; i++) {
+          if (!matrix[i][0]) {
+              flag_col0 = true;
+          }
+          for (int j = 1; j < n; j++) {
+              if (!matrix[i][j]) {
+                  matrix[i][0] = matrix[0][j] = 0;
+              }
+          }
+      }
+      for (int i = m - 1; i >= 0; i--) {
+          for (int j = 1; j < n; j++) {
+              if (!matrix[i][0] || !matrix[0][j]) {
+                  matrix[i][j] = 0;
+              }
+          }
+          if (flag_col0) {
+              matrix[i][0] = 0;
+          }
+      }
+  }
+  ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组
@@ -3352,7 +3457,54 @@ k8 k7 k6 k5
       return bin(x)[2:] # '0bxxxx' -> 'xxxx'
   ```
 
+### [71. 简化路径[M]](https://leetcode.cn/problems/simplify-path/)
 
+- 按'/'分割字符串 + 栈
+
+  ```c++
+  string simplifyPath(string path) {
+      // 按‘/’分割字符串
+      auto split = [](const string& s, const char delimit) -> vector<string> {
+          vector<string> ans;
+          string cur;
+          for (char c : s) {
+              if (c == delimit) {
+                  ans.emplace_back(move(cur));
+                  cur.clear();
+              } else {
+                  cur += c;
+              }
+          }
+          ans.emplace_back(move(cur));
+          return ans;
+      };
+      vector<string> names = split(path, '/');
+      vector<string> temp;
+      // 字符串清洗
+      for (const string& name : names) {
+          if (name == "..") {
+              if (temp.empty()) {
+                  continue;
+              }
+              temp.pop_back();
+          } else if (!name.empty() && name != ".") {
+              temp.emplace_back(name);
+          }
+      }
+      string ans;
+      // 字符串合并
+      if (temp.empty()) {
+          ans = "/";
+      } else {
+          for (const string& s : temp) {
+              ans += "/" + s;
+          }
+      }
+      return ans;
+  }
+  ```
+
+  
 
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
