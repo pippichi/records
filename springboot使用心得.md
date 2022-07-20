@@ -961,3 +961,23 @@ websocket深度配置，参考：[张润华`system-component-websocket`项目](h
 # okhttp3
 
 参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）
+
+# afterPropertiesSet
+
+在spring的bean的生命周期中，实例化 -> 生成对象 -> 属性填充后会进行afterPropertiesSet方法，这个方法可以用在一些特殊情况中，也就是某个对象的某个属性需要经过外界得到，比如说查询数据库等方式，这时候可以用到spring的该特性，只需要实现InitializingBean即可：
+
+```java
+@Component("a")
+public class A implements InitializingBean {
+    private B b;
+    
+    public A(B b) {
+        this.b = b;
+    }
+    
+    @Override
+    public void afterPropertiesSet() throw Exception {
+    }
+}
+```
+
