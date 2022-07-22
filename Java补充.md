@@ -1020,3 +1020,13 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）
 
+# 分布式锁
+
+有三种实现方式：基于数据库实现、基于缓存（redis等）实现、基于Zookeeper实现
+
+参考:https://blog.csdn.net/zhaisharap/article/details/122471322、https://www.zhihu.com/question/452803310/answer/1931377239（深入探讨基于redis和基于Zookeeper实现分布式锁的优点以及存在的问题；深度解析Redlock（红锁）；引入Java工具包Redisson来方便使用基于redis的分布式锁）
+
+
+
+关于分布式网络一致性问题可以去研究一下拜占庭将军问题，参考：https://zhuanlan.zhihu.com/p/33666461、https://learnblockchain.cn/2017/11/04/bitcoin-pow/（工作量证明 - POW : Proof of Work）
+
