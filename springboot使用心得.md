@@ -981,3 +981,6 @@ public class A implements InitializingBean {
 }
 ```
 
+# 解决Spring session监听导致创建大量`redisMessageListenerContailner-X`线程问题
+
+参考：https://www.yisu.com/zixun/206257.html、[钱依峰`app-service`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)

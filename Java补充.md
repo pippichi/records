@@ -1030,3 +1030,7 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 关于分布式网络一致性问题可以去研究一下拜占庭将军问题，参考：https://zhuanlan.zhihu.com/p/33666461、https://learnblockchain.cn/2017/11/04/bitcoin-pow/（工作量证明 - POW : Proof of Work）
 
+# Java启动参数`(-, -X, -XX参数)`详解
+
+参考：https://blog.csdn.net/guyue35/article/details/107957859
+
