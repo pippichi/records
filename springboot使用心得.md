@@ -984,3 +984,12 @@ public class A implements InitializingBean {
 # 解决Spring session监听导致创建大量`redisMessageListenerContailner-X`线程问题
 
 参考：https://www.yisu.com/zixun/206257.html、[钱依峰`app-service`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# AopContext
+
+参考：https://blog.csdn.net/u014788227/article/details/90111662（`AopContext.currentProxy()的使用`）
+
+# 事务失效问题（单数据源、多数据源）
+
+参考：https://blog.csdn.net/weixin_43868443/article/details/119445348（Springboot多数据源 解决事务回滚失效）、https://blog.csdn.net/mameng1988/article/details/85548812（`Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to 以及Spring事务失效的原因和解决方案`）
+
