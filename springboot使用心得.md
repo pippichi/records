@@ -637,21 +637,76 @@ spring:
         queue-capacity: 100
 ```
 
-# filter
+# 过滤器Filter
 
-过滤器，包括@WebFilter等，具体查网络资料
+具体信息请查阅网络资料
 
-- **OncePerRequestFilter**
+- OncePerRequestFilter
 
   每次请求的最开始都会执行这个过滤，适合做权限认证
 
-# interceptor
+Filter有三种配置方式：
 
-拦截器，具体查网络资料
+- 直接用@WebFilter注解修饰实现类（@WebFilter和@ServletComponentScan这两个注解必须连用）
+- 不使用@ServletComponentScan注解时需要通过FilterRegistrationBean将Filter注入
 
-# listener
+- 通过`web.xml`方式配置
 
-监听器，具体查网络资料
+参考：https://blog.csdn.net/u011066470/article/details/115376422（springboot的filter过滤器的使用）
+
+# 拦截器Interceptor
+
+具体信息请查阅网络资料
+
+- HandlerInterceptor和MethodInterceptor
+
+  1、HandlerInterceptor是springMVC项目中的拦截器，它拦截的目标是请求的地址，比MethodInterceptor先执行；
+
+  2、MethodInterceptor是AOP项目中的拦截器，它拦截的目标是方法，即使不是controller中的方法；
+
+  参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）
+
+# 监听器Listener
+
+具体信息请查阅网络资料
+
+Listener顾名思义就是监听的意思，作用就是监听程序中的一些变化，并根据其做出一些相应的响应。通俗的语言就是在session、request、application三个对象创建消亡或者往其中进行修改增加删除属性时自动执行代码的功能组件。
+
+Listener监听器主要是实现了`javax.servlet.ServletContextListener`接口的服务器端程序，它跟过滤器一样随web应用启动而启动，只需要初始化一次，以后都可以进行监听。一般主要用于ServletContext、HttpSession、HttpServletSession这三个对象中的属性变更信息事件监听
+
+使用Listener方式：
+
+- 通过实现具体接口创建实现类（可实现多个监听器接口）
+
+- 配置实现类成为监听器，有三种配置方式：
+
+  - 直接用@WebListener注解修饰实现类（@WebListener和@ServletComponentScan这两个注解必须连用）
+  - 不使用@ServletComponentScan注解时需要通过ServletListenerRegistrationBean将Listener注入
+
+  - 通过`web.xml`方式配置
+
+    ```xml
+    <listener>
+    	<listener-class>com.zrgk.listener.MyListener</listener-class>
+    </listener>
+    ```
+
+Spring有各种Listener，如ServletRequestListener、ServletRequestAttributeListener、HttpSessionListener、ServletContextListener、ServletContextAttributeListener、IntrospectorCleanupListener、Log4jConfigListener、WebAppRootListener、ContextLoaderListener、RequestContextListener等
+
+参考：https://blog.csdn.net/vicroad2014/article/details/82463643（Spring的各种Listener）
+
+# @WebServlet、HttpServlet和ServletRegistrationBean
+
+客户端发送请求到服务器（Tomcat），服务器把请求发送给Servlet，Servlet动态生成响应内容后传给服务器，最后由服务器将结果响应回客户端，这就是Servlet的大概执行流程。
+
+Servlet有三种配置方式：
+
+- 直接用@WebServlet注解修饰实现类（@WebServlet和@ServletComponentScan这两个注解必须连用）
+- 不使用@ServletComponentScan注解时需要通过ServletRegistrationBean将Servlet注入
+
+- 通过`web.xml`方式配置
+
+参考：https://blog.csdn.net/qq_35038153/article/details/77484185（@WebServlet的使用方法）
 
 # @DependsOn
 
