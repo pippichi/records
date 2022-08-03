@@ -993,3 +993,10 @@ public class A implements InitializingBean {
 
 参考：https://blog.csdn.net/weixin_43868443/article/details/119445348（Springboot多数据源 解决事务回滚失效）、https://blog.csdn.net/mameng1988/article/details/85548812（`Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to 以及Spring事务失效的原因和解决方案`）
 
+# @AutoConfigureBefore、@AutoConfigureAfter、@AutoConfigureOrder与AutoConfigurationSorter
+
+`@AutoConfigureBefore、@AutoConfigureAfter、@AutoConfigureOrder`三大注解可以用于控制自动配置执行顺序
+
+AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻辑
+
+参考：https://www.likecs.com/show-204315499.html（自动装配顺序性）
