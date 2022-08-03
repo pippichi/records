@@ -962,13 +962,17 @@ websocket深度配置，参考：[张润华`system-component-websocket`项目](h
 
 参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）
 
-# afterPropertiesSet
+# InitializingBean接口和DisposableBean接口
 
-在spring的bean的生命周期中，实例化 -> 生成对象 -> 属性填充后会进行afterPropertiesSet方法，这个方法可以用在一些特殊情况中，也就是某个对象的某个属性需要经过外界得到，比如说查询数据库等方式，这时候可以用到spring的该特性，只需要实现InitializingBean即可：
+InitializingBean接口需实现afterPropertiesSet()方法
+
+DisposableBean接口需实现destroy()方法
+
+在spring的bean的生命周期中，实例化 -> 生成对象 -> 属性填充后会进行afterPropertiesSet方法，这个方法可以用在一些特殊情况中，也就是某个对象的某个属性需要经过外界得到，比如说查询数据库等方式，这时候可以用到spring的该特性，只需要实现InitializingBean即可。同理，bean销毁之前会执行destroy方法：
 
 ```java
 @Component("a")
-public class A implements InitializingBean {
+public class A implements InitializingBean, DisposableBean {
     private B b;
     
     public A(B b) {
@@ -977,6 +981,10 @@ public class A implements InitializingBean {
     
     @Override
     public void afterPropertiesSet() throw Exception {
+    }
+    
+    @Override
+    public void destroy() throw Exception {
     }
 }
 ```
@@ -1000,3 +1008,14 @@ public class A implements InitializingBean {
 AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻辑
 
 参考：https://www.likecs.com/show-204315499.html（自动装配顺序性）
+
+# BeanPostProcessor(后置处理器)
+
+作用是在Bean对象在实例化和依赖注入完毕后，在显示调用初始化方法的前后添加我们自己的逻辑。注意是Bean实例化完毕后及依赖注入完成后触发的。
+
+参考：https://blog.csdn.net/qq_38526573/article/details/88086752（Spring之BeanPostProcessor(后置处理器)介绍）
+
+# @Order注解和Ordered接口和OrderUtils
+
+参考：https://www.jianshu.com/p/8442d21222ef（Spring之@Order注解和Ordered接口）
+
