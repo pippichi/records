@@ -138,6 +138,24 @@ private LocalDateTime time; // 从前端接收的字符串类型的time会被自
 private Long indexId;
 ```
 
+## @JsonView
+
+@JsonView可以过滤pojo的属性，使Controller在返回json时候，pojo某些属性不返回，比如User的密码，一般是不返回的，就可以使用这个注解
+
+@JsonView使用方法：
+
+- 使用接口来声明多个视图
+
+- 在pojo的get方法上指定视图
+
+- 在Controller方法上指定视图
+
+参考：https://blog.csdn.net/qq_37659167/article/details/82960556（@JsonView的使用）
+
+## @JsonInclude
+
+参考：https://blog.csdn.net/weixin_44130081/article/details/89678450（Jackson中@JsonInclude注解详解）
+
 # 加密
 
 ## Jasypt实现配置文件中密码字符串加密配置

@@ -1045,3 +1045,12 @@ SPI机制案例：
 - Dubbo的SPI机制：Dubbo更是把SPI机制应用的淋漓尽致，Dubbo基本上自身的每个功能点都提供了扩展点，比如提供了集群扩展，路由扩展和负载均衡扩展等差不多接近30个扩展点。如果Dubbo的某个内置实现不符合我们的需求，那么我们只要利用其SPI机制将我们的实现替换掉Dubbo的实现即可；
 
 参考：https://blog.csdn.net/ymb615ymb/article/details/123450610（SPI机制是什么？）
+
+# java调用c/c++
+
+有两种比较推荐的方式：JNI工具包和JNA框架
+
+JNI的使用请参考：https://blog.csdn.net/weixin_51763233/article/details/122205288（Java调用C++的步骤详解）
+
+JNA的使用请参考：https://blog.csdn.net/qingzhuyuxian/article/details/122997670（开源框架JNA的使用）
+
