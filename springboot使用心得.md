@@ -713,6 +713,34 @@ Spring有各种Listener，如ServletRequestListener、ServletRequestAttributeLis
 
 参考：https://blog.csdn.net/vicroad2014/article/details/82463643（Spring的各种Listener）
 
+# 事件Event
+
+事件和直接方法调用的区别：使用方法调用，必须知道在什么情况下在哪个地方调用方法；使用事件，只需要知道发生了某个事件，哪些模块会被通知并不是我们关心的问题，当我们想要将某些业务处理传递给另一个线程时（例如：在某些任务完成时发送电子邮件），最好使用事件。此外，事件对于测试驱动的开发也很有用。
+
+除了可以自定义事件之外，Spring还提供了一些内置事件：
+
+- ContextRefreshedEvent
+
+  ApplicationContext 被初始化或刷新时，该事件被发布。这也可以在 ConfigurableApplicationContext接口中使用 refresh() 方法来发生。此处的初始化是指：所有的Bean被成功装载，后处理Bean被检测并激活，所有Singleton Bean 被预实例化，ApplicationContext容器已就绪可用
+
+- ContextStartedEvent
+
+  当使用 ConfigurableApplicationContext （ApplicationContext子接口）接口中的 start() 方法启动 ApplicationContext 时，该事件被发布。你可以调查你的数据库，或者你可以在接受到这个事件后重启任何停止的应用程序
+
+- ContextStoppedEvent
+
+  当使用 ConfigurableApplicationContext 接口中的 stop() 停止 ApplicationContext 时，发布这个事件。你可以在接受到这个事件后做必要的清理的工作
+
+- ContextClosedEvent
+
+  当使用 ConfigurableApplicationContext 接口中的 close() 方法关闭 ApplicationContext 时，该事件被发布。一个已关闭的上下文到达生命周期末端；它不能被刷新或重启
+
+- RequestHandledEvent
+
+  这是一个 web-specific 事件，告诉所有 bean HTTP 请求已经被服务。只能应用于使用DispatcherServlet的Web应用。在使用Spring作为前端的MVC控制器时，当Spring处理用户请求结束后，系统会自动触发该事件
+
+参考：https://blog.csdn.net/agonie201218/article/details/124556232（事件机制）
+
 # @WebServlet、HttpServlet和ServletRegistrationBean
 
 客户端发送请求到服务器（Tomcat），服务器把请求发送给Servlet，Servlet动态生成响应内容后传给服务器，最后由服务器将结果响应回客户端，这就是Servlet的大概执行流程。
@@ -1092,3 +1120,14 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://www.jianshu.com/p/8442d21222ef（Spring之@Order注解和Ordered接口）
 
+# ApplicationContextInitializer
+
+参考：https://blog.csdn.net/leileibest_437147623/article/details/81074174（ApplicationContextInitializer的三种使用方法）
+
+# SpringApplication
+
+参考：https://blog.csdn.net/q610376681/article/details/95912179（深入理解SpringApplication）
+
+# SpringApplicationRunListener
+
+参考：https://blog.csdn.net/qq_38366063/article/details/111683339（SpringApplicationRunListener详解）
