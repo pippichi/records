@@ -156,6 +156,14 @@ private Long indexId;
 
 参考：https://blog.csdn.net/weixin_44130081/article/details/89678450（Jackson中@JsonInclude注解详解）
 
+# ProtoBuf
+
+protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
+
+参考：https://www.jianshu.com/p/a24c88c0526a（深入 ProtoBuf - 简介）、https://www.jianshu.com/p/73c9ed3a4877（深入 ProtoBuf - 编码）、https://www.jianshu.com/p/62f0238beec8（深入 ProtoBuf - 序列化源码解析）、https://www.jianshu.com/p/ddc1aaca3691（深入 ProtoBuf - 反射原理解析）
+
+关于后端SpringBoot，前端nodejs整合ProtoBuf的方法请参考：https://blog.csdn.net/qq_42677329/article/details/114670100（springboot整合protobuf传输数据）
+
 # 加密
 
 ## Jasypt实现配置文件中密码字符串加密配置
