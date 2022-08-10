@@ -452,6 +452,10 @@ ApplicationContext可以干很多事情，比如遍历扫描容器中所有的Be
 
 参考：https://www.cnblogs.com/loong-hon/p/10917755.html（ApplicationContextAware接口的作用）
 
+## BeanFactory和FactoryBean
+
+参考：https://blog.csdn.net/qiesheng/article/details/72875315（spring中BeanFactory和FactoryBean的区别）、https://blog.csdn.net/zknxx/article/details/79572387（Spring系列之FactoryBean（一））、https://blog.csdn.net/qq_36688143/article/details/84968036（Spring源码解析：BeanFactory深入理解）
+
 ## AutowireCapableBeanFactory对容器外的Bean进行依赖注入
 
 参考：https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
