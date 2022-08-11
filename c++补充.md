@@ -716,3 +716,10 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 
+# 模板元编程与type_traits
+
+参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）
+
+# 现代C++之SFINAE（模板进阶）
+
+参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
