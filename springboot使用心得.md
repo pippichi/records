@@ -396,6 +396,25 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 可以看到name字段非常自然的被区分开了
 
+# 字段校验
+
+## @Pattern
+
+可使用正则表达式进行校验
+
+例子：
+
+```java
+@Data
+public class TagGroup extends BasicEntity<Long> {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Pattern(regexp="^[0-9]*$", message="组类型只能输入0-9的正整数")
+    private String groupType;
+}
+```
+
 
 
 # 单元测试
