@@ -890,6 +890,39 @@ spring:
     include: base-prod
 ```
 
+## 条件激活
+
+有`application.yaml`文件如下：
+
+```yaml
+spring:
+  profiles:
+    group:
+      dev: dev, local
+      prod: prod, local
+---
+spring:
+  config:
+    activate:
+      # 当local被激活的时候激活该配置文件
+      on-profile: local
+
+#  Spring Boot Admin 监控中心，非必须
+#  boot:
+#    admin:
+#      client:
+#        url: http://yhyykfb1:10004
+#        username: admin
+#        password: Supcon@1304
+#        instance:
+#          # 本机地址
+#          service-url: http://192.168.90.29:8080/
+  redis:
+    host: 10.30.4.62
+    port: 30379
+    database: 1
+```
+
 
 
 # 接口文档生成与增强
