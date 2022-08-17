@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supcon.appservice.mapper.TaskConfigMapper">
+
+        <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.supcon.appservice.entity.TaskConfig">
+        <id column="id" property="id" />
+        <result column="node" property="node"/>
+        <result column="task_id" property="taskId" />
+        <result column="task_name" property="taskName" />
+        <result column="is_monitored" property="isMonitored" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+        <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+          id, node, task_id, task_name, is_monitored, create_time, update_time
+    </sql>
+
+
+    <insert id="batchSaveOrUpdate">
+    insert into
+    task_config(
+        id,
+        node,
+        task_id,
+        task_name,
+        is_monitored,
+        create_time,
+        update_time    )
+    values
+    <foreach collection="list" item="item" separator=",">
+        (
+            #{item.id},
+            #{item.node},
+            #{item.taskId},
+            #{item.taskName},
+            #{item.isMonitored},
+            #{item.createTime},
+            #{item.updateTime}        )
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+        id=values(id),
+        node=values(node),
+        task_id=values(task_id),
+        task_name=values(task_name),
+        is_monitored=values(is_monitored),
+        create_time=values(create_time),
+        update_time=values(update_time)    </insert>
+</mapper>
