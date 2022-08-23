@@ -1195,3 +1195,11 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 # SpringApplicationRunListener
 
 参考：https://blog.csdn.net/qq_38366063/article/details/111683339（SpringApplicationRunListener详解）
+
+# Transaction事务回滚
+
+参考：https://blog.csdn.net/flyaway86/article/details/81181346（SpringBoot使用@Transactional）、https://blog.csdn.net/yipanbo/article/details/46048413?utm_source=blogxgwz1（TransactionAspectSupport实现手动事务回滚）
+
+# Schedule定时任务
+
+参考：https://blog.csdn.net/u011976388/article/details/85268890（SpringBoot：@Schedule定时任务）、https://blog.csdn.net/Dongguabai/article/details/105538527（定时任务接口SchedulingConfigurer实现定制化定时任务）
