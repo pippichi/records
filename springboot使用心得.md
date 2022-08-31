@@ -843,10 +843,6 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 参考：https://blog.csdn.net/qq_32352777/article/details/108424932（@Validated注解详解，分组校验，嵌套校验，@Valid和@Validated 区别，Spring Boot @Validated）
 
-# Spring Boot使用CommandLineRunner接口完成资源初始化
-
-参考：https://blog.csdn.net/lk142500/article/details/90270592
-
 # 使用aop读取到项目下所有被注解标注的类或方法
 
 具体查看网络资料
@@ -1203,3 +1199,8 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 # Schedule定时任务
 
 参考：https://blog.csdn.net/u011976388/article/details/85268890（SpringBoot：@Schedule定时任务）、https://blog.csdn.net/Dongguabai/article/details/105538527（定时任务接口SchedulingConfigurer实现定制化定时任务）
+
+# 未注入容器的类读取Resource配置文件的方法
+
+参考：https://blog.csdn.net/qq_43803285/article/details/118544585（SpringBoot读取Resource下文件的四种方式）
+
