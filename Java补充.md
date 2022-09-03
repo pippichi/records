@@ -1054,3 +1054,14 @@ JNI的使用请参考：https://blog.csdn.net/weixin_51763233/article/details/12
 
 JNA的使用请参考：https://blog.csdn.net/qingzhuyuxian/article/details/122997670（开源框架JNA的使用）
 
+# OutputStream
+
+## ObjectOutputStream
+
+参考：https://blog.csdn.net/ifubing/article/details/115255490（对象输出流）
+
+## ByteArrayOutputStream
+
+ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中间缓冲层，将类写入到文件等其他OutputStream。它是对字节进行操作，属于内存操作流。
+
+参考：https://blog.csdn.net/qq_43597675/article/details/88829226（ByteArrayOutputStream详解）
