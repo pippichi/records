@@ -1065,3 +1065,13 @@ JNA的使用请参考：https://blog.csdn.net/qingzhuyuxian/article/details/1229
 ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中间缓冲层，将类写入到文件等其他OutputStream。它是对字节进行操作，属于内存操作流。
 
 参考：https://blog.csdn.net/qq_43597675/article/details/88829226（ByteArrayOutputStream详解）
+
+# 枚举实现接口
+
+枚举类型实现接口需要实现接口的抽象方法，此时有两个选择：
+
+一、在枚举类型中重写方法一次。
+
+二、对枚举类型中的每个对象重写一次方法，这样可以做到每个对象的方法都不相同。
+
+参考：https://blog.csdn.net/Demon_LMMan/article/details/113655925（Java中的枚举类型与枚举实现接口的两种方式）
