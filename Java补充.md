@@ -1030,7 +1030,7 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 关于分布式网络一致性问题可以去研究一下拜占庭将军问题，参考：https://zhuanlan.zhihu.com/p/33666461、https://learnblockchain.cn/2017/11/04/bitcoin-pow/（工作量证明 - POW : Proof of Work）
 
-# Java启动参数`(-, -X, -XX参数)`详解
+# Java启动参数`(-, -D, -X, -XX参数)`详解
 
 参考：https://blog.csdn.net/guyue35/article/details/107957859
 
@@ -1075,3 +1075,30 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 二、对枚举类型中的每个对象重写一次方法，这样可以做到每个对象的方法都不相同。
 
 参考：https://blog.csdn.net/Demon_LMMan/article/details/113655925（Java中的枚举类型与枚举实现接口的两种方式）
+
+# 远程监控与调试
+
+- 使用idea远程debug调试
+
+  开启远程debug需要配置以下参数：
+
+  `agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005`
+
+  参考：https://blog.csdn.net/w8y56f/article/details/116493681（使用IDEA远程debug调试）
+
+- 使用jmx进行远程监控
+
+  在使用 JMX 对 Java 应用进行监控时，一般会在启动时添加如下参数：
+
+  ```shell
+  java \
+  -Djava.rmi.server.hostname=192.168.16.237 \
+  -Dcom.sun.management.jmxremote.rmi.port=2909 \
+  -Dcom.sun.management.jmxremote.port=9009 \
+  -Dcom.sun.management.jmxremote.authenticate=false \
+  -Dcom.sun.management.jmxremote.ssl=false \
+  -jar test.jar
+  ```
+
+  参考：https://www.jianshu.com/p/5884b5ecbe1a（为什么要设置`com.sun.management.jmxremote.*`？）
+
