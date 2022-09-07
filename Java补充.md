@@ -1102,3 +1102,7 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
   参考：https://www.jianshu.com/p/5884b5ecbe1a（为什么要设置`com.sun.management.jmxremote.*`？）
 
+# 静态代理与动态代理
+
+参考：https://cloud.tencent.com/developer/article/1429932（Java 静态代理、Java动态代理、CGLIB动态代理）
+
