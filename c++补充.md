@@ -484,6 +484,10 @@ int maxValue(unordered_map<int, int>& valueMap) {
 
 参考：http://c.biancheng.net/view/7527.html（`upper_bound`）、http://c.biancheng.net/view/7521.html（`lower_bound`）
 
+### `binary_search`
+
+参考：http://c.biancheng.net/view/7537.html（`binary_search`）
+
 ## ios
 
 ### `std::fixed`、`std::scientific`、`std::hexfloat`、`std::defaultfloat`
