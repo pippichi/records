@@ -1231,6 +1231,108 @@
   }
   ```
 
+### [74. 搜索二维矩阵[M]](https://leetcode.cn/problems/search-a-2d-matrix/)
+
+- 两次二分查找
+
+  ```c++
+  bool searchMatrix(vector<vector<int>> matrix, int target) {
+      auto row = upper_bound(matrix.begin(), matrix.end(), target, [](const int b, const vector<int> &a) {
+          return b < a[0];
+      });
+      if (row == matrix.begin()) {
+          return false;
+      }
+      --row;
+      return binary_search(row->begin(), row->end(), target);
+  }
+  ```
+
+- 一次二分查找
+
+  ```c++
+  bool searchMatrix(vector<vector<int>>& matrix, int target) {
+      int m = matrix.size(), n = matrix[0].size();
+      int low = 0, high = m * n - 1;
+      while (low <= high) {
+          int mid = low + ((high - low) >> 1);
+          int x = matrix[mid / n][mid % n];
+          if (x < target) {
+              low = mid + 1;
+          } else if (x > target) {
+              high = mid - 1;
+          } else {
+              return true;
+          }
+      }
+      return false;
+  }
+  ```
+
+### [75. 颜色分类[M]](https://leetcode.cn/problems/sort-colors/)
+
+- 单指针（管理0、1）
+
+  ```c++
+  void sortColors(vector<int>& nums) {
+      int m = nums.size();
+      int ptr = 0;
+      for (int i = 0; i < m; ++i) {
+          if (nums[i] == 0) {
+              swap(nums[i], nums[ptr]);
+              ++ptr;
+          }
+      }
+      for (int i = ptr; i < m; ++i) {
+          if (nums[i] == 1) {
+              swap(nums[i], nums[ptr]);
+              ++ptr;
+          }
+      }
+  }
+  ```
+
+- 双指针（分别管理0、1）
+
+  ```c++
+  void sortColors(vector<int>& nums) {
+      int m = nums.size();
+      int p0 = 0, p1 = 0;
+      for (int i = 0; i < m; ++i) {
+          if (nums[i] == 0) {
+              swap(nums[i], nums[p0]);
+              if (p0 < p1) {
+                  swap(nums[i], nums[p1]);
+              }
+              ++p0;
+              ++p1;
+          } else if (nums[i] == 1) {
+              swap(nums[i], nums[p1]);
+              ++p1;
+          }
+      }
+  }
+  ```
+
+- 双指针（分别管理0、2）
+
+  ```c++
+  void sortColors(vector<int>& nums) {
+      int m = nums.size();
+      int p0 = 0, p2 = m - 1;
+      for (int i = 0; i <= p2; ++i) {
+          while (i <= p2 && nums[i] == 2) {
+              swap(nums[i], nums[p2]);
+              --p2;
+          }
+          if (nums[i] == 0) {
+              swap(nums[i], nums[p0]);
+              ++p0;
+          }
+      }
+  }
+  ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组
