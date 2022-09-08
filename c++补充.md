@@ -480,6 +480,10 @@ int maxValue(unordered_map<int, int>& valueMap) {
 }
 ```
 
+### `upper_bound`与`lower_bound`
+
+参考：http://c.biancheng.net/view/7527.html（`upper_bound`）、http://c.biancheng.net/view/7521.html（`lower_bound`）
+
 ## ios
 
 ### `std::fixed`、`std::scientific`、`std::hexfloat`、`std::defaultfloat`
@@ -723,3 +727,4 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 # 现代C++之SFINAE（模板进阶）
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
+
