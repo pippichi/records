@@ -1333,6 +1333,112 @@
   }
   ```
 
+### [77. 组合[M]](https://leetcode.cn/problems/combinations/)
+
+- 回溯
+
+  ```c++
+  class Solution {
+  public:
+      shared_ptr<vector<vector<int>>> ans = shared_ptr<vector<vector<int>>>(new vector<vector<int>>);
+      vector<vector<int>> combine(int n, int k) {
+          vector<int> temp;
+          combine(temp, 1, n, k);
+          return *ans;
+      }
+      void combine(vector<int>& temp, int start, int end, int k) {
+          if (end - start + 1 < k) {
+              return;
+          }
+          if (k == 0) {
+              ans -> emplace_back(temp);
+              return;
+          }
+          for (int i = start; i <= end; ++i) {
+              temp.emplace_back(i);
+              combine(temp, i + 1, end, k - 1);
+              temp.pop_back();
+          }
+      }
+  };
+  ```
+
+- 递归实现组合型枚举
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> temp;
+      vector<vector<int>> ans;
+  
+      void dfs(int cur, int n, int k) {
+          // 剪枝：temp 长度加上区间 [cur, n] 的长度小于 k，不可能构造出长度为 k 的 temp
+          if (temp.size() + (n - cur + 1) < k) {
+              return;
+          }
+          // 记录合法的答案
+          if (temp.size() == k) {
+              ans.push_back(temp);
+              return;
+          }
+          // 考虑选择当前位置
+          temp.push_back(cur);
+          dfs(cur + 1, n, k);
+          temp.pop_back();
+          // 考虑不选择当前位置
+          dfs(cur + 1, n, k);
+      }
+  
+      vector<vector<int>> combine(int n, int k) {
+          dfs(1, n, k);
+          return ans;
+      }
+  };
+  ```
+
+- 非递归（字典序法）实现组合型枚举
+
+  该解法较复杂，建议去leetcode官网看解题思路
+
+  - 使用朴素法枚举二进制数来构造所有组合方案
+
+    先想办法枚举出所有的二进制数，再通过哈希映射找到所有的组合枚举
+
+  - 通过当前组合枚举直接得出下一个组合枚举★
+
+    ```c++
+    class Solution {
+    public:
+        vector<int> temp;
+        vector<vector<int>> ans;
+    
+        vector<vector<int>> combine(int n, int k) {
+            // 初始化
+            // 将 temp 中 [0, k - 1] 每个位置 i 设置为 i + 1，即 [0, k - 1] 存 [1, k]
+            // 末尾加一位 n + 1 作为哨兵
+            for (int i = 1; i <= k; ++i) {
+                temp.push_back(i);
+            }
+            temp.push_back(n + 1);
+            
+            int j = 0;
+            while (j < k) {
+                ans.emplace_back(temp.begin(), temp.begin() + k);
+                j = 0;
+                // 寻找第一个 temp[j] + 1 != temp[j + 1] 的位置 t
+                // 我们需要把 [0, t - 1] 区间内的每个位置重置成 [1, t]
+                while (j < k && temp[j] + 1 == temp[j + 1]) {
+                    temp[j] = j + 1;
+                    ++j;
+                }
+                // j 是第一个 temp[j] + 1 != temp[j + 1] 的位置
+                ++temp[j];
+            }
+            return ans;
+        }
+    };
+    ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组
