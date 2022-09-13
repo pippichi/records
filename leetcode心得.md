@@ -2292,6 +2292,26 @@ void permute(int* nums, int cur, int size) {
 
   根据上面排序法的思想，我们只需要一次遍历找到最大的三个值max1、max2、max3与最小的两个值min1、min2即可得出最大乘积为：`max(max1 * max2 * max3, min1 * min2 * max1)`
 
+### [643. 子数组最大平均数 I](https://leetcode.cn/problems/maximum-average-subarray-i/)
+
+- 滑动窗口
+
+  ```c++
+  double findMaxAverage(vector<int>& nums, int k) {
+      int kSum = 0;
+      int snum = nums.size();
+      for (int i = 0; i < k; ++i) {
+          kSum += nums[i];
+      }
+      int maxSum = kSum;
+      for (int i = k; i < snum; ++i) {
+          kSum = kSum - nums[i - k] + nums[i];
+          maxSum = max(maxSum, kSum);
+      }
+      return static_cast<double>(maxSum) / k;
+  }
+  ```
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -2815,6 +2835,74 @@ k8 k7 k6 k5
   - 不补节点
 
     创建新树，对于某一位置，如果两棵树都存在节点，则相加他们的值，以相加的值创建新节点，作为新树的左孩子或右孩子，并进入下一次迭代；如果两棵树只有其中一棵树存在节点，假设存在节点的树为x，则新树的左孩子或右孩子就设置为x的左孩子或右孩子；而如果两棵树都不存在节点，则不需要再进行操作了
+
+### [637. 二叉树的层平均值](https://leetcode.cn/problems/average-of-levels-in-binary-tree/)
+
+- 深度优先搜索
+
+  ```c++
+  class Solution {
+  public:
+      vector<long> snums;
+      vector<int> counter;
+  
+      void dfs(TreeNode* root, int level) {
+          if (root == nullptr) {
+              return;
+          }
+          if (level >= snums.size()) {
+              snums.emplace_back(root -> val);
+              counter.emplace_back(1);
+          } else {
+              snums[level] += root -> val;
+              counter[level] += 1;
+          }
+          dfs(root -> left, level + 1);
+          dfs(root -> right, level + 1);
+      }
+  
+      vector<double> averageOfLevels(TreeNode* root) {
+          dfs(root, 0);
+          vector<double> ans;
+          for (int i = 0; i < snums.size(); ++i) {
+              ans.emplace_back(snums[i] * 1.0 / counter[i]);
+          }
+          return ans;
+      }
+  };
+  ```
+
+- 广度优先搜索
+
+  ```c++
+  vector<double> averageOfLevels(TreeNode* root) {
+      queue<TreeNode*> temp;
+      vector<double> ans;
+      if (root == nullptr) {
+          return ans;
+      }
+      temp.emplace(root);
+      long long counter;
+      int num;
+      while (!temp.empty()) {
+          num = temp.size();
+          counter = 0;
+          for (int i = 0; i < num; ++i) {
+              TreeNode* t = temp.front();
+              temp.pop();
+              counter += t -> val;
+              if (t -> left != nullptr) {
+                  temp.emplace(t -> left);
+              }
+              if (t -> right != nullptr) {
+                  temp.emplace(t -> right);
+              }
+          }
+          ans.emplace_back(counter * 1.0 / num);
+      }
+      return ans;
+  }
+  ```
 
 ##  字符串
 
