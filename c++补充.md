@@ -728,6 +728,64 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）
 
+# 模板参数类型
+
+模板参数通常表示类型，表示类型的模板参数称为类型模板参数（type template parameter）；此外还有非类型模板参数（non-type template parameter），非类型模板参数包含以下四种类型：
+
+- 整数及枚举类型
+- 指针（对象指针或函数指针）
+- 引用（对象引用或函数引用）
+- 指向类对象成员函数的指针
+
+模板的参数还可以是一个模板，叫做模板模板参数（template template parameter）。这些类型的模板参数都可以同时出现在模板参数列表中。
+
+参考：https://blog.csdn.net/KangRoger/article/details/82833001（模板参数类型）、https://blog.csdn.net/men_wen/article/details/74033327（C++ 模板模板参数）
+
+还有一种非类型模板参数，指向类对象成员变量（[653. 两数之和 IV - 输入二叉搜索树](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/)）：
+
+```c++
+template<TreeNode* TreeNode::*ls = &TreeNode::left, TreeNode* TreeNode::*rs = &TreeNode::right>
+void tree_iterator_init(TreeNode*& it, stack<TreeNode*>& st) {
+    while (it->*ls) {
+        st.push(it);
+        it = it->*ls;
+    }
+}
+
+template<TreeNode* TreeNode::*ls = &TreeNode::left, TreeNode* TreeNode::*rs = &TreeNode::right>
+void tree_iterator_next(TreeNode*& it, stack<TreeNode*>& st) {
+    if (it->*rs) {
+        it = it->*rs;
+        tree_iterator_init<ls, rs>(it, st);
+    } else if (!st.empty()) {
+        it = st.top();
+        st.pop();
+    } else it = nullptr;
+}
+
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if (!root) return false;
+        auto it1 = root;
+        auto it2 = root;
+        stack<TreeNode*> st1;
+        stack<TreeNode*> st2;
+        tree_iterator_init<&TreeNode::left, &TreeNode::right>(it1, st1);
+        tree_iterator_init<&TreeNode::right, &TreeNode::left>(it2, st2);
+        while (it1 != it2) {
+            const int sum = it1->val + it2->val;
+            if (sum == k) return true;
+            if (sum < k)
+                tree_iterator_next<&TreeNode::left, &TreeNode::right>(it1, st1);
+            else
+                tree_iterator_next<&TreeNode::right, &TreeNode::left>(it2, st2);
+        }
+        return false;
+    }
+};
+```
+
 # 现代C++之SFINAE（模板进阶）
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）

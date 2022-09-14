@@ -2312,6 +2312,130 @@ void permute(int* nums, int cur, int size) {
   }
   ```
 
+### [645. 错误的集合](https://leetcode.cn/problems/set-mismatch/)
+
+- 数学
+
+  1、sum(nums) - sum(set(nums)) = 重复的数字；
+
+  2、(1 + len(nums)) * len(nums) // 2 - sum(set(nums)) = 丢失的数字；
+
+  ```c++
+  vector<int> findErrorNums(vector<int>& nums) {
+      int sNum = nums.size();
+      int total = (1 + sNum) * sNum / 2;
+      int cur_dup_total = accumulate(nums.begin(), nums.end(), 0);
+      unordered_set<int> numsSet(nums.begin(), nums.end());
+      int cur_non_dup_total = accumulate(numsSet.begin(), numsSet.end(), 0);
+      return {cur_dup_total - cur_non_dup_total, total - cur_non_dup_total};
+  }
+  ```
+
+- 位运算★
+
+  ```c++
+  vector<int> findErrorNums(vector<int>& nums) {
+      int xorSnum = 0;
+      int sNum = nums.size();
+      for (const int& num : nums) {
+          xorSnum ^= num;
+      }
+      for (int i = 1; i <= sNum; ++i) {
+          xorSnum ^= i;
+      }
+      int lowbit = xorSnum & (-xorSnum);
+      int num1 = 0, num2 = 0;
+      for (const int& num : nums) {
+          if (lowbit & num) {
+              num1 ^= num;
+          } else {
+              num2 ^= num;
+          }
+      }
+      for (int i = 1; i <= sNum; ++i) {
+          if (lowbit & i) {
+              num1 ^= i;
+          } else {
+              num2 ^= i;
+          }
+      }
+      for (const int& num : nums) {
+          if (num == num1) {
+              return {num1, num2};
+          }
+      }
+      return {num2, num1};
+  }
+  ```
+
+- 哈希表
+
+  ```c++
+  vector<int> findErrorNums(vector<int>& nums) {
+      int n = nums.size();
+      vector<int> ans(2);
+      unordered_map<int, int> mp;
+      for (const int& num : nums) {
+          ++mp[num];
+      }
+      for (int i = 1; i <= n; ++i) {
+          if (mp[i] == 0) {
+              ans[1] = i;
+          } else if (mp[i] == 2) {
+              ans[0] = i;
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 排序 + 分情况讨论
+
+  解法一：
+
+  ```c++
+  vector<int> findErrorNums(vector<int>& nums) {
+      int n = nums.size();
+      sort(nums.begin(), nums.end());
+      vector<int> ans(2);
+      int prev = 0;
+      for (int i = 0; i < n; ++i) {
+          if (prev == nums[i]) {
+              ans[0] = prev;
+          } else if (nums[i] - prev > 1) {
+              ans[1] = prev + 1;
+          }
+          prev = nums[i];
+      }
+      if (nums[n - 1] != n) {
+          ans[1] = n;
+      }
+      return ans;
+  }
+  ```
+
+  解法二：
+
+  ```c++
+  vector<int> findErrorNums(vector<int>& nums) {
+      int n = nums.size();
+      sort(nums.begin(), nums.end());
+      int prev = 0;
+      vector<int> ans(2);
+      int total = (1 + n) * n / 2;
+      int cur_total = 0;
+      for (int i = 0; i < n; ++i) {
+          cur_total += nums[i];
+          if (prev == nums[i]) {
+              ans[0] = prev;
+          }
+          prev = nums[i];
+      }
+      ans[1] = ans[0] - (cur_total - total);
+      return ans;
+  }
+  ```
+
 ## 树
 
 ### [94. Binary Tree Inorder Traversal](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
@@ -5888,6 +6012,28 @@ vector<int> getPrime(int n) {
 `1e9+7`是一个很大的数，`int32位`的最大值为`2147483647`，所以对于`int32位`来说`1000000007`足够大。`int64位`的最大值为`2^63-1`，对于`1000000007`来说它的平方不会在`int64`中溢出所以在大数相乘的时候，因为`(a∗b)%c=((a%c)∗(b%c))%c`，所以相乘时两边都对`1000000007`取模，再保存在`int64`里面不会溢出 。有点于归一化的意思。当一个问题只对答案的正确性有要求，而不在乎答案的数值，可能会需要将取值很大的数通过求余变小
 **第二：**
 `1e9+7`是一个质数，在模素数p的情况下`a*n`（a非p的倍数）的循环节长为p，这是减少冲突的一个原因。另一方面模素数p的环是无零因子环,也就是说两个非p倍数的数相乘再模p不会是零（如果是0的话,在多个数连乘的情况下会大大增加冲突概率）。比如说如果所有的结果都是偶数，你模6就只可能出现`0, 2, 4`这三种情况；但模5还是可以出现`2, 4, 1, 3`这四(`4=5-1`)种情况的，hash表如果是用取模的方法也要模一个大质数来减少冲突。
+
+### 获取二进制数中最低位1在哪个位置
+
+举例：
+
+1、00000110 -> 00000010
+
+2、00000011 -> 00000001
+
+思路：利用计算机使用补码进行运算的性质
+
+假设有一个数x，则`x & (-x)`即可得到结果
+
+例如：
+
+1、7的补码为00000000000000000000000000000111，-7的原码为10000000000000000000000000000111、补码为11111111111111111111111111111001，则7 & -7 = 00000000000000000000000000000001；
+
+2、4的补码为00000000000000000000000000000100，-4的原码为10000000000000000000000000000100、补码为11111111111111111111111111111100，则4 & -4 = 00000000000000000000000000000100；
+
+使用场景：获取两个数 x 和 y 的二进制表示中的最低不同位
+
+解：另xor = x ^ y，则 x 和 y 的二进制表示中的最低不同位为xor & (-xor)
 
 ## 思维题
 
