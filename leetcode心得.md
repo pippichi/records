@@ -1439,6 +1439,78 @@
     };
     ```
 
+### [78. 子集[M]](https://leetcode.cn/problems/subsets/)
+
+- 回溯
+
+  ```c++
+  class Solution {
+  public:
+      vector<vector<int>> ans;
+      vector<vector<int>> subsets(vector<int>& nums) {
+          vector<int> temp;
+          _gen(nums, temp, 0);
+          return ans;
+      }
+      void _gen(vector<int>& nums, vector<int>& temp, int idx) {
+          int sNum = nums.size();
+          ans.emplace_back(temp);
+          for (; idx < sNum; ++idx) {
+              temp.emplace_back(nums[idx]);
+              _gen(nums, temp, idx + 1);
+              temp.pop_back();
+          }
+      }
+  };
+  ```
+
+- 迭代法实现子集枚举
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> temp;
+      vector<vector<int>> ans;
+      vector<vector<int>> subsets(vector<int>& nums) {
+          int n = nums.size();
+          for (int mask = 0; mask < (1 << n); ++mask) {
+              temp.clear();
+              for (int i = 0; i < n; ++i) {
+                  if (mask & (1 << i)) {
+                      temp.emplace_back(nums[i]);
+                  }
+              }
+              ans.emplace_back(temp);
+          }
+          return ans;
+      }
+  };
+  ```
+
+- 递归法实现子集枚举
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> t;
+      vector<vector<int>> ans;
+      void dfs(int counter, vector<int>& nums) {
+          if (counter == nums.size()) {
+              ans.emplace_back(t);
+              return;
+          }
+          t.emplace_back(nums[counter]);
+          dfs(counter + 1, nums);
+          t.pop_back();
+          dfs(counter + 1, nums);
+      }
+      vector<vector<int>> subsets(vector<int>& nums) {
+          dfs(0, nums);
+          return ans;
+      }
+  };
+  ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组

@@ -622,8 +622,8 @@ C++可以用纯虚函数实现类似于JAVA中接口的功能
        	return "hello, world"; 
       } else { 
        	return std::nullopt; 
-      } 
-  } 
+      }
+  }
   ```
 
 - 或者，可以返回一个指针，该指针可以为null。但是，返回一个原始指针会引发谁负责删除动态分配的字符串的问题。在这种情况下，返回[`std::unique_ptr`](http://en.cppreference.com/w/cpp/memory/unique_ptr)将是最好的选择，因为所有权显式传递给调用者
