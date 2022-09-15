@@ -300,6 +300,10 @@ RTTI(`Run-TimeType Information`, 运行时类型信息)，它提供了运行时�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/51866559
 
+## explicit
+
+参考：https://blog.csdn.net/l2563898960/article/details/97769569（C++ 中explicit关键字详解）
+
 # 库函数
 
 ## stl
@@ -741,7 +745,9 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/KangRoger/article/details/82833001（模板参数类型）、https://blog.csdn.net/men_wen/article/details/74033327（C++ 模板模板参数）
 
-还有一种非类型模板参数，指向类对象成员变量（[653. 两数之和 IV - 输入二叉搜索树](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/)）：
+还有一种非类型模板参数的写法（[653. 两数之和 IV - 输入二叉搜索树](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/)）：
+
+写法一
 
 ```c++
 template<TreeNode* TreeNode::*ls = &TreeNode::left, TreeNode* TreeNode::*rs = &TreeNode::right>
@@ -780,6 +786,55 @@ public:
                 tree_iterator_next<&TreeNode::left, &TreeNode::right>(it1, st1);
             else
                 tree_iterator_next<&TreeNode::right, &TreeNode::left>(it2, st2);
+        }
+        return false;
+    }
+};
+```
+
+写法二
+
+```c++
+class Solution {
+    template<TreeNode* TreeNode::*lf>
+    void tree_iterator_init(TreeNode*& it, stack<TreeNode*>& st) {
+        while (it->*lf != nullptr) {
+            st.emplace(it);
+            it = it->*lf;
+        }
+    }
+
+    template<TreeNode* TreeNode::*lf = &TreeNode::left, TreeNode* TreeNode::*rh = &TreeNode::right>
+    void tree_iterator_next(TreeNode*& it, stack<TreeNode*>& st) {
+        if (it->*rh) {
+            it = it->*rh;
+            tree_iterator_init<lf>(it, st);
+        } else if (!st.empty()) {
+            it = st.top();
+            st.pop();
+        } else {
+            it = nullptr;
+        }
+    }
+public:
+    stack<TreeNode*> left_stack, right_stack;
+    bool findTarget(TreeNode* root, int k) {
+        if (root == nullptr) {
+            return false;
+        }
+        TreeNode* lf = root, *rh = root;
+        tree_iterator_init<&TreeNode::left>(lf, left_stack);
+        tree_iterator_init<&TreeNode::right>(rh, right_stack);
+        while (lf != rh) {
+            const int sum = lf -> val + rh -> val;
+            if (sum == k) {
+                return true;
+            }
+            if (sum < k) {
+                tree_iterator_next<&TreeNode::left, &TreeNode::right>(lf, left_stack);
+            } else {
+                tree_iterator_next<&TreeNode::right, &TreeNode::left>(rh, right_stack);
+            }
         }
         return false;
     }

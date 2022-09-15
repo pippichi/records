@@ -3028,6 +3028,197 @@ k8 k7 k6 k5
   }
   ```
 
+### [653. 两数之和 IV - 输入二叉搜索树](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/)
+
+- 深度优先搜索 + 哈希表
+
+  ```c++
+  class Solution {
+  public:
+      unordered_set<int> hash_table;
+      bool findTarget(TreeNode* root, int k) {
+          if (root == nullptr) {
+              return false;
+          }
+          if (hash_table.count(k - root -> val)) {
+              return true;
+          }
+          hash_table.insert(root -> val);
+          return findTarget(root -> left, k) || findTarget(root -> right, k);
+      }
+  };
+  ```
+
+- 广度优先搜索 + 哈希表
+
+  ```c++
+  bool findTarget(TreeNode* root, int k) {
+      unordered_set<int> hash_table;
+      queue<TreeNode*> que;
+      que.emplace(root);
+      while (!que.empty()) {
+          TreeNode* node = que.front();
+          que.pop();
+          if (hash_table.count(k - node -> val)) {
+              return true;
+          }
+          hash_table.insert(node -> val);
+          if (node -> left != nullptr) {
+              que.emplace(node -> left);
+          }
+          if (node -> right != nullptr) {
+              que.emplace(node -> right);
+          }
+      }
+      return false;
+  }
+  ```
+
+- 深度优先搜索 + 中序遍历 + 双指针
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> vec;
+      void inorder_traversal(TreeNode* node) {
+          if (node == nullptr) {
+              return;
+          }
+          inorder_traversal(node -> left);
+          vec.emplace_back(node -> val);
+          inorder_traversal(node -> right);
+      }
+      bool findTarget(TreeNode* root, int k) {
+          inorder_traversal(root);
+          int left = 0, right = vec.size() - 1;
+          while (left < right) {
+              if (vec[left] + vec[right] == k) {
+                  return true;
+              }
+              if (vec[left] + vec[right] < k) {
+                  ++left;
+              } else {
+                  --right;
+              }
+          }
+          return false;
+      }
+  };
+  ```
+
+- 迭代 + 中序遍历 + 双指针
+
+  ```c++
+  class Solution {
+  public:
+      stack<TreeNode*> left_stack, right_stack;
+  
+      TreeNode* get_left() {
+          TreeNode* root = left_stack.top();
+          left_stack.pop();
+          TreeNode* node = root -> right;
+          while (node != nullptr) {
+              left_stack.emplace(node);
+              node = node -> left;
+          }
+          return root;
+      }
+  
+      TreeNode* get_right() {
+          TreeNode* root = right_stack.top();
+          right_stack.pop();
+          TreeNode* node = root -> left;
+          while (node != nullptr) {
+              right_stack.emplace(node);
+              node = node -> right;
+          }
+          return root;
+      }
+  
+      bool findTarget(TreeNode* root, int k) {
+          TreeNode* lf = root, *rh = root;
+          left_stack.emplace(lf);
+          right_stack.emplace(rh);
+          while (lf -> left != nullptr) {
+              left_stack.emplace(lf -> left);
+              lf = lf -> left;
+          }
+          while (rh -> right != nullptr) {
+              right_stack.emplace(rh -> right);
+              rh = rh -> right;
+          }
+          while (lf != rh) {
+              if (lf -> val + rh -> val == k) {
+                  return true;
+              }
+              if (lf -> val + rh -> val < k) {
+                  lf = get_left();
+              } else {
+                  rh = get_right();
+              }
+          }
+          return false;
+      }
+  };
+  ```
+
+- 迭代 + 中序遍历 + 双指针（模板元编程）
+
+  ```c++
+  class Solution {
+  public:
+      stack<TreeNode*> lf_stack, rh_stack;
+      
+      template<TreeNode* TreeNode::*it>
+      void gen_stack(TreeNode*& root, stack<TreeNode*>& st) {
+          if (root == nullptr) {
+              return;
+          }
+          while (root->*it != nullptr) {
+              st.emplace(root);
+              root = root->*it;
+          }
+      }
+  
+      template<TreeNode* TreeNode::*lf = &TreeNode::left, TreeNode* TreeNode::*rh = &TreeNode::right>
+      void get_next(TreeNode*& root, stack<TreeNode*>& st) {
+          if (root == nullptr) {
+              return;
+          }
+          if (root->*rh != nullptr) {
+              root = root->*rh;
+              gen_stack<lf>(root, st);
+          } else if (!st.empty()) {
+              root = st.top();
+              st.pop();
+          } else {
+              root = nullptr;
+          }
+      }
+  
+      bool findTarget(TreeNode* root, int k) {
+          if (root == nullptr) {
+              return false;
+          }
+          TreeNode* lf = root, *rh = root;
+          gen_stack<&TreeNode::left>(lf, lf_stack);
+          gen_stack<&TreeNode::right>(rh, rh_stack);
+          while (lf != rh) {
+              const int sum = lf->val + rh->val;
+              if (sum == k) {
+                  return true;
+              }
+              if (sum < k) {
+                  get_next<&TreeNode::left, &TreeNode::right>(lf, lf_stack);
+              } else {
+                  get_next<&TreeNode::right, &TreeNode::left>(rh, rh_stack);
+              }
+          }
+          return false;
+      }
+  };
+  ```
+
 ##  字符串
 
 ### [3. Longest Substring Without Repeating Characters[M]](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
