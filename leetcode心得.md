@@ -1511,6 +1511,82 @@
   };
   ```
 
+### [79. 单词搜索[M]](https://leetcode.cn/problems/word-search/)
+
+- 回溯
+
+  ```c++
+  class Solution {
+  public:
+      static const vector<pair<int, int>> directions;
+      bool exist(vector<vector<char>>& board, string word) {
+          int idx = 0;
+          int m = board.size(), n = board[0].size();
+          vector<vector<int>> visited(m, vector<int>(n));
+          for (int i = 0; i < m; ++i) {
+              for (int j = 0; j < n; ++j) {
+                  bool ans = visit(board, visited, i, j, word, 0);
+                  if (ans) {
+                      return true;
+                  }
+              }
+          }
+          return false;
+      }
+      bool visit(vector<vector<char>>& board, vector<vector<int>>& visited, int row, int col, string& word, int idx) {
+          if (board[row][col] != word[idx]) {
+              return false;
+          }
+          if (idx == word.size() - 1) {
+              return true;
+          }
+          visited[row][col] = 1;
+          bool ans = false;
+          for (const auto& [first, second] : directions) {
+              int new_row = row + first, new_col = col + second;
+              if (new_row >= 0 && 
+              new_row < board.size() &&
+              new_col >= 0 &&
+              new_col < board[0].size()) {
+                  if (!visited[new_row][new_col]) {
+                      bool flag = visit(board, visited, new_row, new_col, word, idx + 1);
+                      if (flag) {
+                          ans = true;
+                          break;
+                      }
+                  }
+              }
+          }
+          visited[row][col] = 0;
+          return ans;
+      }
+  };
+  const vector<pair<int, int>> Solution::directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+  ```
+
+### [80. 删除有序数组中的重复项 II[M]](https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/)
+
+- 双指针
+
+  ```c++
+  int removeDuplicates(vector<int>& nums) {
+      int sNum = nums.size();
+      if (sNum <= 2) {
+          return sNum;
+      }
+      // 快慢指针
+      int slow = 2, fast = 2;
+      while (fast < sNum) {
+          if (nums[slow - 2] != nums[fast]) {
+              nums[slow] = nums[fast];
+              ++slow;
+          }
+          ++fast;
+      }
+      return slow;
+  }
+  ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组
