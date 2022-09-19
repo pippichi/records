@@ -1587,6 +1587,88 @@
   }
   ```
 
+### [81. 搜索旋转排序数组 II[M]](https://leetcode.cn/problems/search-in-rotated-sorted-array-ii/)
+
+- 双指针 + 二分查找
+
+  使用双指针指向数组头尾，相向移动，直到头尾指针之间的区域非递减之后改用二分法查找元素
+
+  ```c++
+  bool search(vector<int>& nums, int target) {
+      int sNum = nums.size();
+      int head = 0, tail = sNum - 1;
+      bool flag = false;
+      int mid;
+      while (head <= tail) {
+          if (nums[head] == target || nums[tail] == target) {
+              return true;
+          }
+          while (!flag && (head + 1 < sNum && tail - 1 >= 0)) {
+              if (nums[head] > nums[head + 1] || nums[tail] < nums[tail - 1]) {
+                  flag = true;
+              }
+              ++head;
+              --tail;
+              if (flag) {
+                  break;
+              }
+              if (nums[head] == target || nums[tail] == target) {
+                  return true;
+              }
+          }
+          mid = head + ((tail - head) >> 1);
+          if (nums[mid] == target) {
+              return true;
+          } else if (nums[mid] < target) {
+              head = mid + 1;
+          } else {
+              tail = mid - 1;
+          }
+      }
+      return false;
+  }
+  ```
+
+- 二分查找
+
+  直接使用二分法查找元素
+
+  ```c++
+  bool search(vector<int>& nums, int target) {
+      int sNum = nums.size();
+      if (sNum == 0) {
+          return false;
+      }
+      if (sNum == 1) {
+          return nums[0] == target;
+      }
+      int l = 0, r = sNum - 1;
+      while (l <= r) {
+          int mid = l + ((r - l) >> 1);
+          if (nums[mid] == target) {
+              return true;
+          }
+          if (nums[l] == nums[mid] && nums[mid] == nums[r]) {
+              --r;
+              ++l;
+          } else if (nums[l] <= nums[mid]) {
+              if (nums[l] <= target && target < nums[mid]) {
+                  r = mid - 1;
+              } else {
+                  l = mid + 1;
+              }
+          } else {
+              if (nums[mid] < target && target <= nums[sNum - 1]) {
+                  l = mid + 1;
+              } else {
+                  r = mid - 1;
+              }
+          }
+      }
+      return false;
+  }
+  ```
+
 ### [88. Merge Sorted Array](https://leetcode-cn.com/problems/merge-sorted-array/)
 
 利用其中一个数组的多余空间合并两个数组
