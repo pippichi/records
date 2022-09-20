@@ -1204,3 +1204,6 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/qq_43803285/article/details/118544585（SpringBoot读取Resource下文件的四种方式）
 
+# @Autowired将多个Bean注入到集合中
+
+参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
