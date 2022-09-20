@@ -5171,9 +5171,85 @@ bool kmp(string sOrder, string tOrder) {
   }
   ```
 
+### [82. 删除排序链表中的重复元素 II[M]](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/)
+
+- 一次遍历
+
+  写法一
+
+  ```c++
+  ListNode* deleteDuplicates(ListNode* head) {
+      if (head == nullptr) {
+          return head;
+      }
+      ListNode* dummy = new ListNode(0, head);
+      ListNode* cur = dummy;
+      while (cur->next != nullptr && cur->next->next != nullptr) {
+          if (cur->next->val == cur->next->next->val) {
+              int x = cur->next->val;
+              while (cur->next != nullptr && cur->next->val == x) {
+                  cur->next = cur->next->next;
+              }
+          } else {
+              cur = cur->next;
+          }
+      }
+      return dummy->next;
+  }
+  ```
+
+  写法二
+
+  ```c++
+  ListNode* deleteDuplicates(ListNode* head) {
+      if (head == nullptr) {
+          return head;
+      }
+      ListNode* dummy = new ListNode(0, head);
+      ListNode* cur = dummy;
+      while (cur->next != nullptr && cur->next->next != nullptr) {
+          if (cur->next->val == cur->next->next->val) {
+              int x = cur->next->val;
+              while (cur->next != nullptr && cur->next->val == x) {
+                  cur->next = cur->next->next;
+              }
+          } else {
+              cur = cur->next;
+          }
+      }
+      return dummy->next;
+  }
+  ```
+
 ### [83. Remove Duplicates from Sorted List](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 
 - 单指针单次遍历
+
+### [86. 分隔链表[M]](https://leetcode.cn/problems/partition-list/)
+
+- 模拟
+
+  ```c++
+  ListNode* partition(ListNode* head, int x) {
+      ListNode* small = new ListNode(0);
+      ListNode* small_head = small;
+      ListNode* large = new ListNode(0);
+      ListNode* large_head = large;
+      while (head != nullptr) {
+          if (head->val < x) {
+              small->next = head;
+              small = small->next;
+          } else {
+              large->next = head;
+              large = large->next;
+          }
+          head = head->next;
+      }
+      large->next = nullptr;
+      small->next = large_head->next;
+      return small_head->next;
+  }
+  ```
 
 ### [141. Linked List Cycle](https://leetcode-cn.com/problems/linked-list-cycle/)
 

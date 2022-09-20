@@ -845,3 +845,11 @@ public:
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
 
+# vector的reserve的作用
+
+场景：vector如果不断的`push_back`，会进行内存的重新自动分配。
+
+reserve的作用是更改vector的容量（capacity），使vector至少可以容纳n个元素，如果n大于vector当前的容量，reserve会对vector进行扩容，其他情况下都不会重新分配vector的存储空间。
+
+参考：https://blog.csdn.net/hl_zzl/article/details/84944494（vector的reserve的使用（避免内存重新分配以及内存分配的方式））
+
