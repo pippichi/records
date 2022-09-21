@@ -1682,6 +1682,37 @@
   - 这样做有一个好处就是：因为给定的两个数组都已经排好序了，如果第二个数组走完，那第一个数组的剩余元素天然的就存在第一个数组的前面，且不需要再去排序；如果第一个数组先走完，那也没关系，第二个数组的剩余元素还是可以正常的插入到第一个数组前面（那是因为我们可以保证在第二个数组走完之前第一个数组的用于插入的指针永远不会走到底，那是因为给定的第一个数组拥有足够的空间存放两个数组的所有元素）
   - 扩展：其实这么想的话就算第一个数组没给足够的空间，我们也可以resize他，让他拥有存放两个数组所有元素的足够的空间，然后用双指针从后往前的方法去做
 
+### [89. 格雷编码[M]](https://leetcode.cn/problems/gray-code/)
+
+- 对称生成
+
+  ```c++
+  vector<int> grayCode(int n) {
+      vector<int> ans;
+      ans.reserve(1 << n);
+      ans.emplace_back(0);
+      for (int i = 0; i < n; ++i) {
+          int m = ans.size();
+          for (int j = m - 1; j >= 0; --j) {
+              ans.emplace_back(ans[j] | (1 << i));
+          }
+      }
+      return ans;
+  }
+  ```
+
+- 公式法（通过转换公式实现二进制数转格雷码）
+
+  ```c++
+  vector<int> grayCode(int n) {
+      vector<int> ans(1 << n);
+      for (int i = 0; i < ans.size(); ++i) {
+          ans[i] = (i >> 1) ^ i;
+      }
+      return ans;
+  }
+  ```
+
 ### [118. Pascal's Triangle](https://leetcode-cn.com/problems/pascals-triangle/)
 
 - 动态规划
@@ -7199,3 +7230,6 @@ int main(){
 
 参考：b站01背包问题（滚动数组篇）、https://blog.csdn.net/m0_46427179/article/details/107419492
 
+### 格雷码
+
+参考：https://blog.csdn.net/yellow_hill/article/details/118694574（格雷码基础和生成的几种方法）
