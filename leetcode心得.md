@@ -1713,6 +1713,70 @@
   }
   ```
 
+### [90. 子集 II[M]](https://leetcode.cn/problems/subsets-ii/)
+
+本题基于「[78. 子集[M]](https://leetcode-cn.com/problems/subsets/)」
+
+- 迭代法实现子集枚举
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> t;
+      vector<vector<int>> ans;
+      vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+          sort(nums.begin(), nums.end());
+          int n = nums.size();
+          for (int mask = 0; mask < (1 << n); ++mask) {
+              t.clear();
+              bool flag = true;
+              for (int i = 0; i < n; ++i) {
+                  if (mask & (1 << i)) {
+                      if (i > 0 && nums[i] == nums[i - 1] && (mask & (1 << (i - 1))) == 0) {
+                          flag = false;
+                          break;
+                      }
+                      t.emplace_back(nums[i]);
+                  }
+              }
+              if (flag) {
+                  ans.emplace_back(t);
+              }
+          }
+          return ans;
+      }
+  };
+  ```
+
+- 递归法实现子集枚举
+
+  ```c++
+  class Solution {
+  public:
+      vector<int> t;
+      vector<vector<int>> ans;
+  
+      void dfs(bool choose_pre, vector<int>& nums, int cur) {
+          if (cur == nums.size()) {
+              ans.emplace_back(t);
+              return;
+          }
+          dfs(false, nums, cur + 1);
+          if (!choose_pre && cur > 0 && nums[cur] == nums[cur - 1]) {
+              return;
+          }
+          t.emplace_back(nums[cur]);
+          dfs(true, nums, cur + 1);
+          t.pop_back();
+      }
+      vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+          sort(nums.begin(), nums.end());
+          dfs(true, nums, 0);
+          return ans;
+      }
+  };
+  ```
+
 ### [118. Pascal's Triangle](https://leetcode-cn.com/problems/pascals-triangle/)
 
 - 动态规划
