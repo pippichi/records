@@ -2825,6 +2825,78 @@ void permute(int* nums, int cur, int size) {
 
   - 如何走出循环？明确每次遍历完自己之后一定就是遍历右子树了，而右子树总有一天会是空指针，当右子树为空指针时说明遍历就已经完成了
 
+### [95. 不同的二叉搜索树 II[M]](https://leetcode.cn/problems/unique-binary-search-trees-ii/)
+
+- 回溯
+
+  ```c++
+  class Solution {
+  public:
+      vector<TreeNode*> generateTrees(int start, int end) {
+          if (start > end) {
+              return { nullptr };
+          }
+          vector<TreeNode*> allTrees;
+          // 枚举可行根节点
+          for (int i = start; i <= end; i++) {
+              // 获得所有可行的左子树集合
+              vector<TreeNode*> leftTrees = generateTrees(start, i - 1);
+              // 获得所有可行的右子树集合
+              vector<TreeNode*> rightTrees = generateTrees(i + 1, end);
+              // 从左子树集合中选出一棵左子树，从右子树集合中选出一棵右子树，拼接到根节点上
+              for (auto& left : leftTrees) {
+                  for (auto& right : rightTrees) {
+                      TreeNode* currTree = new TreeNode(i);
+                      currTree->left = left;
+                      currTree->right = right;
+                      allTrees.emplace_back(currTree);
+                  }
+              }
+          }
+          return allTrees;
+      }
+      vector<TreeNode*> generateTrees(int n) {
+          if (n == 0) {
+              return {};
+          }
+          return generateTrees(1, n);
+      }
+  };
+  ```
+
+### [96. 不同的二叉搜索树[M]](https://leetcode.cn/problems/unique-binary-search-trees/)
+
+- 动态规划
+
+  状态转移方程推导过程建议直接看官方题解
+
+  ```c++
+  int numTrees(int n) {
+      vector<int> G(n + 1, 0);
+      G[0] = 1;
+      G[1] = 1;
+  
+      for (int i = 2; i <= n; ++i) {
+          for (int j = 1; j <= i; ++j) {
+              G[i] += G[j - 1] * G[i - j];
+          }
+      }
+      return G[n];
+  }
+  ```
+
+- 数学（卡特兰数（Catalan））
+
+  ```c++
+  int numTrees(int n) {
+      long long C = 1;
+      for (int i = 0; i < n; ++i) {
+          C = C * 2 * (2 * i + 1) / (i + 2);
+      }
+      return (int)C;
+  }
+  ```
+
 ### [100. Same Tree](https://leetcode-cn.com/problems/same-tree/)
 
 - 深度优先遍历
@@ -7471,3 +7543,7 @@ int main(){
 ### 格雷码
 
 参考：https://blog.csdn.net/yellow_hill/article/details/118694574（格雷码基础和生成的几种方法）
+
+### 卡特兰数（Catalan）
+
+参考：https://blog.csdn.net/sherry_yue/article/details/88364746（5. 卡特兰数（Catalan）公式、证明、代码、典例.）
