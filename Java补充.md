@@ -1106,3 +1106,7 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 参考：https://cloud.tencent.com/developer/article/1429932（Java 静态代理、Java动态代理、CGLIB动态代理）
 
+# HashMap底层实现原理
+
+参考：https://blog.csdn.net/kun_998/article/details/89480637（HashMap底层实现原理）
+

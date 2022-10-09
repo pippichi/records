@@ -2484,7 +2484,7 @@ int main(){
 - 排序 + 二分查找法查找排名
 - 利用map的自动排序将原数组的元素及其下标记录到map中并按照元素大小倒序。创建一个固定大小数组x（大小为原数组大小），遍历map，根据元素下标将排名信息逐一写回到数组x的对应下标位置中
 
-### [561. Array Partition I](https://leetcode-cn.com/problems/array-partition-i/)
+### [561. Array Partition](https://leetcode.cn/problems/array-partition/)
 
 - 排序
 
@@ -7451,6 +7451,14 @@ int main(){
 #### 拓扑排序（有向无环图）
 
 参考：https://blog.csdn.net/lisonglisonglisong/article/details/45543451
+
+#### 二叉树的左旋和右旋
+
+参考：https://blog.csdn.net/tuhuolong/article/details/6844850（二叉树的左旋和右旋）
+
+#### 红黑树
+
+参考：https://blog.csdn.net/u014454538/article/details/120120216（红黑树详解）、https://www.jianshu.com/p/4cd37000f4e3（JAVA学习-红黑树详解）
 
 ### 运筹学
 
