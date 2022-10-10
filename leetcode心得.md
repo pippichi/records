@@ -4613,6 +4613,60 @@ k8 k7 k6 k5
   };
   ```
 
+### [97. Interleaving String[M]](https://leetcode.cn/problems/interleaving-string/)
+
+- 动态规划
+
+  ```c++
+  bool isInterleave(string s1, string s2, string s3) {
+      int n = s1.size(), m = s2.size(), t = s3.size();
+      if (m + n != t) {
+          return false;
+      }
+      vector<vector<int>> f(n + 1, vector<int>(m + 1, 0));
+      f[0][0] = 1;
+      for (int i = 0; i <= n; ++i) {
+          for (int j = 0; j <= m; ++j) {
+              int p = i + j - 1;
+              if (i > 0) {
+                  f[i][j] |= (f[i - 1][j] && s1[i - 1] == s3[p]);
+              }
+              if (j > 0) {
+                  f[i][j] |= (f[i][j - 1] && s2[j - 1] == s3[p]);
+              }
+          }
+      }
+      return f[n][m];
+  }
+  ```
+
+- 动态规划滚动数组
+
+  ```c++
+  bool isInterleave(string s1, string s2, string s3) {
+      int n = s1.size(), m = s2.size(), t = s3.size();
+      if (n + m != t) {
+          return false;
+      }
+      vector<int> f(n + 1, 0);
+      f[0] = 1;
+      for (int j = 0; j <= m; ++j) {
+          for (int i = 0; i <= n; ++i) {
+              int p = i + j - 1;
+              if (j > 0) {
+                  // 这一行代码比较难理解
+                  // 思路：在不使用滚动数组情况下，对于s2来讲，需要同时满足：1、f[i][j - 1] == true；2、s2[j - 1] == s3[p]；那么f[i][j - 1]的信息在滚动数组情况下去哪里找呢？其实就是上一列遍历时的f[i]。搞清楚这一点，这行代码也就不难理解了。
+                  f[i] &= (s2[j - 1] == s3[p]); 
+              }
+              if (i > 0) {
+                  f[i] |= (f[i - 1] && s1[i - 1] == s3[p]);
+              }
+          }
+      }
+      return f[n];
+  }
+  ```
+
 ### [125. Valid Palindrome](https://leetcode-cn.com/problems/valid-palindrome/)
 
 - 先去除非数字字母的字符，最后reverse()对比两个字符串是否相等
@@ -6184,7 +6238,6 @@ bool kmp(string sOrder, string tOrder) {
   }
   ```
 
-  
 
 ### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
 
@@ -7555,3 +7608,7 @@ int main(){
 ### 卡特兰数（Catalan）
 
 参考：https://blog.csdn.net/sherry_yue/article/details/88364746（5. 卡特兰数（Catalan）公式、证明、代码、典例.）
+
+### 数据平滑、数据滤波
+
+参考：https://blog.csdn.net/hajlyx/article/details/100580316（数据平滑方法的原理和应用）
