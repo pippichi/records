@@ -2978,6 +2978,135 @@ void permute(int* nums, int cur, int size) {
   }
   ```
 
+### [99. 恢复二叉搜索树[M]](https://leetcode.cn/problems/recover-binary-search-tree/)
+
+- 显式中序遍历
+
+  ```c++
+  class Solution {
+  public:
+      void inorder(TreeNode* root, vector<int>& nums) {
+          if (root == nullptr) {
+              return;
+          }
+          inorder(root->left, nums);
+          nums.push_back(root->val);
+          inorder(root->right, nums);
+      }
+      pair<int,int> findTwoSwapped(vector<int>& nums) {
+          int n = nums.size();
+          int index1 = -1, index2 = -1;
+          for (int i = 0; i < n - 1; ++i) {
+              if (nums[i + 1] < nums[i]) {
+                  index2 = i + 1;
+                  if (index1 == -1) {
+                      index1 = i;
+                  } else {
+                      break;
+                  }
+              }
+          }
+          int x = nums[index1], y = nums[index2];
+          return {x, y};
+      }
+      void recover(TreeNode* r, int count, int x, int y) {
+          if (r != nullptr) {
+              if (r->val == x || r->val == y) {
+                  r->val = r->val == x ? y : x;
+                  if (--count == 0) {
+                      return;
+                  }
+              }
+              recover(r->left, count, x, y);
+              recover(r->right, count, x, y);
+          }
+      }
+      void recoverTree(TreeNode* root) {
+          vector<int> nums;
+          inorder(root, nums);
+          pair<int,int> swapped= findTwoSwapped(nums);
+          recover(root, 2, swapped.first, swapped.second);
+      }
+  };
+  ```
+
+- 隐式中序遍历
+
+  ```c++
+  void recoverTree(TreeNode* root) {
+      stack<TreeNode*> stk;
+      TreeNode* x = nullptr;
+      TreeNode* y = nullptr;
+      TreeNode* pred = nullptr;
+      while (!stk.empty() || root != nullptr) {
+          while (root != nullptr) {
+              stk.push(root);
+              root = root->left;
+          }
+          root = stk.top();
+          stk.pop();
+          if (pred != nullptr && root->val < pred->val) {
+              y = root;
+              if (x == nullptr) {
+                  x = pred;
+              }
+              else break;
+          }
+          pred = root;
+          root = root->right;
+      }
+  
+      swap(x->val, y->val);
+  }
+  ```
+
+- 隐式中序遍历（Morris中序遍历）
+
+  ```c++
+  void recoverTree(TreeNode* root) {
+      TreeNode *x = nullptr, *y = nullptr, *pred = nullptr, *predecessor = nullptr;
+      while (root != nullptr) {
+          if (root->left != nullptr) {
+              // predecessor 节点就是当前 root 节点向左走一步，然后一直向右走至无法走为止
+              predecessor = root->left;
+              while (predecessor->right != nullptr && predecessor->right != root) {
+                  predecessor = predecessor->right;
+              }
+              // 让 predecessor 的右指针指向 root，继续遍历左子树
+              if (predecessor->right == nullptr) {
+                  predecessor->right = root;
+                  root = root->left;
+              }
+              // 说明左子树已经访问完了，我们需要断开链接
+              else {
+                  if (pred != nullptr && root->val < pred->val) {
+                      y = root;
+                      if (x == nullptr) {
+                          x = pred;
+                      }
+                  }
+                  pred = root;
+  
+                  predecessor->right = nullptr;
+                  root = root->right;
+              }
+          }
+          // 如果没有左孩子，则直接访问右孩子
+          else {
+              if (pred != nullptr && root->val < pred->val) {
+                  y = root;
+                  if (x == nullptr) {
+                      x = pred;
+                  }
+              }
+              pred = root;
+              root = root->right;
+          }
+      }
+      swap(x->val, y->val);
+  }
+  ```
+
 ### [100. Same Tree](https://leetcode-cn.com/problems/same-tree/)
 
 - 深度优先遍历
@@ -2999,6 +3128,70 @@ void permute(int* nums, int cur, int size) {
 - 递归+镜像
   
   - 本质上就是将上述的两种方法结合的一种方法，只不过是在上述递归的基础上调用函数时由原先的function(root->left, root->right)变为function(root, root)，当然函数内部的一些细节还需要进行一些修改
+
+### [102. Binary Tree Level Order Traversal[M]](https://leetcode.cn/problems/binary-tree-level-order-traversal/)
+
+- 广度优先搜索
+
+  ```c++
+  vector<vector<int>> levelOrder(TreeNode* root) {
+      vector <vector <int>> ret;
+      if (!root) {
+          return ret;
+      }
+      queue <TreeNode*> q;
+      q.push(root);
+      while (!q.empty()) {
+          int currentLevelSize = q.size();
+          ret.push_back(vector <int> ());
+          for (int i = 1; i <= currentLevelSize; ++i) {
+              auto node = q.front(); q.pop();
+              ret.back().push_back(node->val);
+              if (node->left) q.push(node->left);
+              if (node->right) q.push(node->right);
+          }
+      }
+      return ret;
+  }
+  ```
+
+### [103. Binary Tree Zigzag Level Order Traversal[M]](https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/)
+
+- 广度优先遍历
+
+  ```c++
+  vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+      vector<vector<int>> ans;
+      if (root == nullptr) {
+          return ans;
+      }
+      queue<TreeNode*> q;
+      q.emplace(root);
+      bool is_order_left = true;
+      while (!q.empty()) {
+          deque<int> temp_dq;
+          int n = q.size();
+          for (int i = 0; i < n; ++i) {
+              TreeNode* node = q.front();
+              q.pop();
+              if (is_order_left) {
+                  temp_dq.emplace_back(node->val);
+              } else {
+                  temp_dq.emplace_front(node->val);
+              }
+              if (node->left) {
+                  q.emplace(node->left);
+              }
+              if (node->right) {
+                  q.emplace(node->right);
+              }
+          }
+          ans.emplace_back(vector<int>(temp_dq.begin(), temp_dq.end()));
+          is_order_left = !is_order_left;
+      }
+      return ans;
+  }
+  ```
 
 ### [104. Maximum Depth of Binary Tree](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
 
