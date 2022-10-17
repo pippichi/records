@@ -7886,3 +7886,7 @@ int main(){
 ### 数据平滑、数据滤波
 
 参考：https://blog.csdn.net/hajlyx/article/details/100580316（数据平滑方法的原理和应用）
+
+### 旋转矩阵
+
+参考：https://blog.csdn.net/u012763833/article/details/52605747（旋转矩阵公式推导）
