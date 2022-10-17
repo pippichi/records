@@ -7887,6 +7887,6 @@ int main(){
 
 参考：https://blog.csdn.net/hajlyx/article/details/100580316（数据平滑方法的原理和应用）
 
-### 旋转矩阵
+### 旋转矩阵、平移矩阵、缩放矩阵
 
-参考：https://blog.csdn.net/u012763833/article/details/52605747（旋转矩阵公式推导）
+参考：https://blog.csdn.net/qq_30490125/article/details/53091031（矩阵运算-平移、旋转、缩放）、https://blog.csdn.net/u012763833/article/details/52605747（旋转矩阵公式推导）
