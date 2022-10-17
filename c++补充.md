@@ -522,6 +522,24 @@ tie(j, k, i) = make_tuple(i, j, k);
 
 参考：http://www.cplusplus.com/reference/tuple/tie/
 
+# cmake
+
+## find_package、include_directories和target_link_libraries
+
+参考：https://blog.csdn.net/haluoluo211/article/details/80559341/（cmake教程4(find_package使用)）、https://blog.csdn.net/weixin_39393741/article/details/85070299（include_directories和find_package）、https://blog.csdn.net/u012483097/article/details/109066405（target_link_libraries 和link_libraries区别）
+
+# Visual Studio开源库集成器Vcpkg
+
+VS项目中，如果要使用第三方库，有两种解决方案：
+
+- 不使用Vcpkg
+
+  右键点击项目 -> 属性 -> VC++ 目录 -> 包含目录 -> 编辑 -> 新增行 -> 将第三方库的包绝对路径写进去（当然要先去官网下载第三方库的包文件） -> 确定即可正常使用第三方库
+
+- 使用Vcpkg
+
+  参考：https://blog.csdn.net/cjmqas/article/details/79282847（Visual Studio开源库集成器Vcpkg全教程--利用Vcpkg轻松集成开源第三方库）
+
 # 构造器的几种写法
 
 案例：
