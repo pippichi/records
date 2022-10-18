@@ -396,6 +396,18 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 可以看到name字段非常自然的被区分开了
 
+## 配合RequestBodyAdvice进行统一参数处理
+
+参考：https://blog.csdn.net/xingbaozhen1210/article/details/98189562（SpringBoot使用RequestBodyAdvice进行统一参数处理）、https://blog.csdn.net/jsq6681993/article/details/119712621（RequestBodyAdvice用法详解-参数加解密示例）
+
+如果不想重写RequestBodyAdvice中所有的接口方法，也可以继承spring提供的抽象类RequestBodyAdviceAdapter，按需实现让代码更简洁
+
+# @RestControllerAdvice
+
+@RestControllerAdvice是一个组合注解，由@ControllerAdvice、@ResponseBody组成，而@ControllerAdvice继承了@Component，因此@RestControllerAdvice本质上是个Component，用于定义@ExceptionHandler，@InitBinder和@ModelAttribute方法，适用于所有使用@RequestMapping方法。
+
+参考：https://blog.csdn.net/user2025/article/details/105458842（SpringBoot常用注解@RestControllerAdvice）、https://blog.csdn.net/jsq6681993/article/details/119712621（RequestBodyAdvice用法详解-参数加解密示例）
+
 # 字段校验
 
 ## @Pattern
@@ -1207,3 +1219,6 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 # @Autowired将多个Bean注入到集合中
 
 参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
+
+# @ControllerAdvice、RequestBodyAdvice、RequestBodyAdviceAdapter
+
