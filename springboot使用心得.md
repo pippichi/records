@@ -402,6 +402,12 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 如果不想重写RequestBodyAdvice中所有的接口方法，也可以继承spring提供的抽象类RequestBodyAdviceAdapter，按需实现让代码更简洁
 
+## 配合ResponseBodyAdvice进行统一返回数据处理
+
+参考：https://blog.csdn.net/u013887008/article/details/100183087（spring mvc之@ResponseBodyAdvice使用）
+
+如果不想重写ResponseBodyAdvice中所有的接口方法，也可以继承spring提供的抽象类ResponseBodyAdviceAdapter，按需实现让代码更简洁
+
 # @RestControllerAdvice
 
 @RestControllerAdvice是一个组合注解，由@ControllerAdvice、@ResponseBody组成，而@ControllerAdvice继承了@Component，因此@RestControllerAdvice本质上是个Component，用于定义@ExceptionHandler，@InitBinder和@ModelAttribute方法，适用于所有使用@RequestMapping方法。
