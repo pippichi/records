@@ -1110,3 +1110,6 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 参考：https://blog.csdn.net/kun_998/article/details/89480637（HashMap底层实现原理）
 
+# 读取配置文件
+
+参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）

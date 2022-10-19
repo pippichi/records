@@ -956,7 +956,9 @@ spring:
     database: 1
 ```
 
+## 读取配置文件
 
+参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）
 
 # 接口文档生成与增强
 
@@ -1225,6 +1227,4 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 # @Autowired将多个Bean注入到集合中
 
 参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
-
-# @ControllerAdvice、RequestBodyAdvice、RequestBodyAdviceAdapter
 
