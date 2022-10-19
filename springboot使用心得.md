@@ -731,7 +731,7 @@ Filter有三种配置方式：
 
   2、MethodInterceptor是AOP项目中的拦截器，它拦截的目标是方法，即使不是controller中的方法；
 
-  参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）
+  参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）、https://blog.csdn.net/WX5991/article/details/122179177（Spring boot中通过Aop和拦截器实现自定义注解）
 
 # 监听器Listener
 
@@ -861,9 +861,11 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 参考：https://blog.csdn.net/qq_32352777/article/details/108424932（@Validated注解详解，分组校验，嵌套校验，@Valid和@Validated 区别，Spring Boot @Validated）
 
-# 使用aop读取到项目下所有被注解标注的类或方法
+# AOP
 
-具体查看网络资料
+## 使用aop读取被注解标注的类、方法或字段
+
+参考：https://blog.csdn.net/dongshaw/article/details/112213322（使用自定义注解及AOP切面定位字段并做业务处理）、https://blog.csdn.net/weixin_49930191/article/details/108360531（Springboot Aop 自定义注解、切面）
 
 # 配置文件
 
@@ -1109,7 +1111,7 @@ public interface AlgorithmManagerFeign {
 
 # ConstraintValidator完成自定义校验注解
 
-参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、[王立平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、[王力平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # Gateway网关
 

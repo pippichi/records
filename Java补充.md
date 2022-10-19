@@ -259,6 +259,22 @@ t = pt.getRawType();//类型的类或接口
 Type[] ts = pt.getActualTypeArguments();
 ```
 
+## java.lang.reflect.Modifier
+
+在查看反射相关的Class、Field、Constructor 等类时，看到他们都有这样一个方法：getModifiers()：返回此类或接口以整数编码的 Java 语言修饰符。如果需要知道返回的值所代表的意思，则需要用到 java.lang.reflect.Modifier 这个类，这个类提供了 static 方法和常量，可以对类和成员访问修饰符进行解码。
+
+参考：https://blog.csdn.net/qq_39385118/article/details/83757536（Java基础 -Modifier类）
+
+## 通过反射获取类中被指定注解标记的字段的值
+
+参考：https://blog.csdn.net/BUGSLAYER_/article/details/107317110（JAVA工具类：获取类中被指定注解标记的字段值）
+
+## java.beans.PropertyDescriptor
+
+java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，结合反射使用可以达到非常强大的效果
+
+参考：https://blog.csdn.net/zhuqiuhui/article/details/78542049（Java中PropertyDescriptor用法）、https://blog.csdn.net/BUGSLAYER_/article/details/107317110（JAVA工具类：获取类中被指定注解标记的字段值）
+
 # 多线程
 
 ## 原子变量
