@@ -1120,7 +1120,7 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 # 静态代理与动态代理
 
-参考：https://cloud.tencent.com/developer/article/1429932（Java 静态代理、Java动态代理、CGLIB动态代理）
+参考：https://cloud.tencent.com/developer/article/1429932（Java 静态代理、Java动态代理、CGLIB动态代理）、https://blog.csdn.net/weixin_36759405/article/details/82770422（动态代理的两种方式以及区别）、https://blog.csdn.net/qq_32532321/article/details/81874990（java动态代理详解）
 
 # HashMap底层实现原理
 
@@ -1129,3 +1129,62 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 # 读取配置文件
 
 参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）
+
+# 音视频传输
+
+## RTMP
+
+参考：
+
+https://blog.csdn.net/Number_oneEngineer/article/details/109196862（java抓取rtmp流的图像）
+
+https://blog.csdn.net/Number_oneEngineer/article/details/107814586（使用javaCV录制直播流）
+
+https://blog.csdn.net/xxxlllbbb/article/details/104819683（基于JavaCV技术实现RTMP推流和拉流功能）
+
+https://blog.csdn.net/HelloKittyTom/article/details/113553000（java编写 rtmp协议传输视频数据）
+
+https://blog.csdn.net/crazyzxljing0621/article/details/69568339（Red5+SpringMVC整合(RTMP+HTTP)搭建你的直播服务器）
+
+https://www.jianshu.com/p/b2144f9bbe28（带你吃透RTMP）
+
+## RTC
+
+参考：
+
+https://blog.csdn.net/King_weng/article/details/115000005（实时通信之RTC）
+
+https://blog.csdn.net/lidecoolblue/article/details/117449804（RTC技术（Webrtc））
+
+https://blog.csdn.net/carolzhang8406/article/details/7311413（RTC Java API 学习笔记）
+
+https://blog.csdn.net/mengzhengjie/article/details/51460779（Java+WebSocket+WebRTC实现视频通话实例）
+
+https://blog.csdn.net/irizhao/article/details/106640949（在Java中使用WebRTC传输视频）
+
+https://blog.csdn.net/Melod_bc/article/details/61414980（Java使用websocket和WebRTC实现视频通话）
+
+https://blog.csdn.net/Ares_Basic/article/details/40383191（JAVA webRtc的实现视频会议系统）
+
+https://blog.csdn.net/zhlzdjdj/article/details/113409363（springboot+websocket+webRTC在chrome上实现web视频通话）
+
+https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot WebSocket + WebRTC实现视频通话功能）
+
+## RTC与传统RTMP对比
+
+| 参数对比           | RTC                                                          | RTMP（CDN）                                                  |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 底层推流端传输协议 | RTP（UDP）                                                   | RTMP（TCP）                                                  |
+| 质量保证Qos        | RTCP                                                         | -                                                            |
+| 播放端协议         | RTP                                                          | rtmp、hls、http-flv                                          |
+| 延迟               | 400ms以内                                                    | rtmp 3s+、hls 15s+、http-flv 3s+                             |
+| 同步性             | 推流端与播放端基本实时，同步性非常好                         | 推流端与播放端同步性差                                       |
+| 互动体验性         | 优                                                           | 差                                                           |
+| 关注点             | 关注实时性                                                   | 关注质量                                                     |
+| 拓扑结构           | 双向，既有推流又有拉流                                       | 单向，主播推流、观众拉流                                     |
+| 技术限制           | 参与人数限制，以声网为例支持17人互动，百万观看（低延迟直播产品） | 一个主播，观众数理论无上限                                   |
+| 安全性             | 所有 WebRTC 媒体数据都必须经过加密                           | 原生无加密技术，需定制开发视频加密和防盗链                   |
+| 兼容性             | 为web端而生，提供Native sdk（移动端、PC端），无服务端通用方案需自行开发 | web已不支持发起rtmp直播（Adobe 2020 12弃用flash）rtmp标准协议接入，服务端由技术成熟的CDN分发 |
+| 复杂性             | 非常复杂，涉及技术庞杂                                       | 比较简单清晰                                                 |
+| 典型应用场景       | 推流端与播放端互动性强的场景：视频会议、连麦互动、语音/视频聊天 | 推流端与播放端同步性不是很高要求的场景：活动/赛事直播、秀场直播、游戏直播、直播带货 |
+| 价格（成本）       | 高                                                           | 低                                                           |
