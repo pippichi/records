@@ -995,7 +995,14 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 
 # SLF4J及其MDC详解
 
-参考：https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
+MDC 能干什么？
+
+- 在 WEB 应用中，如果想在日志中输出请求用户 IP 地址、请求 URL、统计耗时等等，MDC 基本都能支撑；
+- 在 WEB 应用中，如果能画出用户的请求到响应整个过程，势必会快速定位生产问题，那么借助 MDC 来保存用户请求时产生的 reqId，当请求完成后，再将这个 reqId 进行移除，这么一来通过 grep reqId 就能轻松 get 整个请求流程的日志轨迹；
+- 在微服务盛行的当下，链路跟踪是个难题，而借助 MDC 去埋点，巧妙实现链路跟踪应该不是问题；
+- ...
+
+参考：https://blog.csdn.net/weixin_42474537/article/details/114501759（java中mdc是什么_MDC是什么鬼？用法、源码一锅端）、https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
 
 # 在线诊断工具 Arthas
 
