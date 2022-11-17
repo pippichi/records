@@ -156,6 +156,16 @@ private Long indexId;
 
 参考：https://blog.csdn.net/weixin_44130081/article/details/89678450（Jackson中@JsonInclude注解详解）
 
+# 请求参数注解
+
+## @RequestParams
+
+参考：https://blog.csdn.net/sswqzx/article/details/84195043（@RequestParam注解使用）、https://blog.csdn.net/a15028596338/article/details/84976223（@RequestParam和@PathVariable的用法与区别）
+
+## @PathVariable
+
+参考：https://blog.csdn.net/ckc_666/article/details/79239974（@PathVariable是什么？详情及用法解析）
+
 # ProtoBuf
 
 protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
