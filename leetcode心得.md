@@ -7751,6 +7751,10 @@ int main(){
 
 ## 经典算法
 
+### 排序算法
+
+参考：https://blog.csdn.net/weixin_41190227/article/details/86600821（超详细十大经典排序算法总结（java代码）c或者cpp的也可以明白）
+
 ### 树与图
 
 参考：https://blog.csdn.net/weixin_37551036/article/details/100065267（【数据结构】图的应用（普利姆算法、克鲁斯卡尔算法、迪杰斯特拉算法、弗洛伊德算法、拓扑排序））
