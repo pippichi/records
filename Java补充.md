@@ -275,6 +275,10 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 
 参考：https://blog.csdn.net/zhuqiuhui/article/details/78542049（Java中PropertyDescriptor用法）、https://blog.csdn.net/BUGSLAYER_/article/details/107317110（JAVA工具类：获取类中被指定注解标记的字段值）
 
+# 函数式接口（Function、Consumer、Supplier、Predicate）
+
+参考：https://blog.csdn.net/m0_51666430/article/details/125355782（Java四大函数式接口（Function、Consumer、Supplier、Predicate））
+
 # 多线程
 
 ## 原子变量
