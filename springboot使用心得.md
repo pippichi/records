@@ -1046,6 +1046,14 @@ Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高�
 
 官方文档：https://www.hutool.cn/
 
+# BeanUtil与MapStruct
+
+BeanUtil利用反射，MapStruct利用lombok机制在编译期间直接生成代码
+
+前者由于用的反射效率会比后者低，后者虽然需要在编译期间多生成一些代码，且需要依赖lombok，但是它的效率比前者要高很多
+
+参考：https://blog.csdn.net/qq_44732146/article/details/119968376（Mapstruct 使用教程）
+
 # MessageSource
 
 可以用于国际化信息的制作
