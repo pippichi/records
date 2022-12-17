@@ -522,6 +522,14 @@ tie(j, k, i) = make_tuple(i, j, k);
 
 参考：http://www.cplusplus.com/reference/tuple/tie/
 
+# 内置宏
+
+## `__VA_ARGS__`
+
+表示是一个可变参数的宏
+
+参考：https://blog.csdn.net/qq_33726635/article/details/115560659（可变参数列表`__VA_ARGS__`介绍）
+
 # cmake
 
 ## find_package、include_directories和target_link_libraries
