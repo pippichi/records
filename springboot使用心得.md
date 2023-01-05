@@ -972,6 +972,42 @@ spring:
 
 参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）
 
+思考：项目打包成jar之后使用绝对路径的方式无法读取静态文件，使用相对路径可解决该问题（首先jar文件中也存在resources目录，那么将resources设置为根目录即可读取目录下的文件）。参考：`张润华system-common项目中的FileUtil`：
+
+```java
+public class FileUtil {
+    private FileUtil(){}
+
+    public static InputStream getInputStream(String filePath) {
+        // 加载网络文件流
+        if (HttpUtil.isHttp(filePath) || HttpUtil.isHttps(filePath)) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            HttpUtil.download(filePath, outputStream, true);
+            return IoUtil.toStream(outputStream);
+        }
+        // 加载本地文件流
+        boolean absolutePath = cn.hutool.core.io.FileUtil.isAbsolutePath(filePath);
+        final String classPath = ClassUtil.getClassPath();
+        InputStream in;
+        if (absolutePath || classPath != null) {// 路径绝对路径和非jar模式运行的时候
+            in = cn.hutool.core.io.FileUtil.getInputStream(filePath);
+        } else {
+            // jar 模式运行时，通过类加载器加载文件流
+            in = FileUtil.class.getClassLoader().getResourceAsStream(filePath);
+        }
+        return in;
+    }
+
+    // filePath可直接传文件名
+    public static String readAsStr(String filePath) {
+        InputStream inputStream = getInputStream(filePath);
+        return IoUtil.readUtf8(inputStream);
+    }
+}
+```
+
+
+
 # 接口文档生成与增强
 
 使用swagger配合knife4j
