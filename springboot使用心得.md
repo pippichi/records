@@ -662,6 +662,12 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/qq_37256896/article/details/115869717（注解 @RequiredArgsConstructor）
 
+## ObjectProvider
+
+正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
+
+参考：https://blog.csdn.net/asdfsadfasdfsa/article/details/114219540（ObjectProvider使用）
+
 # 静态文件存储位置
 
 在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
