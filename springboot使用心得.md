@@ -662,6 +662,10 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/qq_37256896/article/details/115869717（注解 @RequiredArgsConstructor）
 
+## @Autowired将多个Bean注入到集合中
+
+参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
+
 ## ObjectProvider
 
 正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
@@ -976,7 +980,7 @@ spring:
 
 ## 读取配置文件
 
-参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）
+参考：https://blog.csdn.net/MyHerux/article/details/83549149（SpringBoot 获取配置文件属性（全5种，附项目Demo））、https://pippichi.github.io/blog/springboot_basic（博客笔记 Spring Boot -basic）、https://blog.csdn.net/Thinkingcao/article/details/111897862（Java中读取properties配置文件的八种方式总结）、https://blog.csdn.net/qq_43803285/article/details/118544585（SpringBoot读取Resource下文件的四种方式）、https://blog.csdn.net/u013410747/article/details/51647535（Java读取/写入Yaml配置文件）
 
 思考：项目打包成jar之后使用绝对路径的方式无法读取静态文件，使用相对路径可解决该问题（首先jar文件中也存在resources目录，那么将resources设置为根目录即可读取目录下的文件）。参考：`张润华system-common项目中的FileUtil`：
 
@@ -1282,11 +1286,9 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/u011976388/article/details/85268890（SpringBoot：@Schedule定时任务）、https://blog.csdn.net/Dongguabai/article/details/105538527（定时任务接口SchedulingConfigurer实现定制化定时任务）
 
-# 未注入容器的类读取Resource配置文件的方法
+# GraphQL
 
-参考：https://blog.csdn.net/qq_43803285/article/details/118544585（SpringBoot读取Resource下文件的四种方式）
+GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST、[SOAP](https://so.csdn.net/so/search?q=SOAP&spm=1001.2101.3001.7020)、或者gRPC的替代品。
 
-# @Autowired将多个Bean注入到集合中
-
-参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
+参考：https://blog.csdn.net/LookOutThe/article/details/121673944（Graphql+SpringBoot）
 
