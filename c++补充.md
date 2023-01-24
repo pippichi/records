@@ -618,7 +618,7 @@ C++可以用纯虚函数实现类似于JAVA中接口的功能
 
 # c++虚基类与虚继承解决命名冲突问题以及不可避免的二义性问题
 
-参考：http://c.biancheng.net/view/2280.html
+参考：http://c.biancheng.net/view/2280.html（C++虚继承和虚基类详解）、https://blog.csdn.net/tmrjlu/article/details/119877557（C++ Virtual详解）
 
 # c++函数返回NULL的解决方案
 
