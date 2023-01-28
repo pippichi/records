@@ -170,7 +170,7 @@ c++11中有“`= delete;`”的用法，表示deleted函数，对于deleted函�
 
 ## override
 
-参考：https://blog.csdn.net/qq_33485434/article/details/78418012
+参考：https://blog.csdn.net/qq_33485434/article/details/78418012（C++ 中override的作用）、https://blog.csdn.net/qq_42542471/article/details/124659190（C++ [override]关键字使用详解）
 
 示例：
 
