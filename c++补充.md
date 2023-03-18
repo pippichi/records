@@ -585,7 +585,7 @@ public:
 
 # 左值、右值、左值引用、右值引用
 
-参考：https://blog.csdn.net/u012198575/article/details/83142419
+参考：https://blog.csdn.net/u012198575/article/details/83142419（c++——左值、右值、左值引用、右值引用）、https://blog.csdn.net/caojianfa969/article/details/118927852（左值、右值引用及其作用）
 
 ## std::move、std::forward
 
