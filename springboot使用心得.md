@@ -1367,6 +1367,10 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/u011976388/article/details/85268890（SpringBoot：@Schedule定时任务）、https://blog.csdn.net/Dongguabai/article/details/105538527（定时任务接口SchedulingConfigurer实现定制化定时任务）
 
+# Spel表达式
+
+参考：https://blog.csdn.net/likun557/article/details/107853045（Spring系列第39篇：强大的Spel表达式）、https://cloud.tencent.com/developer/article/1497676（【小家Spring】SpEL你感兴趣的实现原理浅析spring-expression~(SpelExpressionParser、EvaluationContext、rootObject)）
+
 # GraphQL
 
 GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST、[SOAP](https://so.csdn.net/so/search?q=SOAP&spm=1001.2101.3001.7020)、或者gRPC的替代品。

@@ -203,6 +203,12 @@ public static class E extends D {
 
 
 
+# 23种设计模式
+
+参考：https://blog.csdn.net/pyy542718473/article/details/127248128（Java中23种设计模式）
+
+
+
 # 反射
 
 ```java
