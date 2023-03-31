@@ -805,6 +805,18 @@ spring:
         queue-capacity: 100
 ```
 
+# 单点登录
+
+参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
+
+# SpringCloud+Spring Security+OAuth2 + JWT + Gateway
+
+参考：https://blog.csdn.net/lbjfish/article/details/109187316（SpringCloud+Spring Security+OAuth2 + JWT + Gateway讲解）
+
+# HttpSession
+
+参考：https://blog.csdn.net/hcz666/article/details/108916119（HttpSession详解(简称session)）
+
 # 过滤器Filter
 
 具体信息请查阅网络资料
@@ -1122,10 +1134,6 @@ public class FileUtil {
 除了使用`Spring Boot Admin`之外，还可以用`Prometheus`配合`Spring Boot Admin`来使用
 
 参考：https://blog.csdn.net/forezp/article/details/107465307（Spring Boot集成普罗米修斯）、https://blog.csdn.net/forezp/article/details/86105850（Spring Boot Admin）、https://blog.csdn.net/feidie436/article/details/81381841（Spring Boot Admin配置属性详解）
-
-# SpringCloud+Spring Security+OAuth2 + JWT + Gateway
-
-参考：https://blog.csdn.net/lbjfish/article/details/109187316
 
 # SpringBoot整合websocket
 
