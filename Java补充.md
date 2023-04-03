@@ -810,6 +810,12 @@ aFloat:0.0333
 cDouble:1.668169110346482
 ```
 
+# `类名.this`的用法
+
+一般用于内部类
+
+参考：https://blog.csdn.net/li_xunhuan/article/details/98657521（Java-“this”和“类名.this”以及“类名.class”的区分和详解）
+
 # 权限控制
 
 | 修饰词     | 本类 | 同一个包的类 | 继承类 | 其他类 |
