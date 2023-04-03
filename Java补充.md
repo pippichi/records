@@ -1223,3 +1223,8 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 | 复杂性             | 非常复杂，涉及技术庞杂                                       | 比较简单清晰                                                 |
 | 典型应用场景       | 推流端与播放端互动性强的场景：视频会议、连麦互动、语音/视频聊天 | 推流端与播放端同步性不是很高要求的场景：活动/赛事直播、秀场直播、游戏直播、直播带货 |
 | 价格（成本）       | 高                                                           | 低                                                           |
+
+# Closeable、AutoCloseable与`try-with-resources`语法
+
+参考：https://zhuanlan.zhihu.com/p/269208361（浅谈 Java 中的 AutoCloseable 接口）
+
