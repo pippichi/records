@@ -1278,7 +1278,7 @@ public interface AlgorithmManagerFeign {
 
 用于线程池配置
 
-参考：https://blog.csdn.net/qq_30281443/article/details/83340909、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+参考：https://blog.csdn.net/qq_30281443/article/details/83340909（SpringBoot 线程池配置 实现AsyncConfigurer接口）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # TaskDecorator
 

@@ -287,6 +287,10 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 
 # 多线程
 
+## ThreadFactory
+
+参考：https://cloud.tencent.com/developer/article/1633458（Java 的线程工厂 ThreadFactory原理及源码详解）
+
 ## 原子变量
 
 ### AtomicReferenceFieldUpdater
