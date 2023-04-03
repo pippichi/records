@@ -747,7 +747,19 @@ semaphore.acquire();
 semaphore.release();
 ```
 
+# Fork/Join与RecursiveTask和RecursiveAction
 
+参考：https://blog.csdn.net/weixin_41404773/article/details/80733324（RecursiveTask和RecursiveAction的使用 以及java 8 并行流和顺序流）
+
+## CountedCompleter
+
+参考：https://segmentfault.com/a/1190000019555458（ForkJoin框架之CountedCompleter,工作线程及并行流）、https://blog.csdn.net/huitoukest/article/details/102673219（java进阶笔记线程与并发之CountedCompleter）
+
+# Spliterator
+
+Spliterator是Java 8中加入的一个新接口；这个名字代表“可拆分迭代器”（splitable iterator）。和Iterator一样，Spliterator也用于遍历数据源中的元素，但它是为了并行执行而设计的。Java 8已经为集合框架中包含的所有数据结构提供了一个默认的Spliterator实现。集合实现了Spliterator接口，接口提供了一个spliterator方法。
+
+参考：https://blog.csdn.net/sl1992/article/details/100149187（Java8中Spliterator详解）
 
 # 关键字
 
