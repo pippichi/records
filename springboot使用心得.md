@@ -1341,6 +1341,10 @@ public class A implements InitializingBean, DisposableBean {
 
 参考：https://blog.csdn.net/weixin_43868443/article/details/119445348（Springboot多数据源 解决事务回滚失效）、https://blog.csdn.net/mameng1988/article/details/85548812（`Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to 以及Spring事务失效的原因和解决方案`）
 
+# Flyway多数据源脚本迁移
+
+参考：https://blog.csdn.net/Selfishnessness/article/details/126109652（Flyway针对多数据源配置实战方案）、https://blog.csdn.net/beautyofmath/article/details/106194433（Flyway配置(包含多数据源配置)及使用规范）、[魏子杰`data-provider-R`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # @AutoConfigureBefore、@AutoConfigureAfter、@AutoConfigureOrder与AutoConfigurationSorter
 
 `@AutoConfigureBefore、@AutoConfigureAfter、@AutoConfigureOrder`三大注解可以用于控制自动配置执行顺序
