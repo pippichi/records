@@ -203,7 +203,7 @@ public static class E extends D {
 
 
 
-# 23种设计模式
+# GOF23种设计模式
 
 参考：https://blog.csdn.net/pyy542718473/article/details/127248128（Java中23种设计模式）
 
@@ -641,6 +641,24 @@ public class MCSLock {
 
 CLHLock在NUMA架构下使用会存在问题。在没有cache的NUMA系统架构中，由于CLHLock是在当前节点的前一个节点上自旋，NUMA架构中处理器访问本地内存的速度高于通过网络访问其他节点的内存，所以CLHLock在NUMA架构上不是最优的自旋锁。
 
+## ReadLock和WriteLock(读写锁)
+
+参考：https://blog.csdn.net/cdw8131197/article/details/52601559（ReadLock和WriteLock(读写锁)）
+
+## Lock + Condition
+
+参考：https://zhuanlan.zhihu.com/p/333969353（并发工具（锁）：深入Lock+Condition）
+
+## AQS(AbstractQueuedSynchronizer)
+
+AQS是并发容器J.U.C（java.util.concurrent）下locks包内的一个类。它实现了一个**FIFO**(FirstIn、FisrtOut先进先出)的队列。底层实现的数据结构是一个**双向链表**。
+
+参考：https://blog.csdn.net/striveb/article/details/86761900（什么是AQS及其原理）、https://www.cnblogs.com/waterystone/p/4920797.html（Java并发之AQS详解）、https://www.cnblogs.com/chengxiao/archive/2017/07/24/7141160.html（Java并发包基石-AQS详解）
+
+## ReentrantLock(可重入锁)
+
+参考：https://blog.csdn.net/zxd8080666/article/details/83214089（Synchronized与ReentrantLock区别总结（简单粗暴，一目了然））、http://www.blogjava.net/zhanglongsr/articles/356782.html（ReentrantLock源码之一lock方法解析(锁的获取)）、https://blog.csdn.net/yanyan19880509/article/details/52345422（轻松学习java可重入锁(ReentrantLock)的实现原理）
+
 ## CyclicBarrier
 
 循环栅栏。它的作用就是会让所有线程都等待完成后才会继续下一步行动。举个例子：5个人（5个线程）去餐厅吃饭，规定只有五个人全部到齐了才能进去。
@@ -751,11 +769,15 @@ semaphore.acquire();
 semaphore.release();
 ```
 
-# Fork/Join与RecursiveTask和RecursiveAction
+## LinkedBlockingQueue与ConcurrentLinkedQueue
+
+参考：https://blog.csdn.net/lzxlfly/article/details/86710382（LinkedBlockingQueue与ConcurrentLinkedQueue的区别）、https://www.cnblogs.com/linjiqin/archive/2013/05/30/3108188.html（并发队列ConcurrentLinkedQueue和阻塞队列LinkedBlockingQueue用法）、https://blog.csdn.net/A1023824314/article/details/52263932（java挑战高并发（14）: LinkedBlockingQueue和ConcurrentLinkedQueue的区别及用法）、https://www.jianshu.com/p/1a49293294aa（LinkedBlockingQueue 和 ConcurrentLinkedQueue的用法及区别）
+
+## Fork/Join与RecursiveTask和RecursiveAction
 
 参考：https://blog.csdn.net/weixin_41404773/article/details/80733324（RecursiveTask和RecursiveAction的使用 以及java 8 并行流和顺序流）
 
-## CountedCompleter
+### CountedCompleter
 
 参考：https://segmentfault.com/a/1190000019555458（ForkJoin框架之CountedCompleter,工作线程及并行流）、https://blog.csdn.net/huitoukest/article/details/102673219（java进阶笔记线程与并发之CountedCompleter）
 
