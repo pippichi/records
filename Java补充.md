@@ -849,6 +849,12 @@ VarHandle 的出现替代了 `java.util.concurrent.atomic` 和 `sun.misc.Unsafe`
 
 参考：https://zhuanlan.zhihu.com/p/339600116（Netty时间轮调度算法原理分析，我不相信这样你还看不懂！）
 
+# Dubbo
+
+## 接口代理详解（@DubboReference和@Reference）
+
+参考：https://blog.csdn.net/qq_18300037/article/details/121612458（【dubbo学习系列】dubbo消费端的代理生成详解(@DubboReference和@Reference)）
+
 # 关键字
 
 ## strictfp
