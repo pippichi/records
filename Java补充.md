@@ -285,7 +285,28 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 
 参考：https://blog.csdn.net/m0_51666430/article/details/125355782（Java四大函数式接口（Function、Consumer、Supplier、Predicate））
 
+关于Supplier：
+
+```java
+public class CachedStoreArk<E> extends AbstractStoreArk<E> {
+    private final StoreArk<E> inner;    
+
+	public CachedStoreArk() {
+        // 这里的CommonStoreArk::new就是一个Supplier
+        this(CommonStoreArk::new);
+    }
+
+    private CachedStoreArk(Supplier<StoreArk<E>> sup) {
+        this.inner = sup.get();
+    }
+}
+```
+
 # 多线程
+
+## 线程池中多余的线程如何被回收？
+
+参考：https://zhuanlan.zhihu.com/p/269145872（面试官：线程池中多余的线程是如何回收的？）、https://blog.csdn.net/xiewenfeng520/article/details/107013665（线程池的线程复用原理）、https://blog.csdn.net/sinat_36553913/article/details/114762157（Java 基础 - 线程池是如何回收空闲线程的 ？）
 
 ## ThreadFactory
 
@@ -781,11 +802,52 @@ semaphore.release();
 
 参考：https://segmentfault.com/a/1190000019555458（ForkJoin框架之CountedCompleter,工作线程及并行流）、https://blog.csdn.net/huitoukest/article/details/102673219（java进阶笔记线程与并发之CountedCompleter）
 
+## ThreadLocalRandom
+
+參考：https://www.jianshu.com/p/89dfe990295c（多线程下ThreadLocalRandom用法）
+
+## 线程的join()与yield()
+
+join()表示线程要介入，看源码就会发现它就是一个简单的wait()；
+
+yield()表示线程要让出cpu计算资源；
+
+参考：https://blog.csdn.net/qq_18505715/article/details/79795728（Java join()方法的使用）
+
+join()在netty中的使用案例：
+
+```java
+while (workerThread.isAlive()) {
+    workerThread.interrupt();
+    try {
+        // 给工作线程100ms的时间等待他处理完后事
+        // 如果没有这个join，则会在一小段时间内一直while循环去interrupt工作线程
+        workerThread.join(100);
+    } catch (InterruptedException ignored) {
+        interrupted = true;
+    }
+}
+```
+
+
+
 # Spliterator
 
 Spliterator是Java 8中加入的一个新接口；这个名字代表“可拆分迭代器”（splitable iterator）。和Iterator一样，Spliterator也用于遍历数据源中的元素，但它是为了并行执行而设计的。Java 8已经为集合框架中包含的所有数据结构提供了一个默认的Spliterator实现。集合实现了Spliterator接口，接口提供了一个spliterator方法。
 
 参考：https://blog.csdn.net/sl1992/article/details/100149187（Java8中Spliterator详解）
+
+# 变量句柄-VarHandle
+
+VarHandle 的出现替代了 `java.util.concurrent.atomic` 和 `sun.misc.Unsafe` 的部分操作
+
+参考：https://blog.csdn.net/sench_z/article/details/79793741（Java 9 变量句柄-VarHandle）
+
+# Netty
+
+## 时间轮调度算法
+
+参考：https://zhuanlan.zhihu.com/p/339600116（Netty时间轮调度算法原理分析，我不相信这样你还看不懂！）
 
 # 关键字
 
@@ -1058,6 +1120,10 @@ MDC 能干什么？
 
 参考：https://blog.csdn.net/weixin_42474537/article/details/114501759（java中mdc是什么_MDC是什么鬼？用法、源码一锅端）、https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
 
+# Reference 、ReferenceQueue
+
+參考：https://www.jianshu.com/p/f86d3a43eec5（Reference 、ReferenceQueue 详解）
+
 # 在线诊断工具 Arthas
 
 导读：虽然已经有很多分析工具 `jvisualvm,jstat,jmap,jstack,Memory Analyzer`等。但可能不是大杂烩或者线上无法分析等。所以看看`arthas`的功能，好用就用它了。
@@ -1254,3 +1320,10 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 
 参考：https://zhuanlan.zhihu.com/p/269208361（浅谈 Java 中的 AutoCloseable 接口）
 
+# 数据结构
+
+## PriorityQueue优先队列
+
+PriorityQueue线程不安全，PriorityBlockingQueue线程安全
+
+参考：https://blog.csdn.net/u010675669/article/details/86503464（Java PriorityQueue（优先队列））
