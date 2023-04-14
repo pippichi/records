@@ -7898,3 +7898,11 @@ int main(){
 ### 稀疏数组
 
 参考：https://blog.csdn.net/sunnyzyq/article/details/116763427（什么是稀疏数组？稀疏数组详解）
+
+### 最小二乘法
+
+参考：https://blog.csdn.net/ccnt_2012/article/details/81127117（如何理解最小二乘法？）
+
+### K-means聚类
+
+参考：https://blog.csdn.net/fox_wayen/article/details/80467233（基于Java实现K-means算法）
