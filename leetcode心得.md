@@ -7819,9 +7819,9 @@ int main(){
 
 参考：https://zhuanlan.zhihu.com/p/108942208（理解`Cooley-Tukey`快速傅里叶变换算法与其应用）、https://blog.csdn.net/xxinliu/article/details/7438429（`Cooley-Tukey`算法 （蝶形算法））
 
-### 拉普拉斯变换
+### 拉普拉斯变换、拉普拉斯方程、拉普拉斯算子
 
-参考：https://zhuanlan.zhihu.com/p/416317648
+参考：https://zhuanlan.zhihu.com/p/416317648、https://zhuanlan.zhihu.com/p/376436061
 
 ### 复数的物理意义
 
