@@ -1,10 +1,22 @@
+# 材质节点
+
+## ObjectPivotPoint
+
+ObjectPivotPoint代表物体模型空间原点在世界空间的位置
+
+## RotateAboutAxis与FixRotateAboutAxisNormals
+
+参考：https://zhuanlan.zhihu.com/p/381326628（RotateAboutAxis和FixRotateAboutAxisNormals）、https://zhuanlan.zhihu.com/p/394785452（在 UE4 中使用顶点着色器旋转网格）
+
+
+
 # 创建可复用的动画通知类（Anim Notify Class）
 
 参考：https://blog.csdn.net/ttm2d/article/details/111769249（UE4动画系统：什么是动画通知（Anim Notify））
 
 
 
-# 虚幻四Gameplay Ability System系列
+# Gameplay Ability System（GAS）
 
 参考：https://blog.csdn.net/m0_38110586/category_11011758.html（虚幻四Gameplay Ability System入门1-12）
 
@@ -53,3 +65,12 @@
 # AI行为树源码详解
 
 参考：https://zhuanlan.zhihu.com/p/368889019（【图解UE4源码】AI行为树系统 目录）、https://zhuanlan.zhihu.com/p/371623309（【图解UE4源码】 其三（〇）行为树系统执行任务的流程 概述）、https://zhuanlan.zhihu.com/p/139514376（[UE4] 浅析UE4-BehaviorTree的特性）、https://zhuanlan.zhihu.com/p/143298443（UE4行为树详解（持续更新，才怪））
+
+
+
+# FlowMap
+
+flowMap被广泛用于制作水体或者云的“流动效果”
+
+参考：https://zhuanlan.zhihu.com/p/222500848（[UE4] FlowMap）、https://zhuanlan.zhihu.com/p/237638786（[UE4] FlowMap Painter Tool）
+
