@@ -80,3 +80,14 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 
 参考：https://zhuanlan.zhihu.com/p/593894970（关于UObject如何解决网络复制问题以及数组在Replicated网络复制的优化）
 
+
+
+# TAttribute与Slate数据绑定
+
+参考：https://zhuanlan.zhihu.com/p/465410846（UE4 TAttribute原理 与 Slate数据绑定）
+
+
+
+# UE常用数据结构TArray、TMap、TSet
+
+参考：https://blog.csdn.net/ryacber/article/details/128758764（UE C++基础 | 常用数据容器 | TArray、TMap、TSet）
