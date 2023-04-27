@@ -88,6 +88,69 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 
 
 
-# UE常用数据结构TArray、TMap、TSet
+# UE常用数据结构TArray、TMap、TSet、TDoubleLinkedList
 
-参考：https://blog.csdn.net/ryacber/article/details/128758764（UE C++基础 | 常用数据容器 | TArray、TMap、TSet）
+参考：https://blog.csdn.net/ryacber/article/details/128758764（UE C++基础 | 常用数据容器 | TArray、TMap、TSet）、https://docs.unrealengine.com/5.1/en-US/API/Runtime/Core/Containers/TDoubleLinkedList/（UE官方TDoubleLinkedList）
+
+
+
+# UE内存管理
+
+- 不受内存管理的内存
+
+  - malloc & free
+  - new & delete
+
+   new与malloc的区别在于，new在分配内存完成之后会调用构造函数。
+
+- 内存管理的内存
+
+  - 对于不是继承自UObject的Native C++类，使用TSharedPtr、TAutoPtr、TWeakPtr、TSharedRef、TScopedPointer管理
+
+  - 对于继承自UObject的子类
+
+    **创建**： UObject::NewObject<> 或是 UObject::ConstructObject<>，其中ConstructObject可以做更复杂的参数配置
+
+    **销毁**：当计数为0时，自动释放；调用UObject::ConditionalBeginDestroy()手动释放。若要强制调用垃圾回收，则调用UWorld::ForceGarbageCollection(true)
+
+  - 对于继承自AActor的子类
+
+     **创建**： UWorld::SpawnActor<>
+
+     **销毁**： AActor::Destroy()
+
+  - TArray<>数组需要用UPROPERTY()修饰，否则会导致内存管理错误
+
+  - 继承自UActorComponent的组件，使用AActor::CreateDefaultSubobject<>，同样组件的指针变量也需要用UPROPERTY()修饰
+
+
+
+## UE中的智能指针
+
+在游戏开发中，我们不可能完全使用UE的注解进行内存管理，特殊情况下我们需要自己开辟销毁内存，此时使用UE封装的智能指针就是一种方案。
+
+参考：https://blog.csdn.net/github_38111866/article/details/107712692（【UE4】共享（智能）指针用法）、https://zhuanlan.zhihu.com/p/472486869（【UE4 C++ 基础知识】<15> 智能指针 TSharedPtr、UniquePtr、TWeakPtr、TSharedRef）、https://zhuanlan.zhihu.com/p/369974105（UE4的智能指针 TSharedPtr）
+
+
+
+### FSoftClassPath 和 FSoftObjectPath
+
+参考：https://zhuanlan.zhihu.com/p/428555822（UE4学习记录(2)FSoftClassPath 和FSoftObjectPath 区别）
+
+### TSoftClassPtr 和 TSoftObjectPtr
+
+参考：https://blog.csdn.net/qq_45777198/article/details/107838444（【学习笔记】UE4——`TSoftClassPtr<T> ptr`和`TSoftObjectPtr<T> ptr`）
+
+# UE枚举迭代遍历
+
+参考：https://zhuanlan.zhihu.com/p/492702386（UE4枚举的迭代遍历）、https://blog.csdn.net/a359877454/article/details/105262795（UE4遍历枚举）
+
+# 坐标系
+
+## 物体相对坐标与世界坐标互转
+
+参考：https://blog.csdn.net/l346242498/article/details/106919703（UE4 相对坐标转世界坐标）、https://blog.csdn.net/longyanbuhui/article/details/115407458（UE4_local location（本地位置） 与 world location（世界位置） 转换）
+
+## 屏幕坐标与世界坐标互转
+
+参考：https://blog.csdn.net/longyanbuhui/article/details/84201864（UE4_屏幕位置与世界位置的相互转化）、https://zhuanlan.zhihu.com/p/597560776（UE4 相机屏幕坐标与世界坐标的相互转换）
