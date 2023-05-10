@@ -1393,3 +1393,11 @@ GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST
 
 参考：https://blog.csdn.net/LookOutThe/article/details/121673944（Graphql+SpringBoot）
 
+# Shutdown Hook实现方案
+
+参考：https://juejin.cn/post/7099050817914667039（SpringBoot下实现Shutdown Hook的几种方式）
+
+# springboot的优雅停机和健康检查配置（用于k8s服务重启）
+
+参考：https://blog.csdn.net/qq_28340701/article/details/126371263（关于springboot的优雅停机和健康检查配置（用于k8s服务重启））
+
