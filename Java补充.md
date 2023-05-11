@@ -1333,3 +1333,7 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 PriorityQueue线程不安全，PriorityBlockingQueue线程安全
 
 参考：https://blog.csdn.net/u010675669/article/details/86503464（Java PriorityQueue（优先队列））
+
+# 强引用、软引用、弱引用、虚引用
+
+参考：https://blog.csdn.net/qq_39192827/article/details/85611873（Java：强引用，软引用，弱引用和虚引用）
