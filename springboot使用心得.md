@@ -491,6 +491,10 @@ public class TagGroup extends BasicEntity<Long> {
 
 # 注入以及上下文环境
 
+## @Repository
+
+参考：https://blog.csdn.net/wqh0830/article/details/96109587（@Repository注解的作用）、https://blog.csdn.net/qq_44421399/article/details/109825479（@Repository 与 @Mapper的区别）
+
 ## @Import注入类
 
 原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
