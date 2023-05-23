@@ -1337,3 +1337,7 @@ PriorityQueue线程不安全，PriorityBlockingQueue线程安全
 # 强引用、软引用、弱引用、虚引用
 
 参考：https://blog.csdn.net/qq_39192827/article/details/85611873（Java：强引用，软引用，弱引用和虚引用）
+
+# 结构化并发编程（Structured Concurrency）
+
+参考：https://blog.csdn.net/XiumingLee/article/details/126803317（Java 19新特性：Structured Concurrency (结构化并发编程)）

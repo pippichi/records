@@ -1,3 +1,47 @@
+# Spring容器（含父子容器）的启动过程
+
+参考：https://blog.csdn.net/f641385712/article/details/87883205（【小家Spring】Spring容器（含父子容器）的启动过程源码级别分析（含web.xml启动以及全注解驱动，和ContextLoader源码分析））
+
+# SpringMVC 9大组件
+
+SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、FrameworkServlet和 DispatcherServlet。
+
+- HttpServletBean直接继承自java的HttpServlet，其作用是将Servlet中配置的参数设置到相应的属性；
+- FrameworkServlet初始化了WebApplicationContext；
+- DispatcherServlet初始化了自身的9个组件；
+
+参考：https://blog.csdn.net/hu_zhiting/article/details/73648939（【SpringMVC】9大组件概览）、https://blog.csdn.net/f641385712/article/details/87934909（【小家Spring】Spring MVC容器启动时，web九大组件初始化详解（Spring MVC的运行机制））
+
+## HandlerMapping★
+
+参考：https://blog.csdn.net/f641385712/article/details/89766065（【小家Spring】Spring MVC容器的web九大组件之---HandlerMapping源码详解(一)---BeanNameUrlHandlerMapping系列）、https://blog.csdn.net/f641385712/article/details/89810020（【小家Spring】Spring MVC容器的web九大组件之---HandlerMapping源码详解(二)---RequestMappingHandlerMapping系列）
+
+### RequestMappingHandlerMapping
+
+参考：https://www.cnblogs.com/minikobe/p/11233908.html（RequestMappingHandlerMapping详解）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## HandlerAdapter
+
+### RequestMappingHandlerAdapter
+
+在[张润华`system-component-excel`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)中发现它可以用于解释器的注册。
+
+参考：https://blog.csdn.net/weixin_34007020/article/details/92608532（Spring MVC之RequestMappingHandlerAdapter详解）、[张润华`system-component-excel`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## HandlerExceptionResolver
+
+## ViewResolver
+
+## RequestToViewNameTranslator
+
+## LocaleResolver
+
+## ThemeResolver
+
+## MultipartResolver
+
+## FlashMapManager
+
 # Jackson
 
 ## @Transient
@@ -173,6 +217,10 @@ protocol buffers 是一种语言无关、平台无关、可扩展的序列化结
 参考：https://www.jianshu.com/p/a24c88c0526a（深入 ProtoBuf - 简介）、https://www.jianshu.com/p/73c9ed3a4877（深入 ProtoBuf - 编码）、https://www.jianshu.com/p/62f0238beec8（深入 ProtoBuf - 序列化源码解析）、https://www.jianshu.com/p/ddc1aaca3691（深入 ProtoBuf - 反射原理解析）
 
 关于后端SpringBoot，前端nodejs整合ProtoBuf的方法请参考：https://blog.csdn.net/qq_42677329/article/details/114670100（springboot整合protobuf传输数据）
+
+# 跨域解决之CorsFilter与WebMvcConfigurer
+
+参考：https://blog.csdn.net/accept666/article/details/122611242（跨域解决之CorsFilter与WebMvcConfigurer篇）
 
 # 加密
 
@@ -601,10 +649,6 @@ public class JobFactory extends AdaptableJobFactory {
 }
 ```
 
-## RequestMappingHandlerMapping
-
-参考：https://www.cnblogs.com/minikobe/p/11233908.html（RequestMappingHandlerMapping详解）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
 ## SpringBoot使用AspectJ（CTW）下不能注入SpringIOC容器中的Bean的解决方案
 
 参考：https://blog.csdn.net/weixin_43697006/article/details/105289423
@@ -832,11 +876,24 @@ spring:
 Filter有三种配置方式：
 
 - 直接用@WebFilter注解修饰实现类（@WebFilter和@ServletComponentScan这两个注解必须连用）
+- 直接用@Component或@Configuration标注Filter实现类，则可做到全url过滤（如果同时还标注了@WebFilter，则还可对自定义url做过滤，参考：https://blog.csdn.net/qq_27610647/article/details/88909586（Springboot的Filter使用(对指定路径过滤和所有路径过滤)））
 - 不使用@ServletComponentScan注解时需要通过FilterRegistrationBean将Filter注入
 
 - 通过`web.xml`方式配置
 
 参考：https://blog.csdn.net/u011066470/article/details/115376422（springboot的filter过滤器的使用）
+
+
+
+通过filter获取request和response中的数据：
+
+参考：https://blog.csdn.net/hopelgl/article/details/105827898（springboot利用filter获取request和response中的数据）
+
+
+
+过滤器、拦截器的区别：
+
+参考：https://blog.csdn.net/JokerLJG/article/details/121538821（spring过滤器、拦截器）
 
 # 拦截器Interceptor
 
@@ -907,6 +964,14 @@ Spring有各种Listener，如ServletRequestListener、ServletRequestAttributeLis
 
 参考：https://blog.csdn.net/agonie201218/article/details/124556232（事件机制）
 
+# HandlerMethodArgumentResolver(参数解析器)
+
+一般用于接口调用之前的权限校验，参考https://blog.csdn.net/qq_36408229/article/details/104436508、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# HandlerMethodReturnValueHandler处理请求返回值
+
+参考：https://blog.csdn.net/qq_42651904/article/details/117451305（Springboot(HandlerMethodReturnValueHandler使用) 自定义注解处理返回值）、[张润华`system-component-excel`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # @WebServlet、HttpServlet和ServletRegistrationBean
 
 客户端发送请求到服务器（Tomcat），服务器把请求发送给Servlet，Servlet动态生成响应内容后传给服务器，最后由服务器将结果响应回客户端，这就是Servlet的大概执行流程。
@@ -919,6 +984,10 @@ Servlet有三种配置方式：
 - 通过`web.xml`方式配置
 
 参考：https://blog.csdn.net/qq_35038153/article/details/77484185（@WebServlet的使用方法）
+
+# WebMvcConfigurerAdapter、WebMvcConfigurer、WebMvcConfigurationSupport与WebMvcAutoConfiguration
+
+参考：https://blog.csdn.net/lvyuanj/article/details/108554170（WebMvcConfigurerAdapter与WebMvcConfigurer与WebMvcConfigurationSupport与WebMvcAutoConfiguration关系）、https://blog.csdn.net/sdname/article/details/109718768（WebMvcConfigurerAdapter已被废弃 官方推荐替代方法）
 
 # @DependsOn
 
@@ -983,6 +1052,10 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 ## 使用aop读取被注解标注的类、方法或字段
 
 参考：https://blog.csdn.net/dongshaw/article/details/112213322（使用自定义注解及AOP切面定位字段并做业务处理）、https://blog.csdn.net/weixin_49930191/article/details/108360531（Springboot Aop 自定义注解、切面）
+
+# 泛型处理之 ResolvableType
+
+参考：https://blog.csdn.net/zzuhkp/article/details/107749148（Spring 泛型处理之 ResolvableType）
 
 # 配置文件
 
@@ -1274,10 +1347,6 @@ public interface AlgorithmManagerFeign {
 
 网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# HandlerMethodArgumentResolver(参数解析器)
-
-一般用于接口调用之前的权限校验，参考https://blog.csdn.net/qq_36408229/article/details/104436508、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
 # AsyncConfigurer接口
 
 用于线程池配置
@@ -1405,3 +1474,6 @@ GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST
 
 参考：https://blog.csdn.net/qq_28340701/article/details/126371263（关于springboot的优雅停机和健康检查配置（用于k8s服务重启））
 
+# Spring MVC实用工具
+
+参考：https://blog.csdn.net/f641385712/article/details/87814153（【小家Spring】Spring MVC好用工具介绍：UrlPathHelper、WebUtils、RequestContextUtils、WebApplicationContextUtils...）
