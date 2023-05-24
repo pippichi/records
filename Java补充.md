@@ -302,6 +302,14 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 }
 ```
 
+# lambda表达式实现List转Map
+
+- partitionBy分组
+- groupingBy分组
+- toMap自定义`<key, value>`
+
+参考：https://blog.csdn.net/qq_23365135/article/details/123769033（Java lambda表达式实现List转Map）
+
 # 多线程
 
 ## 线程池中多余的线程如何被回收？

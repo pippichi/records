@@ -210,6 +210,10 @@ private Long indexId;
 
 参考：https://blog.csdn.net/ckc_666/article/details/79239974（@PathVariable是什么？详情及用法解析）
 
+# 文件或图片上传大小限制
+
+参考：https://blog.csdn.net/u014163312/article/details/119612117（SpringBoot限制文件或图片上传大小的配置方法）
+
 # ProtoBuf
 
 protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
