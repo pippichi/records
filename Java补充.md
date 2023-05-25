@@ -1,4 +1,4 @@
-# Java对象内存大小计算
+# ava对象内存大小计算
 
 **JavaClass基本结构：**
 
@@ -1132,7 +1132,7 @@ MDC 能干什么？
 - 在微服务盛行的当下，链路跟踪是个难题，而借助 MDC 去埋点，巧妙实现链路跟踪应该不是问题；
 - ...
 
-参考：https://blog.csdn.net/weixin_42474537/article/details/114501759（java中mdc是什么_MDC是什么鬼？用法、源码一锅端）、https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）
+参考：https://blog.csdn.net/weixin_42474537/article/details/114501759（java中mdc是什么_MDC是什么鬼？用法、源码一锅端）、https://blog.csdn.net/taiyangdao/article/details/82860105（SLF4J及其MDC详解）、https://www.cnblogs.com/sealedbook/p/6227452.html（SLF4J中的MDC）、https://blog.csdn.net/u012410733/article/details/109406093（Spring Boot 中使用 MDC 追踪一次请求全过程）
 
 # Reference 、ReferenceQueue
 

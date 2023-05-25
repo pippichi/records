@@ -18,6 +18,13 @@ SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、Framewo
 
 ### RequestMappingHandlerMapping
 
+使用以下代码可以获取到所有url路径对应的控制器方法的详细信息：
+
+```
+RequestMappingHandlerMapping mapping = SpringUtil.getBean(RequestMappingHandlerMapping.class);
+Map<RequestMappingInfo, HandlerMethod> handlerMethods = mapping.getHandlerMethods();
+```
+
 参考：https://www.cnblogs.com/minikobe/p/11233908.html（RequestMappingHandlerMapping详解）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 ## HandlerAdapter
@@ -543,6 +550,14 @@ public class TagGroup extends BasicEntity<Long> {
 
 # 注入以及上下文环境
 
+## @Value
+
+参考：https://blog.csdn.net/woheniccc/article/details/79804600（spring的@Value注解使用）
+
+## @Configuration
+
+参考：https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
+
 ## @Repository
 
 参考：https://blog.csdn.net/wqh0830/article/details/96109587（@Repository注解的作用）、https://blog.csdn.net/qq_44421399/article/details/109825479（@Repository 与 @Mapper的区别）
@@ -552,6 +567,10 @@ public class TagGroup extends BasicEntity<Long> {
 原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
 
 利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
+
+## @NestedConfigurationProperty
+
+参考：https://blog.csdn.net/u013541707/article/details/113193128（简单分析@NestedConfigurationProperty的作用）、https://blog.csdn.net/hua_ming/article/details/108624157（@NestedConfigurationProperty注解使用场景）
 
 ## ApplicationContext
 
@@ -736,7 +755,7 @@ ApplicationContext事件机制是观察者设计模式的实现，通过Applicat
 
 参考：https://www.cnblogs.com/wwjj4811/p/14540493.html（ApplicationListener用法及原理）、https://blog.csdn.net/liyantianmin/article/details/81017960（理解 Spring ApplicationListener）
 
-# Application 事件与监听器（钩子函数）
+# ApplicationEvent 事件与监听器（钩子函数）
 
 一、当一个Application运行时，会发送如下事件：
 
@@ -864,6 +883,54 @@ spring:
 # SpringCloud+Spring Security+OAuth2 + JWT + Gateway
 
 参考：https://blog.csdn.net/lbjfish/article/details/109187316（SpringCloud+Spring Security+OAuth2 + JWT + Gateway讲解）
+
+# 被弃用的WebSecurityConfigurerAdapter及其替代方案：SecurityFilterChain、WebSecurityCustomizer、JdbcUserDetailsManager、InMemoryUserDetailsManager、EmbeddedLdapServerContextSourceFactoryBean与AuthenticationManager
+
+参考：https://blog.csdn.net/OLinOne/article/details/128100367（Spring Security 5.7.0弃用 WebSecurityConfigurerAdapter）、https://blog.csdn.net/lazy_LYF/article/details/127284459（WebSecurityConfigurerAdapter已弃用）
+
+## 基于方法的动态权限（@EnableGlobalMethodSecurity与@PreAuthorize）；
+
+参考：https://juejin.cn/post/7106300827035238407（别再用过时的方式了！全新版本Spring Security，这样用才够优雅！）
+
+## 基于路径的动态权限（AbstractSecurityInterceptor、Filter接口与AccessDecisionManager接口）
+
+AccessDecisionManager接口可用于创建自定义权限控制管理器
+
+参考：https://juejin.cn/post/7106300827035238407（别再用过时的方式了！全新版本Spring Security，这样用才够优雅！）、https://blog.csdn.net/weixin_44516305/article/details/88868791（Spring Security用户认证和权限控制（自定义实现））
+
+# TokenEndpoint、Token授权TokenGranter接口
+
+参考：https://blog.csdn.net/hou_ge/article/details/122341774（SpringSecurity OAuth2 获取Token端点TokenEndpoint、Token授权TokenGranter接口 详解）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# TokenEnhancer、JwtAccessConverter与TokenEnhancerChain向jwt中添加额外信息
+
+参考：https://blog.csdn.net/cauchy6317/article/details/85123018（Spring Security Oauth2 中实现TokenEnhancer向jwt中添加额外信息）、https://blog.csdn.net/qq_42654484/article/details/95216037（Springsceurity使用TokenEnhancer和JwtAccessConverter增强jwt令牌原理）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# AuthorizationServer配置、AuthorizationServerConfigurerAdapter
+
+参考：https://blog.csdn.net/silmeweed/article/details/101603227（Oauth2---AuthorizationServer配置）、https://blog.csdn.net/hurley11/article/details/110868018（oauth2.0的配置信息AuthorizationServerConfigurerAdapter）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# KeyPair与KeyStoreKeyFactory、KeyPairGenerator与jks证书
+
+KeyStoreKeyFactory可从本地证书文件中获取密钥，参考：[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+KeyPairGenerator可生成RSA密钥对，参考：https://blog.csdn.net/kzcming/article/details/115205299（java 根据 KeyPairGenerator对象生成RSA密钥对,并进行测试）
+
+如何生成jks证书文件？参考：https://blog.csdn.net/XXX1238XGH/article/details/122278255（如何生成jks证书文件）
+
+如何使用jks证书文件？参考：[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# RSA加密解密
+
+参考：https://blog.csdn.net/qq_35605213/article/details/80591869（RSA加密解密，String转PublicKey、PrivateKey；附Base64.JAR）
+
+# Spring Security密码解析器PasswordEncoder接口及其实现类BCryptPasswordEncoder详解
+
+参考：https://blog.csdn.net/qq_31960623/article/details/118397707（PasswordEncoder详解）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+# Hutool加解密工具SecureUtil详解
+
+参考：Hutool官网、https://apidoc.gitee.com/dromara/hutool/cn/hutool/crypto/SecureUtil.html（Class SecureUtil）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # HttpSession
 
@@ -1202,6 +1269,15 @@ public class FileUtil {
 
 参考：https://blog.csdn.net/dejunyang/article/details/89527330（Swagger注解 @ApiResponses 和 @ApiResponse）
 
+# 控制台打印功能
+
+- 使用Hutool的Console工具包
+- 使用SimpleConsoleTable（参考[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)）
+
+# actuator组件（服务健康监测组件）深度使用（包括InfoContributor接口的使用、EndPoint解析等）
+
+参考：https://blog.csdn.net/qq_26000415/article/details/79234812（spring boot 源码解析57-actuator组件:info背后的密码(全网独家)）、https://blog.csdn.net/qq_26000415/article/details/79060258（spring boot 源码解析23-actuate使用及EndPoint解析）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # 文件系统
 
 可以使用minio或者fdfs
@@ -1215,6 +1291,14 @@ public class FileUtil {
 除了使用`Spring Boot Admin`之外，还可以用`Prometheus`配合`Spring Boot Admin`来使用
 
 参考：https://blog.csdn.net/forezp/article/details/107465307（Spring Boot集成普罗米修斯）、https://blog.csdn.net/forezp/article/details/86105850（Spring Boot Admin）、https://blog.csdn.net/feidie436/article/details/81381841（Spring Boot Admin配置属性详解）
+
+## @Timed、WebMvcMetricsFilter与WebMvcMetricsAutoConfiguration
+
+这些注解与配置类是用于系统埋点数据监控记录的。
+
+@Timed注解用于标注在方法上，使得Prometheus框架可以自动记录执行耗时。
+
+参考：https://blog.csdn.net/weixin_42182797/article/details/102614969（Prometheus+Springboot2.x实用实战——Timer（一）之@Timed初探）、https://blog.csdn.net/weixin_42182797/article/details/102999663（Prometheus+Springboot2.x实用实战——Timer（二）之WebMvcMetricsFilter（最少配置的Timer记录））
 
 # SpringBoot整合websocket
 
