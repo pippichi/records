@@ -154,3 +154,20 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 ## 屏幕坐标与世界坐标互转
 
 参考：https://blog.csdn.net/longyanbuhui/article/details/84201864（UE4_屏幕位置与世界位置的相互转化）、https://zhuanlan.zhihu.com/p/597560776（UE4 相机屏幕坐标与世界坐标的相互转换）
+
+# 游戏技能音效下载网站
+
+- https://soundscrate.com/electricity.html（Electricity Sound Effects）
+- https://freesfx.co.uk/Default.aspx（freeSFX）
+- https://opengameart.org/art-search-advanced（OpenGameArt.ORG）
+- https://www.aigei.com/sound/class/fight/（爱给）
+
+参考：https://zhuanlan.zhihu.com/p/108442292（推荐几个免费 游戏技能音效下载网站）
+
+# 风场（Wind）
+
+参考：https://blog.csdn.net/shenmifangke/article/details/80281904（ue4内植物碰撞和风力设置）、https://blog.csdn.net/qq_36917144/article/details/104010429（虚幻4创建旗帜和随机风力）
+
+# 体积烟雾
+
+参考：https://zhuanlan.zhihu.com/p/405811376（【UE4】五种烟雾流程）、FluidNinjaLive、b站聆枫LingFeng Niagara流体模拟教程
