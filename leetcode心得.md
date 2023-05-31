@@ -7899,9 +7899,25 @@ int main(){
 
 参考：https://blog.csdn.net/sunnyzyq/article/details/116763427（什么是稀疏数组？稀疏数组详解）
 
+### 梯度下降
+
+参考：https://blog.csdn.net/qq_45066628/article/details/123761421（一文搞懂梯度下降）
+
 ### 最小二乘法
 
-参考：https://blog.csdn.net/ccnt_2012/article/details/81127117（如何理解最小二乘法？）
+参考：https://blog.csdn.net/ccnt_2012/article/details/81127117（如何理解最小二乘法？）、https://blog.csdn.net/W1995S/article/details/118153146（最小二乘法）
+
+### 雅可比矩阵
+
+参考：http://www.taodudu.cc/news/show-3895733.html（学习笔记之——Jacobian matrix（雅可比矩阵））、https://zhuanlan.zhihu.com/p/499405167（【游戏开发】逆向运动学（IK）详解）
+
+#### 雅可比逆矩阵
+
+参考：https://blog.csdn.net/qq_17386217/article/details/118977778（微分变换构造雅可比逆解）
+
+### 奇异值分解（SVD）
+
+参考：https://blog.csdn.net/zhongkejingwang/article/details/43053513（奇异值分解(SVD)原理详解及推导）
 
 ### K-means聚类
 
