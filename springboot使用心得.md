@@ -1114,9 +1114,15 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 `@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
 
-# @Validated和@Valid
+# 参数校验
+
+## @Validated和@Valid
 
 参考：https://blog.csdn.net/qq_32352777/article/details/108424932（@Validated注解详解，分组校验，嵌套校验，@Valid和@Validated 区别，Spring Boot @Validated）
+
+## @Pattern
+
+参考：https://blog.csdn.net/inthat/article/details/108843826（spring boot-@Validated参数校验 @Pattern 利用正则自定义注解）、
 
 # AOP
 
@@ -1146,9 +1152,7 @@ Spring Cloud会创建一个`Bootstrap Context`，作为Spring应用的`Applicati
 
 ## 激活其他配置文件
 
-`spring:profiles:include的妙用`
-
-参考博客：https://blog.csdn.net/jasnet_u/article/details/82995845
+参考：https://blog.csdn.net/jasnet_u/article/details/82995845（springboot中`spring.profiles.include`的妙用）
 
 ## 激活配置文件组
 
@@ -1378,6 +1382,10 @@ BeanUtil利用反射，MapStruct利用lombok机制在编译期间直接生成代
 
   参考：https://blog.csdn.net/zhangduilei/article/details/78606636（DisposableBean接口实现资源销毁）
 
+# RPC与gRPC
+
+参考：https://blog.csdn.net/qq_38721452/article/details/121566018（RPC和GRPC）
+
 # Feign
 
 ## Feign过期时间设置
@@ -1547,6 +1555,8 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 # Spel表达式
 
 参考：https://blog.csdn.net/likun557/article/details/107853045（Spring系列第39篇：强大的Spel表达式）、https://cloud.tencent.com/developer/article/1497676（【小家Spring】SpEL你感兴趣的实现原理浅析spring-expression~(SpelExpressionParser、EvaluationContext、rootObject)）
+
+
 
 # GraphQL
 
