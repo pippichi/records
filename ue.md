@@ -171,3 +171,13 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 # 体积烟雾
 
 参考：https://zhuanlan.zhihu.com/p/405811376（【UE4】五种烟雾流程）、FluidNinjaLive、b站聆枫LingFeng Niagara流体模拟教程
+
+# Niagara
+
+## Dynamic Material Parameter
+
+在particle update中添加Dynamic Material Parameter指定粒子的属性
+
+材质中使用Dynamic Parameter将Niagara中的动态属性值传入材质
+
+参考：https://blog.csdn.net/hechao3225/article/details/113532401（UE4 Niagara粒子系统基础笔记）
