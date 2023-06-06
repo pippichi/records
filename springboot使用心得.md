@@ -483,27 +483,6 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 参考：https://blog.csdn.net/user2025/article/details/105458842（SpringBoot常用注解@RestControllerAdvice）、https://blog.csdn.net/jsq6681993/article/details/119712621（RequestBodyAdvice用法详解-参数加解密示例）
 
-# 字段校验
-
-## @Pattern
-
-可使用正则表达式进行校验
-
-例子：
-
-```java
-@Data
-public class TagGroup extends BasicEntity<Long> {
-
-    private static final long serialVersionUID = 1L;
-    
-    @Pattern(regexp="^[0-9]*$", message="组类型只能输入0-9的正整数")
-    private String groupType;
-}
-```
-
-
-
 # 单元测试
 
 ## @Nested
@@ -572,15 +551,65 @@ public class TagGroup extends BasicEntity<Long> {
 
 参考：https://blog.csdn.net/u013541707/article/details/113193128（简单分析@NestedConfigurationProperty的作用）、https://blog.csdn.net/hua_ming/article/details/108624157（@NestedConfigurationProperty注解使用场景）
 
-## ApplicationContext
+## Spring容器获取Bean的9种方式总结
 
-ApplicationContext可以干很多事情，比如遍历扫描容器中所有的Bean
+**Spring中的IOC容器：**
 
-参考：https://blog.csdn.net/yangye1225/article/details/79525713（ApplicationContext介绍）
+在Spring中，Bean的实例化、定位、配置应用程序中的对象及建立对象间的依赖关系，都是在IoC容器中进行的。因此，要在Spring中获取Bean，本质上就是从IoC容器当中获取Bean。
 
-## ApplicationContextAware接口获取上下文环境
+在Spring中，BeanFactory是IoC容器的实际代表者，该接口提供了IoC容器最基本功能。同时，Spring还提供了另外一种类型的容器：ApplicationContext容器。
 
-参考：https://www.cnblogs.com/loong-hon/p/10917755.html（ApplicationContextAware接口的作用）
+ApplicationContext容器包括BeanFactory容器的所有功能（BeanFactory的子接口），提供了更多面向应用的功能，它提供了国际化支持和框架事件体系，更易于创建实际应用。
+
+一般情况，我们称BeanFactory为IoC容器，称ApplicationContext为应用上下文。但有时为了方便，也将ApplicationContext称为Spring容器。
+
+通常不建议使用BeanFactory，但BeanFactory 仍然可以用于轻量级的应用程序，如移动设备或基于applet的应用程序，其中它的数据量和速度是显著。
+
+
+
+**BeanFactory与ApplicationContext的区别：**
+
+BeanFactory是Spring框架的基础设施，面向Spring本身。ApplicationContext则面向使用Spring框架的开发者，几乎所有的应用场景都可以直接使用ApplicationContext，而非底层的BeanFactory。
+
+另外，ApplicationContext的初始化和BeanFactory有一个重大的区别：
+
+BeanFactory在初始化容器时，并未实例化Bean，直到第一次访问某个Bean时才实例目标Bean。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。
+
+而ApplicationContext则在初始化应用上下文时就实例化所有单实例的Bean，相对应的，ApplicationContext的初始化时间会比BeanFactory长一些。
+
+了解了上述的基本理论知识之后，我们就可以尝试从IoC容器当中获取Bean对象了。
+
+
+
+**9种获取Bean方案：**
+
+- 通过BeanFactory获取
+
+- 通过BeanFactoryAware获取
+
+- 启动获取ApplicationContext
+
+  ApplicationContext可以干很多事情，比如遍历扫描容器中所有的Bean
+
+  参考：https://blog.csdn.net/yangye1225/article/details/79525713（ApplicationContext介绍）
+
+- 通过继承ApplicationObjectSupport
+
+- 通过继承WebApplicationObjectSupport
+
+- 通过WebApplicationContextUtils
+
+- 通过ApplicationContextAware
+
+  参考：https://www.cnblogs.com/loong-hon/p/10917755.html（ApplicationContextAware接口的作用）
+
+- 通过ContextLoader
+
+- 通过BeanFactoryPostProcessor
+
+参考：https://juejin.cn/post/7215454015726518330（Spring容器获取Bean的9种方式）
+
+
 
 ## BeanFactory和FactoryBean
 
@@ -742,6 +771,46 @@ public class ConditionalTest {
 正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
 
 参考：https://blog.csdn.net/asdfsadfasdfsa/article/details/114219540（ObjectProvider使用）
+
+# SpringData
+
+参考：https://blog.csdn.net/qq_28289405/article/details/82382441（spring data 简介（一））
+
+## MongoDB
+
+自定义字段填充，为公共字段填充提供便利：
+
+```
+// 1.实现元数据处理器
+@Component
+public class MongoTimeMetaObjectHandler implements MongoMetaObjectHandler {
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        metaObject.insertFill("createTime", LocalDateTime.now());
+    }
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        metaObject.updateFill("updateTime", LocalDateTime.now());
+    }
+}
+// 2.添加注解
+@Data
+public class Test {
+    private String name;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
+}
+```
+
+注意：如果编写元数据处理器，但未添加`@TableField`的`fill`属性，或填充策略行为不对（需要在插入时进行填充的字段，填充策略写为`FieldFill.UPDATE`），都将导致无法进行属性值注入。
+
+
+
+**Criteria、Update类、UpdateResult：**
+
+参考：[张润华`sup-spring-boot-starter-mongo`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # ApplicationListener
 
@@ -927,10 +996,6 @@ KeyPairGenerator可生成RSA密钥对，参考：https://blog.csdn.net/kzcming/a
 # Spring Security密码解析器PasswordEncoder接口及其实现类BCryptPasswordEncoder详解
 
 参考：https://blog.csdn.net/qq_31960623/article/details/118397707（PasswordEncoder详解）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
-# Hutool加解密工具SecureUtil详解
-
-参考：Hutool官网、https://apidoc.gitee.com/dromara/hutool/cn/hutool/crypto/SecureUtil.html（Class SecureUtil）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # HttpSession
 
@@ -1122,7 +1187,24 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 ## @Pattern
 
-参考：https://blog.csdn.net/inthat/article/details/108843826（spring boot-@Validated参数校验 @Pattern 利用正则自定义注解）、
+参考：https://blog.csdn.net/inthat/article/details/108843826（spring boot-@Validated参数校验 @Pattern 利用正则自定义注解）
+
+可使用正则表达式进行校验
+
+例子：
+
+```java
+@Data
+public class TagGroup extends BasicEntity<Long> {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Pattern(regexp="^[0-9]*$", message="组类型只能输入0-9的正整数")
+    private String groupType;
+}
+```
+
+
 
 # AOP
 
@@ -1349,6 +1431,22 @@ Hutool是一个小而全的Java工具类库，通过静态方法封装，降低�
 Hutool封装了诸如SpringUtil、HttpUtil等工具，用起来更加方便高效
 
 官方文档：https://www.hutool.cn/
+
+## Hutool加解密工具SecureUtil详解
+
+参考：Hutool官网、https://apidoc.gitee.com/dromara/hutool/cn/hutool/crypto/SecureUtil.html（Class SecureUtil）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## LambdaUtil
+
+参考：https://apidoc.gitee.com/dromara/hutool/cn/hutool/core/lang/func/LambdaUtil.html（Class LambdaUtil）
+
+# Spring常用的Util工具类
+
+参考：https://blog.csdn.net/ystyaoshengting/article/details/112044515（Spring常用的Util工具类）
+
+## 反射工具ReflectionUtils
+
+参考：https://blog.csdn.net/wolfcode_cn/article/details/80660515（Spring中的各种Utils（五）：ReflectionUtils详解）、[张润华`sup-spring-boot-starter-mongo`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # BeanUtil与MapStruct
 

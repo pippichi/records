@@ -310,6 +310,10 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 
 参考：https://blog.csdn.net/qq_23365135/article/details/123769033（Java lambda表达式实现List转Map）
 
+# 正则表达式Pattern
+
+参考：https://blog.csdn.net/woniu317/article/details/52186694（Pattern用法(正则表达式)）
+
 # 多线程
 
 ## 线程池中多余的线程如何被回收？
@@ -1001,6 +1005,14 @@ public class AAA{
 作用类似springmvc中`@RequestMapping中的属性produces`
 
 参考：https://blog.csdn.net/shadowcw/article/details/88093081
+
+## @SafeVarargs
+
+参考：https://www.cnblogs.com/springmorning/p/10285780.html（@SafeVarargs注解的使用）
+
+## @FunctionInterface
+
+参考：https://blog.csdn.net/aitangyong/article/details/54137067（JDK8新特性：函数式接口@FunctionalInterface的使用说明）
 
 # 生成随机值
 
