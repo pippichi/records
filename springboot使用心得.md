@@ -808,7 +808,25 @@ public class Test {
 
 
 
-**Criteria、Update类、UpdateResult：**
+AbstractMongoEventListener与onBeforeConvert、onBeforeSave：
+
+参考：https://www.jianshu.com/p/82c67509ba79（Springboot MongoDB CRUD（一））
+
+
+
+mongodb数据源配置与AbstractMongoClientConfiguration：
+
+参考：https://www.jianshu.com/p/82c67509ba79（Springboot MongoDB CRUD（一））
+
+
+
+@CustomerId [自定义 ID 生成策略]（需配合监听器实现）：
+
+参考：https://www.jianshu.com/p/82c67509ba79（Springboot MongoDB CRUD（一））
+
+
+
+Criteria、Update类、UpdateResult：
 
 参考：[张润华`sup-spring-boot-starter-mongo`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
