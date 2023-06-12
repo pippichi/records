@@ -1480,6 +1480,12 @@ BeanUtil利用反射，MapStruct利用lombok机制在编译期间直接生成代
 
 参考：https://blog.csdn.net/sid1109217623/article/details/84065725（Spring源码分析之MessageSource）
 
+# StopWatch
+
+可以用于监控代码段执行时长
+
+参考：https://blog.csdn.net/gxs1688/article/details/87185030（Spring计时器StopWatch使用）
+
 # 监听应用启动与关闭的回调钩子
 
 当应用启动成功后的回调：
