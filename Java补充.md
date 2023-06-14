@@ -1,4 +1,4 @@
-# ava对象内存大小计算
+# Java对象内存大小计算
 
 **JavaClass基本结构：**
 
@@ -1131,6 +1131,14 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 
 具体使用参考博客：https://blog.csdn.net/qq_31865983/article/details/106443244（`Java8 Stream API` 之 `IntStream` 用法全解）、https://blog.csdn.net/a13662080711/article/details/84928181（`Arrays.stream()`）、https://www.cnblogs.com/baby123/p/12619872.html（`Arrays.asList`与`Arrays.stream`）
 
+## Spliterator
+
+参考：https://blog.csdn.net/sl1992/article/details/100149187（Java8中Spliterator详解）
+
+## Sink（流水线节点）
+
+参考：https://zhuanlan.zhihu.com/p/47478339（原来你是这样的 Stream —— 浅析 Java Stream 实现原理）
+
 # lambda表达式分组、过滤、求和、最值、排序、去重
 
 参考：https://blog.csdn.net/gsls200808/article/details/86501905（java 8 lambda表达式list操作分组、过滤、求和、最值、排序、去重）
@@ -1341,6 +1349,18 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 | 复杂性             | 非常复杂，涉及技术庞杂                                       | 比较简单清晰                                                 |
 | 典型应用场景       | 推流端与播放端互动性强的场景：视频会议、连麦互动、语音/视频聊天 | 推流端与播放端同步性不是很高要求的场景：活动/赛事直播、秀场直播、游戏直播、直播带货 |
 | 价格（成本）       | 高                                                           | 低                                                           |
+
+# 大文件处理
+
+## 大excel文件处理
+
+如果对有一定并发的项目，大文件读最好是使用SAX模式，但它有一定的编码量；大文件的写最好基于sxssf。
+
+定时做`System.gc()`也可一定程度上缓解内存紧张。如果gc不是cms模式要在启动项中要添加配置（`-XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled`）
+
+参考：https://blog.csdn.net/alex_xfboy/article/details/84844667（彻底解决POI 读写excel 发生OOM问题）、https://poi.apache.org/components/spreadsheet/how-to.html#xssf_sax_api（使用SAX处理大文件读）
+
+
 
 # Closeable、AutoCloseable与`try-with-resources`语法
 
