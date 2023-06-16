@@ -963,6 +963,10 @@ spring:
         queue-capacity: 100
 ```
 
+## 线程池拒绝策略
+
+参考：https://blog.csdn.net/dyc87112/article/details/120434537（Spring Boot中如何配置线程池拒绝策略，妥善处理好溢出的任务）
+
 # 单点登录
 
 参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
