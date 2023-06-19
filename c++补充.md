@@ -754,9 +754,13 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 
-# 模板元编程与type_traits
+# 模板元编程
 
-参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）
+参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
+
+## 萃取器
+
+参考：https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）、https://zhuanlan.zhihu.com/p/547313994（C++：STL中的萃取器traits）
 
 # 模板参数类型
 
