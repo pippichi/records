@@ -1030,6 +1030,8 @@ UUID.randomUUID();
 
 具体使用方法查看hutool源码或deya门户项目源码
 
+参考：https://blog.csdn.net/Piconjo/article/details/106931062（SnowFlake雪花算法的介绍及Java实现(工具类)）
+
 # jarFile
 
 jarFile可用于读取jar文件中的内容
@@ -1221,7 +1223,7 @@ SPI机制案例：
 - SpringBoot的SPI机制：我们可以在spring.factories中加上我们自定义的自动配置类，事件监听器或初始化器等；
 - Dubbo的SPI机制：Dubbo更是把SPI机制应用的淋漓尽致，Dubbo基本上自身的每个功能点都提供了扩展点，比如提供了集群扩展，路由扩展和负载均衡扩展等差不多接近30个扩展点。如果Dubbo的某个内置实现不符合我们的需求，那么我们只要利用其SPI机制将我们的实现替换掉Dubbo的实现即可；
 
-参考：https://blog.csdn.net/ymb615ymb/article/details/123450610（SPI机制是什么？）
+参考：https://blog.csdn.net/ymb615ymb/article/details/123450610（SPI机制是什么？）、https://zhuanlan.zhihu.com/p/148144666（搞懂dubbo的SPI扩展机制）
 
 # java调用c/c++
 
