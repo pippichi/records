@@ -258,6 +258,10 @@ C++中静态成员变量可以在类内部声明但要在类外部再定义或�
 
 参考：https://www.apiref.com/cpp-zh/cpp/language/constraints.html
 
+## auto
+
+参考：https://blog.csdn.net/weixin_65743593/article/details/128885933（C++之（泛型编程基础）auto、decltype）、https://blog.csdn.net/xiaoquantouer/article/details/51647865（c++ auto类型用法总结）
+
 ## decltype
 
 decltype是C++11新增的一个关键字，和auto的功能一样，用来在编译时期进行自动类型推导。引入decltype是因为auto并不适用于所有的自动类型推导场景，在某些特殊情况下auto用起来很不方便或无法使用。
@@ -377,6 +381,16 @@ valarray 是面向数值计算的数组，在C++11中才支持，他支持很多
 `std::slice` 表示一个valarray切片选择器
 
 参考：https://www.apiref.com/cpp-zh/cpp/numeric/valarray/slice.html
+
+### decay
+
+退化类型的修饰
+
+参考：https://blog.csdn.net/luoshabugui/article/details/109853418（C++11 decay）
+
+### declval
+
+参考：https://blog.csdn.net/m0_51271123/article/details/121780256（declval）、https://blog.csdn.net/fpcc/article/details/128231478（c++11中的declval和decltype）、https://blog.csdn.net/baidu_41388533/article/details/109692968（（C++模板编程）：std::declval（上））、https://blog.csdn.net/baidu_41388533/article/details/109694962（（C++模板编程）：std::declval（下））
 
 ## ctype
 
@@ -758,11 +772,15 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
 
+## 全特化与偏特化
+
+参考：https://blog.csdn.net/m_buddy/article/details/72973207（C++模板全特化、偏特化）
+
 ## 萃取器
 
 参考：https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）、https://zhuanlan.zhihu.com/p/547313994（C++：STL中的萃取器traits）
 
-# 模板参数类型
+## 模板参数类型
 
 模板参数通常表示类型，表示类型的模板参数称为类型模板参数（type template parameter）；此外还有非类型模板参数（non-type template parameter），非类型模板参数包含以下四种类型：
 
@@ -871,9 +889,13 @@ public:
 };
 ```
 
-# 现代C++之SFINAE（模板进阶）
+## 现代C++之SFINAE（模板进阶）
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
+
+## 混合元编程
+
+参考：https://blog.csdn.net/baidu_41388533/article/details/109806030（（C++模板编程）：混合元编程（上））、https://blog.csdn.net/baidu_41388533/article/details/109810342（（C++模板编程）：混合元编程（下））
 
 # vector的reserve的作用
 
