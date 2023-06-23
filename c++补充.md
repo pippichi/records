@@ -308,6 +308,10 @@ RTTI(`Run-TimeType Information`, 运行时类型信息)，它提供了运行时�
 
 参考：https://blog.csdn.net/l2563898960/article/details/97769569（C++ 中explicit关键字详解）
 
+## likely与unlikely
+
+参考：https://zhuanlan.zhihu.com/p/357434227（C++关键字之likely和unlikely）
+
 # 库函数
 
 ## stl
@@ -768,9 +772,17 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 
-# 模板元编程
+# 模板
 
-参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
+参考：https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
+
+## 元编程
+
+参考：https://blog.csdn.net/WHEgqing/article/details/121390133（C++模板元编程）、https://bot-man-jl.github.io/articles/?post=2017/Cpp-Metaprogramming（浅谈 C++ 元编程）
+
+## 混合元编程
+
+参考：https://blog.csdn.net/baidu_41388533/article/details/109806030（（C++模板编程）：混合元编程（上））、https://blog.csdn.net/baidu_41388533/article/details/109810342（（C++模板编程）：混合元编程（下））
 
 ## 全特化与偏特化
 
@@ -893,10 +905,6 @@ public:
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
 
-## 混合元编程
-
-参考：https://blog.csdn.net/baidu_41388533/article/details/109806030（（C++模板编程）：混合元编程（上））、https://blog.csdn.net/baidu_41388533/article/details/109810342（（C++模板编程）：混合元编程（下））
-
 # vector的reserve的作用
 
 场景：vector如果不断的`push_back`，会进行内存的重新自动分配。
@@ -905,3 +913,6 @@ reserve的作用是更改vector的容量（capacity），使vector至少可以�
 
 参考：https://blog.csdn.net/hl_zzl/article/details/84944494（vector的reserve的使用（避免内存重新分配以及内存分配的方式））
 
+# 垃圾回收算法
+
+参考：https://blog.csdn.net/u012611878/article/details/78947267（C++中垃圾回收机制中几种经典的垃圾回收算法）
