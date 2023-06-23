@@ -63,6 +63,10 @@ main(){
 
 基于这个特性，constexpr还可以被用来实现编译期的type traits，比如STL中的is_const的实现。
 
+## volatile
+
+参考：https://blog.csdn.net/weixin_44363885/article/details/92838607（详解C/C++中volatile关键字）
+
 ## mutable
 
 mutable是“可变的，异变的”的意思，跟const是反义词
@@ -133,6 +137,36 @@ getAge()方法被调用了10次
 **注意：**
 
 mutable不能修饰const 和 static 类型的变量
+
+
+
+在函数声明中使用mutable关键字：
+
+```c++
+template<typename ...U>
+void Test(U... u) {
+    /**int last_index = sizeof...(U) - 1;
+    int i = 0;
+    auto printer = [last_index, i]<typename Arg>(Arg arg) mutable { // 如果不加mutable则编译不过，因为i是外部int变量，不能直接被lambda表达式捕获
+        if (last_index == i++) cout << arg << endl;
+        else cout << arg << ", ";
+    };*/
+    
+    
+    // 1、上面代码中由于sizeof...是一个在编译期就能计算完成的操作符，因此last_index本质上就是一个值，可以使用const来修饰。如果使用const修饰了，那么就不需要写到lambda表达式捕获符号中了从而避免不必要的值拷贝；
+    // 2、上面代码中由于lambda表达式对于i是值捕获，会发生值拷贝；
+    // 因此使用引用捕获做优化：
+    int const last_index = sizeof...(U) - 1;
+    int i = 0;
+    auto printer = [&i]<typename Arg>(Arg arg) {
+        if (last_index == i++) cout << arg << endl; // 这里的i++改变的是引用i所指向内存地址中的值
+        else cout << arg << ", ";
+    };
+    (printer(u), ...); // 折叠表达式
+}
+```
+
+参考：https://blog.csdn.net/AAA123524457/article/details/80967330（深入理解C++中的mutable关键字）、https://zhuanlan.zhihu.com/p/455490651（C++知识分享：C++的mutable和volatile）、https://www.bilibili.com/video/BV1564y1h7y7/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（[C++] 填上上回的坑：这次用 Lambda 试试？）
 
 ## using
 
@@ -308,9 +342,52 @@ RTTI(`Run-TimeType Information`, 运行时类型信息)，它提供了运行时�
 
 参考：https://blog.csdn.net/l2563898960/article/details/97769569（C++ 中explicit关键字详解）
 
+## operator重载符
+
+参考：https://blog.csdn.net/liitdar/article/details/80654324（C++编程语言中重载运算符（operator）介绍）、https://blog.csdn.net/jinzhu1911/article/details/101317367（C++operator()(重载小括号运算符)）、https://blog.csdn.net/xgf415/article/details/52966475（C++函数对象operator()）
+
+## 重载文本符号
+
+重载文本运算符时参数类型必须为`char`或`unsigned long long`！
+
+例1：（以下为`std::chrono_literials`中看到的例子）
+
+```c++
+inline namespace literals {
+    inline namespace chrono_literals {
+        _NODISCARD constexpr _CHRONO milliseconds operator"" ms(unsigned long long _Val) noexcept /* strengthened */ {
+            return _CHRONO milliseconds(_Val);
+        }
+    }
+}
+```
+
+例2：
+
+```c++
+namespace qyf {
+	const int operator"" _qyf(char test) {
+		return 1;
+	}
+}
+int main() {
+    using namespace ::qyf;
+    1_qyf; // 可以编译通过
+    return 0;
+}
+```
+
+
+
 ## likely与unlikely
 
 参考：https://zhuanlan.zhihu.com/p/357434227（C++关键字之likely和unlikely）
+
+# 操作符
+
+## `sizeof...`
+
+参考：https://en.cppreference.com/w/cpp/language/sizeof...（sizeof... operator (since C++11)）
 
 # 库函数
 
@@ -395,6 +472,36 @@ valarray 是面向数值计算的数组，在C++11中才支持，他支持很多
 ### declval
 
 参考：https://blog.csdn.net/m0_51271123/article/details/121780256（declval）、https://blog.csdn.net/fpcc/article/details/128231478（c++11中的declval和decltype）、https://blog.csdn.net/baidu_41388533/article/details/109692968（（C++模板编程）：std::declval（上））、https://blog.csdn.net/baidu_41388533/article/details/109694962（（C++模板编程）：std::declval（下））
+
+### exchange
+
+参考：https://blog.csdn.net/baidu_41388533/article/details/110783345（`std::exchange` 介绍及使用）
+
+### `common_type`与`common_type_t`
+
+取出若干形参中的公共类型。
+
+本质上其实在做隐式转换，如果A能隐式转换成B，则A和B的公共类型就是B。
+
+参考：https://en.cppreference.com/w/cpp/types/common_type（`std::common_type`）、https://www.apiref.com/cpp-zh/cpp/types/common_type.html（`std::common_type`）、https://www.bilibili.com/video/BV1Eb4y1U7qR/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（[C++] 填上回的坑：三块钱表达式的妙用？）、https://www.bilibili.com/video/BV1bv41137Je/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（[C++] common_type 是个什么东西）
+
+### `invoke_result`与`invoke_result_t`
+
+举例：
+
+```c++
+template<typename T>
+struct Generator {
+    template<typename F>
+    Generator<std::invoke_result_t<F, T>> map(F f) { // 这里我们传进去的模板参数是一个function，那么这个function返回值类型是啥呢？我们可以通过std::invoke_result_t<F, T>来拿到它的返回类型，其中F表示该function，T则表示函数的参数。
+        while (has_naxt()) {
+            co_yield f(next());
+        }
+    }
+}
+```
+
+参考：https://en.cppreference.com/w/cpp/types/result_of（`std::invoke_result`）
 
 ## ctype
 
@@ -553,6 +660,10 @@ tie(j, k, i) = make_tuple(i, j, k);
 ## find_package、include_directories和target_link_libraries
 
 参考：https://blog.csdn.net/haluoluo211/article/details/80559341/（cmake教程4(find_package使用)）、https://blog.csdn.net/weixin_39393741/article/details/85070299（include_directories和find_package）、https://blog.csdn.net/u012483097/article/details/109066405（target_link_libraries 和link_libraries区别）
+
+# 模块Modules
+
+参考：https://blog.csdn.net/drivextech/article/details/108697290（c++20模块）、https://blog.csdn.net/Jxianxu/article/details/127499762（一文读懂C++20 新特性之module（模块））、https://zhuanlan.zhihu.com/p/350136757（C++20 新特性: modules 及实现现状）
 
 # Visual Studio开源库集成器Vcpkg
 
@@ -772,6 +883,10 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 
+# 协程
+
+参考：https://www.bennyhuo.com/book/cpp-coroutines（渡劫 C++ 协程）、https://www.bilibili.com/video/BV1vv4y1A7fX/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（C++ 20 的协程其实就是一首歌？）
+
 # 模板
 
 参考：https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
@@ -783,6 +898,10 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 ## 混合元编程
 
 参考：https://blog.csdn.net/baidu_41388533/article/details/109806030（（C++模板编程）：混合元编程（上））、https://blog.csdn.net/baidu_41388533/article/details/109810342（（C++模板编程）：混合元编程（下））
+
+## fold expressions
+
+参考：https://blog.csdn.net/zwvista/article/details/53981696（C++17尝鲜：fold expression（折叠表达式））、https://www.bilibili.com/video/BV1BA411c7eA/?vd_source=c3d9e4c3ef670596b3b0dddab637f86c（[C++] fold expression? 卷起来的表达式？）
 
 ## 全特化与偏特化
 
@@ -904,6 +1023,22 @@ public:
 ## 现代C++之SFINAE（模板进阶）
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
+
+## 模板构造器
+
+举例：
+
+```c++
+template<typename T>
+struct Generator {
+    template<typename U>
+    Generator<U> map(std::function<U(T)> f) { // 参数std::function<U(T)>当中的模板参数U(T)是个模板构造器，放到这里就表示这个函数的参数类型为T，返回值类型为U。
+        while (has_next()) {
+            co_yield f(next());
+        } 
+    }
+}
+```
 
 # vector的reserve的作用
 
