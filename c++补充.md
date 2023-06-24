@@ -1051,3 +1051,11 @@ reserve的作用是更改vector的容量（capacity），使vector至少可以�
 # 垃圾回收算法
 
 参考：https://blog.csdn.net/u012611878/article/details/78947267（C++中垃圾回收机制中几种经典的垃圾回收算法）
+
+# vscode配置c++运行环境
+
+mingw最新版本下载地址：https://github.com/niXman/mingw-builds-binaries/releases
+
+
+
+参考：https://blog.csdn.net/weixin_48468423/article/details/118950592（VsCode安装和配置c/c++环境（超完整，小白专用））、https://blog.csdn.net/Zhouzi_heng/article/details/115014059（【c++】VSCode配置 c++ 环境（小白教程））
