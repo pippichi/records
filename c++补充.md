@@ -282,9 +282,9 @@ C++中静态成员变量可以在类内部声明但要在类外部再定义或�
 
   当然这样做，还是有可能产生线程安全的问题，但不管怎么说对象是创建好了，而这种线程安全问题，可以在编程中予以解决。
 
-## namespace
+## namespace与inline namespace（内联命名空间）
 
-参考：https://blog.csdn.net/qq_21033779/article/details/78921997
+参考：https://blog.csdn.net/qq_21033779/article/details/78921997（c++ 中的 namespace 用法）、https://blog.csdn.net/craftsman1970/article/details/82872497（C++11新特性(79)-内联命名空间(inline namespace)）
 
 ## concept与requires
 
@@ -656,6 +656,8 @@ tie(j, k, i) = make_tuple(i, j, k);
 参考：https://blog.csdn.net/qq_33726635/article/details/115560659（可变参数列表`__VA_ARGS__`介绍）
 
 # cmake
+
+参考：https://www.hahack.com/codes/cmake/（CMake 入门实战）
 
 ## find_package、include_directories和target_link_libraries
 
