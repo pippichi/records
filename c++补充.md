@@ -1054,10 +1054,20 @@ reserve的作用是更改vector的容量（capacity），使vector至少可以�
 
 参考：https://blog.csdn.net/u012611878/article/details/78947267（C++中垃圾回收机制中几种经典的垃圾回收算法）
 
-# vscode配置c++运行环境
+# vscode
+
+## 配置c++运行环境
 
 mingw最新版本下载地址：https://github.com/niXman/mingw-builds-binaries/releases
 
 
 
 参考：https://blog.csdn.net/weixin_48468423/article/details/118950592（VsCode安装和配置c/c++环境（超完整，小白专用））、https://blog.csdn.net/Zhouzi_heng/article/details/115014059（【c++】VSCode配置 c++ 环境（小白教程））
+
+## 配置文件预设变量
+
+参考：https://zhuanlan.zhihu.com/p/44967536（VSCode 配置文件的变量索引）、https://blog.csdn.net/weixin_39249524/article/details/105438814（vscode中的${workspaceFolder}等变量）、https://blog.csdn.net/Hello_Ray/article/details/123522502（vs code中的类似${workspaceFolder}的变量的解释）
+
+## 集成vcpkg
+
+参考：https://blog.csdn.net/weixin_42703267/article/details/120603746（关于Vcpkg在VScode中的配置问题）
