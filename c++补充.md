@@ -1070,4 +1070,4 @@ mingw最新版本下载地址：https://github.com/niXman/mingw-builds-binaries/
 
 ## 集成vcpkg
 
-参考：https://blog.csdn.net/weixin_42703267/article/details/120603746（关于Vcpkg在VScode中的配置问题）
+参考：https://blog.csdn.net/weixin_42703267/article/details/120603746（关于Vcpkg在VScode中的配置问题）、https://zhuanlan.zhihu.com/p/430835667（vscode + cmake + vcpkg搭建c++开发环境）
