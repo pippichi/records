@@ -221,6 +221,10 @@ private Long indexId;
 
 参考：https://blog.csdn.net/u014163312/article/details/119612117（SpringBoot限制文件或图片上传大小的配置方法）
 
+# 判断上传文件的类型
+
+参考：https://blog.csdn.net/paohui001lqp/article/details/113308831（SpringBoot中 判断上传的文件类型 MultipartFile file）、https://blog.csdn.net/x18707731829/article/details/109261718（SpringBoot上传文件类型检测）、https://blog.csdn.net/myfmyfmyfmyf/article/details/90230481（SpringBoot后端上传文件类型检测）
+
 # ProtoBuf
 
 protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
@@ -1365,7 +1369,9 @@ public class FileUtil {
 }
 ```
 
+# nacos配置热更新
 
+参考：https://blog.csdn.net/wang_o_yi/article/details/124387045（Nacos配置热更新的4种方式、读取项目配置文件的多种方式,@value,@RefreshScope,@NacosConfigurationProperties）
 
 # 接口文档生成与增强
 
@@ -1682,7 +1688,9 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/likun557/article/details/107853045（Spring系列第39篇：强大的Spel表达式）、https://cloud.tencent.com/developer/article/1497676（【小家Spring】SpEL你感兴趣的实现原理浅析spring-expression~(SpelExpressionParser、EvaluationContext、rootObject)）
 
+## 在@Value中使用Spel
 
+参考：https://www.cnblogs.com/yihuihui/p/14890802.html（SpringBoot基础系列@Value 之字面量及 SpEL使用知识点介绍篇）、https://blog.csdn.net/huang007guo/article/details/106697160（SpEL表达式总结(@Value(#SpEL表达式))）、https://blog.csdn.net/feyehong/article/details/115385163（SpringBoot @Value注解+SpEL表达式使用）
 
 # GraphQL
 

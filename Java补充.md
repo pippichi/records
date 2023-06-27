@@ -934,6 +934,10 @@ cDouble:1.668169110346482
 
 参考：https://blog.csdn.net/li_xunhuan/article/details/98657521（Java-“this”和“类名.this”以及“类名.class”的区分和详解）
 
+# MapStruct
+
+参考：https://blog.csdn.net/qq_40194399/article/details/110162124（MapStruct最详细的使用教程，别再用`BeanUtils.copyProperties()`）、https://blog.csdn.net/sunboylife/article/details/115706803（mapstruct 高级用法自定义转换规则）
+
 # 权限控制
 
 | 修饰词     | 本类 | 同一个包的类 | 继承类 | 其他类 |
@@ -1288,6 +1292,16 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 # HashMap底层实现原理
 
 参考：https://blog.csdn.net/kun_998/article/details/89480637（HashMap底层实现原理）
+
+# 读取csv文件
+
+- hutool读取csv
+
+  参考：https://blog.csdn.net/prefect_start/article/details/115742170（Hutool 读取csv文件和输出csv文件）
+
+- Java原生读取与第三方库读取
+
+  参考：https://blog.csdn.net/liulang_ynfx/article/details/108068211（java读取csv文件的多种方式）、https://blog.csdn.net/weixin_44520739/article/details/123856068（SpringBoot读取csv文件）
 
 # 读取配置文件
 
