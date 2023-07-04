@@ -225,6 +225,10 @@ private Long indexId;
 
 参考：https://blog.csdn.net/paohui001lqp/article/details/113308831（SpringBoot中 判断上传的文件类型 MultipartFile file）、https://blog.csdn.net/x18707731829/article/details/109261718（SpringBoot上传文件类型检测）、https://blog.csdn.net/myfmyfmyfmyf/article/details/90230481（SpringBoot后端上传文件类型检测）
 
+# MultipartFile转File
+
+参考：https://blog.csdn.net/qq_42383970/article/details/120201524（MultipartFile转File的几种方式）
+
 # ProtoBuf
 
 protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
