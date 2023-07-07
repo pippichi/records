@@ -774,6 +774,10 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/inrgihc/article/details/104742206（SpringBoot中 使用@Autowired 将bean注入到List或Map等集合中）
 
+## 后定义的bean覆盖之前相同名称的bean（`spring.main.allow-bean-definition-overriding`）
+
+参考：https://blog.csdn.net/liubenlong007/article/details/87885567（spring中 allowBeanDefinitionOverriding分析）
+
 ## ObjectProvider
 
 正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
