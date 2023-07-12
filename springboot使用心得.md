@@ -1404,10 +1404,6 @@ public class FileUtil {
 - 使用Hutool的Console工具包
 - 使用SimpleConsoleTable（参考[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)）
 
-# actuator组件（服务健康监测组件）深度使用（包括InfoContributor接口的使用、EndPoint解析等）
-
-参考：https://blog.csdn.net/qq_26000415/article/details/79234812（spring boot 源码解析57-actuator组件:info背后的密码(全网独家)）、https://blog.csdn.net/qq_26000415/article/details/79060258（spring boot 源码解析23-actuate使用及EndPoint解析）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
 # 文件系统
 
 可以使用minio或者fdfs
@@ -1725,3 +1721,29 @@ GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST
 # Spring MVC实用工具
 
 参考：https://blog.csdn.net/f641385712/article/details/87814153（【小家Spring】Spring MVC好用工具介绍：UrlPathHelper、WebUtils、RequestContextUtils、WebApplicationContextUtils...）
+
+# spring boot health indicator
+
+参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
+
+## actuator组件（服务健康监测组件）深度使用（包括InfoContributor接口的使用、EndPoint解析等）
+
+参考：https://blog.csdn.net/qq_26000415/article/details/79234812（spring boot 源码解析57-actuator组件:info背后的密码(全网独家)）、https://blog.csdn.net/qq_26000415/article/details/79060258（spring boot 源码解析23-actuate使用及EndPoint解析）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## 自定义health indicator（注入实现了HealthIndicator接口的Bean）
+
+参考：https://www.jb51.net/article/225691.htm（spring boot的健康检查HealthIndicators实战）
+
+## @ConditionalOnEnabledHealthIndicator
+
+代码案例：
+
+```java
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnClass({ JdbcTemplate.class, AbstractRoutingDataSource.class })
+@ConditionalOnEnabledHealthIndicator("db")
+public class DataSourceHealthContributorAutoConfiguration extends
+		CompositeHealthContributorConfiguration<AbstractHealthIndicator, DataSource> implements InitializingBean {}
+```
+
+参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
