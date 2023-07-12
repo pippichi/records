@@ -541,6 +541,10 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 参考：https://blog.csdn.net/woheniccc/article/details/79804600（spring的@Value注解使用）
 
+注入默认值：
+
+参考：https://blog.csdn.net/li02112017/article/details/118912109（SpringBoot中@Value注解设置默认值）
+
 ## @Configuration
 
 参考：https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）

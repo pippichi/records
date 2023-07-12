@@ -314,7 +314,7 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 
 参考：https://blog.csdn.net/woniu317/article/details/52186694（Pattern用法(正则表达式)）
 
-# 多线程
+# 多线程与线程安全
 
 ## 线程池中多余的线程如何被回收？
 
@@ -814,6 +814,12 @@ semaphore.release();
 
 参考：https://segmentfault.com/a/1190000019555458（ForkJoin框架之CountedCompleter,工作线程及并行流）、https://blog.csdn.net/huitoukest/article/details/102673219（java进阶笔记线程与并发之CountedCompleter）
 
+## ThreadLocal
+
+### TransmittableThreadLocal
+
+参考：https://www.cnblogs.com/intotw/p/14740215.html（TransmittableThreadLocal解决线程池变量传递以及原理解析）、https://blog.csdn.net/weixin_42260270/article/details/117699535（TransmittableThreadLocal正确使用方式）、https://zhuanlan.zhihu.com/p/146124826（全链路追踪必备组件之 TransmittableThreadLocal 详解）
+
 ## ThreadLocalRandom
 
 參考：https://www.jianshu.com/p/89dfe990295c（多线程下ThreadLocalRandom用法）
@@ -1289,9 +1295,15 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 参考：https://cloud.tencent.com/developer/article/1429932（Java 静态代理、Java动态代理、CGLIB动态代理）、https://blog.csdn.net/weixin_36759405/article/details/82770422（动态代理的两种方式以及区别）、https://blog.csdn.net/qq_32532321/article/details/81874990（java动态代理详解）
 
-# HashMap底层实现原理
+# Map
+
+## HashMap底层实现原理
 
 参考：https://blog.csdn.net/kun_998/article/details/89480637（HashMap底层实现原理）
+
+## WeakHashMap
+
+参考：https://blog.csdn.net/u013467442/article/details/105826778（Java中的WeakHashMap）、https://zhuanlan.zhihu.com/p/80083997（Java WeakHashMap）
 
 # 读取csv文件
 
@@ -1389,6 +1401,10 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 PriorityQueue线程不安全，PriorityBlockingQueue线程安全
 
 参考：https://blog.csdn.net/u010675669/article/details/86503464（Java PriorityQueue（优先队列））
+
+# GC垃圾回收
+
+参考：https://blog.csdn.net/imjavaxb/article/details/103805740（GC对象回收（垃圾回收））
 
 # 强引用、软引用、弱引用、虚引用
 
