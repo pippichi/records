@@ -911,7 +911,11 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 ## 萃取器
 
-参考：https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）、https://zhuanlan.zhihu.com/p/547313994（C++：STL中的萃取器traits）
+参考：
+
+https://zhuanlan.zhihu.com/p/559936879（C++-模板-萃取的实现(一)）、https://zhuanlan.zhihu.com/p/560507157（C++-模板-萃取的实现(二)）、https://zhuanlan.zhihu.com/p/561377252（C++-模板-萃取的实现(三)）、https://zhuanlan.zhihu.com/p/562809490（C++-模板-萃取的实现(四)）、https://zhuanlan.zhihu.com/p/569142750（C++-模板-萃取的实现(五)）
+
+https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）、https://zhuanlan.zhihu.com/p/547313994（C++：STL中的萃取器traits）
 
 ## 模板参数类型
 
