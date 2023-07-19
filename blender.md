@@ -39,3 +39,9 @@
 参考：https://blog.csdn.net/jkkk_/article/details/125398647（详解四元数）
 
 四元数简单解释：四元数有4个维度xyzw，可以看成是一个旋转轴加一个旋转角就行，xyz归一化后是旋转轴，w是半旋转角的余弦
+
+# 技巧
+
+## 点对齐方法
+
+参考：https://www.jianshu.com/p/7c1c1e738294（关于blender点对齐的方法）
