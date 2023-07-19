@@ -389,6 +389,29 @@ int main() {
 
 参考：https://en.cppreference.com/w/cpp/language/sizeof...（sizeof... operator (since C++11)）
 
+## `...`
+
+用法一：
+
+```c++
+void func1(...) {
+	std::cout << "1";
+}
+// 解释：这是一个应急函数，会匹配任意调用。但是由于它通过"..."进行匹配的，因此其它任何匹配优先级都比它高。
+// 场景：比方说在函数重载中，可以利用这种应急函数来做最次级别的匹配调用。
+```
+
+用法二：
+
+```c++
+template<typename R, typename... Args>
+struct DecayT<R(Args..., ...)>
+{
+    using Type = R(*)(Args..., ...);
+};
+// 暂时不明意义。大致猜测跟用法一的用法是差不多的。
+```
+
 # 库函数
 
 ## stl
