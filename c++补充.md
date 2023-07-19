@@ -1053,6 +1053,10 @@ public:
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
 
+对于SFINAE中的`type* = nullptr`的解释：
+
+参考：https://www.coder.work/article/7294607（`c++ - “type* = nullptr”是什么意思`）
+
 ## 模板构造器
 
 举例：
