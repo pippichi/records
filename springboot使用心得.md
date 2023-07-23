@@ -846,87 +846,6 @@ Criteria、Update类、UpdateResult：
 
 参考：[张润华`sup-spring-boot-starter-mongo`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# ApplicationListener
-
-ApplicationContext事件机制是观察者设计模式的实现，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。
-
-如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。这种事件机制都必须需要程序显示的触发。
-
-其中spring有一些内置的事件，当完成某种操作时会发出某些事件动作。比如监听ContextRefreshedEvent事件，当所有的bean都初始化完成并被成功装载后会触发该事件，实现`ApplicationListener<ContextRefreshedEvent>`接口可以收到监听动作，然后可以写自己的逻辑。
-
-同样事件可以自定义、监听也可以自定义，完全根据自己的业务逻辑来处理。
-
-参考：https://www.cnblogs.com/wwjj4811/p/14540493.html（ApplicationListener用法及原理）、https://blog.csdn.net/liyantianmin/article/details/81017960（理解 Spring ApplicationListener）
-
-# ApplicationEvent 事件与监听器（钩子函数）
-
-一、当一个Application运行时，会发送如下事件：
-
-1. ApplicationStartingEvent
-    运行run在注册完监听器与初始化器后，处理其他前触发。（测试的时候发现监听不到这个事件，暂时还不知道原因）
-2. ApplicationEnvironmentPreparedEvent
-    当Environment已经准备好，在context 创建前。
-3. ApplicationContextInitializedEvent
-    在ApplicationContext 创建和ApplicationContextInitializer都被调用后，但是bean definition没有被加载前。
-4. ApplicationPreparedEvent
-    bean definition已经加载，但是没有refresh。
-5. ApplicationStartedEvent
-    context 已经被refresh， 但是application 和command-line 的runner都没有被调用。
-6. AvailabilityChangeEvent
-    带上LivenessState.CORRECT标志，标识应用是活的。
-7. ApplicationReadyEvent
-    application 和command-line 的runner都被调用后。
-8. AvailabilityChangeEvent
-    带上ReadinessState.ACCEPTING_TRAFFIC标志，标识应用可以提供服务。
-9. ApplicationFailedEvent
-    启动过程中，抛异常了。
-
-另外还在如下事件在ApplicationPreparedEvent 之后和ApplicationStartedEvent之前发送：
-
-1. WebServerInitializedEvent
-    WebServer已经准备好
-    1.1 ServletWebServerInitializedEvent
-    servlet 准备好
-    1.2 ReactiveWebServerInitializedEvent
-    reactive 准备好
-2. ContextRefreshedEvent
-    ApplicationContext已经refresh。
-
-二、项目启动后需要执行操作：
-
-1. 实现`ApplicationListener<E extends ApplicationEvent>`接口
-
-2. ApplicationEvent的子类可以是ApplicationReadyEvent或者ContextRefreshedEvent
-
-3. ApplicationReadyEvent的示例
-
-   ```java
-   @Component
-   @Slf4j
-   public class ApplicationInit implements ApplicationListener<ApplicationReadyEvent> {
-       
-       // 项目启动后预热JSON
-       @Override
-       public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-           UserInfo userInfo = new UserInfo();
-           userInfo.setId(123L);
-           userInfo.setChannel("hello");
-           String userJson = JSON.toJSONString(userInfo);
-           JSON.parseObject(userJson, UserInfo.class);
-       }
-   }
-   ```
-
-三、ContextRefreshedEvent多次执行的问题
-
-1. web应用会出现父子容器，这样就会触发两次
-
-2. 解决方法：`ApplicationListener<ContextRefreshedEvent>` 应该和 ApplicationContext 一对一
-
-
-
-参考：https://www.cnblogs.com/june0816/p/14173225.html（Spring项目启动后执行操作：ContextRefreshedEvent和ApplicationReadyEvent）、https://blog.csdn.net/zollty/article/details/86137380（Spring ApplicationListener ContextRefreshedEvent 多次执行问题及源码分析）、https://www.jianshu.com/p/4cf382e725b3（Application 事件与监听器）
-
 # 静态文件存储位置
 
 在IDEA中双击“shift”将“CLASSPATH_RESOURCE_LOCATIONS”复制进去就可以看到：
@@ -1114,6 +1033,22 @@ Spring有各种Listener，如ServletRequestListener、ServletRequestAttributeLis
 
 参考：https://blog.csdn.net/vicroad2014/article/details/82463643（Spring的各种Listener）
 
+## ApplicationListener
+
+ApplicationContext事件机制是观察者设计模式的实现，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。
+
+如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。这种事件机制都必须需要程序显示的触发。
+
+其中spring有一些内置的事件，当完成某种操作时会发出某些事件动作。比如监听ContextRefreshedEvent事件，当所有的bean都初始化完成并被成功装载后会触发该事件，实现`ApplicationListener<ContextRefreshedEvent>`接口可以收到监听动作，然后可以写自己的逻辑。
+
+同样事件可以自定义、监听也可以自定义，完全根据自己的业务逻辑来处理。
+
+参考：https://www.cnblogs.com/wwjj4811/p/14540493.html（ApplicationListener用法及原理）、https://blog.csdn.net/liyantianmin/article/details/81017960（理解 Spring ApplicationListener）
+
+## @EventListener
+
+参考：https://blog.csdn.net/zxh1991811/article/details/109737845（Spring listener——Spring boot实现监听器的两种方式）
+
 # 事件Event
 
 事件和直接方法调用的区别：使用方法调用，必须知道在什么情况下在哪个地方调用方法；使用事件，只需要知道发生了某个事件，哪些模块会被通知并不是我们关心的问题，当我们想要将某些业务处理传递给另一个线程时（例如：在某些任务完成时发送电子邮件），最好使用事件。此外，事件对于测试驱动的开发也很有用。
@@ -1141,6 +1076,87 @@ Spring有各种Listener，如ServletRequestListener、ServletRequestAttributeLis
   这是一个 web-specific 事件，告诉所有 bean HTTP 请求已经被服务。只能应用于使用DispatcherServlet的Web应用。在使用Spring作为前端的MVC控制器时，当Spring处理用户请求结束后，系统会自动触发该事件
 
 参考：https://blog.csdn.net/agonie201218/article/details/124556232（事件机制）
+
+## ApplicationEvent 事件与监听器（钩子函数）
+
+一、当一个Application运行时，会发送如下事件：
+
+1. ApplicationStartingEvent
+   运行run在注册完监听器与初始化器后，处理其他前触发。（测试的时候发现监听不到这个事件，暂时还不知道原因）
+2. ApplicationEnvironmentPreparedEvent
+   当Environment已经准备好，在context 创建前。
+3. ApplicationContextInitializedEvent
+   在ApplicationContext 创建和ApplicationContextInitializer都被调用后，但是bean definition没有被加载前。
+4. ApplicationPreparedEvent
+   bean definition已经加载，但是没有refresh。
+5. ApplicationStartedEvent
+   context 已经被refresh， 但是application 和command-line 的runner都没有被调用。
+6. AvailabilityChangeEvent
+   带上LivenessState.CORRECT标志，标识应用是活的。
+7. ApplicationReadyEvent
+   application 和command-line 的runner都被调用后。
+8. AvailabilityChangeEvent
+   带上ReadinessState.ACCEPTING_TRAFFIC标志，标识应用可以提供服务。
+9. ApplicationFailedEvent
+   启动过程中，抛异常了。
+
+另外还在如下事件在ApplicationPreparedEvent 之后和ApplicationStartedEvent之前发送：
+
+1. WebServerInitializedEvent
+   WebServer已经准备好
+   1.1 ServletWebServerInitializedEvent
+   servlet 准备好
+   1.2 ReactiveWebServerInitializedEvent
+   reactive 准备好
+2. ContextRefreshedEvent
+   ApplicationContext已经refresh。
+
+二、项目启动后需要执行操作：
+
+1. 实现`ApplicationListener<E extends ApplicationEvent>`接口
+
+2. ApplicationEvent的子类可以是ApplicationReadyEvent或者ContextRefreshedEvent
+
+3. ApplicationReadyEvent的示例
+
+   ```java
+   @Component
+   @Slf4j
+   public class ApplicationInit implements ApplicationListener<ApplicationReadyEvent> {
+       
+       // 项目启动后预热JSON
+       @Override
+       public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+           UserInfo userInfo = new UserInfo();
+           userInfo.setId(123L);
+           userInfo.setChannel("hello");
+           String userJson = JSON.toJSONString(userInfo);
+           JSON.parseObject(userJson, UserInfo.class);
+       }
+   }
+   ```
+
+三、ContextRefreshedEvent多次执行的问题
+
+1. web应用会出现父子容器，这样就会触发两次
+
+2. 解决方法：`ApplicationListener<ContextRefreshedEvent>` 应该和 ApplicationContext 一对一
+
+
+
+参考：https://www.cnblogs.com/june0816/p/14173225.html（Spring项目启动后执行操作：ContextRefreshedEvent和ApplicationReadyEvent）、https://blog.csdn.net/zollty/article/details/86137380（Spring ApplicationListener ContextRefreshedEvent 多次执行问题及源码分析）、https://www.jianshu.com/p/4cf382e725b3（Application 事件与监听器）
+
+## 发布监听事件的方式
+
+- ConfigurableApplicationContext
+
+  通过应用上下文applicationcontext的publishEvent方法发布监听事件
+
+- ApplicationEventPublisher
+
+  通过事件发布器发布监听事件
+
+参考：https://blog.csdn.net/zxh1991811/article/details/109737845（Spring listener——Spring boot实现监听器的两种方式）
 
 # HandlerMethodArgumentResolver(参数解析器)
 
@@ -1759,6 +1775,10 @@ public class A implements InitializingBean, DisposableBean {
 AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻辑
 
 参考：https://www.likecs.com/show-204315499.html（自动装配顺序性）
+
+# Bean生命周期
+
+参考：https://blog.csdn.net/riemann_/article/details/118500805（一文读懂 Spring Bean 的生命周期）
 
 # BeanPostProcessor(后置处理器)
 

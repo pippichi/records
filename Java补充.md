@@ -1413,3 +1413,12 @@ PriorityQueue线程不安全，PriorityBlockingQueue线程安全
 # 结构化并发编程（Structured Concurrency）
 
 参考：https://blog.csdn.net/XiumingLee/article/details/126803317（Java 19新特性：Structured Concurrency (结构化并发编程)）
+
+# Reactor响应式编程
+
+参考：https://blog.csdn.net/gb4215287/article/details/120603599（使用Reactor进行反应式编程最全教程）、https://blog.csdn.net/qq_28089993/article/details/89461814（响应式编程中的Flux和Mono）、https://blog.csdn.net/qq_35067322/article/details/108301834（我对响应式编程中Mono和Flux的理解）、https://blog.csdn.net/lz710117239/article/details/93777692（Mono和Flux的用法详解）、https://www.cnblogs.com/crazymakercircle/p/16127013.html（Flux 和 Mono 、reactor实战 （史上最全））
+
+## 背压BackPressure
+
+参考：https://blog.csdn.net/Zong_0915/article/details/115048075（Reactor响应式编程系列（二）- 背压策略BackPressure）、https://blog.csdn.net/m0_37556444/article/details/87916093（Reactor3背压）、https://zhuanlan.zhihu.com/p/37076445（Project Reactor学习（12）--背压）、https://zhuanlan.zhihu.com/p/611064237（响应式框架Reactor中的背压实现）
+
