@@ -209,41 +209,28 @@ public static class E extends D {
 
 
 
-# 反射
+#  序列化
+
+## writeReplace()、writeObject()与readResolve()、readObject()
+
+参考：https://www.codenong.com/1168348/（Java序列化：readObject()与readResolve()）、https://blog.csdn.net/Leon_cx/article/details/81517603（深入了解序列化writeObject、readObject、readResolve）、https://blog.csdn.net/qq_35410620/article/details/103007385（Java 序列化 机制writeReplace的方法探究）、https://blog.csdn.net/zero__007/article/details/109000460（利用Lambda实现通过getter/setter方法引用拿到属性名）
+
+# 反射Reflection
 
 ```java
-首先 Class c = ArrayList.class;
-```
+/// 首先 
+Class c = ArrayList.class;
 
+/// 判断变量是否为基础数据类型
+c.isPrimitive();
 
+/// 判断c是否是List类的父类
+c.isAssignableFrom(List.class);
 
-## 判断变量是否为基础数据类型
+/// 判断c是否是List类的子类
+c isinstanceof List;
 
-```java
-c.isPrimitive()
-```
-
-
-
-## 判断c是否是List类的父类
-
-```java
-c.isAssignableFrom(List.class)
-```
-
-
-
-## 判断c是否是List类的子类
-
-```java
-c isinstanceof List
-```
-
-
-
-## 获取包含泛型类型的类型以及泛型真正的类型
-
-```java
+/// 获取包含泛型类型的类型以及泛型真正的类型
 Map<String,Integer> map = new HashMap<String,Integer>();
 Field f = c.getDeclaredField("map");
 // 获取包含泛型的类型
@@ -265,6 +252,8 @@ t = pt.getRawType();//类型的类或接口
 Type[] ts = pt.getActualTypeArguments();
 ```
 
+参考：https://www.jianshu.com/p/2315dda64ad2（Java Reflection(反射机制)详解）
+
 ## java.lang.reflect.Modifier
 
 在查看反射相关的Class、Field、Constructor 等类时，看到他们都有这样一个方法：getModifiers()：返回此类或接口以整数编码的 Java 语言修饰符。如果需要知道返回的值所代表的意思，则需要用到 java.lang.reflect.Modifier 这个类，这个类提供了 static 方法和常量，可以对类和成员访问修饰符进行解码。
@@ -280,6 +269,10 @@ Type[] ts = pt.getActualTypeArguments();
 java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，结合反射使用可以达到非常强大的效果
 
 参考：https://blog.csdn.net/zhuqiuhui/article/details/78542049（Java中PropertyDescriptor用法）、https://blog.csdn.net/BUGSLAYER_/article/details/107317110（JAVA工具类：获取类中被指定注解标记的字段值）
+
+## getCallerClass获取调用者的类
+
+参考：https://blog.csdn.net/freeideas/article/details/43528571（Reflection的getCallerClass的使用）
 
 # 函数式接口（Function、Consumer、Supplier、Predicate）
 
