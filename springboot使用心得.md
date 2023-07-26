@@ -1002,7 +1002,7 @@ Filter有三种配置方式：
 
   2、MethodInterceptor是AOP项目中的拦截器，它拦截的目标是方法，即使不是controller中的方法；
 
-  参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）、https://blog.csdn.net/WX5991/article/details/122179177（Spring boot中通过Aop和拦截器实现自定义注解）
+  参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）、https://blog.csdn.net/WX5991/article/details/122179177（Spring boot中通过Aop和拦截器实现自定义注解）、https://blog.csdn.net/u013905744/article/details/91364736（使用spring的MethodInterceptor实现aop功能的三种方式）
 
 # 监听器Listener
 
@@ -1604,7 +1604,9 @@ mapstruct工具适配：
 </project>
 ```
 
+## `spring-configuration-metadata.json`与`additional-spring-configuration-metadata.json`
 
+参考：https://blog.csdn.net/z69183787/article/details/108987431（Springboot之`additional-spring-configuration-metadata.json`自定义提示）、https://blog.csdn.net/u010316188/article/details/106946051（springboot自定义starter(生成`spring-configuration-metadata.json`)可以提示写配置）
 
 # MessageSource
 

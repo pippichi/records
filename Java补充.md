@@ -667,9 +667,15 @@ public class MCSLock {
 
 CLHLock在NUMA架构下使用会存在问题。在没有cache的NUMA系统架构中，由于CLHLock是在当前节点的前一个节点上自旋，NUMA架构中处理器访问本地内存的速度高于通过网络访问其他节点的内存，所以CLHLock在NUMA架构上不是最优的自旋锁。
 
-## ReadLock和WriteLock(读写锁)
+## ReadLock和WriteLock(ReentrantReadWriteLock读写锁)
 
 参考：https://blog.csdn.net/cdw8131197/article/details/52601559（ReadLock和WriteLock(读写锁)）
+
+## StampedLock
+
+StampedLock是ReentrantReadWriteLock锁的增强优化版本，可以有效防止ReentrantReadWriteLock锁多线程读的时候发生写阻塞的情况（线程饥饿问题）。StampedLock在读的时候是允许一个写线程的。
+
+参考：https://www.jianshu.com/p/7bc040558980（Java并发编程——StampedLock）
 
 ## Lock + Condition
 
