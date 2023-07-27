@@ -328,6 +328,12 @@ String pwd = ""; // 加密后的密文
 JasyptUtil.decyptPwd(password, pwd)
 ```
 
+# 使用EnvironmentPostProcessor自定义环境变量或者编写第三方扩展点
+
+场景举例：mybatis-plus中对数据源敏感信息进行加密
+
+参考：https://zhuanlan.zhihu.com/p/145271881（Spring Boot 配置文件加解密原理就这么简单）、https://blog.csdn.net/dong19891210/article/details/106436364（SpringBoot扩展点之EnvironmentPostProcessor）
+
 # @RequestMapping
 
 url路径还能这么写：
@@ -559,6 +565,10 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
 
+### ImportSelector动态加载功能类
+
+参考：https://blog.csdn.net/Smallc0de/article/details/108619562（Spring框架的ImportSelector到底可以干嘛）、https://www.cnblogs.com/niechen/p/9262452.html（深入理解Spring的ImportSelector接口）、https://www.cnblogs.com/niechen/p/9027804.html（深入理解SpringBoot之自动装配）
+
 ## @NestedConfigurationProperty
 
 参考：https://blog.csdn.net/u013541707/article/details/113193128（简单分析@NestedConfigurationProperty的作用）、https://blog.csdn.net/hua_ming/article/details/108624157（@NestedConfigurationProperty注解使用场景）
@@ -787,6 +797,10 @@ public class ConditionalTest {
 正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
 
 参考：https://blog.csdn.net/asdfsadfasdfsa/article/details/114219540（ObjectProvider使用）
+
+## ImportBeanDefinitionRegistrar动态注册bean
+
+参考：https://blog.csdn.net/Smallc0de/article/details/108647079（Spring框架中ImportBeanDefinitionRegistrar的应用）、https://www.logicbig.com/tutorials/spring-framework/spring-core/import-bean-registrar.html（Spring - Using ImportBeanDefinitionRegistrar）
 
 # SpringData
 
