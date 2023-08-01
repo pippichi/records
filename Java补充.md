@@ -309,6 +309,10 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 
 # 多线程与线程安全
 
+## 阿里巴巴高并发架构面试题
+
+参考：https://blog.csdn.net/m0_62051288/article/details/126624791（阿里巴巴高并发架构到底多牛逼？是如何抗住淘宝双11亿级并发量？）
+
 ## 线程池中多余的线程如何被回收？
 
 参考：https://zhuanlan.zhihu.com/p/269145872（面试官：线程池中多余的线程是如何回收的？）、https://blog.csdn.net/xiewenfeng520/article/details/107013665（线程池的线程复用原理）、https://blog.csdn.net/sinat_36553913/article/details/114762157（Java 基础 - 线程池是如何回收空闲线程的 ？）
@@ -671,6 +675,12 @@ CLHLock在NUMA架构下使用会存在问题。在没有cache的NUMA系统架构
 
 参考：https://blog.csdn.net/cdw8131197/article/details/52601559（ReadLock和WriteLock(读写锁)）
 
+### 读锁的锁升级与锁降级
+
+锁降级：从写锁变成读锁；锁升级：从读锁变成写锁。
+
+参考：https://blog.csdn.net/qq_29842929/article/details/81188824（Java并发-ReentrantReadWriteLock锁降级/锁升级）、https://blog.csdn.net/qq_38737992/article/details/92796403（Java 读写锁 之 锁降级）、https://blog.csdn.net/aitangyong/article/details/38315885（JDK读写锁ReadWriteLock的升级和降级问题）
+
 ## StampedLock
 
 StampedLock是ReentrantReadWriteLock锁的增强优化版本，可以有效防止ReentrantReadWriteLock锁多线程读的时候发生写阻塞的情况（线程饥饿问题）。StampedLock在读的时候是允许一个写线程的。
@@ -687,9 +697,13 @@ AQS是并发容器J.U.C（java.util.concurrent）下locks包内的一个类。�
 
 参考：https://blog.csdn.net/striveb/article/details/86761900（什么是AQS及其原理）、https://www.cnblogs.com/waterystone/p/4920797.html（Java并发之AQS详解）、https://www.cnblogs.com/chengxiao/archive/2017/07/24/7141160.html（Java并发包基石-AQS详解）
 
+## synchronized关键字
+
+参考：https://blog.csdn.net/javazejian/article/details/72828483（深入理解Java并发之synchronized实现原理，包含JVM对synchronized的优化（偏向锁、轻量锁、自旋锁、锁消除）等）、https://blog.csdn.net/weixin_42460087/article/details/126474481（Synchronized的底层实现原理（原理解析，面试必备））
+
 ## ReentrantLock(可重入锁)
 
-参考：https://blog.csdn.net/zxd8080666/article/details/83214089（Synchronized与ReentrantLock区别总结（简单粗暴，一目了然））、http://www.blogjava.net/zhanglongsr/articles/356782.html（ReentrantLock源码之一lock方法解析(锁的获取)）、https://blog.csdn.net/yanyan19880509/article/details/52345422（轻松学习java可重入锁(ReentrantLock)的实现原理）
+参考：https://blog.csdn.net/zxd8080666/article/details/83214089（Synchronized与ReentrantLock区别总结（简单粗暴，一目了然））、http://www.blogjava.net/zhanglongsr/articles/356782.html（ReentrantLock源码之一lock方法解析(锁的获取)）、https://blog.csdn.net/yanyan19880509/article/details/52345422（轻松学习java可重入锁(ReentrantLock)的实现原理）、https://blog.csdn.net/aitangyong/article/details/38311287（可重入锁的获取和释放的注意事项）
 
 ## CyclicBarrier
 
@@ -846,7 +860,13 @@ while (workerThread.isAlive()) {
 }
 ```
 
+## 乐观锁
 
+参考：https://blog.csdn.net/strawqqhat/article/details/88743519（乐观锁常见的两种实现方式和适用场景）、https://blog.csdn.net/sunwenhao_2017/article/details/81565783（乐观锁以及乐观锁的实现）
+
+## 锁升级、锁降级
+
+参考：https://blog.csdn.net/sspudding/article/details/89563462（锁的升级过程）、https://zhuanlan.zhihu.com/p/139793053（锁升级 锁降级）
 
 # Spliterator
 
