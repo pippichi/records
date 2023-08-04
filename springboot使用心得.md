@@ -1191,7 +1191,13 @@ Servlet有三种配置方式：
 
 - 通过`web.xml`方式配置
 
-参考：https://blog.csdn.net/qq_35038153/article/details/77484185（@WebServlet的使用方法）
+参考：https://blog.csdn.net/qq_35038153/article/details/77484185（@WebServlet的使用方法）、https://blog.csdn.net/weixin_43931625/article/details/103582897（springboot servlet注册（ServletRegistrationBean实现））、https://vimsky.com/examples/detail/java-method-org.springframework.boot.web.servlet.ServletRegistrationBean.addInitParameter.html（Java ServletRegistrationBean.addInitParameter方法代码示例）
+
+# ServletContext
+
+场景：可以使用ServletRegistrationBean中的addInitParameter()方法向ServletContext注入一写自定义属性，然后使用getServletContext()方法获取到这些属性
+
+参考：https://vimsky.com/examples/detail/java-method-org.springframework.boot.web.servlet.ServletRegistrationBean.addInitParameter.html（Java ServletRegistrationBean.addInitParameter方法代码示例）、https://blog.csdn.net/Arther666/article/details/109899653（getServletContext()方法使用指南）
 
 # WebMvcConfigurerAdapter、WebMvcConfigurer、WebMvcConfigurationSupport与WebMvcAutoConfiguration
 
@@ -1276,7 +1282,13 @@ public class TagGroup extends BasicEntity<Long> {
 }
 ```
 
+## ConstraintValidator完成自定义校验注解
 
+参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、https://blog.csdn.net/qq_41762594/article/details/109326971（自定义注解校验--ConstraintValidator）、[王力平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## 分组序列@GroupSequenceProvider、@GroupSequence控制数据校验顺序，解决多字段联合逻辑校验问题
+
+参考：https://blog.csdn.net/f641385712/article/details/99725482（分组序列@GroupSequenceProvider、@GroupSequence控制数据校验顺序，解决多字段联合逻辑校验问题【享学Spring MVC】）、https://blog.csdn.net/y666666y/article/details/118482863（springBoot参数联合校验,自定义分组校验）
 
 # AOP
 
@@ -1704,10 +1716,6 @@ public interface AlgorithmManagerFeign {
 ## Feign拦截器（RequestInterceptor）
 
 参考：https://blog.csdn.net/wudiyong22/article/details/103801874（`feign拦截器--RequestInterceptor`）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
-# ConstraintValidator完成自定义校验注解
-
-参考：https://blog.csdn.net/qq_38439885/article/details/81227063（通过实现ConstraintValidator完成自定义校验注解）、[王力平`data-provider`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # Gateway网关
 
