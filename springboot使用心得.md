@@ -1257,7 +1257,9 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 `@SessionScope、@RequestScope参考博客：`https://blog.csdn.net/xyjy11/article/details/114201623
 
-# 参数校验
+# 参数校验（`spring-boot-validator`）
+
+参考：https://juejin.cn/post/6952532529534468103（`spring-boot-validator`使用汇总）
 
 ## @Validated和@Valid
 
