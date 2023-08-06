@@ -1636,7 +1636,11 @@ mapstruct工具适配：
 
 参考：https://blog.csdn.net/z69183787/article/details/108987431（Springboot之`additional-spring-configuration-metadata.json`自定义提示）、https://blog.csdn.net/u010316188/article/details/106946051（springboot自定义starter(生成`spring-configuration-metadata.json`)可以提示写配置）
 
-# MessageSource
+# 国际化
+
+参考：https://blog.csdn.net/qq_22701869/article/details/110947453（springboot国际化配置详细过程）、https://blog.csdn.net/norang/article/details/120390268（SpringBoot 中 实现国际化）、https://blog.csdn.net/qq_33220089/article/details/104837066（springboot实现国际化居然可以这么简单）、https://blog.csdn.net/yb223731/article/details/85252334（SpringBoot 国际化配置，SpringBoot Locale 国际化使用方法）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## MessageSource
 
 可以用于国际化信息的制作
 
