@@ -892,6 +892,14 @@ VarHandle 的出现替代了 `java.util.concurrent.atomic` 和 `sun.misc.Unsafe`
 
 参考：https://blog.csdn.net/qq_18300037/article/details/121612458（【dubbo学习系列】dubbo消费端的代理生成详解(@DubboReference和@Reference)）
 
+# Caffeine缓存库
+
+参考：
+
+https://blog.csdn.net/dgh112233/article/details/118915259（Caffeine本地缓存详解（一篇就明白））、https://blog.csdn.net/Listening_Wind/article/details/110085228（SpringBoot 集成 Caffeine（咖啡因）最优秀的本地缓存）、https://blog.csdn.net/qq_42191033/article/details/108961339（Caffeine cache实现本地缓存（简单又清楚））
+
+https://blog.csdn.net/l_dongyang/article/details/108326755（Caffeine入门使用）、https://blog.csdn.net/l_dongyang/article/details/123294062（Caffeine基础源码解析）、https://blog.csdn.net/l_dongyang/article/details/123461686（Caffeine 驱逐算法）
+
 # 关键字
 
 ## strictfp
