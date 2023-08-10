@@ -229,6 +229,10 @@ private Long indexId;
 
 参考：https://blog.csdn.net/qq_42383970/article/details/120201524（MultipartFile转File的几种方式）
 
+# MediaTypeFactory
+
+参考：https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/MediaTypeFactory.html（MediaTypeFactory (Spring Framework 6.0.11 API)）
+
 # ProtoBuf
 
 protocol buffers 是一种语言无关、平台无关、可扩展的序列化结构数据的方法，它可用于（数据）通信协议、数据存储等
