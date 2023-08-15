@@ -1727,6 +1727,10 @@ public interface AlgorithmManagerFeign {
 
 参考：https://blog.csdn.net/wudiyong22/article/details/103801874（`feign拦截器--RequestInterceptor`）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
+## Feign设置Header
+
+参考：https://blog.csdn.net/hkk666123/article/details/113964715（【feign】OpenFeign设置header的5种方式）
+
 # Gateway网关
 
 网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
@@ -1746,10 +1750,6 @@ public interface AlgorithmManagerFeign {
 # WebSocketHandler接口、AbstractWebSocketHandler、HandshakeInterceptor接口（websocket握手的拦截器配置）
 
 websocket深度配置，参考：[张润华`system-component-websocket`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
-# RequestInterceptor（feign拦截器）
-
-参考：https://blog.csdn.net/wudiyong22/article/details/103801874、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # okhttp3
 
