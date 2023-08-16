@@ -217,6 +217,10 @@ private Long indexId;
 
 参考：https://blog.csdn.net/ckc_666/article/details/79239974（@PathVariable是什么？详情及用法解析）
 
+# 常用注解（@Description、@Role等）
+
+参考：https://blog.csdn.net/weixin_43745321/article/details/124959948（Spring Boot常用注解（绝对经典））
+
 # 文件或图片上传大小限制
 
 参考：https://blog.csdn.net/u014163312/article/details/119612117（SpringBoot限制文件或图片上传大小的配置方法）
@@ -1265,6 +1269,10 @@ public ObpSimpleResponse executeToHere(@RequestBody ExecuteToHereParam executeTo
 
 参考：https://juejin.cn/post/6952532529534468103（`spring-boot-validator`使用汇总）
 
+## MessageInterpolator消息插值器（ResourceBundleMessageInterpolator）、TraversableResolver、ConstraintValidatorFactory、ParameterNameProvider、ClockProvider、ValueExtractor
+
+参考：https://mp.weixin.qq.com/s/g04HMhrjbvbPn1Mb9JYa5g（1. 不吹不擂，第一篇就能提升你对Bean Validation数据校验的认知）、https://mp.weixin.qq.com/s/-KeOCq2rsXCvrqD8HYHSpQ（2. Bean Validation声明式校验方法的参数、返回值）、https://mp.weixin.qq.com/s/MQjXG0cg8domRtwf3ArvHw（3. 站在使用层面，Bean Validation这些标准接口你需要烂熟于胸）、https://mp.weixin.qq.com/s/jzOv67ZTSx2rByj0aeUTgw（4. Validator校验器的五大核心组件，一个都不能少）、https://blog.csdn.net/f641385712/article/details/109234678（5. Bean Validation声明式验证四大级别：字段、属性、容器元素、类）
+
 ## @Validated和@Valid
 
 参考：https://blog.csdn.net/qq_32352777/article/details/108424932（@Validated注解详解，分组校验，嵌套校验，@Valid和@Validated 区别，Spring Boot @Validated）
@@ -1642,13 +1650,21 @@ mapstruct工具适配：
 
 # 国际化
 
-参考：https://blog.csdn.net/qq_22701869/article/details/110947453（springboot国际化配置详细过程）、https://blog.csdn.net/norang/article/details/120390268（SpringBoot 中 实现国际化）、https://blog.csdn.net/qq_33220089/article/details/104837066（springboot实现国际化居然可以这么简单）、https://blog.csdn.net/yb223731/article/details/85252334（SpringBoot 国际化配置，SpringBoot Locale 国际化使用方法）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+参考：
+
+https://blog.csdn.net/qq_22701869/article/details/110947453（springboot国际化配置详细过程）、https://blog.csdn.net/norang/article/details/120390268（SpringBoot 中 实现国际化）、https://blog.csdn.net/qq_33220089/article/details/104837066（springboot实现国际化居然可以这么简单）、https://blog.csdn.net/yb223731/article/details/85252334（SpringBoot 国际化配置，SpringBoot Locale 国际化使用方法）、[张润华`system-common`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 ## MessageSource
 
 可以用于国际化信息的制作
 
 参考：https://blog.csdn.net/sid1109217623/article/details/84065725（Spring源码分析之MessageSource）
+
+## ResourceBundle
+
+这个类主要用来解决国际化和本地化问题
+
+参考：https://blog.csdn.net/mupengfei6688/article/details/79060014（JAVA中ResourceBundle使用详解）
 
 # StopWatch
 
