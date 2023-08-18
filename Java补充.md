@@ -1170,6 +1170,10 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 
 具体使用参考博客：https://blog.csdn.net/qq_31865983/article/details/106443244（`Java8 Stream API` 之 `IntStream` 用法全解）、https://blog.csdn.net/a13662080711/article/details/84928181（`Arrays.stream()`）、https://www.cnblogs.com/baby123/p/12619872.html（`Arrays.asList`与`Arrays.stream`）
 
+## Collectors.groupingBy与Collectors.mapping联用
+
+参考：https://blog.csdn.net/qq_27607579/article/details/89499911（Stream流使用groupingBy+mapping实现对分组之后的对象集合转化为对象的某个属性的集合）
+
 ## Spliterator
 
 参考：https://blog.csdn.net/sl1992/article/details/100149187（Java8中Spliterator详解）

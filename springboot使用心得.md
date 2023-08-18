@@ -810,6 +810,16 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/Smallc0de/article/details/108647079（Spring框架中ImportBeanDefinitionRegistrar的应用）、https://www.logicbig.com/tutorials/spring-framework/spring-core/import-bean-registrar.html（Spring - Using ImportBeanDefinitionRegistrar）
 
+# Lombok
+
+## @Builder
+
+参考：https://blog.csdn.net/qq_39249094/article/details/120881578（lombok 基础注解之 @Builder）、https://www.jianshu.com/p/d08e255312f9（详解Lombok中的@Builder用法）
+
+## @Singular
+
+参考：https://blog.csdn.net/qq_39249094/article/details/121074162（lombok 基础注解之 @Singular）、https://blog.csdn.net/qq_44309181/article/details/118671767（lombok @Singular）、https://blog.csdn.net/itguangit/article/details/112604486（使用 Lombok @Singular 注解需要注意的 BUG）
+
 # SpringData
 
 参考：https://blog.csdn.net/qq_28289405/article/details/82382441（spring data 简介（一））
