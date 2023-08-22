@@ -870,6 +870,14 @@ auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
 
 参考：https://blog.csdn.net/xt_xiaotian/article/details/5714477、https://blog.csdn.net/code_peak/article/details/119722167、https://blog.csdn.net/flowing_wind/article/details/81301001、https://blog.csdn.net/runner668/article/details/80539221
 
+## `std::enable_shared_from_this`
+
+参考：https://zhuanlan.zhihu.com/p/393571228（C++里std::enable_shared_from_this是干什么用的？）、https://www.zhihu.com/question/30957800/answer/3079826725（std::enable_shared_from_this 有什么意义？）
+
+## `weak_ptr`
+
+参考：https://zhuanlan.zhihu.com/p/617034450（从源码了解Weak Point）
+
 # 浅拷贝（值拷贝）和深拷贝（位拷贝）
 
 参考：https://blog.csdn.net/haoaoweitt/article/details/81204336
@@ -891,6 +899,12 @@ auto arrayHash = [fn = hash<int>{}](const array<int, 26>& arr) -> size_t {
 }
 unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHash);
 ```
+
+# 多线程
+
+## `std::async`与`std::thread`比较
+
+参考：https://www.zhihu.com/question/547132461/answer/2657296340（C++ 中，std::async 可以完全替代 std::thread 来开启异步的多线程操作吗？）
 
 # 线程安全
 

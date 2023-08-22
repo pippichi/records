@@ -559,6 +559,10 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 参考：https://blog.csdn.net/li02112017/article/details/118912109（SpringBoot中@Value注解设置默认值）
 
+## @Bean(initMethod = "init",destroyMethod = "destroy")
+
+参考：https://blog.csdn.net/LiZhen314/article/details/123002611（Spring 框架Bean的初始化和销毁 ---方式： @Bean(initMethod = “init“,destroyMethod = “destroy“)）
+
 ## @Configuration
 
 参考：https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
@@ -576,6 +580,10 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 ### ImportSelector动态加载功能类
 
 参考：https://blog.csdn.net/Smallc0de/article/details/108619562（Spring框架的ImportSelector到底可以干嘛）、https://www.cnblogs.com/niechen/p/9262452.html（深入理解Spring的ImportSelector接口）、https://www.cnblogs.com/niechen/p/9027804.html（深入理解SpringBoot之自动装配）
+
+## @ImportResource
+
+参考：https://blog.csdn.net/weixin_44893467/article/details/107106180（@ImportResource()注解的使用）
 
 ## @NestedConfigurationProperty
 
@@ -809,6 +817,18 @@ public class ConditionalTest {
 ## ImportBeanDefinitionRegistrar动态注册bean
 
 参考：https://blog.csdn.net/Smallc0de/article/details/108647079（Spring框架中ImportBeanDefinitionRegistrar的应用）、https://www.logicbig.com/tutorials/spring-framework/spring-core/import-bean-registrar.html（Spring - Using ImportBeanDefinitionRegistrar）
+
+## AutowireMode（注入的另一种方式）
+
+AutowireMode注入有以下4种模式：
+
+- AutowireCapableBeanFactory.AUTOWIRE_NO
+
+- AutowireCapableBeanFactory.AUTOWIRE_BY_NAME
+- AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE
+- AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR
+
+参考：https://blog.csdn.net/z69183787/article/details/104545466（Spring Bean注入的另一种方式-AutowireMode的一些理解）、https://blog.csdn.net/qq_27409289/article/details/100753656（Spring中bean的AutowireMode(自动装配模型)和自动装配技术）
 
 # Lombok
 

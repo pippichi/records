@@ -201,13 +201,17 @@ public static class E extends D {
 
 开启压缩：`12（对象头） + 父类(1(d1) + 7(padding)) + 1(e1) + 3(padding) = 24`
 
+# Java内存模型（JMM）
 
+参考：https://blog.csdn.net/zjcjava/article/details/78406330（JMM概述）
 
 # GOF23种设计模式
 
-参考：https://blog.csdn.net/pyy542718473/article/details/127248128（Java中23种设计模式）
+参考：https://blog.csdn.net/pyy542718473/article/details/127248128（Java中23种设计模式）、https://zhuanlan.zhihu.com/p/128145128（快速记忆23种设计模式）
 
+## 单例最佳方案（枚举实现）
 
+参考：https://blog.csdn.net/LoveLion/article/details/110983839（单例模式之枚举实现）
 
 #  序列化
 
@@ -273,6 +277,10 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 ## getCallerClass获取调用者的类
 
 参考：https://blog.csdn.net/freeideas/article/details/43528571（Reflection的getCallerClass的使用）
+
+# ASM字节码操纵
+
+参考：https://blog.csdn.net/zhuoxiuwu/article/details/78619645（Java ASM 技术简介）、https://blog.csdn.net/prettyboy2ge/article/details/116838199（ASM）
 
 # 函数式接口（Function、Consumer、Supplier、Predicate）
 
