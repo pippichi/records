@@ -2,6 +2,10 @@
 
 参考：https://blog.csdn.net/f641385712/article/details/87883205（【小家Spring】Spring容器（含父子容器）的启动过程源码级别分析（含web.xml启动以及全注解驱动，和ContextLoader源码分析））
 
+# Spring三级缓存
+
+参考：https://blog.csdn.net/weixin_44181671/article/details/108630950（Spring中的“三级缓存”）
+
 # SpringMVC 9大组件
 
 SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、FrameworkServlet和 DispatcherServlet。
@@ -649,9 +653,13 @@ BeanFactory在初始化容器时，并未实例化Bean，直到第一次访问�
 
 
 
-## BeanFactory和FactoryBean
+## BeanFactory和FactoryBean和ObjectFactory
 
-参考：https://blog.csdn.net/qiesheng/article/details/72875315（spring中BeanFactory和FactoryBean的区别）、https://blog.csdn.net/zknxx/article/details/79572387（Spring系列之FactoryBean（一））、https://blog.csdn.net/qq_36688143/article/details/84968036（Spring源码解析：BeanFactory深入理解）
+参考：
+
+https://blog.csdn.net/qiesheng/article/details/72875315（spring中BeanFactory和FactoryBean的区别）、https://blog.csdn.net/zknxx/article/details/79572387（Spring系列之FactoryBean（一））、https://blog.csdn.net/qq_36688143/article/details/84968036（Spring源码解析：BeanFactory深入理解）
+
+https://blog.csdn.net/hong10086/article/details/84583731（spring中的FactoryBean与ObjectFactory的区别）
 
 ## AutowireCapableBeanFactory对容器外的Bean进行依赖注入
 

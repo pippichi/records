@@ -1,3 +1,7 @@
+# javaagent（字节码插桩、attach、bTrace、Arthas、aspectjweaver）
+
+参考：https://www.cnblogs.com/rickiyang/p/11368932.html（javaagent指南）、https://blog.csdn.net/qinhaotong/article/details/100693414（Java成神之路——javaAgent（插桩，attach））
+
 # Java对象内存大小计算
 
 **JavaClass基本结构：**
