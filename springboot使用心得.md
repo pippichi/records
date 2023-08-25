@@ -4,7 +4,7 @@
 
 # Spring三级缓存
 
-参考：https://blog.csdn.net/weixin_44181671/article/details/108630950（Spring中的“三级缓存”）
+参考：https://blog.csdn.net/weixin_44181671/article/details/108630950（Spring中的“三级缓存”）、https://www.zhihu.com/question/445446018/answer/2379147054（spring为什么使用三级缓存而不是两级？）
 
 # SpringMVC 9大组件
 
@@ -435,6 +435,12 @@ public class HelloController {
 
 
 ## 配合@InitBinder和全局数据预处理
+
+@InitBinder 参考：
+
+https://blog.csdn.net/wang0907/article/details/108357696（springMVC之@InitBinder的用法）、https://blog.csdn.net/qq_40837310/article/details/106984709（SpringMVC之@InitBinder注解详解）、https://www.cnblogs.com/better-farther-world2099/articles/10971897.html（Spring中@InitBinder注解的使用）
+
+
 
 假设有两个实体类：
 

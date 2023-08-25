@@ -1,7 +1,3 @@
-# javaagent（字节码插桩、attach、bTrace、Arthas、aspectjweaver）
-
-参考：https://www.cnblogs.com/rickiyang/p/11368932.html（javaagent指南）、https://blog.csdn.net/qinhaotong/article/details/100693414（Java成神之路——javaAgent（插桩，attach））
-
 # Java对象内存大小计算
 
 **JavaClass基本结构：**
@@ -285,6 +281,24 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 # ASM字节码操纵
 
 参考：https://blog.csdn.net/zhuoxiuwu/article/details/78619645（Java ASM 技术简介）、https://blog.csdn.net/prettyboy2ge/article/details/116838199（ASM）
+
+# javaagent（字节码插桩、attach、bTrace、Arthas、aspectjweaver）
+
+参考：https://www.cnblogs.com/rickiyang/p/11368932.html（javaagent指南）、https://blog.csdn.net/qinhaotong/article/details/100693414（Java成神之路——javaAgent（插桩，attach））
+
+# javassist（比asm直接操作jvm指令的方式更便捷）
+
+参考：
+
+https://juejin.cn/post/6952765170544279566（Java字节码编程之非常好用的javassist）、https://www.cnblogs.com/rickiyang/p/11336268.html（javassist使用全解析）、https://www.cnblogs.com/nice0e3/p/13811335.html（Java安全之Javassist动态编程）
+
+
+
+官方文档：
+
+http://www.javassist.org/tutorial/tutorial.html（Getting Started with Javassist）、http://www.javassist.org/html/index.html（Javassist）
+
+`$0`、`$args`、`$class`等符号说明参考：http://www.javassist.org/tutorial/tutorial2.html
 
 # 函数式接口（Function、Consumer、Supplier、Predicate）
 
