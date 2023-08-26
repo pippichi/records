@@ -18,9 +18,13 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 # Gameplay Ability System（GAS）
 
-参考：https://blog.csdn.net/m0_38110586/category_11011758.html（虚幻四Gameplay Ability System入门1-12）
+参考：
 
+https://blog.csdn.net/m0_38110586/category_11011758.html（虚幻四Gameplay Ability System入门1-12★）
 
+https://www.bilibili.com/video/BV1X5411V7jh（[中文直播]第31期｜GAS插件介绍（入门篇） | 伍德 大钊）、https://www.bilibili.com/video/BV1zD4y1X77M（[UnrealOpenDay2020]深入GAS架构设计 | EpicGames 大钊）、https://www.bilibili.com/video/BV1sG4y1o7MG（[UOD2022]基于GAS的运行时编辑器框架 | 深圳元象 王杰）
+
+https://www.zhihu.com/people/a-gun-er-58（虚幻插件GAS分析系列★）、https://space.bilibili.com/92060300/video（UE4 GAS入门系列★）
 
 # control rig与IK rig
 
@@ -181,3 +185,51 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 材质中使用Dynamic Parameter将Niagara中的动态属性值传入材质
 
 参考：https://blog.csdn.net/hechao3225/article/details/113532401（UE4 Niagara粒子系统基础笔记）
+
+# 大世界
+
+## 大世界分区（worldpartition）
+
+参考：
+
+https://blog.csdn.net/oFengtingwano/article/details/130871958（虚幻引擎(UE5)-大世界分区WorldPartition教程(一)）、https://cuifeng.blog.csdn.net/article/details/131432827（虚幻引擎(UE5)-大世界分区WorldPartition教程(二)）、https://cuifeng.blog.csdn.net/article/details/131433627（虚幻引擎(UE5)-大世界分区WorldPartition教程(三)）、https://cuifeng.blog.csdn.net/article/details/131433981（虚幻引擎(UE5)-大世界分区WorldPartition教程(四)）
+
+https://www.zhihu.com/people/huang-chao-81-47/posts（World Partition浅析系列）、https://www.zhihu.com/people/kbmwooder/posts（UE5 World Partition 世界分区系列）、https://www.zhihu.com/people/yan-fei-can-yue-tian-7（UE5 WorldPartition系列）
+
+https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的WorldPartition）、https://zhuanlan.zhihu.com/p/466243266（UE5 World Partition实践）
+
+## 创建大世界
+
+可以使用world machine（https://www.world-machine.com/）
+
+参考：https://www.bilibili.com/video/BV14Y411b7Gn（虚幻引擎 5！如何在15分钟内创建一个巨大的开放世界地图！）
+
+# Loading Screen（前端加载画面或视频，后端加载关卡）
+
+参考：
+
+https://zhuanlan.zhihu.com/p/608502007（虚幻杂记4 PreLoadScreen与LoadingScreen）、https://zhuanlan.zhihu.com/p/395615335（为UE4制作实时加载界面（蓝图向） —— Real-time Loading Screen for UE4（Blueprint））、https://zhuanlan.zhihu.com/p/372577094（UE的LoadingScreen加载界面及动态数据实现）
+
+https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加载画面（后台加载关卡）的实现）
+
+# 异步任务
+
+参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）
+
+# 编辑器界面
+
+## c++美化属性展示
+
+参考：https://zhuanlan.zhihu.com/p/606248942（虚幻杂记3 C++美化属性显示）
+
+## 自定义编辑器界面
+
+参考：
+
+https://space.bilibili.com/92060300/video（【合集】UE4插件与Slate系列）
+
+还有各种编辑器扩展，用到的时候再去翻阅网络资料
+
+# 推荐阅读
+
+知乎：技术宅阿棍儿（他写的东西很深入）
