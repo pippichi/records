@@ -214,6 +214,10 @@ https://zhuanlan.zhihu.com/p/608502007（虚幻杂记4 PreLoadScreen与LoadingSc
 
 https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加载画面（后台加载关卡）的实现）
 
+# 瞄准动画时的MeshSpace和LocalSpace
+
+参考：https://zhuanlan.zhihu.com/p/33234659（浅谈MeshSpace和LocalSpace）
+
 # 异步任务
 
 参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）
