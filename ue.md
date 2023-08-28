@@ -1,4 +1,14 @@
+# 宏
+
+## UPARAM(ref)
+
+b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数，如果想要在蓝图节点中添加一个输入引脚（输入引脚其实就是以入参的方式传入函数），则函数指定引脚入参前要加上UPARAM(ref)
+
+参考：https://blog.csdn.net/opk8848/article/details/104887704（ue4 关于ufunction 函数 参数 用引用 UPARAM(ref)）
+
 # 材质节点
+
+各种材质表达式参考：https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-expressions-reference/（本文列出了[材质编辑器](https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-editor-user-guide)中所有可用 **材质表达式** 节点的参考页面）
 
 ## ObjectPivotPoint
 
@@ -205,6 +215,10 @@ https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的W
 可以使用world machine（https://www.world-machine.com/）
 
 参考：https://www.bilibili.com/video/BV14Y411b7Gn（虚幻引擎 5！如何在15分钟内创建一个巨大的开放世界地图！）
+
+# Procedural Mesh 程序化模型
+
+参考：https://zhuanlan.zhihu.com/p/346745928（UE4 Procedural Mesh 程序化模型）、https://blog.csdn.net/qq_31788759/article/details/104092692（【UE4 C++】由点面数据，批量绘制ProceduralMesh并转化为StaticMesh资产）
 
 # Loading Screen（前端加载画面或视频，后端加载关卡）
 
