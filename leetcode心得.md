@@ -7907,7 +7907,19 @@ int main(){
 
 参考：https://blog.csdn.net/ccnt_2012/article/details/81127117（如何理解最小二乘法？）、https://blog.csdn.net/W1995S/article/details/118153146（最小二乘法）
 
-### 雅可比矩阵
+### 向量与矩阵的范数
+
+参考：https://blog.csdn.net/zaishuiyifangxym/article/details/81673491（向量与矩阵的范数（比较1-范数、2-范数、无穷范数、p-范数、L0范数 和 L1范数等））、https://zhuanlan.zhihu.com/p/111762323（矩阵理论-1范数、2范数、无穷范数的通俗理解？）
+
+### 矩阵论-谱半径
+
+参考：https://blog.csdn.net/bless2015/article/details/106016546（【矩阵论笔记】谱半径）、https://www.zhihu.com/question/22263789（矩阵的谱半径怎么求？）、https://blog.csdn.net/lanchunhui/article/details/50619305（矩阵的谱（半径）及其性质）、https://blog.csdn.net/Jinyindao243052/article/details/111559371（矩阵谱半径与矩阵范数的关系）
+
+### 线性方程组的迭代解、迭代方法（雅可比迭代法(Jacobbi)、高斯--赛德尔迭代法(Guass-seidel)）及其收敛性讨论
+
+参考：https://blog.csdn.net/qq_37264323/article/details/104514857（数值计算笔记之线性方程组的迭代解、迭代方法）、https://blog.csdn.net/qq_37264323/article/details/104554106（数值计算笔记之迭代法的收敛性）
+
+#### 雅可比矩阵
 
 参考：http://www.taodudu.cc/news/show-3895733.html（学习笔记之——Jacobian matrix（雅可比矩阵））、https://zhuanlan.zhihu.com/p/499405167（【游戏开发】逆向运动学（IK）详解）
 

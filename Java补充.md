@@ -1243,6 +1243,10 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 参考：https://arthas.aliyun.com/doc/（Arthas官方文档）
 
+# 内存分析工具MemoryAnalyzer
+
+参考：https://blog.csdn.net/lyd135364/article/details/121449969（MAT（Memory Analyzer Tool）工具使用超详细版）
+
 # BIO与NIO、AIO的区别
 
 参考：

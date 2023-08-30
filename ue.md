@@ -8,6 +8,10 @@ b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数�
 
 # 材质节点
 
+参考：
+
+https://blog.csdn.net/choa12345/article/details/120075714（[浅析]UE4材质基础总结）
+
 各种材质表达式参考：https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-expressions-reference/（本文列出了[材质编辑器](https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-editor-user-guide)中所有可用 **材质表达式** 节点的参考页面）
 
 ## ObjectPivotPoint
@@ -18,7 +22,35 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 参考：https://zhuanlan.zhihu.com/p/381326628（RotateAboutAxis和FixRotateAboutAxisNormals）、https://zhuanlan.zhihu.com/p/394785452（在 UE4 中使用顶点着色器旋转网格）
 
+## 材质表达式SceneTexture
 
+- SceneTexture:PostProcessInput0
+- SceneTexture:CustomDepth
+- SceneTexture:CustomStencil
+- SceneTexture:WorldNormal
+- ...
+
+参考：
+
+https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）
+
+https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（上））、https://blog.csdn.net/ttm2d/article/details/115263517（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（下））
+
+## 抗锯齿DitherTemporalAA
+
+参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
+
+# 组件Component
+
+## SceneCapture场景捕获
+
+可以用来做远程监控、后视镜视角、传送门、Cubemap（HDR高动态范围贴图）等
+
+参考：
+
+https://www.gongyesheji.org/?p=1941&wd=&eqid=faa65b910005355e000000066476aafd（【unreal4】 虚幻引擎中获取虚拟摄像机图像并导入UI(UMG)实时显示（SceneCaptureComponent2D、CanvasRenderTarget2D））
+
+https://blog.csdn.net/qq_39934403/article/details/121654665（Unreal Engine UE4虚幻引擎，生成Cubemap（HDR高动态范围贴图））、https://blog.csdn.net/qq_39934403/article/details/121656255（Unreal Engine UE4虚幻引擎，创建Sky天空球，球天材质，自制天空球（HDR高动态范围贴图））
 
 # 创建可复用的动画通知类（Anim Notify Class）
 
@@ -190,6 +222,8 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 
 # Niagara
 
+参考：https://zhuanlan.zhihu.com/p/138088668（UE4-Niagara基础解析）
+
 ## Dynamic Material Parameter
 
 在particle update中添加Dynamic Material Parameter指定粒子的属性
@@ -216,6 +250,30 @@ https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的W
 
 参考：https://www.bilibili.com/video/BV14Y411b7Gn（虚幻引擎 5！如何在15分钟内创建一个巨大的开放世界地图！）
 
+# 距离场（DistanceFields）
+
+参考：
+
+https://docs.unrealengine.com/4.26/zh-CN/BuildingWorlds/LightingAndShadows/MeshDistanceFields/（网格体距离场）
+
+https://zhuanlan.zhihu.com/p/469205984（初探UE4 距离场系统（阴影篇））、https://zhuanlan.zhihu.com/p/29214784（【UnrealEngine4】距离场的使用技巧与应用）、https://www.zhihu.com/question/314433176?utm_id=0（有哪位大佬能和我讲讲距离场是什么东西嘛？）
+
+https://zhuanlan.zhihu.com/p/492635939?utm_id=0（Games101 finalProject系列(一) 距离场与RayMarching）
+
+https://zhuanlan.zhihu.com/p/487044802?utm_id=0（UE4 Signed Distance Fields：符号距离场（一））、https://zhuanlan.zhihu.com/p/492707962（UE4 Signed Distance Fields：符号距离场（二））
+
+# DynamicMesh
+
+参考：
+
+https://www.bilibili.com/video/BV1iB4y1S75f/?spm_id_from=333.999.0.0（b站聆枫LingFeng视频）
+
+https://zhuanlan.zhihu.com/p/494672575（Ue5 程序化生成： Dynamic Mesh初探）、https://zhuanlan.zhihu.com/p/497063218（UE5动态生成Mesh(GeneratedDynamicMeshActor)实践）
+
+# PCG（程序化内容生成器）
+
+参考：https://zhuanlan.zhihu.com/p/636291504（UE5中的PCG —— PCG in UE5）、https://zhuanlan.zhihu.com/p/638790748（UE5中的PCG进阶 —— Advanced PCG in UE5）
+
 # Procedural Mesh 程序化模型
 
 参考：https://zhuanlan.zhihu.com/p/346745928（UE4 Procedural Mesh 程序化模型）、https://blog.csdn.net/qq_31788759/article/details/104092692（【UE4 C++】由点面数据，批量绘制ProceduralMesh并转化为StaticMesh资产）
@@ -232,9 +290,49 @@ https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加
 
 参考：https://zhuanlan.zhihu.com/p/33234659（浅谈MeshSpace和LocalSpace）
 
+# UMG
+
+## EditorUtilityWidget
+
+参考：https://blog.csdn.net/iaibeyond/article/details/117696541（简介UE4中的EditorUtilityWidget）、https://blog.csdn.net/u013412391/article/details/121844464（学习在虚幻引擎中使用UMG作为编辑器控件）、https://blog.csdn.net/Yoci98/article/details/120600645（UE使用EditorUtilityWidget完成简单的编辑器内工具）
+
+# 蓝图中动态获取Uasset资源（GetAssetsXXX）
+
+![image-20230830160629458](ue.assets/image-20230830160629458.png)
+
+参考：https://blog.csdn.net/weixin_40821143/article/details/112981474（UE4 | BP | 使用蓝图获取Uasset资源）
+
 # 异步任务
 
 参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）
+
+# 渲染
+
+## 渲染编程
+
+参考：https://zhuanlan.zhihu.com/p/36675543（虚幻4渲染编程专题概述及目录★）
+
+## G-buffer
+
+参考：https://blog.csdn.net/weixin_44718797/article/details/125838661（延迟渲染的过程）
+
+# module模块与plugin插件
+
+## 创建自己的插件
+
+参考：
+
+https://blog.csdn.net/jxyb2012/article/details/88839224/（UE4插件研发 So Easy）、https://www.cnblogs.com/HHW-Development/p/16795797.html（UE4 UE5 虚幻引擎插件开发、创建、制作方法）
+
+https://zhuanlan.zhihu.com/p/73068767（虚幻4笔记-插件创建、相关配置文件和加载启动源码分析）
+
+https://zhuanlan.zhihu.com/p/484392550（UE4 基础必学系列：自定义插件）
+
+https://www.jianshu.com/p/ec0ae889f417（Unreal插件开发入门）、https://www.jianshu.com/p/49684c1b6011（Unreal插件开发的一些技巧）
+
+## 创建自己的模块
+
+参考：https://blog.csdn.net/luofeixiongsix/article/details/81078232（[UE4C++程序]GameModule与Plugin）
 
 # 编辑器界面
 
@@ -252,6 +350,6 @@ https://space.bilibili.com/92060300/video（【合集】UE4插件与Slate系列�
 
 # 推荐阅读
 
-知乎：技术宅阿棍儿（他写的东西很深入）
+知乎：https://www.zhihu.com/people/a-gun-er-58（技术宅阿棍儿，写的东西很深入）、https://www.zhihu.com/people/SuperPandaGX（YivanLee，大佬，写的东西很深入）
 
 gitee：https://gitee.com/timetzhang/LECTURE.UnrealEngine（timetzhang，他整合了很多素材资源）
