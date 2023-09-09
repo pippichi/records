@@ -2,7 +2,6 @@
 
 参考：https://blog.csdn.net/weixin_44568736/article/details/128119426（blender 烘焙贴图）
 
-
 # 重拓扑（Polybuild Tool）
 
 参考：https://blog.csdn.net/ttm2d/article/details/100171329/（Polybuild Tool：Blender自带的重拓扑工具）
@@ -45,3 +44,7 @@
 ## 点对齐方法
 
 参考：https://www.jianshu.com/p/7c1c1e738294（关于blender点对齐的方法）
+
+## 文件格式
+
+png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。

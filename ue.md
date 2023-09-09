@@ -350,8 +350,37 @@ https://space.bilibili.com/92060300/video（【合集】UE4插件与Slate系列�
 
 还有各种编辑器扩展，用到的时候再去翻阅网络资料
 
+# 模型网站
+
+- 动画
+
+  mixamo
+
+- 模型素材
+
+  sketch fab、blender market、poly haven
+
+# 虚幻商城资源包
+
+horse animset（骑马）
+
+animation movement 、rider、mount、通用飞行系统
+
+power ik（ik系统）
+
+oss在线子系统、steam oss、虚幻ds服务器系统（整合了epic开发经验）
+
+game feature（知乎大钊）
+
+动画蓝图模板（b站）
+
+levelinstance（知乎Nero）
+
+vdb体积云
+
 # 推荐阅读
 
 知乎：https://www.zhihu.com/people/a-gun-er-58（技术宅阿棍儿，写的东西很深入）、https://www.zhihu.com/people/SuperPandaGX（YivanLee，大佬，写的东西很深入）
 
 gitee：https://gitee.com/timetzhang/LECTURE.UnrealEngine（timetzhang，他整合了很多素材资源）
+
