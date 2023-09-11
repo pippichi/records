@@ -1955,3 +1955,4 @@ public class DataSourceHealthContributorAutoConfiguration extends
 ```
 
 参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
+

@@ -1111,8 +1111,59 @@ mingw最新版本下载地址：https://github.com/niXman/mingw-builds-binaries/
 
 ## 配置文件预设变量
 
-参考：https://zhuanlan.zhihu.com/p/44967536（VSCode 配置文件的变量索引）、https://blog.csdn.net/weixin_39249524/article/details/105438814（vscode中的${workspaceFolder}等变量）、https://blog.csdn.net/Hello_Ray/article/details/123522502（vs code中的类似${workspaceFolder}的变量的解释）
+参考：https://zhuanlan.zhihu.com/p/44967536（VSCode 配置文件的变量索引）、https://blog.csdn.net/weixin_39249524/article/details/105438814（vscode中的${workspaceFolder}等变量）、https://blog.csdn.net/Hello_Ray/article/details/123522502（vscode中的类似${workspaceFolder}的变量的解释）
 
 ## 集成vcpkg
 
 参考：https://blog.csdn.net/weixin_42703267/article/details/120603746（关于Vcpkg在VScode中的配置问题）、https://zhuanlan.zhihu.com/p/430835667（vscode + cmake + vcpkg搭建c++开发环境）、https://blog.csdn.net/weixin_45748734/article/details/128937372（vcpkg + cmake + vscode 配置教程）、https://blog.csdn.net/henry_23/article/details/121099766（Windows 下使用 vcpkg + CMake 进行开发）
+
+# 内存、性能分析
+
+推荐阅读：https://fangliang.blog.csdn.net/article/details/75411797（★IT项目研发过程中的利器）
+
+## ★Address Sanitizer（Asan）
+
+参考：https://blog.csdn.net/wads23456/article/details/105141997（Address Sanitizer（Asan）原理及实战定位）、https://blog.csdn.net/weixin_41644391/article/details/103450401（c++ Asan(address-sanitize)的配置和使用）、https://www.jianshu.com/p/3a2df9b7c353（Address Sanitizer 用法）、https://zhuanlan.zhihu.com/p/512578904（关于 ASAN）、https://zhuanlan.zhihu.com/p/550130850（内存问题难定位，那是因为你没用ASAN）、https://www.cnblogs.com/gnivor/p/16364729.html（C++笔记-Asan(address-sanitize)的使用）、https://www.jianshu.com/p/9e85345e500b（查内存泄漏试试AScan）、https://juejin.cn/post/6997201560140775461（c/c++动态检测内存错误利器 - Asan）、https://blog.csdn.net/hanlizhong85/article/details/78076668（Linux下内存检测工具：asan）
+
+## ★gperftools（内存泄漏分析、堆状态分析、动态执行流程分析和性能瓶颈分析等）
+
+gperftools的Heap Checker已经废弃，请使用Address Sanitizer（Asan）
+
+参考：
+
+https://fangliang.blog.csdn.net/article/details/81234967（内存泄漏分析的利器——gperftools的Heap Checker）、https://fangliang.blog.csdn.net/article/details/81287765（堆状态分析的利器——gperftools的Heap Profiler）、https://fangliang.blog.csdn.net/article/details/81315729（动态执行流程分析和性能瓶颈分析的利器——gperftools的Cpu Profiler）
+
+https://www.cnblogs.com/gnivor/p/16531828.html（性能测试工具gperftools使用-内存占用分析）
+
+## 静态分析C语言生成函数调用关系的利器
+
+参考：https://fangliang.blog.csdn.net/article/details/75576878（静态分析C语言生成函数调用关系的利器——cflow）、https://fangliang.blog.csdn.net/article/details/75441751（静态分析C语言生成函数调用关系的利器——calltree）
+
+## 动态执行流程分析和性能瓶颈分析
+
+参考：https://fangliang.blog.csdn.net/article/details/79457352（动态执行流程分析和性能瓶颈分析的利器——valgrind的callgrind）
+
+## 内存分析
+
+参考：https://fangliang.blog.csdn.net/article/details/79445591（内存问题分析的利器——valgrind的memcheck）、https://fangliang.blog.csdn.net/article/details/79429330（内存、性能问题分析的利器——valgraind）
+
+## 堆内存分析
+
+参考：https://fangliang.blog.csdn.net/article/details/81202015（堆问题分析的利器——valgraind的massif）、https://fangliang.blog.csdn.net/article/details/81220457（堆状态分析的利器——valgrind的DHAT）
+
+## 锁性能分析
+
+参考：https://fangliang.blog.csdn.net/article/details/81360242（互斥量、读写锁长占时分析的利器——valgrind的DRD）、https://fangliang.blog.csdn.net/article/details/81365851（死锁问题分析的利器——valgrind的DRD和Helgrind）
+
+## 多线程数据数据竞争问题分析
+
+参考：https://fangliang.blog.csdn.net/article/details/81369152（数据竞争（data race）问题分析的利器——valgrind的Helgrind）
+
+# 指定程序运行到某个/某些CPU上
+
+参考：https://fangliang.blog.csdn.net/article/details/79160916（绑定CPU逻辑核心的利器——taskset）
+
+# 使用diff、patch在不损坏源文件的前提下给程序打补丁
+
+参考：https://fangliang.blog.csdn.net/article/details/77337889（代码打补丁的利器——diff和patch）
+
