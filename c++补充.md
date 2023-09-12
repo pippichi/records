@@ -680,7 +680,7 @@ tie(j, k, i) = make_tuple(i, j, k);
 
 # cmake
 
-参考：https://www.hahack.com/codes/cmake/（CMake 入门实战）
+参考：https://www.hahack.com/codes/cmake/（CMake 入门实战）、https://zhuanlan.zhihu.com/p/500002865（CMake 良心教程，教你从入门到入魂）
 
 ## find_package、include_directories和target_link_libraries
 
