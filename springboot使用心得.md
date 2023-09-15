@@ -1936,7 +1936,7 @@ GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST
 
 ## actuator组件（服务健康监测组件）深度使用（包括InfoContributor接口的使用、EndPoint解析等）
 
-参考：https://blog.csdn.net/qq_26000415/article/details/79234812（spring boot 源码解析57-actuator组件:info背后的密码(全网独家)）、https://blog.csdn.net/qq_26000415/article/details/79060258（spring boot 源码解析23-actuate使用及EndPoint解析）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+参考：https://blog.csdn.net/qq_26000415/article/details/79234812（spring boot 源码解析57-actuator组件:info背后的密码(全网独家)）、https://blog.csdn.net/qq_26000415/article/details/79060258（spring boot 源码解析23-actuate使用及EndPoint解析）、https://blog.csdn.net/zwx900102/article/details/115446997（面试官：聊一聊SpringBoot服务监控机制）、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 ## 自定义health indicator（注入实现了HealthIndicator接口的Bean）
 
