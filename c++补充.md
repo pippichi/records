@@ -1167,3 +1167,11 @@ https://www.cnblogs.com/gnivor/p/16531828.html（性能测试工具gperftools使
 
 参考：https://fangliang.blog.csdn.net/article/details/77337889（代码打补丁的利器——diff和patch）
 
+# 内存锁定（mlock、mlockall、munlock、munlockall）
+
+参考：https://blog.csdn.net/qq_33526144/article/details/103360720（内存锁定）
+
+# 内存映射文件（mmap、munmap）
+
+参考：https://zhuanlan.zhihu.com/p/429987335（探索内存原理的内存映射文件(图文详解)）
+

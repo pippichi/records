@@ -1956,3 +1956,10 @@ public class DataSourceHealthContributorAutoConfiguration extends
 
 参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
 
+# RocketMQ
+
+参考：
+
+https://zhuanlan.zhihu.com/p/58892757（庖丁解牛 | 图解 RocketMQ 核心原理）、https://blog.csdn.net/guyue35/article/details/105674044（RocketMQ高可用机制----同步刷盘、异步刷盘和同步复制、异步复制）
+
+https://blog.csdn.net/qq_36737803/article/details/112261352（RocketMQ与Springboot整合（rocketmq-spring-boot-starter）实战教程）、https://blog.csdn.net/zxl646801924/article/details/105659481（Springboot集成RocketMQ）
