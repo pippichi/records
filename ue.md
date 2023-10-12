@@ -400,6 +400,8 @@ levelinstance（知乎Nero）
 
 vdb体积云
 
+摩卡数字（b站，他的网盘有非常多的资源）
+
 # 推荐阅读
 
 知乎：https://www.zhihu.com/people/a-gun-er-58（技术宅阿棍儿，写的东西很深入）、https://www.zhihu.com/people/SuperPandaGX（YivanLee，大佬，写的东西很深入）
