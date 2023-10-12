@@ -16,9 +16,11 @@
 
 - 其他人远端已bush
 
-  1、使用rev-list、largefiles查找大文件；2、使用filter-repo
+  方法一：1、使用rev-list、largefiles查找大文件；2、使用filter-repo
+  
+  方法二：使用filter-branch遍历所有的commit，删除大文件，重写历史commit
 
-参考：https://www.bilibili.com/video/BV1C841117TD/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（GitFAQ-如何删除提交记录中的大文件）
+参考：https://www.bilibili.com/video/BV1C841117TD/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（GitFAQ-如何删除提交记录中的大文件）、https://blog.csdn.net/dd121494648/article/details/102277068（第一次用git filter-branch 有点爽）
 
 # Patch工作流
 
@@ -35,3 +37,11 @@
   git cherry-pick
 
 参考：https://www.bilibili.com/video/BV14z4y1T7zN/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（Git技术研究-Patch工作流）
+
+# 大文件存储
+
+参考：https://www.cnblogs.com/cangqinglang/p/13097777.html（详解 Git 大文件存储（Git LFS））
+
+# git官方文档
+
+参考：https://git-scm.com/doc、https://git-scm.com/book/zh/v2
