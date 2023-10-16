@@ -38,6 +38,12 @@
 
 参考：https://www.bilibili.com/video/BV14z4y1T7zN/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（Git技术研究-Patch工作流）
 
+# 合并&挑选提交记录
+
+使用git format-patch和git rebase -i
+
+参考：https://www.bilibili.com/video/BV1Wu411K7dR/?spm_id_from=333.337.search-card.all.click&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（GitFAQ-如何合并&挑选提交记录）
+
 # 大文件存储
 
 参考：https://www.cnblogs.com/cangqinglang/p/13097777.html（详解 Git 大文件存储（Git LFS））
