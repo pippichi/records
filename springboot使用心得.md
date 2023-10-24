@@ -1710,6 +1710,12 @@ https://blog.csdn.net/qq_22701869/article/details/110947453（springboot国际�
 
 参考：https://blog.csdn.net/mupengfei6688/article/details/79060014（JAVA中ResourceBundle使用详解）
 
+## LocaleContextHolder
+
+该类用于维护http请求时的Header等请求信息
+
+参考：https://blog.csdn.net/qq_36804701/article/details/108282775（springboot i18n国际化后台多种语言设置的方式）、https://blog.csdn.net/m0_50163856/article/details/118543131（SpringBoot 国际化LocaleContextHolder的基本配置）
+
 # StopWatch
 
 可以用于监控代码段执行时长
