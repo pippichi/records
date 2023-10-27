@@ -7418,6 +7418,10 @@ int main(){
 
   需要注意的是，经过实验发现，内表查询使用条件过滤的时候不能使用AS别名字段，只能使用原字段，否则会识别不出来
 
+### [577. Employee Bonus](https://leetcode.cn/problems/employee-bonus/)
+
+- LEFT JOIN联表查询
+
 ### [584. 寻找用户推荐人](https://leetcode-cn.com/problems/find-customer-referee/)
 
 - 使用 `<>` (`!=`) 和 `IS NULL`
