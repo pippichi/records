@@ -326,9 +326,9 @@ https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加
 
 参考：https://blog.csdn.net/weixin_40821143/article/details/112981474（UE4 | BP | 使用蓝图获取Uasset资源）
 
-# 异步任务
+# 多线程异步任务
 
-参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）
+参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）、https://zhuanlan.zhihu.com/p/38881269（《Exploring in UE4》多线程机制详解[原理分析]）
 
 # 渲染
 
