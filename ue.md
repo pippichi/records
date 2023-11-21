@@ -78,7 +78,13 @@ https://blog.csdn.net/qq_39934403/article/details/121654665（Unreal Engine UE4�
 
 参考：https://blog.csdn.net/ttm2d/article/details/111769249（UE4动画系统：什么是动画通知（Anim Notify））
 
+# Data Registry
 
+参考：
+
+https://zhuanlan.zhihu.com/p/471631747（UE5 -- DataRegistry（数据注册表)）
+
+https://www.bilibili.com/video/BV1qq4y1W7Ka（DataRegistry：一种统领全局的新数据配置工具）
 
 # Gameplay Ability System（GAS）
 
@@ -92,7 +98,37 @@ https://www.zhihu.com/people/a-gun-er-58（虚幻插件GAS分析系列★）、h
 
 https://zhuanlan.zhihu.com/p/486808688（【Unreal】虚幻GAS系统快速入门）
 
-# control rig与IK rig
+# ModularGamePlay、GameFeatures
+
+参考：
+
+https://zhuanlan.zhihu.com/p/599593994（UE5 ModularGamePlay相关理解）
+
+https://www.bilibili.com/video/BV1s44y1y7kY（模块化游戏功能 Modular Game Features）
+
+# 模块化动画系统LinkAnimLayer
+
+参考：https://zhuanlan.zhihu.com/p/599610314（UE5 Lyra项目学习（五） 模块化动画系统）、官方Lyra项目
+
+# Quartz
+
+参考：
+
+https://docs.unrealengine.com/5.3/zh-CN/overview-of-quartz-in-unreal-engine/
+
+https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之七 MetaSounds and Quartz）
+
+# MetaSounds
+
+参考：
+
+https://docs.unrealengine.com/5.3/zh-CN/metasounds-in-unreal-engine/
+
+https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之七 MetaSounds and Quartz）
+
+
+
+# Control rig与IK rig
 
 参考：https://zhuanlan.zhihu.com/p/499405167（★【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
 
@@ -283,6 +319,10 @@ https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的W
 可以使用world machine（https://www.world-machine.com/）
 
 参考：https://www.bilibili.com/video/BV14Y411b7Gn（虚幻引擎 5！如何在15分钟内创建一个巨大的开放世界地图！）
+
+# Level Instancing
+
+参考：https://docs.unrealengine.com/5.3/zh-CN/level-instancing-in-unreal-engine/
 
 # MASS框架
 
