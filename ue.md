@@ -62,6 +62,22 @@ https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HL
 
 参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
 
+# 委托
+
+参考：
+
+https://zhuanlan.zhihu.com/p/575671003（UE4中的委托及实现原理）
+
+https://blog.csdn.net/q244645787/article/details/129874760（UE4/5C++：Delegate（委托or代理？）的使用）
+
+https://cloud.tencent.com/developer/article/1889577（UE4技术总结——委托）
+
+# 函数解释
+
+## Make Rot from ...
+
+参考：https://www.cnblogs.com/weixiaodezhoubian/p/12844425.html（UE4 Make Rot From......函数）
+
 # 组件Component
 
 ## SceneCapture场景捕获
@@ -322,7 +338,11 @@ https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的W
 
 # Level Instancing
 
-参考：https://docs.unrealengine.com/5.3/zh-CN/level-instancing-in-unreal-engine/
+参考：
+
+https://docs.unrealengine.com/5.3/zh-CN/level-instancing-in-unreal-engine/
+
+https://zhuanlan.zhihu.com/p/502068030（UE5 WorldPartition【3】 LevelInstance）
 
 # MASS框架
 
