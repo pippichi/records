@@ -308,7 +308,11 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
 # Niagara
 
-参考：https://zhuanlan.zhihu.com/p/138088668（UE4-Niagara基础解析）
+参考：
+
+https://zhuanlan.zhihu.com/p/138088668（UE4-Niagara基础解析）
+
+https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
 
 ## Dynamic Material Parameter
 
