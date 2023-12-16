@@ -322,6 +322,12 @@ https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
 
 参考：https://blog.csdn.net/hechao3225/article/details/113532401（UE4 Niagara粒子系统基础笔记）
 
+## UAV（Unordered Access View）、Grid2DCollection、Grid3DCollection
+
+这些都相当于高级版RenderTarget
+
+参考：https://zhuanlan.zhihu.com/p/344575245（UE4：Niagara中的UAV）
+
 # 大世界
 
 ## 大世界分区（worldpartition）
