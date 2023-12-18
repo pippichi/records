@@ -382,9 +382,15 @@ https://www.bilibili.com/video/BV1iB4y1S75f/?spm_id_from=333.999.0.0（b站聆�
 
 https://zhuanlan.zhihu.com/p/494672575（Ue5 程序化生成： Dynamic Mesh初探）、https://zhuanlan.zhihu.com/p/497063218（UE5动态生成Mesh(GeneratedDynamicMeshActor)实践）
 
-# PCG（程序化内容生成器）
+# PCG（Procedural Content Generation Framework程序化内容生成器）
 
-参考：https://zhuanlan.zhihu.com/p/636291504（UE5中的PCG —— PCG in UE5）、https://zhuanlan.zhihu.com/p/638790748（UE5中的PCG进阶 —— Advanced PCG in UE5）
+参考：
+
+https://www.bilibili.com/video/BV17z4y1P7nK（★PCG All In One Tutorial）
+
+https://zhuanlan.zhihu.com/p/636291504（UE5中的PCG —— PCG in UE5）、https://zhuanlan.zhihu.com/p/638790748（UE5中的PCG进阶 —— Advanced PCG in UE5）
+
+https://blog.csdn.net/ttm2d/article/details/131304084（虚幻引擎程序化资源生成框架PCG(Procedural Content Generation Framework) 之 PCG基础）
 
 # Procedural Mesh 程序化模型
 
@@ -467,6 +473,10 @@ https://www.jianshu.com/p/ec0ae889f417（Unreal插件开发入门）、https://w
 参考：
 
 https://space.bilibili.com/92060300/video（【合集】UE4插件与Slate系列）
+
+https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定义编辑器（一））、https://blog.csdn.net/weixin_40301728/article/details/119744898（Unreal 自定义编辑器（二））、https://blog.csdn.net/weixin_40301728/article/details/119769063（Unreal 自定义编辑器（三））、https://blog.csdn.net/weixin_40301728/article/details/119814429（Unreal 自定义编辑器（四））、https://blog.csdn.net/weixin_40301728/article/details/119841875（Unreal 自定义编辑器（五））、https://blog.csdn.net/weixin_40301728/article/details/119851108（Unreal 自定义编辑器（六））
+
+
 
 还有各种编辑器扩展，用到的时候再去翻阅网络资料
 
