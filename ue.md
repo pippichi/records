@@ -28,9 +28,11 @@ b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数�
 
 参考：https://blog.csdn.net/opk8848/article/details/104887704（ue4 关于ufunction 函数 参数 用引用 UPARAM(ref)）
 
-# 材质节点
+# 材质节点（Material）
 
 参考：
+
+非常清晰有用的教程，每个节点都有案例：https://zhuanlan.zhihu.com/p/573712342（UE4虚幻引擎材质节点以及蓝图的学习（一）★）、https://zhuanlan.zhihu.com/p/574455678（UE4虚幻引擎材质节点以及蓝图的学习（二）★）、https://zhuanlan.zhihu.com/p/575556518（UE4虚幻引擎材质节点以及蓝图的学习（三）★）
 
 https://blog.csdn.net/choa12345/article/details/120075714（[浅析]UE4材质基础总结）
 
