@@ -954,6 +954,8 @@ https://zhuanlan.zhihu.com/p/559936879（C++-模板-萃取的实现(一)）、ht
 
 https://blog.csdn.net/zxc024000/article/details/79405869（C++模板元编程type_traits）、https://blog.csdn.net/mogoweb/article/details/79264925（[C++11札记]： type traits简介）、https://zhuanlan.zhihu.com/p/547313994（C++：STL中的萃取器traits）
 
+https://blog.csdn.net/wxj1992/article/details/122506368（C++11 类型支持之type traits）
+
 ## 模板参数类型
 
 模板参数通常表示类型，表示类型的模板参数称为类型模板参数（type template parameter）；此外还有非类型模板参数（non-type template parameter），非类型模板参数包含以下四种类型：

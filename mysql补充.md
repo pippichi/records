@@ -28,3 +28,20 @@ https://www.cnblogs.com/cw2blog/articles/17771440.html（Mariadb数据库存储�
 
 https://blog.csdn.net/lpfstudy/article/details/130364375（Mysql - 日志及其存放路径以及如何配置该路径）
 
+
+
+# Canal
+
+参考：
+
+https://blog.csdn.net/u011066470/article/details/126734578（mysql的数据表同步工具 canal的使用）
+
+https://blog.51cto.com/u_14014612/6027495（Canal高可用架构部署）
+
+https://www.cnblogs.com/huangxincheng/p/7456397.html（缓存一致性和跨服务器查询的数据异构解决方案canal）
+
+https://segmentfault.com/a/1190000023297973（阿里canal是怎么通过zookeeper实现HA机制的？）
+
+https://blog.csdn.net/XDSXHDYY/article/details/97825508（canal介绍及HA集群模式搭建）
+
+https://blog.csdn.net/qq_46893497/article/details/111026996（Canal--介绍及原理）
