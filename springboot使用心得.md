@@ -972,6 +972,14 @@ spring:
 
 参考：https://blog.csdn.net/jgteng/article/details/54411423（线程池的RejectedExecutionHandler（拒绝策略））
 
+# Sentinel限流
+
+参考：
+
+https://blog.csdn.net/m0_52208135/article/details/128834698（SpringCloud Alibaba Sentinel 使用方式及限流规则持久化）
+
+https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) 集成Sentinel）
+
 # 单点登录
 
 参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
