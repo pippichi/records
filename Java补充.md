@@ -1296,6 +1296,10 @@ SPI机制案例：
 
 参考：https://blog.csdn.net/ymb615ymb/article/details/123450610（SPI机制是什么？）、https://zhuanlan.zhihu.com/p/148144666（搞懂dubbo的SPI扩展机制）
 
+## ServiceLoader
+
+参考：https://zhuanlan.zhihu.com/p/212850943（Java | 带你理解 ServiceLoader 的原理与设计思想）
+
 # java调用c/c++
 
 有两种比较推荐的方式：JNI工具包和JNA框架

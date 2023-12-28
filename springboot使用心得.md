@@ -980,6 +980,28 @@ https://blog.csdn.net/m0_52208135/article/details/128834698（SpringCloud Alibab
 
 https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) 集成Sentinel）
 
+## Sentinel与令牌桶算法
+
+参考：
+
+https://blog.csdn.net/u022812849/article/details/131206898（【sentinel】令牌桶算法在Sentinel中的应用）
+
+https://blog.csdn.net/gaoliang1719/article/details/109475738（Sentinel使用令牌桶实现预热【原理源码】）
+
+## 简单测试sentinel效果（使用jmeter、postman压测）
+
+参考：https://blog.csdn.net/qq_38439171/article/details/125802397（jmeter和postman接口压测）
+
+## 流控、熔断和降级
+
+参考：
+
+https://www.51cto.com/article/746694.html（面试官：熔断和降级有什么区别？）
+
+https://blog.csdn.net/m0_49183244/article/details/124273538（Sentinel服务流控、熔断和降级）
+
+https://blog.csdn.net/weixin_45481821/article/details/125357875（【微服务~Sentinel】Sentinel降级、限流、熔断）
+
 # 单点登录
 
 参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
