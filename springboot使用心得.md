@@ -980,6 +980,8 @@ https://blog.csdn.net/m0_52208135/article/details/128834698（SpringCloud Alibab
 
 https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) 集成Sentinel）
 
+https://www.jianshu.com/p/5a87b582c35a（Alibaba Sentinel的四种限流策略）
+
 ## Sentinel与令牌桶算法
 
 参考：
@@ -987,6 +989,8 @@ https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) �
 https://blog.csdn.net/u022812849/article/details/131206898（【sentinel】令牌桶算法在Sentinel中的应用）
 
 https://blog.csdn.net/gaoliang1719/article/details/109475738（Sentinel使用令牌桶实现预热【原理源码】）
+
+https://zhuanlan.zhihu.com/p/348222596（令牌桶、漏斗、冷启动限流在sentinel的应用）
 
 ## 简单测试sentinel效果（使用jmeter、postman压测）
 
