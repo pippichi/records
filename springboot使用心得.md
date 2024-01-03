@@ -1519,9 +1519,19 @@ public class FileUtil {
 }
 ```
 
-# nacos配置热更新
+# Nacos
+
+## 热更新
 
 参考：https://blog.csdn.net/wang_o_yi/article/details/124387045（Nacos配置热更新的4种方式、读取项目配置文件的多种方式,@value,@RefreshScope,@NacosConfigurationProperties）
+
+## 监听配置变化
+
+参考：
+
+https://blog.csdn.net/wangfenglei123456/article/details/128634050（nacos配置动态刷新及监听到变化触发一些方法）
+
+https://blog.csdn.net/ysj1241267542/article/details/112561650（ApplicationListener实现nacos配置文件的本地更新监听）
 
 # 接口文档生成与增强
 
