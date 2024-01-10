@@ -12,6 +12,18 @@ https://blog.csdn.net/qq_37436172/article/details/128067682（mysql死锁介绍�
 
 
 
+# mysql分区表分区操作
+
+参考：
+
+https://www.cnblogs.com/ruiati/p/6993539.html（mysql 表分区 查看表分区 修改表分区）
+
+https://blog.51cto.com/u_16213343/7289696（mysql修改分区表分区）
+
+
+
+注意：分区表删除某分区时，该分区的磁盘数据并不会马上删除，可能还需要执行物理删除，如`OPTIMIZE TABLE`语句或者`ALTER TABLE ... ENGINE=InnoDB`语句来完成真正的删除。而且物理数据删除可能会导致一些数据库操作的停顿，因为它涉及到大量的磁盘操作。
+
 # MySQL事件调度器Event Scheduler
 
 参考：https://blog.csdn.net/qq_34745941/article/details/115486804（Mysql 事件调度器详解（Event Scheduler））、https://blog.csdn.net/qq_41819893/article/details/121147980（MySQL——事件）、https://blog.csdn.net/JokerLJG/article/details/128701993（MySQL事件）
