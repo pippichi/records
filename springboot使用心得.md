@@ -515,7 +515,7 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 参考：https://blog.csdn.net/user2025/article/details/105458842（SpringBoot常用注解@RestControllerAdvice）、https://blog.csdn.net/jsq6681993/article/details/119712621（RequestBodyAdvice用法详解-参数加解密示例）
 
-# 单元测试
+# Junit单元测试
 
 ## @Nested
 
@@ -558,6 +558,14 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 @RunWith被@ExtendWith替代了，不推荐使用
 
 参考：https://www.cnblogs.com/pass-ion/p/15064785.html（单元测试 注入方法 @ExtendWith与@RunWith）
+
+## @ContextConfiguration
+
+参考：
+
+https://blog.csdn.net/ll1042668699/article/details/128069286（@ExtendWith、@ContextConfiguration）
+
+https://blog.csdn.net/m0_37941483/article/details/90727830（Spring系列——@ContextConfiguration注解的使用）
 
 # 注入以及上下文环境
 

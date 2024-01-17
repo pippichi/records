@@ -48,6 +48,10 @@
 
 参考：https://www.cnblogs.com/cangqinglang/p/13097777.html（详解 Git 大文件存储（Git LFS））
 
+# ssh: connect to host github.com port 22: Connection refused
+
+参考：https://zhuanlan.zhihu.com/p/521340971（坑：ssh: connect to host github.com port 22: Connection refused）
+
 # git官方文档
 
 参考：https://git-scm.com/doc、https://git-scm.com/book/zh/v2
