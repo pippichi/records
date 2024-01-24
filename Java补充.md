@@ -337,7 +337,11 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 
 ## 阿里巴巴高并发架构面试题
 
-参考：https://blog.csdn.net/m0_62051288/article/details/126624791（阿里巴巴高并发架构到底多牛逼？是如何抗住淘宝双11亿级并发量？）
+参考：
+
+https://blog.csdn.net/m0_62051288/article/details/126624791（阿里巴巴高并发架构到底多牛逼？是如何抗住淘宝双11亿级并发量？）
+
+https://www.bmabk.com/index.php/post/174313.html（面试官：如何解决超卖问题？）
 
 ## 线程池中多余的线程如何被回收？
 
@@ -888,7 +892,13 @@ while (workerThread.isAlive()) {
 
 ## 乐观锁
 
-参考：https://blog.csdn.net/strawqqhat/article/details/88743519（乐观锁常见的两种实现方式和适用场景）、https://blog.csdn.net/sunwenhao_2017/article/details/81565783（乐观锁以及乐观锁的实现）
+参考：
+
+https://blog.csdn.net/strawqqhat/article/details/88743519（乐观锁常见的两种实现方式和适用场景）
+
+https://blog.csdn.net/sunwenhao_2017/article/details/81565783（乐观锁以及乐观锁的实现）
+
+https://blog.csdn.net/weixin_43811057/article/details/130816043（基于数据库实现乐观锁）
 
 ## 锁升级、锁降级
 
