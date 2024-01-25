@@ -12,6 +12,10 @@ https://blog.csdn.net/qq_37436172/article/details/128067682（mysql死锁介绍�
 
 
 
+# 唯一键冲突时会加gap lock间隙锁
+
+参考：https://www.zhihu.com/question/547447463/answer/2616628115（MySQL，insert时唯一索引冲突时会加gap lock间隙锁）
+
 # mysql分区表分区操作
 
 参考：
