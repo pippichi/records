@@ -1396,6 +1396,10 @@ public class TagGroup extends BasicEntity<Long> {
 
 参考：https://blog.csdn.net/dongshaw/article/details/112213322（使用自定义注解及AOP切面定位字段并做业务处理）、https://blog.csdn.net/weixin_49930191/article/details/108360531（Springboot Aop 自定义注解、切面）
 
+## 复合切点切面
+
+参考：https://blog.csdn.net/yangshangwei/article/details/77429625（Spring-AOP 复合切点切面）
+
 # 泛型处理之 ResolvableType
 
 参考：https://blog.csdn.net/zzuhkp/article/details/107749148（Spring 泛型处理之 ResolvableType）
