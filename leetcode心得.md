@@ -3203,6 +3203,16 @@ void permute(int* nums, int cur, int size) {
 
   每遍历完树的一层，层数加1
 
+### [105. Construct Binary Tree from Preorder and Inorder Traversal[M]](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+
+- 递归
+
+  比迭代简单多了，看官解
+
+- 迭代
+
+  很巧妙，有难度，看官解
+
 ### [107. Binary Tree Level Order Traversal II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/)
 
 - 迭代，可以选择对树的每一层做一个for循环遍历
@@ -4830,6 +4840,10 @@ k8 k7 k6 k5
   }
   ```
 
+### [72. Edit Distance[M]](https://leetcode.cn/problems/edit-distance/)
+
+- 递归+缓存
+- 动态规划+滚动数组
 
 ### [93. 复原 IP 地址[M]](https://leetcode.cn/problems/restore-ip-addresses/)
 

@@ -739,13 +739,21 @@ public:
 
 # 左值、右值、左值引用、右值引用
 
-参考：https://blog.csdn.net/u012198575/article/details/83142419（c++——左值、右值、左值引用、右值引用）、https://blog.csdn.net/caojianfa969/article/details/118927852（左值、右值引用及其作用）
+参考：
+
+https://blog.csdn.net/nanjono/article/details/131445237（★C++笔记四（右值引用），讲的非常通俗易懂）
+
+https://blog.csdn.net/u012198575/article/details/83142419（c++——左值、右值、左值引用、右值引用）
+
+https://blog.csdn.net/caojianfa969/article/details/118927852（左值、右值引用及其作用）
+
+https://blog.csdn.net/beijixingcd/article/details/126131624（C++知识篇--右值引用）
 
 ## std::move、std::forward
 
 `std::move`和`std::forward`本质就是一个转换函数，`std::move`执行到右值的无条件转换，`std::forward`执行到右值的有条件转换，在参数都是右值时，二者就是等价的。
 
-参考：https://www.jianshu.com/p/b90d1091a4ff
+参考：https://www.jianshu.com/p/b90d1091a4ff（`C++11 std::move和std::forward`）
 
 # C++ 值传递和地址传递和引用传递
 
