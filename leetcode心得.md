@@ -3213,6 +3213,16 @@ void permute(int* nums, int cur, int size) {
 
   很巧妙，有难度，看官解
 
+### [106. Construct Binary Tree from Inorder and Postorder Traversal[M]](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+- 递归
+
+  比迭代简单多了，看官解
+
+- 迭代
+
+  只需要掌握[105. Construct Binary Tree from Preorder and Inorder Traversal[M]](https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)就能做出这道题的迭代解，因为这道题就是105那道题的遍历翻转一下，道理是一样的。
+
 ### [107. Binary Tree Level Order Traversal II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/)
 
 - 迭代，可以选择对树的每一层做一个for循环遍历
@@ -3221,6 +3231,16 @@ void permute(int* nums, int cur, int size) {
 ### [108. Convert Sorted Array to Binary Search Tree](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/)
 
 - 中序遍历，选择中间位置右边或左边的数字作为根节点
+
+### [109. Convert Sorted List to Binary Search Tree[M]](https://leetcode.cn/problems/convert-sorted-list-to-binary-search-tree/)
+
+- 分治
+
+  看官解
+
+- 分支+直接计算中点下标+中序遍历优化
+
+  看官解，这个解法比价难理解
 
 ### [110. Balanced Binary Tree](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
