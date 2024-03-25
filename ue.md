@@ -1,5 +1,7 @@
 # 安装一个全新虚幻引擎时的优化操作
 
+Rider、IntelliJ优化：
+
 - Rider内存不足
 
   参考：https://zhuanlan.zhihu.com/p/437617731（Rider For UE4 的内存不足问题）
@@ -8,6 +10,9 @@
 
   参考：https://blog.csdn.net/weixin_44449518/article/details/103334235（解决 IntelliJ IDEA占用C盘过大空间问题）
 
+
+UE优化★：
+
 - UE编译速度慢
 
   参考：https://zhuanlan.zhihu.com/p/83190575（Unreal Engine大幅提升编译速度的技巧）
@@ -15,6 +20,9 @@
 - UE缓存文件占用C盘空间
 
   参考：https://blog.csdn.net/weixin_44753042/article/details/123093832（【虚幻】清理缓存文件（C盘占用过大））
+
+
+Epic优化：
 
 - Epic保管库占用C盘空间
 
