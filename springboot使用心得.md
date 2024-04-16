@@ -434,6 +434,30 @@ public class HelloController {
 
 
 
+参考：
+
+https://blog.csdn.net/a20100997/article/details/131702638（ModelAttribute用法详解）
+
+https://www.cnblogs.com/yourbatman/p/11361070.html（从原理层面掌握@ModelAttribute的使用（核心原理篇）【一起学Spring MVC】）
+
+
+
+## @RequestAttribute、@SessionAttribute
+
+参考：
+
+https://blog.csdn.net/f641385712/article/details/98508272（从原理层面掌握@RequestAttribute、@SessionAttribute的使用【享学Spring MVC】）
+
+
+
+## @SessionAttributes
+
+参考：
+
+https://blog.csdn.net/f641385712/article/details/98378045（从原理层面掌握@SessionAttributes的使用【享学Spring MVC】）
+
+
+
 ## 配合@InitBinder和全局数据预处理
 
 @InitBinder 参考：
