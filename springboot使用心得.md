@@ -1004,40 +1004,6 @@ spring:
 
 参考：https://blog.csdn.net/jgteng/article/details/54411423（线程池的RejectedExecutionHandler（拒绝策略））
 
-# Sentinel限流
-
-参考：
-
-https://blog.csdn.net/m0_52208135/article/details/128834698（SpringCloud Alibaba Sentinel 使用方式及限流规则持久化）
-
-https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) 集成Sentinel）
-
-https://www.jianshu.com/p/5a87b582c35a（Alibaba Sentinel的四种限流策略）
-
-## Sentinel与令牌桶算法
-
-参考：
-
-https://blog.csdn.net/u022812849/article/details/131206898（【sentinel】令牌桶算法在Sentinel中的应用）
-
-https://blog.csdn.net/gaoliang1719/article/details/109475738（Sentinel使用令牌桶实现预热【原理源码】）
-
-https://zhuanlan.zhihu.com/p/348222596（令牌桶、漏斗、冷启动限流在sentinel的应用）
-
-## 简单测试sentinel效果（使用jmeter、postman压测）
-
-参考：https://blog.csdn.net/qq_38439171/article/details/125802397（jmeter和postman接口压测）
-
-## 流控、熔断和降级
-
-参考：
-
-https://www.51cto.com/article/746694.html（面试官：熔断和降级有什么区别？）
-
-https://blog.csdn.net/m0_49183244/article/details/124273538（Sentinel服务流控、熔断和降级）
-
-https://blog.csdn.net/weixin_45481821/article/details/125357875（【微服务~Sentinel】Sentinel降级、限流、熔断）
-
 # 单点登录
 
 参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
@@ -2004,17 +1970,52 @@ GraphQL是一个从服务端检数据的查询语言。某种程度上，是REST
 
 参考：https://blog.csdn.net/LookOutThe/article/details/121673944（Graphql+SpringBoot）
 
-# Shutdown Hook实现方案
-
-参考：https://juejin.cn/post/7099050817914667039（SpringBoot下实现Shutdown Hook的几种方式）
-
-# springboot的优雅停机和健康检查配置（用于k8s服务重启）
-
-参考：https://blog.csdn.net/qq_28340701/article/details/126371263（关于springboot的优雅停机和健康检查配置（用于k8s服务重启））
-
 # Spring MVC实用工具
 
 参考：https://blog.csdn.net/f641385712/article/details/87814153（【小家Spring】Spring MVC好用工具介绍：UrlPathHelper、WebUtils、RequestContextUtils、WebApplicationContextUtils...）
+
+# Spring Cloud实用工具
+
+## 微服务日志链路追踪
+
+- sleuth+zipkin
+- skywalking
+
+参考：https://blog.csdn.net/fegus/article/details/124643581（SpringCloud Alibaba实战第五课 链路追踪sleuth与skywalking）
+
+## Sentinel限流
+
+参考：
+
+https://blog.csdn.net/m0_52208135/article/details/128834698（SpringCloud Alibaba Sentinel 使用方式及限流规则持久化）
+
+https://blog.csdn.net/csl12919/article/details/128033414（Spring Cloud (boot) 集成Sentinel）
+
+https://www.jianshu.com/p/5a87b582c35a（Alibaba Sentinel的四种限流策略）
+
+### Sentinel与令牌桶算法
+
+参考：
+
+https://blog.csdn.net/u022812849/article/details/131206898（【sentinel】令牌桶算法在Sentinel中的应用）
+
+https://blog.csdn.net/gaoliang1719/article/details/109475738（Sentinel使用令牌桶实现预热【原理源码】）
+
+https://zhuanlan.zhihu.com/p/348222596（令牌桶、漏斗、冷启动限流在sentinel的应用）
+
+### 简单测试sentinel效果（使用jmeter、postman压测）
+
+参考：https://blog.csdn.net/qq_38439171/article/details/125802397（jmeter和postman接口压测）
+
+### 流控、熔断和降级
+
+参考：
+
+https://www.51cto.com/article/746694.html（面试官：熔断和降级有什么区别？）
+
+https://blog.csdn.net/m0_49183244/article/details/124273538（Sentinel服务流控、熔断和降级）
+
+https://blog.csdn.net/weixin_45481821/article/details/125357875（【微服务~Sentinel】Sentinel降级、限流、熔断）
 
 # spring boot health indicator
 
@@ -2041,6 +2042,14 @@ public class DataSourceHealthContributorAutoConfiguration extends
 ```
 
 参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
+
+# Shutdown Hook实现方案
+
+参考：https://juejin.cn/post/7099050817914667039（SpringBoot下实现Shutdown Hook的几种方式）
+
+# springboot的优雅停机和健康检查配置（用于k8s服务重启）
+
+参考：https://blog.csdn.net/qq_28340701/article/details/126371263（关于springboot的优雅停机和健康检查配置（用于k8s服务重启））
 
 # RocketMQ
 
