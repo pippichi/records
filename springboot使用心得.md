@@ -597,9 +597,23 @@ https://blog.csdn.net/m0_37941483/article/details/90727830（Spring系列——@
 
 参考：https://blog.csdn.net/woheniccc/article/details/79804600（spring的@Value注解使用）
 
+
+
 注入默认值：
 
 参考：https://blog.csdn.net/li02112017/article/details/118912109（SpringBoot中@Value注解设置默认值）
+
+
+
+Bean字段注入等更多注入方式：
+
+参考：
+
+https://blog.csdn.net/weixin_43888891/article/details/127505506（@Value的复杂用法）
+
+https://blog.csdn.net/cxyxysam/article/details/135394386（【SpringBoot 基础系列】@Value 中哪些你不知道的知识点）
+
+
 
 ## @Bean(initMethod = "init",destroyMethod = "destroy")
 
