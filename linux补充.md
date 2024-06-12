@@ -105,3 +105,15 @@ https://www.cnblogs.com/1130136248wlxk/articles/6264805.html（Linux下uniq命�
 参考：
 
 https://blog.csdn.net/qq_16268979/article/details/128336037（linux命令：sort）
+
+# 其他
+
+## xargs
+
+参考：
+
+https://blog.csdn.net/feiying0canglang/article/details/127965271（Linux命令--xargs(将命令的结果作为参数)）
+
+https://blog.csdn.net/2301_79054215/article/details/138390574（如何在Linux上使用xargs命令（非常详细）零基础入门到精通，收藏这一篇就够了）
+
+https://blog.csdn.net/m0_61066945/article/details/126823524（Linux命令_xargs & 批量杀进程、批量拷贝文件、组合字符串）
