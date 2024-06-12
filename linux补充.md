@@ -74,3 +74,34 @@ https://blog.csdn.net/qq_33471732/article/details/134982264（linux中的od命�
 
 
 
+# 文件操作补充
+
+## vi/vim
+
+### set list命令显示控制字符
+
+参考：
+
+https://blog.csdn.net/weixin_55959870/article/details/124071698（Linux 命令）
+
+## tr
+
+参考：
+
+https://blog.csdn.net/redrose2100/article/details/128374863（`Linux----tr命令详细使用方法`）
+
+https://blog.csdn.net/z19861216/article/details/132577197（Linux命令(79)之tr）
+
+## uniq
+
+参考：
+
+https://blog.csdn.net/u012964600/article/details/135522037（Linux uniq命令教程：去重和计数的小能手(附实例详解和注意事项)）
+
+https://www.cnblogs.com/1130136248wlxk/articles/6264805.html（Linux下uniq命令详解）
+
+## sort
+
+参考：
+
+https://blog.csdn.net/qq_16268979/article/details/128336037（linux命令：sort）
