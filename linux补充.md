@@ -106,6 +106,20 @@ https://www.cnblogs.com/1130136248wlxk/articles/6264805.html（Linux下uniq命�
 
 https://blog.csdn.net/qq_16268979/article/details/128336037（linux命令：sort）
 
+
+
+# 数字
+
+## seq
+
+参考：
+
+https://blog.csdn.net/AH99999/article/details/135602061（Linux系统命令 --- seq tr cut sort uniq）
+
+https://blog.csdn.net/z19861216/article/details/133126781（Linux命令(96)之seq）
+
+
+
 # 其他
 
 ## xargs
