@@ -1191,4 +1191,20 @@ https://www.cnblogs.com/gnivor/p/16531828.html（性能测试工具gperftools使
 
 可用于浏览器劫持转发实现代理服务器等
 
+### Detours
+
 参考：https://cloud.tencent.com/developer/article/1425861（【C/C++教学】劫持？劫持？劫持？！！！）
+
+### 全局Hook
+
+参考：
+
+https://blog.csdn.net/lyshark_csdn/article/details/124938872（C/C++ HOOK 全局 API）
+
+### DLL 注入
+
+参考：
+
+https://blog.csdn.net/weixin_50564032/article/details/128150174（【网络杂烩 ---＞ 网络安全】DLL 注入 --- c/c++ 代码实现（超 · 详细））
+
+https://www.jb51.net/article/236628.htm（C++ DLL注入工具(完整源码)）
