@@ -1185,3 +1185,10 @@ https://www.cnblogs.com/gnivor/p/16531828.html（性能测试工具gperftools使
 
 参考：https://zhuanlan.zhihu.com/p/429987335（探索内存原理的内存映射文件(图文详解)）
 
+# 奇技淫巧
+
+## c/c++ 劫持系统函数
+
+可用于浏览器劫持转发实现代理服务器等
+
+参考：https://cloud.tencent.com/developer/article/1425861（【C/C++教学】劫持？劫持？劫持？！！！）
