@@ -412,6 +412,18 @@ struct DecayT<R(Args..., ...)>
 // 暂时不明意义。大致猜测跟用法一的用法是差不多的。
 ```
 
+# 编译预处理指令
+
+## #pragma
+
+参考：
+
+https://blog.csdn.net/seanyxie/article/details/7852993（#pragma data_seg()）
+
+https://blog.csdn.net/weixin_45983489/article/details/120873659（C/C++中关于 #pragma 的深度探究）
+
+https://blog.csdn.net/weixin_62264287/article/details/131819001（C/C++中的#pragma预处理指令）
+
 # 库函数
 
 ## stl
@@ -677,6 +689,12 @@ tie(j, k, i) = make_tuple(i, j, k);
 表示是一个可变参数的宏
 
 参考：https://blog.csdn.net/qq_33726635/article/details/115560659（可变参数列表`__VA_ARGS__`介绍）
+
+# dllexport与dllimport
+
+参考：
+
+https://blog.csdn.net/mrbone11/article/details/122325328（C++ dllexport与dllimport介绍和使用）
 
 # cmake
 
@@ -1184,6 +1202,14 @@ https://www.cnblogs.com/gnivor/p/16531828.html（性能测试工具gperftools使
 # 内存映射文件（mmap、munmap）
 
 参考：https://zhuanlan.zhihu.com/p/429987335（探索内存原理的内存映射文件(图文详解)）
+
+# 原始套接字socket
+
+参考：
+
+https://blog.csdn.net/weixin_43288201/article/details/106266418（原始套接字（各种协议的分析））、https://blog.csdn.net/AAAA202012/article/details/127457405（原始套接字）
+
+https://zhuanlan.zhihu.com/p/651889948（Linux原始套接字抓取底层报文★）
 
 # 奇技淫巧
 
