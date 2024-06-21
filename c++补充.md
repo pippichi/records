@@ -1211,6 +1211,10 @@ https://blog.csdn.net/weixin_43288201/article/details/106266418（原始套接�
 
 https://zhuanlan.zhihu.com/p/651889948（Linux原始套接字抓取底层报文★）
 
+https://www.cnblogs.com/LyShark/p/17786325.html（18.1 Socket 原生套接字抓包★）
+
+
+
 # 奇技淫巧
 
 ## c/c++ 劫持系统函数
