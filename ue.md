@@ -28,6 +28,12 @@ Epic优化：
 
   参考：https://zhuanlan.zhihu.com/p/528351452（C盘爆满：UE（虚幻引擎）缓存，Epic保管库迁移）
 
+# 关键字
+
+## CustomThunk
+
+參考：https://www.cnblogs.com/baustein/p/15240785.html（UE4 CustomThunk笔记）
+
 # 宏
 
 ## UPARAM(ref)
