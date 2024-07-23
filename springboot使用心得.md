@@ -1396,6 +1396,10 @@ public class TagGroup extends BasicEntity<Long> {
 
 # AOP
 
+## AbstractPointcutAdvisor
+
+參考：https://www.jianshu.com/p/9bb149b39457（基于自定义注解的方式使用Spring AOP）、[张润华`industry-gpt-api`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 ## 使用aop读取被注解标注的类、方法或字段
 
 参考：https://blog.csdn.net/dongshaw/article/details/112213322（使用自定义注解及AOP切面定位字段并做业务处理）、https://blog.csdn.net/weixin_49930191/article/details/108360531（Springboot Aop 自定义注解、切面）
