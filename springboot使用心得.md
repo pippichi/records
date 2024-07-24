@@ -1602,6 +1602,16 @@ https://blog.csdn.net/ysj1241267542/article/details/112561650（ApplicationListe
 
 参考：https://blog.csdn.net/a2231476020/article/details/99465532（WebSocket拦截器和监听器）、https://blog.csdn.net/russle/article/details/86376030（WebSocket拦截器）、https://blog.csdn.net/July_whj/article/details/108947207?ivk_sa=1024320u（WebSocket增加用户权限验证）
 
+## WebSocketHandler接口、WebSocketHandlerDecorator、AbstractWebSocketHandler、HandshakeInterceptor接口（websocket握手的拦截器配置）
+
+websocket深度配置
+
+参考：
+
+https://www.jianshu.com/p/e349fd2bf9f0（WebSocketHandlerDecorator的使用方法）
+
+[张润华`system-component-websocket`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # 循环依赖问题
 
 使用构造器注入就算没用@Async也会有循环依赖问题，在没有使用@Async的情况下最好不要用构造器注入以免发生循环依赖：
@@ -1876,10 +1886,6 @@ public interface AlgorithmManagerFeign {
 异步多线程中传递上下文等变量
 
 参考：https://blog.csdn.net/qq_29569183/article/details/111311632（TaskDecorator——异步多线程中传递上下文等变量）
-
-# WebSocketHandler接口、AbstractWebSocketHandler、HandshakeInterceptor接口（websocket握手的拦截器配置）
-
-websocket深度配置，参考：[张润华`system-component-websocket`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 # okhttp3
 
