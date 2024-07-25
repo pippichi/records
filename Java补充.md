@@ -2123,9 +2123,25 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 # 音视频传输
 
+## RTSP
+
+跟RTMP区别在于RTMP是基于TCP，RTSP基于UDP
+
+參考：
+
+https://blog.csdn.net/qq_41709801/article/details/127339210（RTSP，Java实现简单的RTSP报文交换★）
+
+https://blog.51cto.com/u_16213388/9262693（java rtsp推音频流）
+
+https://www.5axxw.com/questions/simple/ofzppo（java接受rtsp流解码,推送给前端,实现播放实时流）
+
 ## RTMP
 
+跟RTSP区别在于RTMP是基于TCP，RTSP基于UDP
+
 参考：
+
+https://blog.csdn.net/weixin_38225800/article/details/134934801（JavaCV之rtmp推流（FLV和M3U8）★）、https://blog.csdn.net/weixin_38225800/article/details/135181906（Javacv-利用Netty实现推流直播复用（flv）★）
 
 https://blog.csdn.net/Number_oneEngineer/article/details/109196862（java抓取rtmp流的图像）
 
@@ -2179,6 +2195,24 @@ https://blog.csdn.net/weixin_44268792/article/details/106243014（Spring Boot We
 | 复杂性             | 非常复杂，涉及技术庞杂                                       | 比较简单清晰                                                 |
 | 典型应用场景       | 推流端与播放端互动性强的场景：视频会议、连麦互动、语音/视频聊天 | 推流端与播放端同步性不是很高要求的场景：活动/赛事直播、秀场直播、游戏直播、直播带货 |
 | 价格（成本）       | 高                                                           | 低                                                           |
+
+## ffmpeg
+
+參考：
+
+https://blog.csdn.net/water1209/article/details/131613251（音视频领域强大的辅助工具-ffmpeg常用操作介绍）
+
+https://zhuanlan.zhihu.com/p/673522888（FFMPEG详解(完整版））
+
+### 命令详解
+
+參考：
+
+https://www.cnblogs.com/AllenChou/p/7048528.html（ffmpeg命令详解(转)）
+
+https://blog.csdn.net/qq_40135848/article/details/132589706（音视频 ffmpeg命令参数说明）
+
+https://blog.csdn.net/lixiaowu119/article/details/136705412（ffmpeg命令参数详解）
 
 # 大文件处理
 
