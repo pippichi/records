@@ -2131,9 +2131,13 @@ ByteArrayOutputStream 对byte类型数据进行写入的类，相当于一个中
 
 https://blog.csdn.net/qq_41709801/article/details/127339210（RTSP，Java实现简单的RTSP报文交换★）
 
+https://blog.csdn.net/qq_33210338/article/details/105083247（基于Java的RTSP服务）
+
 https://blog.51cto.com/u_16213388/9262693（java rtsp推音频流）
 
 https://www.5axxw.com/questions/simple/ofzppo（java接受rtsp流解码,推送给前端,实现播放实时流）
+
+https://blog.51cto.com/u_16213608/10394489（java验证rtsp视频流地址 java rtsp服务端）
 
 ## RTMP
 
@@ -2213,6 +2217,44 @@ https://www.cnblogs.com/AllenChou/p/7048528.html（ffmpeg命令详解(转)）
 https://blog.csdn.net/qq_40135848/article/details/132589706（音视频 ffmpeg命令参数说明）
 
 https://blog.csdn.net/lixiaowu119/article/details/136705412（ffmpeg命令参数详解）
+
+### 加水印
+
+参考：
+
+https://blog.csdn.net/weixin_43959459/article/details/122960401（java使用ffmpeg完成视频加水印功能）
+
+https://blog.51cto.com/u_16175431/6608596（如何实现Java 视频加水印FFmpeg的具体操作步骤）、https://blog.51cto.com/u_16213310/11120526?abTest=51cto（java ffmpeg视频加水印）
+
+## javacv
+
+参考：
+
+https://www.jianshu.com/p/86cc0e24e455（JavaCV入门教程和JavaCV文档手册汇总）
+
+https://www.cnblogs.com/eguid/p/15636593.html（JavaCV入门指南教程目录）
+
+https://segmentfault.com/a/1190000044568143（这可能是最详细的javaCV-FFmpeg防踩坑入门了）
+
+https://blog.csdn.net/eguid_1/article/details/108010456（javacv教程文档手册开发指南汇总篇）
+
+https://www.cnblogs.com/dongye95/p/17773211.html（javacv入门）
+
+https://blog.csdn.net/ayou_llf/article/details/129222520（javacv从入门到精通——第三章：基本使用）
+
+https://gitee.com/hjljy/javacv（海加尔金鹰javacv）
+
+### 加水印
+
+参考：
+
+https://blog.csdn.net/u014723137/article/details/127612657（javacv 视频添加自定义水印）
+
+https://blog.csdn.net/u011936181/article/details/88655274（JAVACV实现视频帧添加中文水印）
+
+https://blog.csdn.net/chuangfei7389/article/details/100871735（javaCV视频添加水印）
+
+https://blog.csdn.net/m0_46106632/article/details/120074008（javacv给本地视频添加水印）
 
 # 大文件处理
 
