@@ -496,15 +496,23 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 
 还有各种编辑器扩展，用到的时候再去翻阅网络资料
 
-# 模型网站
+# 资源网站
 
 - 动画
 
-  mixamo
+  mixamo.com
 
 - 模型素材
 
-  sketch fab、blender market、poly haven
+  quixel.com、sketch fab、blender market、poly haven
+
+- HDRI
+
+  hdrihaven.com、hdriabs.com、kitbash3d.com
+
+- 材质/纹理
+
+  textures.com、3dtextures.me
 
 # 虚幻商城资源包
 
