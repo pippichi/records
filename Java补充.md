@@ -2254,7 +2254,7 @@ https://blog.csdn.net/u011936181/article/details/88655274（JAVACV实现视频�
 
 https://blog.csdn.net/chuangfei7389/article/details/100871735（javaCV视频添加水印）
 
-https://blog.csdn.net/m0_46106632/article/details/120074008（javacv给本地视频添加水印）
+https://blog.csdn.net/m0_46106632/article/details/120074008（javacv给本地视频添加水印★）
 
 ## x264编码器
 
