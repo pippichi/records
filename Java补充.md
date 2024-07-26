@@ -2256,6 +2256,22 @@ https://blog.csdn.net/chuangfei7389/article/details/100871735（javaCV视频添�
 
 https://blog.csdn.net/m0_46106632/article/details/120074008（javacv给本地视频添加水印）
 
+# 图像处理
+
+## Graphics2D
+
+可以用来绘制水印图
+
+參考：
+
+https://blog.csdn.net/qq_28369007/article/details/129757451（java Graphics2D 绘图常用方法和参数介绍说明）
+
+https://blog.csdn.net/wlddhj/article/details/134367714（Java图像编程之：Graphics2D）
+
+https://blog.csdn.net/weixin_48419914/article/details/121080215（Java | 绘图：Graphics2D）
+
+https://www.cnblogs.com/zhouzetian/p/7426758.html（JAVA-Graphics2D类）
+
 # 大文件处理
 
 ## 大excel文件处理

@@ -512,7 +512,21 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 
 - 材质/纹理
 
-  textures.com、3dtextures.me
+  textures.com、3dtextures.me（free）、poliigon.com
+
+# 实用工具
+
+地形建模：
+
+- Gaea
+- WorldCreator
+
+材质生成：
+
+- Substance Alchemist（初学者）
+- Substance Designer（基于节点生成）
+- Substance Painter（高级，是Substance Alchemist的高阶版，手绘）
+- Mari
 
 # 虚幻商城资源包
 
