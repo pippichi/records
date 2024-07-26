@@ -2256,6 +2256,20 @@ https://blog.csdn.net/chuangfei7389/article/details/100871735（javaCV视频添�
 
 https://blog.csdn.net/m0_46106632/article/details/120074008（javacv给本地视频添加水印）
 
+## x264编码器
+
+參考：
+
+https://blog.csdn.net/GrayOnDream/article/details/138401269（X264编码器参数）
+
+https://blog.csdn.net/weixin_42877471/article/details/138524724（【x264】x264编码器参数配置）
+
+### min-keyint（最小-IDR帧间隔）
+
+參考：
+
+https://zhuanlan.zhihu.com/p/456799518（基础不牢之x264中的min-keyint参数有什么用？）
+
 # 图像处理
 
 ## Graphics2D
