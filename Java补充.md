@@ -2232,6 +2232,12 @@ https://blog.51cto.com/u_16175431/6608596（如何实现Java 视频加水印FFmp
 
 https://www.jianshu.com/p/86cc0e24e455（JavaCV入门教程和JavaCV文档手册汇总）
 
+https://www.jianshu.com/p/3d283dac1674（JavaCV推流实战(MP4文件)★）
+
+https://blog.csdn.net/2401_83064295/article/details/139149798（JavaCV的摄像头实战之七：推流(带声音)）
+
+https://blog.csdn.net/Just_do_it_HZF/article/details/134293859（Java通过javacv获取视频、音频、图片等元数据信息（分辨率、大小、帧等信息）★）
+
 https://www.cnblogs.com/eguid/p/15636593.html（JavaCV入门指南教程目录）
 
 https://segmentfault.com/a/1190000044568143（这可能是最详细的javaCV-FFmpeg防踩坑入门了）
@@ -2243,6 +2249,8 @@ https://www.cnblogs.com/dongye95/p/17773211.html（javacv入门）
 https://blog.csdn.net/ayou_llf/article/details/129222520（javacv从入门到精通——第三章：基本使用）
 
 https://gitee.com/hjljy/javacv（海加尔金鹰javacv）
+
+[钱依峰`rtmp-jwt-stream`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
 ### 加水印
 
