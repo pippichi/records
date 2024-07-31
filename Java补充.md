@@ -2240,6 +2240,8 @@ https://blog.csdn.net/Just_do_it_HZF/article/details/134293859（Java通过javac
 
 https://blog.51cto.com/u_16175435/7745153（javacv将视频转发并改变分辨率★）
 
+https://blog.csdn.net/eguid_1/article/details/117277841（JavaCV精简依赖包：如何只依赖本地平台所需的最小依赖包★）
+
 https://blog.csdn.net/qq_39035030/article/details/107793574（JavaCV依赖精简★）
 
 https://www.cnblogs.com/eguid/p/15636593.html（JavaCV入门指南教程目录）
