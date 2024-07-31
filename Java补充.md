@@ -2238,6 +2238,10 @@ https://blog.csdn.net/2401_83064295/article/details/139149798（JavaCV的摄像�
 
 https://blog.csdn.net/Just_do_it_HZF/article/details/134293859（Java通过javacv获取视频、音频、图片等元数据信息（分辨率、大小、帧等信息）★）
 
+https://blog.51cto.com/u_16175435/7745153（javacv将视频转发并改变分辨率★）
+
+https://blog.csdn.net/qq_39035030/article/details/107793574（JavaCV依赖精简★）
+
 https://www.cnblogs.com/eguid/p/15636593.html（JavaCV入门指南教程目录）
 
 https://segmentfault.com/a/1190000044568143（这可能是最详细的javaCV-FFmpeg防踩坑入门了）
