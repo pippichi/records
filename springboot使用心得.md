@@ -1612,6 +1612,12 @@ https://www.jianshu.com/p/e349fd2bf9f0（WebSocketHandlerDecorator的使用方�
 
 [张润华`system-component-websocket`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
+## 通过@WebFilter拦截器获取客户端真实ip地址
+
+參考：
+
+https://blog.csdn.net/qq_37855749/article/details/118334271（SpringBoot整合WebSocket（获取客户端真实ip））
+
 # 循环依赖问题
 
 使用构造器注入就算没用@Async也会有循环依赖问题，在没有使用@Async的情况下最好不要用构造器注入以免发生循环依赖：
