@@ -2302,7 +2302,15 @@ https://blog.csdn.net/weixin_48419914/article/details/121080215（Java | 绘图�
 
 https://www.cnblogs.com/zhouzetian/p/7426758.html（JAVA-Graphics2D类）
 
-# 大文件处理
+# 文件处理
+
+## Word文档处理
+
+參考：
+
+https://www.cnblogs.com/kakarotto-chen/p/17371043.html（SpringBoot导出Word文档的三种方式）
+
+https://blog.csdn.net/qq_42682745/article/details/120867432（SpringBoot Poi导出word,浏览器下载）
 
 ## 大excel文件处理
 
