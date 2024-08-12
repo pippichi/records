@@ -1635,6 +1635,13 @@ VarHandle 的出现替代了 `java.util.concurrent.atomic` 和 `sun.misc.Unsafe`
 
 # Netty
 
+参考：
+
+- https://www.jianshu.com/p/b9f3f6a16911（Netty入门教程1——认识Netty）、https://www.jianshu.com/p/ed0177a9b2e3（Netty入门教程2——动手搭建HttpServer）、https://www.jianshu.com/p/fd815bd437cd（Netty入门教程3——Decoder和Encoder）、https://www.jianshu.com/p/9d89b2299ce4（Netty入门教程4——实现长连接）
+
+- https://blog.csdn.net/haoyuyang/article/details/53243785（Netty基本使用介绍）
+- https://blog.csdn.net/lmdsoft/article/details/105618052（Netty介绍）
+
 ## 时间轮调度算法
 
 参考：https://zhuanlan.zhihu.com/p/339600116（Netty时间轮调度算法原理分析，我不相信这样你还看不懂！）
@@ -1882,6 +1889,16 @@ java [-options] -jar jarfile [args...]
 
 所以，前面说的严格意义上全都是不对的，java中的命令行参数只有option 和 args两类。上面说的三类中第一类对应args，后面两类都是属于option的，那才是jvm的参数。
 
+## Java启动参数`(-, -D, -X, -XX参数)`详解
+
+参考：https://blog.csdn.net/guyue35/article/details/107957859
+
+## JVM内存调优
+
+參考：
+
+https://blog.csdn.net/sloveb123/article/details/127557816（JAVA系列之JVM内存调优）
+
 # spring boot 传递参数
 
 spring boot 打成jar包后 通过命令行传入的参数有3种实现方式：
@@ -1984,15 +2001,6 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 - https://blog.csdn.net/liuningwjt/article/details/82379364（IO/NIO/AIO 基本概念）
 - https://blog.csdn.net/scugxl/article/details/86742171（Java中的BIO,NIO,AIO详解以及Echo实现示例）
 
-# 高性能网络应用框架 Netty
-
-参考：
-
-- https://www.jianshu.com/p/b9f3f6a16911（Netty入门教程1——认识Netty）、https://www.jianshu.com/p/ed0177a9b2e3（Netty入门教程2——动手搭建HttpServer）、https://www.jianshu.com/p/fd815bd437cd（Netty入门教程3——Decoder和Encoder）、https://www.jianshu.com/p/9d89b2299ce4（Netty入门教程4——实现长连接）
-
-- https://blog.csdn.net/haoyuyang/article/details/53243785（Netty基本使用介绍）
-- https://blog.csdn.net/lmdsoft/article/details/105618052（Netty介绍）
-
 # 高性能网络请求开源库okhttp3
 
 参考：https://blog.csdn.net/victor_fang/article/details/88175549（基本使用）、https://blog.csdn.net/victor_fang/article/details/88196410（常用类介绍）、https://blog.csdn.net/victor_fang/article/details/88176344（Interceptor）
@@ -2007,9 +2015,7 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 关于分布式网络一致性问题可以去研究一下拜占庭将军问题，参考：https://zhuanlan.zhihu.com/p/33666461、https://learnblockchain.cn/2017/11/04/bitcoin-pow/（工作量证明 - POW : Proof of Work）
 
-# Java启动参数`(-, -D, -X, -XX参数)`详解
 
-参考：https://blog.csdn.net/guyue35/article/details/107957859
 
 # SPI机制
 
