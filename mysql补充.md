@@ -44,7 +44,11 @@ https://www.cnblogs.com/cw2blog/articles/17771440.html（Mariadb数据库存储�
 
 https://blog.csdn.net/lpfstudy/article/details/130364375（Mysql - 日志及其存放路径以及如何配置该路径）
 
+# 索引失效
 
+參考：
+
+https://blog.csdn.net/liguohuaty/article/details/130382761（【MySQL笔记】MySQL数据库索引失效的原因解读）
 
 # Canal
 
