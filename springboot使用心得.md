@@ -591,7 +591,7 @@ https://blog.csdn.net/ll1042668699/article/details/128069286（@ExtendWith、@Co
 
 https://blog.csdn.net/m0_37941483/article/details/90727830（Spring系列——@ContextConfiguration注解的使用）
 
-# 注入以及上下文环境
+# 注入与上下文环境
 
 ## @Value
 
@@ -868,7 +868,7 @@ public class ConditionalTest {
 
 参考：https://blog.csdn.net/liubenlong007/article/details/87885567（spring中 allowBeanDefinitionOverriding分析）
 
-## ObjectProvider
+## ObjectProvider★
 
 正常情况下会向容器中注入一个Bean；特殊情况下，无法注入Bean（0个Bean）或注入了多个Bean，此时ObjectProvider就发挥作用了。
 
@@ -889,6 +889,44 @@ AutowireMode注入有以下4种模式：
 - AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR
 
 参考：https://blog.csdn.net/z69183787/article/details/104545466（Spring Bean注入的另一种方式-AutowireMode的一些理解）、https://blog.csdn.net/qq_27409289/article/details/100753656（Spring中bean的AutowireMode(自动装配模型)和自动装配技术）
+
+## ConfigurationClassParser★
+
+參考：
+
+SpringBoot、OpenFeign源码
+
+https://blog.csdn.net/qq_33513289/article/details/140241940（ConfigurationClassParser）
+
+https://blog.csdn.net/zhengguofeng0328/article/details/125832447（SpringBoot自动装配原理分析二：执行的时机ConfigurationClassParser）
+
+## ClassPathScanningCandidateComponentProvider★
+
+參考：
+
+SpringBoot、OpenFeign源码
+
+https://blog.csdn.net/weixin_42594143/article/details/134711010（ClassPathScanningCandidateComponentProvider）
+
+## PathMatchingResourcePatternResolver★
+
+參考：
+
+b站Spring教程
+
+https://blog.csdn.net/wang_j_p/article/details/113096263（PathMatchingResourcePatternResolver Spring）
+
+## MetadataReaderFactory、CachingMetadataReaderFactory、CachingMetadataReaderFactoryPostProcessor★
+
+參考：
+
+b站Spring教程
+
+https://blog.csdn.net/m0_37642711/article/details/140853395（元数据读取工厂CachingMetadataReaderFactory）
+
+https://vimsky.com/examples/detail/java-class-org.springframework.core.type.classreading.CachingMetadataReaderFactory.html（Java CachingMetadataReaderFactory类代码示例）
+
+https://blog.csdn.net/u012855229/article/details/136779689（【Spring Boot 源码学习】共享 MetadataReaderFactory 上下文初始化器）
 
 # Lombok
 
@@ -1576,7 +1614,7 @@ https://blog.csdn.net/ysj1241267542/article/details/112561650（ApplicationListe
 
 可以使用Ureport2
 
-# 系统监控
+# 辅助监控
 
 除了使用`Spring Boot Admin`之外，还可以用`Prometheus`配合`Spring Boot Admin`来使用
 
@@ -1589,6 +1627,16 @@ https://blog.csdn.net/ysj1241267542/article/details/112561650（ApplicationListe
 @Timed注解用于标注在方法上，使得Prometheus框架可以自动记录执行耗时。
 
 参考：https://blog.csdn.net/weixin_42182797/article/details/102614969（Prometheus+Springboot2.x实用实战——Timer（一）之@Timed初探）、https://blog.csdn.net/weixin_42182797/article/details/102999663（Prometheus+Springboot2.x实用实战——Timer（二）之WebMvcMetricsFilter（最少配置的Timer记录））
+
+## StopWatch、TimeInterval等
+
+可以用于监控代码段执行时长
+
+参考：
+
+https://blog.csdn.net/gxs1688/article/details/87185030（Spring计时器StopWatch使用）
+
+https://blog.csdn.net/qq_26857259/article/details/136645970（计时器工具 TimeInterval）
 
 # SpringBoot整合websocket
 
@@ -1795,12 +1843,6 @@ https://blog.csdn.net/qq_22701869/article/details/110947453（springboot国际�
 该类用于维护http请求时的Header等请求信息
 
 参考：https://blog.csdn.net/qq_36804701/article/details/108282775（springboot i18n国际化后台多种语言设置的方式）、https://blog.csdn.net/m0_50163856/article/details/118543131（SpringBoot 国际化LocaleContextHolder的基本配置）
-
-# StopWatch
-
-可以用于监控代码段执行时长
-
-参考：https://blog.csdn.net/gxs1688/article/details/87185030（Spring计时器StopWatch使用）
 
 # 监听应用启动与关闭的回调钩子
 
