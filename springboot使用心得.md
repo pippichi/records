@@ -1978,10 +1978,6 @@ public class A implements InitializingBean, DisposableBean {
 
 参考：https://blog.csdn.net/qq_38058332/article/details/84325009（springboot配置多个数据源（两种方式））、https://blog.csdn.net/qq_37758497/article/details/115709598（手把手教你springboot优雅的实现多数据源，看这一篇就够了）、https://blog.csdn.net/weixin_44563573/article/details/115630791（Spring Boot实现优雅地连接多个数据库）、https://www.cnblogs.com/Chenjiabing/p/12518755.html（SpringBoot整合多数据源的巨坑！！！）
 
-# 事务失效问题（单数据源、多数据源）
-
-参考：https://blog.csdn.net/weixin_43868443/article/details/119445348（Springboot多数据源 解决事务回滚失效）、https://blog.csdn.net/mameng1988/article/details/85548812（`Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to 以及Spring事务失效的原因和解决方案`）
-
 # Flyway多数据源脚本迁移
 
 参考：https://blog.csdn.net/Selfishnessness/article/details/126109652（Flyway针对多数据源配置实战方案）、https://blog.csdn.net/beautyofmath/article/details/106194433（Flyway配置(包含多数据源配置)及使用规范）、[魏子杰`data-provider-R`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
@@ -2020,9 +2016,23 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/qq_38366063/article/details/111683339（SpringApplicationRunListener详解）
 
-# Transaction事务回滚
+# Transaction事务
+
+## 事务回滚
 
 参考：https://blog.csdn.net/flyaway86/article/details/81181346（SpringBoot使用@Transactional）、https://blog.csdn.net/yipanbo/article/details/46048413?utm_source=blogxgwz1（TransactionAspectSupport实现手动事务回滚）
+
+## 事务失效问题（单数据源、多数据源）
+
+参考：https://blog.csdn.net/weixin_43868443/article/details/119445348（Springboot多数据源 解决事务回滚失效）、https://blog.csdn.net/mameng1988/article/details/85548812（`Cannot find current proxy: Set 'exposeProxy' property on Advised to 'true' to 以及Spring事务失效的原因和解决方案`）
+
+## TransactionSynchronizationManager事务同步管理器
+
+參考：
+
+https://blog.csdn.net/cj_eryue/article/details/133271991（TransactionSynchronizationManager的使用场景以及原理分析）
+
+https://blog.csdn.net/weixin_42118323/article/details/120449282（TransactionSynchronizationManager(事务监听)）
 
 # Schedule定时任务
 
