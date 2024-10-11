@@ -1974,9 +1974,19 @@ public class A implements InitializingBean, DisposableBean {
 
 参考：https://blog.csdn.net/u014788227/article/details/90111662（`AopContext.currentProxy()的使用`）
 
-# 多数据源
+# 动态数据源
 
 参考：https://blog.csdn.net/qq_38058332/article/details/84325009（springboot配置多个数据源（两种方式））、https://blog.csdn.net/qq_37758497/article/details/115709598（手把手教你springboot优雅的实现多数据源，看这一篇就够了）、https://blog.csdn.net/weixin_44563573/article/details/115630791（Spring Boot实现优雅地连接多个数据库）、https://www.cnblogs.com/Chenjiabing/p/12518755.html（SpringBoot整合多数据源的巨坑！！！）
+
+## ShardingJDBC 兼容 MybatisPlus的动态数据源
+
+參考：
+
+https://www.cnblogs.com/lwjQAQ/p/18330274（ShardingJDBC 兼容 MybatisPlus的动态数据源）
+
+https://www.modb.pro/db/449528（springboot动态数据源用shardingjdbc按时间分表）
+
+https://blog.csdn.net/haoyuyang/article/details/88721945（SpringBoot整合Sharding-JDBC，实现从数据库读取sharding-jdbc数据源，实现多种数据库数据源切换，数据库方言动态切换）
 
 # Flyway多数据源脚本迁移
 
@@ -2140,3 +2150,4 @@ public class DataSourceHealthContributorAutoConfiguration extends
 https://zhuanlan.zhihu.com/p/58892757（庖丁解牛 | 图解 RocketMQ 核心原理）、https://blog.csdn.net/guyue35/article/details/105674044（RocketMQ高可用机制----同步刷盘、异步刷盘和同步复制、异步复制）
 
 https://blog.csdn.net/qq_36737803/article/details/112261352（RocketMQ与Springboot整合（rocketmq-spring-boot-starter）实战教程）、https://blog.csdn.net/zxl646801924/article/details/105659481（Springboot集成RocketMQ）
+
