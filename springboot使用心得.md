@@ -1988,6 +1988,18 @@ https://www.modb.pro/db/449528（springboot动态数据源用shardingjdbc按时�
 
 https://blog.csdn.net/haoyuyang/article/details/88721945（SpringBoot整合Sharding-JDBC，实现从数据库读取sharding-jdbc数据源，实现多种数据库数据源切换，数据库方言动态切换）
 
+https://blog.csdn.net/Think_and_work/article/details/137174049（ShardingSphere系列01：Shardingjdbc实现分表（含项目实践））、https://blog.csdn.net/Think_and_work/article/details/137370164（ShardingSphere系列02：ShardingJdbc+Mybatis实现多数据源）、https://blog.csdn.net/Think_and_work/article/details/137410528（ShardingSphere系列03：ShardingJdbc+MybatisPlus实现多数据源）★
+
+https://zhuanlan.zhihu.com/p/543277079（源码分析 - MyBatis Plus 多数据源踩坑）
+
+https://zhuanlan.zhihu.com/p/690694925（ShardingJdbc+Mybatis实现多数据源）
+
+# ShardingSphere分库分表
+
+参考：
+
+https://blog.csdn.net/Think_and_work/article/details/137174049（ShardingSphere系列01：Shardingjdbc实现分表（含项目实践））
+
 # Flyway多数据源脚本迁移
 
 参考：https://blog.csdn.net/Selfishnessness/article/details/126109652（Flyway针对多数据源配置实战方案）、https://blog.csdn.net/beautyofmath/article/details/106194433（Flyway配置(包含多数据源配置)及使用规范）、[魏子杰`data-provider-R`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
