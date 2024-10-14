@@ -213,6 +213,10 @@ private Long indexId;
 
 # 请求参数注解
 
+参考：
+
+https://blog.csdn.net/qq_44627608/article/details/132425435（SpringBoot接收参数的8种方式）
+
 ## @RequestParams
 
 参考：https://blog.csdn.net/sswqzx/article/details/84195043（@RequestParam注解使用）、https://blog.csdn.net/a15028596338/article/details/84976223（@RequestParam和@PathVariable的用法与区别）
