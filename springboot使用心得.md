@@ -1154,6 +1154,12 @@ Filter有三种配置方式：
 
   参考：https://blog.csdn.net/WX5991/article/details/122230962（Spring中的拦截器）、https://blog.csdn.net/WX5991/article/details/122179177（Spring boot中通过Aop和拦截器实现自定义注解）、https://blog.csdn.net/u013905744/article/details/91364736（使用spring的MethodInterceptor实现aop功能的三种方式）
 
+## 优雅修改request请求信息
+
+參考：
+
+https://blog.51cto.com/u_14457/10724960（request 修改请求头信息 springboot修改请求参数）
+
 # 监听器Listener
 
 具体信息请查阅网络资料
@@ -1311,6 +1317,12 @@ ApplicationContext事件机制是观察者设计模式的实现，通过Applicat
 # HandlerMethodArgumentResolver(参数解析器)
 
 一般用于接口调用之前的权限校验，参考https://blog.csdn.net/qq_36408229/article/details/104436508、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## HandlerMethodArgumentResolver失效原因与解法
+
+參考：
+
+https://www.cnblogs.com/linyb-geek/p/16581892.html（记一次springboot项目自定义HandlerMethodArgumentResolver不生效原因与解法）
 
 # HandlerMethodReturnValueHandler处理请求返回值
 
