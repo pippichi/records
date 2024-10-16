@@ -229,7 +229,7 @@ https://blog.csdn.net/qq_44627608/article/details/132425435（SpringBoot接收�
 
 @RequestParams、@PathVariable等的处理类都继承自AbstractNamedValueMethodArgumentResolver来实现处理逻辑
 
-如果要自定义注解处理器，最好直接继承这个类而不是实现HandlerMethodArgumentResolver接口，因为这个类已经帮忙做掉了很多处理逻辑
+如果要自定义注解处理器，最好直接继承这个类而不是实现HandlerMethodArgumentResolver接口，因为这个类已经帮忙做掉了很多处理逻辑，例如WebDataBinder等
 
 參考：
 
