@@ -211,7 +211,7 @@ private Long indexId;
 
 参考：https://blog.csdn.net/weixin_44130081/article/details/89678450（Jackson中@JsonInclude注解详解）
 
-# 请求参数注解
+# 请求参数处理
 
 参考：
 
@@ -224,6 +224,36 @@ https://blog.csdn.net/qq_44627608/article/details/132425435（SpringBoot接收�
 ## @PathVariable
 
 参考：https://blog.csdn.net/ckc_666/article/details/79239974（@PathVariable是什么？详情及用法解析）
+
+## AbstractNamedValueMethodArgumentResolver★
+
+@RequestParams、@PathVariable等的处理类都继承自AbstractNamedValueMethodArgumentResolver来实现处理逻辑
+
+如果要自定义注解处理器，最好直接继承这个类而不是实现HandlerMethodArgumentResolver接口，因为这个类已经帮忙做掉了很多处理逻辑
+
+參考：
+
+https://blog.csdn.net/andy_zhang2007/article/details/99703786（Spring Web : AbstractNamedValueMethodArgumentResolver 命名值方法参数解析器）
+
+https://blog.csdn.net/RenshenLi/article/details/119358603（springmvc源码学习（十六）AbstractNamedValueMethodArgumentResolver）
+
+## HandlerMethodArgumentResolver(参数解析器)
+
+一般用于接口调用之前的权限校验
+
+参考：
+
+https://blog.csdn.net/zknxx/article/details/78239951（SpringMVC之分析HandlerMethodArgumentResolver请求对应处理器方法参数的解析过程(一)）
+
+https://blog.csdn.net/qq_36408229/article/details/104436508（HandlerMethodArgumentResolver(参数解析器)的作用+使用小案例）
+
+[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+### HandlerMethodArgumentResolver失效原因与解法
+
+參考：
+
+https://www.cnblogs.com/linyb-geek/p/16581892.html（记一次springboot项目自定义HandlerMethodArgumentResolver不生效原因与解法）
 
 # 常用注解（@Description、@Role等）
 
@@ -442,25 +472,7 @@ public class HelloController {
 
 https://blog.csdn.net/a20100997/article/details/131702638（ModelAttribute用法详解）
 
-https://www.cnblogs.com/yourbatman/p/11361070.html（从原理层面掌握@ModelAttribute的使用（核心原理篇）【一起学Spring MVC】）
-
-
-
-## @RequestAttribute、@SessionAttribute
-
-参考：
-
-https://blog.csdn.net/f641385712/article/details/98508272（从原理层面掌握@RequestAttribute、@SessionAttribute的使用【享学Spring MVC】）
-
-
-
-## @SessionAttributes
-
-参考：
-
-https://blog.csdn.net/f641385712/article/details/98378045（从原理层面掌握@SessionAttributes的使用【享学Spring MVC】）
-
-
+https://fangshixiang.blog.csdn.net/article/details/98260361（从原理层面掌握@ModelAttribute的使用（核心原理篇）【享学Spring MVC】）
 
 ## 配合@InitBinder和全局数据预处理
 
@@ -537,11 +549,27 @@ http://127.0.0.1:8080/book?b.name=三国演义&b.price=99&a.name=罗贯中&a.age
 
 如果不想重写ResponseBodyAdvice中所有的接口方法，也可以继承spring提供的抽象类ResponseBodyAdviceAdapter，按需实现让代码更简洁
 
-# @RestControllerAdvice
+## @RestControllerAdvice
 
 @RestControllerAdvice是一个组合注解，由@ControllerAdvice、@ResponseBody组成，而@ControllerAdvice继承了@Component，因此@RestControllerAdvice本质上是个Component，用于定义@ExceptionHandler，@InitBinder和@ModelAttribute方法，适用于所有使用@RequestMapping方法。
 
 参考：https://blog.csdn.net/user2025/article/details/105458842（SpringBoot常用注解@RestControllerAdvice）、https://blog.csdn.net/jsq6681993/article/details/119712621（RequestBodyAdvice用法详解-参数加解密示例）
+
+# WebDataBinder、ServletRequestDataBinder、WebBindingInitializer、WebDataBinderFactory、PropertyEditorSupport
+
+參考：
+
+https://segmentfault.com/a/1190000020404648（从原理层面掌握@InitBinder的使用【享学Spring MVC】★）
+
+https://fangshixiang.blog.csdn.net/article/details/96450469（聊聊Spring中的数据绑定 --- WebDataBinder、ServletRequestDataBinder、WebBindingInitializer...【享学Spring】）
+
+# @RequestAttribute、@SessionAttribute、@SessionAttributes
+
+参考：
+
+https://blog.csdn.net/f641385712/article/details/98508272（从原理层面掌握@RequestAttribute、@SessionAttribute的使用【享学Spring MVC】）
+
+https://blog.csdn.net/f641385712/article/details/98378045（从原理层面掌握@SessionAttributes的使用【享学Spring MVC】）
 
 # Junit单元测试
 
@@ -1318,15 +1346,7 @@ ApplicationContext事件机制是观察者设计模式的实现，通过Applicat
 
 参考：https://blog.csdn.net/zxh1991811/article/details/109737845（Spring listener——Spring boot实现监听器的两种方式）
 
-# HandlerMethodArgumentResolver(参数解析器)
 
-一般用于接口调用之前的权限校验，参考https://blog.csdn.net/qq_36408229/article/details/104436508、[张润华`system-base`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
-
-## HandlerMethodArgumentResolver失效原因与解法
-
-參考：
-
-https://www.cnblogs.com/linyb-geek/p/16581892.html（记一次springboot项目自定义HandlerMethodArgumentResolver不生效原因与解法）
 
 # HandlerMethodReturnValueHandler处理请求返回值
 
