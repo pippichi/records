@@ -255,6 +255,12 @@ https://blog.csdn.net/qq_36408229/article/details/104436508（HandlerMethodArgum
 
 https://www.cnblogs.com/linyb-geek/p/16581892.html（记一次springboot项目自定义HandlerMethodArgumentResolver不生效原因与解法）
 
+## 自定义转换器Converter
+
+參考：
+
+https://blog.csdn.net/m0_73557631/article/details/132269089（如何使用SpringBoot 自定义转换器）
+
 # 常用注解（@Description、@Role等）
 
 参考：https://blog.csdn.net/weixin_43745321/article/details/124959948（Spring Boot常用注解（绝对经典））
@@ -1804,6 +1810,18 @@ mapstruct与maven、lombok的适配：
 ```
 
 参考：https://blog.csdn.net/Dream_Weave/article/details/114011859（MapStruct - Lombok & Maven 版本关系）
+
+## MapStruct自定义转化器
+
+參考：
+
+https://blog.csdn.net/lianghecai52171314/article/details/131166209（Mapstruct 自定义转换器）
+
+## BeanUtils自定义转换器ConvertUtils
+
+參考：
+
+https://blog.csdn.net/m0_53626105/article/details/141038003（自定义Apache中BeanUtils的类型转化器）
 
 # 元数据信息处理包`spring-boot-configuration-processor`
 
