@@ -1764,7 +1764,11 @@ BeanUtil利用反射，MapStruct利用lombok机制在编译期间直接生成代
 
 前者由于用的反射效率会比后者低，后者虽然需要在编译期间多生成一些代码，且需要依赖lombok，但是它的效率比前者要高很多
 
-参考：https://blog.csdn.net/qq_44732146/article/details/119968376（Mapstruct 使用教程）
+参考：
+
+https://blog.csdn.net/qq_44732146/article/details/119968376（Mapstruct 使用教程）
+
+https://blog.csdn.net/u010953880/article/details/117033989（代码经验---mapStruct代替BeanUtils进行类之间的属性拷贝）
 
 
 
@@ -1822,6 +1826,18 @@ https://blog.csdn.net/lianghecai52171314/article/details/131166209（Mapstruct �
 參考：
 
 https://blog.csdn.net/m0_53626105/article/details/141038003（自定义Apache中BeanUtils的类型转化器）
+
+## MapStruct中@BeforeMapping、@AfterMapping、@MappingTarget的使用
+
+可用于自定义属性映射处理，比如同一个字段再A实体中已经有值了，我们不希望再把B的值复制给A，则可以使用这些注解来实现
+
+@MappingTarget注解很有用，可以把一个以有的目标Bean传入方法，让MapStruct可以做到BeanUtils的很多功能
+
+參考：
+
+https://zhuanlan.zhihu.com/p/576883999（MapStruct之@BeforeMapping和@AfterMapping注解的用法）
+
+https://zhuanlan.zhihu.com/p/576885361（MapStruct之@MappingTarget 注解的用法）
 
 # 元数据信息处理包`spring-boot-configuration-processor`
 
