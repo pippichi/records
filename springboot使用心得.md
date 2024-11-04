@@ -2080,11 +2080,23 @@ https://blog.csdn.net/Think_and_work/article/details/137174049（ShardingSphere�
 
 AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻辑
 
-参考：https://www.likecs.com/show-204315499.html（自动装配顺序性）
+参考：
+
+https://blog.csdn.net/Vansonhin/article/details/104237748（@AutoConfigureAfter和@AutoConfigureOrder的使用）
+
+https://www.cnblogs.com/zimug/p/13264814.html（使用@AutoConfigureBefore、After、Order调整Spring Boot自动配置顺序）
+
+https://www.likecs.com/show-204315499.html（自动装配顺序性）
 
 # Bean生命周期
 
 参考：https://blog.csdn.net/riemann_/article/details/118500805（一文读懂 Spring Bean 的生命周期）
+
+# 指定Bean初始化顺序
+
+參考：
+
+https://blog.csdn.net/qq_43842093/article/details/138015716（SpringBoot系列教程之Bean之指定初始化顺序的若干姿势）
 
 # BeanPostProcessor(后置处理器)
 
@@ -2092,9 +2104,19 @@ AutoConfigurationSorter是以上三个注解的底层的顺序控制的实现逻
 
 参考：https://blog.csdn.net/qq_38526573/article/details/88086752（Spring之BeanPostProcessor(后置处理器)介绍）
 
-# @Order注解和Ordered接口和OrderUtils
+# @Order注解、Ordered接口、PriorityOrdered接口、OrderUtils
 
-参考：https://www.jianshu.com/p/8442d21222ef（Spring之@Order注解和Ordered接口）
+注意：
+
+1、@Order注解不能用于指定bean的加载顺序；
+
+2、经过实验发现用List注入同类型Bean时可以用@Order指定顺序（ObjectProvider注入时@Order失效，Bean仍旧是默认顺序）
+
+参考：
+
+https://www.jianshu.com/p/8442d21222ef（Spring之@Order注解和Ordered接口）
+
+https://blog.csdn.net/weixin_44877172/article/details/136651110（PriorityOrdered和Ordered学习）
 
 # ApplicationContextInitializer
 
