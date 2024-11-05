@@ -52,6 +52,12 @@
 
 参考：https://zhuanlan.zhihu.com/p/521340971（坑：ssh: connect to host github.com port 22: Connection refused）
 
+# git proxy 设置代理
+
+参考：
+
+https://blog.csdn.net/HD243608836/article/details/127869482（GIT Proxy 一键设置代理 让你的 git clone Github 再也不像百度云一样内行）
+
 # git官方文档
 
 参考：https://git-scm.com/doc、https://git-scm.com/book/zh/v2
