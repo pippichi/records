@@ -2160,7 +2160,13 @@ https://blog.csdn.net/BruceLiu_code/article/details/125869665（SpringBoot整合
 
 https://blog.csdn.net/weixin_43860634/article/details/140544372（springboot系列教程（十三）：基于Cache注解模式,管理Redis缓存）
 
-https://blog.csdn.net/pig_boss/article/details/140472989（SpringBoot使用本地缓存——Caffeine★）
+https://blog.csdn.net/u012240455/article/details/80844361（详解Spring缓存注解@Cacheable,@CachePut , @CacheEvict使用）
+
+https://blog.csdn.net/qq_40813329/article/details/124290304（SpringBoot 缓存 @Cacheable、@CachePut、@CacheEvict）
+
+https://www.cnblogs.com/fashflying/p/6908028.html（Spring缓存注解@Cacheable,@CachePut , @CacheEvict使用）
+
+https://blog.csdn.net/pig_boss/article/details/140472989（SpringBoot使用本地缓存——Caffeine）
 
 # Spel表达式
 
