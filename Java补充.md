@@ -1050,6 +1050,14 @@ public class CachedStoreArk<E> extends AbstractStoreArk<E> {
 
 参考：https://blog.csdn.net/woniu317/article/details/52186694（Pattern用法(正则表达式)）
 
+# 表达式求值引擎
+
+## Aviator
+
+参考：
+
+https://blog.csdn.net/weixin_42039228/article/details/141246508（Google Aviator: 高性能Java表达式求值引擎）
+
 # 多线程与线程安全
 
 ## 阿里巴巴高并发架构面试题

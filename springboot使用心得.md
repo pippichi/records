@@ -2152,6 +2152,16 @@ https://blog.csdn.net/weixin_42118323/article/details/120449282（TransactionSyn
 
 参考：https://blog.csdn.net/u011976388/article/details/85268890（SpringBoot：@Schedule定时任务）、https://blog.csdn.net/Dongguabai/article/details/105538527（定时任务接口SchedulingConfigurer实现定制化定时任务）
 
+# SpringCache
+
+参考：
+
+https://blog.csdn.net/BruceLiu_code/article/details/125869665（SpringBoot整合SpringCache详解）
+
+https://blog.csdn.net/weixin_43860634/article/details/140544372（springboot系列教程（十三）：基于Cache注解模式,管理Redis缓存）
+
+https://blog.csdn.net/pig_boss/article/details/140472989（SpringBoot使用本地缓存——Caffeine★）
+
 # Spel表达式
 
 参考：https://blog.csdn.net/likun557/article/details/107853045（Spring系列第39篇：强大的Spel表达式）、https://cloud.tencent.com/developer/article/1497676（【小家Spring】SpEL你感兴趣的实现原理浅析spring-expression~(SpelExpressionParser、EvaluationContext、rootObject)）
