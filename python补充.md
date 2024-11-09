@@ -31,3 +31,9 @@ https://blog.csdn.net/2401_85342379/article/details/140478398（彻底清理Cond
 https://blog.csdn.net/2401_85842555/article/details/140477670（优化Conda环境：深入掌握conda clean命令的清理艺术）
 
 https://www.cnblogs.com/yanpeng1535/p/18529787（Conda环境与包管理命令大全使用指南）
+
+# pip忽略依赖包强制安装
+
+参考：
+
+https://blog.csdn.net/qq_45100200/article/details/143358599（pip忽略依赖关系强制安装）
