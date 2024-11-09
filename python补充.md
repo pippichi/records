@@ -19,3 +19,15 @@ https://blog.csdn.net/molangmolang/article/details/137616110（scipy介绍）
 參考：
 
 https://blog.csdn.net/u014264373/article/details/119390267（【最全指南】如何在 Jupyter Notebook 中切换/使用 conda 虚拟环境？）
+
+# 彻底清理Conda环境
+
+参考：
+
+https://blog.csdn.net/Pin_BOY/article/details/120479861（Conda的清理（一下少了14G））
+
+https://blog.csdn.net/2401_85342379/article/details/140478398（彻底清理Conda环境：使用conda remove命令的终极指南）
+
+https://blog.csdn.net/2401_85842555/article/details/140477670（优化Conda环境：深入掌握conda clean命令的清理艺术）
+
+https://www.cnblogs.com/yanpeng1535/p/18529787（Conda环境与包管理命令大全使用指南）
