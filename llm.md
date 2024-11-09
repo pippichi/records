@@ -51,3 +51,11 @@ https://hf-mirror.com/（huggingface.co镜像域名）
 https://smith.langchain.com/（langchain）
 
 https://huggingface.co/（huggingface.co，需要翻墙）
+
+# deepspeed
+
+分布式训练、推理
+
+参考：
+
+https://www.deepspeed.ai/getting-started/
