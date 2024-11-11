@@ -7978,3 +7978,11 @@ int main(){
 參考：
 
 https://blog.csdn.net/chao_shine/article/details/89925762（交叉熵损失函数（cross-entropy loss function）原理及Pytorch代码简介）
+
+### 注意力机制
+
+參考：
+
+https://zhuanlan.zhihu.com/p/631398525（注意力机制综述（图解完整版附代码））
+
+https://blog.csdn.net/2301_76924624/article/details/141030682（一文搞懂深度学习的注意力机制）
