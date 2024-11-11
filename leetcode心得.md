@@ -7972,3 +7972,9 @@ int main(){
 ### K-means聚类
 
 参考：https://blog.csdn.net/fox_wayen/article/details/80467233（基于Java实现K-means算法）
+
+### 交叉熵损失函数（cross-entropy loss function）
+
+參考：
+
+https://blog.csdn.net/chao_shine/article/details/89925762（交叉熵损失函数（cross-entropy loss function）原理及Pytorch代码简介）
