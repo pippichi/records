@@ -8,6 +8,18 @@ https://blog.csdn.net/qq_52943402/article/details/137970846（Qwen+langchain使�
 
 https://zhuanlan.zhihu.com/p/668931562（Qwen 本地部署与 LangChain 应用开发全攻略）
 
+# langchain
+
+參考：
+
+https://python.langchain.com
+
+## 文本特征提取
+
+參考：
+
+https://python.langchain.com/v0.1/docs/use_cases/extraction/quickstart（Extracting structured output）
+
 # 向量数据库
 
 參考：
@@ -59,3 +71,9 @@ https://huggingface.co/（huggingface.co，需要翻墙）
 参考：
 
 https://www.deepspeed.ai/getting-started/
+
+# win下flash-attention的安装方法
+
+參考：
+
+https://blog.csdn.net/qq_21491605/article/details/136109125（Windows环境下flash-attention安装）
