@@ -1,3 +1,11 @@
+# conda虚拟环境
+
+## 复制虚拟环境
+
+参考：
+
+https://blog.csdn.net/qq_37764129/article/details/102496746（复制Anaconda虚拟环境）
+
 # tqdm
 
 參考：
