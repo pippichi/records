@@ -46,6 +46,12 @@ https://zhuanlan.zhihu.com/p/691824083（部署vLLM:分步指南）
 
 https://zhuanlan.zhihu.com/p/706432104（VLLM 部署的一些细节，关于CUDA对应版本的问题）
 
+# Ollama大模型管理器
+
+參考：
+
+https://blog.csdn.net/python122_/article/details/140945720（Ollama完整教程：本地LLM管理、WebUI对话、Python/Java客户端API应用）
+
 # LLaMA-Factory（微调模型）
 
 参考：

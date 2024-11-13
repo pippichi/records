@@ -659,7 +659,11 @@ https://blog.csdn.net/cxyxysam/article/details/135394386（【SpringBoot 基础�
 
 ## @Configuration
 
-参考：https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
+参考：
+
+https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
+
+https://blog.csdn.net/feiying0canglang/article/details/124778853（SpringBoot--@Configuration(proxyBeanMethods = false) 的作用）
 
 ## @Repository
 
