@@ -1,10 +1,14 @@
 # conda虚拟环境
 
-## 复制虚拟环境
+## 操作虚拟环境
 
 参考：
 
 https://blog.csdn.net/qq_37764129/article/details/102496746（复制Anaconda虚拟环境）
+
+https://blog.csdn.net/yyywxk/article/details/140250823（conda 重命名虚拟环境）
+
+https://blog.csdn.net/weixin_45277161/article/details/130693708（conda如何更改虚拟环境的名字）
 
 # tqdm
 
