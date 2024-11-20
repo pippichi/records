@@ -1,3 +1,33 @@
+# 类方法、类实例方法和静态方法的区别
+
+参考：
+
+https://blog.csdn.net/qq_41586251/article/details/135068371（深入理解Python中的类方法、类实例方法和静态方法）
+
+https://zhuanlan.zhihu.com/p/21101992（Python类的静态方法和类方法区别）
+
+
+
+类方法使用案例：
+
+由于python只允许一个构造函数，因此可以用类方法来模拟其他语言的多个构造函数的情况，比如：
+
+```python
+class MyClass:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    @classmethod
+    def from_string(cls, s):
+        x, y = map(int, s.split(','))
+        return cls(x, y)
+ 
+obj = MyClass.from_string('5,10')
+```
+
+
+
 # 反射
 
 ## 通过类名字符串创建对象
