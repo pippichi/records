@@ -995,15 +995,17 @@ java.beans.PropertyDescriptor 类具有读取/写入对象属性值的方法，�
 
 参考：https://blog.csdn.net/freeideas/article/details/43528571（Reflection的getCallerClass的使用）
 
-# ASM字节码操纵
+# 字节码生成库
+
+## ASM字节码操纵
 
 参考：https://blog.csdn.net/zhuoxiuwu/article/details/78619645（Java ASM 技术简介）、https://blog.csdn.net/prettyboy2ge/article/details/116838199（ASM）
 
-# javaagent（字节码插桩、attach、bTrace、Arthas、aspectjweaver）
+## javaagent（字节码插桩、attach、bTrace、Arthas、aspectjweaver）
 
 参考：https://www.cnblogs.com/rickiyang/p/11368932.html（javaagent指南）、https://blog.csdn.net/qinhaotong/article/details/100693414（Java成神之路——javaAgent（插桩，attach））
 
-# javassist（比asm直接操作jvm指令的方式更便捷）
+## javassist（比asm直接操作jvm指令的方式更便捷）
 
 参考：
 
@@ -1016,6 +1018,139 @@ https://juejin.cn/post/6952765170544279566（Java字节码编程之非常好用�
 http://www.javassist.org/tutorial/tutorial.html（Getting Started with Javassist）、http://www.javassist.org/html/index.html（Javassist）
 
 `$0`、`$args`、`$class`等符号说明参考：http://www.javassist.org/tutorial/tutorial2.html
+
+
+
+## 无中生有的类对象创建
+
+使用字节码生成库（如 ASM、CGLIB、Javassist）来动态生成类
+
+不同的字节码生成库在指定动态类的父类时有不同的方式。使用 ASM 时需要手动管理字节码；CGLIB 更简便，适合创建代理；而 ByteBuddy 提供更现代的 fluent API
+
+例如（以下为chatgpt回答）：
+
+Javassist：
+
+```java
+import javassist.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.makeClass("MyDynamicClass");
+
+        CtMethod m1 = CtNewMethod.make("public void display() { System.out.println(\"Hello from MyDynamicClass!\"); }", cc);
+        cc.addMethod(m1);
+
+        Class<?> dynamicClass = cc.toClass();
+        Object instance = dynamicClass.getDeclaredConstructor().newInstance();
+        dynamicClass.getMethod("display").invoke(instance);
+    }
+}
+```
+
+ASM：
+
+```java
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+
+public class ASMDemo {
+    public static void main(String[] args) throws Exception {
+        ClassWriter cw = new ClassWriter(0);
+        
+        // 定义一个类，名称为 MyDynamicClass，父类为 ParentClass
+        cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, "MyDynamicClass", null, "ParentClass", null);
+        
+        // 你可以在这里添加字段和方法
+
+        cw.visitEnd();
+
+        byte[] byteCode = cw.toByteArray();
+
+        // 你可以使用反射加载这个类
+        MyDynamicClassLoader classLoader = new MyDynamicClassLoader();
+        Class<?> dynamicClass = classLoader.defineClass("MyDynamicClass", byteCode);
+        
+        Object instance = dynamicClass.getDeclaredConstructor().newInstance();
+        System.out.println(instance.getClass().getSuperclass().getName()); // 输出 ParentClass
+    }
+    
+    static class MyDynamicClassLoader extends ClassLoader {
+        public Class<?> defineClass(String name, byte[] b) {
+            return defineClass(name, b, 0, b.length);
+        }
+    }
+}
+```
+
+CGLIB：
+
+```java
+import net.sf.cglib.proxy.Enhancer;
+
+class ParentClass {
+    public void greet() {
+        System.out.println("Hello from ParentClass!");
+    }
+}
+
+public class CGlibDemo {
+    public static void main(String[] args) {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(ParentClass.class); // 设置父类
+        enhancer.setCallback((org.springframework.cglib.proxy.MethodInterceptor) (obj, method, args1, proxy) -> {
+            System.out.println("Before method call");
+            return proxy.invokeSuper(obj, args1);
+        });
+
+        ParentClass dynamicInstance = (ParentClass) enhancer.create();
+        dynamicInstance.greet(); // 调用父类方法
+    }
+}
+```
+
+ByteBuddy：
+
+```java
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.dynamic.loading.ClassInjector;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
+
+class ParentClass {
+    public void sayHello() {
+        System.out.println("Hello from ParentClass!");
+    }
+}
+
+class MyInterceptor {
+    public static void intercept(@SuperCall Callable<?> callable) throws Exception {
+        System.out.println("Before method call");
+        callable.call();
+    }
+}
+
+public class ByteBuddyDemo {
+    public static void main(String[] args) throws Exception {
+        Class<? extends ParentClass> dynamicType = new ByteBuddy()
+                .subclass(ParentClass.class)
+                .method(named("sayHello"))
+                .intercept(MethodDelegation.to(MyInterceptor.class))
+                .make()
+                .load(ByteBuddyDemo.class.getClassLoader())
+                .getLoaded();
+
+        ParentClass instance = dynamicType.getDeclaredConstructor().newInstance();
+        instance.sayHello(); // 调用被拦截的方法
+    }
+}
+```
+
+
 
 # 函数式接口（Function、Consumer、Supplier、Predicate）
 

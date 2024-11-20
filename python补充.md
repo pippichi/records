@@ -1,3 +1,33 @@
+# 反射
+
+## 通过类名字符串创建对象
+
+通常使用`getattr()` 方法和 `globals()` 或 `locals()` 函数来实现
+
+也可用importlib
+
+## 无中生有的类对象创建
+
+使用 `type()` 创建一个不存在的类的对象
+
+例如：
+
+```python
+# 动态创建一个新类
+DynamicClass = type('DynamicClass', (object,), {'__init__': lambda self, value: setattr(self, 'value', value), 
+                                                'display': lambda self: print(f"Value is: {self.value}")})
+# 普通实例化
+dynamic_class = DynamicClass(42)
+dynamic_class.display()
+
+# 基于类名字符串的实例化
+class_ = globals()["DynamicClass"]
+instance = class_(42)
+instance.display()
+```
+
+
+
 # conda虚拟环境
 
 ## 复制虚拟环境
