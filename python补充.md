@@ -4,7 +4,28 @@
 
 通常使用`getattr()` 方法和 `globals()` 或 `locals()` 函数来实现
 
-也可用importlib
+也可用importlib，例如：
+
+```python
+# 如果类的声明和创建在不同文件中：
+
+import importlib
+# handler为python程序包，内含有__init__.py文件表明其是一个程序包而非普通文件夹，其下有一个text_handler.py文件
+text_handler_package = importlib.import_module("handler.text_handler")
+# text_handler.py中有一个类，名叫BadSentence
+BadSentence = getattr(text_handler_package, "BadSentence")
+# 创建BadSentence对象
+bad_sentence = BadSentence()
+
+
+# 如果类的声明和创建在同一个文件中：
+import importlib
+import sys
+# 本文件中有一个类，名叫BadSentence
+BadSentence = getattr(sys.modules[__name__], "BadSentence")
+# 创建BadSentence对象
+bad_sentence = BadSentence()
+```
 
 ## 无中生有的类对象创建
 
