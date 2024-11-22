@@ -1,3 +1,9 @@
+# 配置Anaconda以及pip清华镜像源
+
+参考：
+
+https://blog.csdn.net/weixin_44914727/article/details/130513081（【Python】Anaconda以及Pip配置清华镜像源）
+
 # 类方法、类实例方法和静态方法的区别
 
 参考：
@@ -118,6 +124,20 @@ https://blog.csdn.net/molangmolang/article/details/137616110（scipy介绍）
 參考：
 
 https://blog.csdn.net/u014264373/article/details/119390267（【最全指南】如何在 Jupyter Notebook 中切换/使用 conda 虚拟环境？）
+
+## 连接远程服务器
+
+参考：
+
+https://blog.csdn.net/MYRLibra/article/details/109599531（使用Jupyter Notebook远程连接服务器） -> https://blog.csdn.net/qq_36603177/article/details/132117549（Jupyter Notebook 7.0 更新远程访问配置）
+
+# pycharm
+
+## 连接远程服务器
+
+参考：
+
+https://blog.csdn.net/qq_45404805/article/details/136784095（保姆级教程！！教你通过【Pycharm远程】连接服务器运行项目代码） -> https://blog.csdn.net/weixin_41012765/article/details/125816981（远程连接（ssh服务+端口开放））
 
 # 彻底清理Conda环境
 
