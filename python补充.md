@@ -83,7 +83,13 @@ instance = class_(42)
 instance.display()
 ```
 
+# 魔法函数
 
+## `__all__`
+
+参考：
+
+https://blog.csdn.net/Rocky006/article/details/135384582（Python中的`__all__`魔法函数使用详解）
 
 # conda虚拟环境
 
@@ -102,6 +108,14 @@ https://blog.csdn.net/weixin_45277161/article/details/130693708（conda如何更
 参考：
 
 https://blog.csdn.net/qq_41185868/article/details/121346285（Python：利用pip/conda命令导出/安装当前环境所有的依赖包及其对应的版本号、在新的环境中安装导出的包之详细攻略）
+
+## 删除虚拟环境
+
+参考：
+
+https://blog.csdn.net/AI_eNyu/article/details/128459118（Anaconda 彻底删除虚拟环境）
+
+https://blog.csdn.net/qq_42136832/article/details/114999506（今天手把手教大家删一下Anaconda的虚拟环境(方便日后删库跑路)）
 
 # tqdm
 
@@ -130,6 +144,18 @@ https://blog.csdn.net/u014264373/article/details/119390267（【最全指南】�
 参考：
 
 https://blog.csdn.net/MYRLibra/article/details/109599531（使用Jupyter Notebook远程连接服务器） -> https://blog.csdn.net/qq_36603177/article/details/132117549（Jupyter Notebook 7.0 更新远程访问配置）
+
+## 添加、删除内核
+
+参考：
+
+https://blog.csdn.net/I_LOVE_MCU/article/details/108311698（jupyter notebook添加、删除内核）
+
+## 切换内核python版本
+
+参考：
+
+https://www.jb51.net/article/184447.htm（切换内核python版本）
 
 # pycharm
 
