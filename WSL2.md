@@ -4,6 +4,8 @@
 
 https://blog.csdn.net/weixin_44301630/article/details/122390018（超详细Windows10/Windows11 子系统（WSL2）安装Ubuntu20.04（带桌面环境））
 
+https://zhuanlan.zhihu.com/p/348813745（安装WSL2并下载配置Ubuntu）
+
 # 将WSL2安装的子系统迁移到其他盘
 
 参考：
