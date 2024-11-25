@@ -78,8 +78,13 @@ https://huggingface.co/（huggingface.co，需要翻墙）
 
 https://www.deepspeed.ai/getting-started/
 
-# win下flash-attention的安装方法
+# flash-attention
 
-參考：
+参考：
+
+https://blog.csdn.net/qq_25038325/article/details/133990240（qwen大模型，推理速度慢，单卡/双卡速度慢，flash-attention安装，解决方案★）
 
 https://blog.csdn.net/qq_21491605/article/details/136109125（Windows环境下flash-attention安装）
+
+
+

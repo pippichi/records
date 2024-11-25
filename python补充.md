@@ -177,8 +177,16 @@ https://blog.csdn.net/2401_85842555/article/details/140477670（优化Conda环�
 
 https://www.cnblogs.com/yanpeng1535/p/18529787（Conda环境与包管理命令大全使用指南）
 
-# pip忽略依赖包强制安装
+# pip
+
+## pip忽略依赖包强制安装
 
 参考：
 
 https://blog.csdn.net/qq_45100200/article/details/143358599（pip忽略依赖关系强制安装）
+
+## pip更新包
+
+參考：
+
+https://blog.csdn.net/weixin_51052909/article/details/116198325（python 使用pip安装和更新包）
