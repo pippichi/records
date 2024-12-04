@@ -78,6 +78,20 @@ https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HL
 
 参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
 
+# GameMode
+
+gamemode仅存于服务器，不存在于客户端
+
+## 事件OnPostLogin
+
+客户端连接时的回调事件
+
+可用于管理连接玩家
+
+参考：
+
+https://blog.csdn.net/zhangxiao13627093203/article/details/118385657（UE4 中GameInstance、GameMode、GameState、PlayerState和PlayerController的关系）
+
 # 委托
 
 参考：
@@ -129,6 +143,14 @@ https://www.bilibili.com/video/BV1X5411V7jh（[中文直播]第31期｜GAS插件
 https://www.zhihu.com/people/a-gun-er-58（虚幻插件GAS分析系列★）、https://space.bilibili.com/92060300/video（UE4 GAS入门系列★）
 
 https://zhuanlan.zhihu.com/p/486808688（【Unreal】虚幻GAS系统快速入门）
+
+## 网络同步
+
+参考：
+
+https://zhuanlan.zhihu.com/p/418085845（虚幻插件GAS分析02-0 技能网络同步之激活）、https://zhuanlan.zhihu.com/p/419741087（虚幻插件GAS分析02-1 技能的网络同步之预测与结束）
+
+
 
 # ModularGamePlay、GameFeatures
 
@@ -216,7 +238,11 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 
 # 网络复制
 
-参考：https://zhuanlan.zhihu.com/p/593894970（关于UObject如何解决网络复制问题以及数组在Replicated网络复制的优化）
+参考：
+
+https://www.bilibili.com/video/BV1dT4y1N7de/（彻底掌握UE4网络）
+
+https://zhuanlan.zhihu.com/p/593894970（关于UObject如何解决网络复制问题以及数组在Replicated网络复制的优化）
 
 
 
