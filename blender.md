@@ -1,6 +1,18 @@
+# 材质节点
+
+## 平铺贴图
+
+参考：
+
+https://www.bilibili.com/video/BV1H8411y749（每日一练088-blender材质篇之通过使用分数分解贴图进行平铺）
+
 # 烘焙贴图
 
-参考：https://blog.csdn.net/weixin_44568736/article/details/128119426（blender 烘焙贴图）
+参考：
+
+https://blog.csdn.net/weixin_44568736/article/details/128119426（blender 烘焙贴图）
+
+https://www.bilibili.com/video/BV1hY41197vS（blender 11个 烘培贴图案例（大全））
 
 # 重拓扑（Polybuild Tool）
 
@@ -12,6 +24,12 @@
 ## 动画曲线编辑器（Graph Editor）
 
 参考：https://blog.csdn.net/ttm2d/article/details/108614472（Blender笔记：动画曲线编辑器（Graph Editor）技巧）
+
+## 姿态库
+
+参考：
+
+https://www.bilibili.com/video/BV14m4y1D7t7（【Blender教程】姿态库）
 
 # 旋转
 
