@@ -1,10 +1,20 @@
 # 材质节点
 
+参考：
+
+https://www.bilibili.com/video/BV1aF411w7qs（材质节点入门教程）
+
 ## 平铺贴图
 
 参考：
 
 https://www.bilibili.com/video/BV1H8411y749（每日一练088-blender材质篇之通过使用分数分解贴图进行平铺）
+
+## 矢量置换 Vector Displacement
+
+参考：
+
+https://www.bilibili.com/video/BV1C54y1C7Vs（Blender 节点详解系列 020 矢量置换 Vector Displacement）
 
 # 烘焙贴图
 
@@ -66,3 +76,9 @@ https://www.bilibili.com/video/BV14m4y1D7t7（【Blender教程】姿态库）
 ## 文件格式
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
+
+# 贴图纹理制作Substance Designer
+
+参考：
+
+https://www.bilibili.com/video/BV1ki4y1D7K6（Substance Designer入门教程）
