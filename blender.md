@@ -82,3 +82,13 @@ png格式的图片可能会存在不能正确显示颜色的问题以及他的si
 参考：
 
 https://www.bilibili.com/video/BV1ki4y1D7K6（Substance Designer入门教程）
+
+https://blog.csdn.net/misaka12807/article/details/132135101（【substance designer】基础节点笔记）
+
+# 树木建模工具SpeedTree
+
+参考：
+
+https://www.bilibili.com/video/BV1JQ44eTEHN（SpeedTree10.0扫盲教学）
+
+https://blog.csdn.net/u012204304/article/details/112385559（SpeedTree基础：软件入门）
