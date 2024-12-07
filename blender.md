@@ -77,7 +77,7 @@ https://www.bilibili.com/video/BV14m4y1D7t7（【Blender教程】姿态库）
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
 
-# 贴图纹理制作Substance Designer
+# 贴图纹理制作工具Substance Designer
 
 参考：
 
