@@ -550,6 +550,8 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 
   https://blog.csdn.net/ChaoChao66666/article/details/138505947（【Gaea+UE5】创建基本的大型世界场景）
 
+  https://www.bilibili.com/video/BV19c411Z7GZ（Gaea地形完美导入UE最简单流程没有之一）
+
 - WorldCreator
 
 ## 材质生成
