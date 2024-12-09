@@ -28,6 +28,11 @@ https://www.bilibili.com/video/BV1hY41197vS（blender 11个 烘培贴图案例�
 
 参考：https://blog.csdn.net/ttm2d/article/details/100171329/（Polybuild Tool：Blender自带的重拓扑工具）
 
+# 人物建模
+
+参考：
+
+https://www.bilibili.com/video/BV19w4m1e7Mn（《绝区零》3D角色建模全流程首创，助力0基础快速进阶建模大神/3Dmax|blender建模下载安装教程）
 
 # 动画
 
