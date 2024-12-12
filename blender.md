@@ -116,6 +116,20 @@ https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-外角和内角
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
 
+# 修改器
+
+## 法线权重修改器、法线编辑修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-法线01、法线02）
+
+## 数据传递修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1sQ4y1E7qg（blender-树木-关于法向数据传递修改器的运用）
+
 # 贴图纹理制作工具Substance Designer
 
 参考：
