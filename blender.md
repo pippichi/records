@@ -84,6 +84,34 @@ https://www.bilibili.com/video/BV14m4y1D7t7（【Blender教程】姿态库）
 
 参考：https://www.jianshu.com/p/7c1c1e738294（关于blender点对齐的方法）
 
+## 点连接技巧
+
+直接按f：仅连接；按j：连接并切割
+
+![image-20241212111048574](blender.assets/image-20241212111048574.png)
+
+## 自动合并顶点
+
+一般与吸附工具配合操作
+
+參考：
+
+https://blog.csdn.net/qq_42720695/article/details/138226113（Blender点操作）
+
+## 点、线滑移快捷键
+
+连按两下g键
+
+## 倒角外斜切处理方法
+
+1、3点卡边
+
+2、倒角-外斜切（miter outer）中选择圆弧（Arc）
+
+參考：
+
+https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-外角和内角）
+
 ## 文件格式
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
