@@ -34,6 +34,12 @@ https://www.bilibili.com/video/BV1hY41197vS（blender 11个 烘培贴图案例�
 
 https://www.bilibili.com/video/BV19w4m1e7Mn（《绝区零》3D角色建模全流程首创，助力0基础快速进阶建模大神/3Dmax|blender建模下载安装教程）
 
+# 布线原理
+
+參考：
+
+https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理）
+
 # 动画
 
 ## 动画曲线编辑器（Graph Editor）
