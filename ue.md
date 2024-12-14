@@ -344,6 +344,32 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
 参考：https://blog.csdn.net/shenmifangke/article/details/80281904（ue4内植物碰撞和风力设置）、https://blog.csdn.net/qq_36917144/article/details/104010429（虚幻4创建旗帜和随机风力）
 
+# 模拟
+
+# ue自带布料模拟
+
+比较耗性能，不太适合做游戏，做游戏时还是推荐用风动物理骨骼
+
+参考：
+
+https://www.bilibili.com/video/BV1RM411Y7yB（【UE5】26 - 动画部分：给人物的衣服和头发启用布料效果）
+
+https://www.bilibili.com/video/BV1zJ4m1A7MA（【UE5】从零开始做原神（30）添加布料模拟（Chaos Cloth））
+
+## 风动物理骨骼（用于模拟裙摆飘动）★
+
+参考：
+
+https://www.bilibili.com/video/BV1QD421A7ee（【UE5】从零开始做原神（31）风动物理骨骼（SPCR Joint Dynamics））
+
+## 头发模拟★
+
+- kawaii插件
+
+  参考：
+
+  https://www.bilibili.com/video/BV1qs421N7qk（【UE5】从零开始做原神（29）添加衣服漂动（kawaii插件））
+
 # 体积烟雾
 
 参考：https://zhuanlan.zhihu.com/p/405811376（【UE4】五种烟雾流程）、FluidNinjaLive、b站聆枫LingFeng Niagara流体模拟教程
@@ -583,7 +609,15 @@ vdb体积云
 
 # 推荐阅读
 
-知乎：https://www.zhihu.com/people/a-gun-er-58（技术宅阿棍儿，写的东西很深入）、https://www.zhihu.com/people/SuperPandaGX（YivanLee，大佬，写的东西很深入）、https://www.zhihu.com/people/quabqi（quabqi，写得中肯详细易懂）
+知乎：
 
-gitee：https://gitee.com/timetzhang/LECTURE.UnrealEngine（timetzhang，他整合了很多素材资源）
+https://www.zhihu.com/people/a-gun-er-58（技术宅阿棍儿，写的东西很深入）、https://www.zhihu.com/people/SuperPandaGX（YivanLee，大佬，写的东西很深入）、https://www.zhihu.com/people/quabqi（quabqi，写得中肯详细易懂）
+
+gitee：
+
+https://gitee.com/timetzhang/LECTURE.UnrealEngine（timetzhang，他整合了很多素材资源）
+
+b站：
+
+https://www.bilibili.com/video/BV12M4m1m7RS（【UE5】从零开始做原神）
 
