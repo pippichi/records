@@ -370,6 +370,22 @@ https://www.bilibili.com/video/BV1QD421A7ee（【UE5】从零开始做原神（3
 
   https://www.bilibili.com/video/BV1qs421N7qk（【UE5】从零开始做原神（29）添加衣服漂动（kawaii插件））
 
+# 动画
+
+## 重定向
+
+参考：
+
+https://www.bilibili.com/video/BV1HH4y1T7uN（【UE5】从零开始做原神（2）导入原神模型替换小白人（动画重定向）★）
+
+https://www.bilibili.com/video/BV1ECmrYrEyV（【UE5】从零开始做原神（65）只狼动画重定向小白人）
+
+## 动画层接口
+
+参考：
+
+https://www.bilibili.com/video/BV1Qb421i7Eg（【UE5】从零开始做原神（37）动画层接口（动画基础 LinkedAnimLayer））
+
 # 体积烟雾
 
 参考：https://zhuanlan.zhihu.com/p/405811376（【UE4】五种烟雾流程）、FluidNinjaLive、b站聆枫LingFeng Niagara流体模拟教程
@@ -625,5 +641,5 @@ https://gitee.com/timetzhang/LECTURE.UnrealEngine（timetzhang，他整合了很
 
 b站：
 
-https://www.bilibili.com/video/BV12M4m1m7RS（【UE5】从零开始做原神）
+https://www.bilibili.com/video/BV12M4m1m7RS（【UE5】从零开始做原神★）
 
