@@ -512,6 +512,12 @@ https://zhuanlan.zhihu.com/p/630381438（UE场景顶点动画效果实现）、h
 
 参考：https://blog.csdn.net/weixin_44718797/article/details/125838661（延迟渲染的过程）
 
+## 三渲二★
+
+参考：
+
+https://www.bilibili.com/video/BV1az42117wz（【UE5】从零开始做原神（32）三渲二材质（兰伯特+Ramp图+边缘光+matcap+高光+水渍效果））
+
 # module模块与plugin插件
 
 ## 创建自己的插件
