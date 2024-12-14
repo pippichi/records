@@ -112,9 +112,27 @@ https://blog.csdn.net/qq_42720695/article/details/138226113（Blender点操作�
 
 https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-外角和内角）
 
+## 重构网格以及重构网格修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1oB4y1u7sX（雕刻笔刷用法基础学习-视频最后讲了重构网格以及重构网格修改器）
+
 ## 文件格式
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
+
+# 雕刻
+
+## 造型前期三大利器
+
+- Elastic Grab弹性笔刷
+- Grab笔刷
+- Snake Hook蛇形钩笔刷
+
+参考：
+
+https://www.bilibili.com/video/BV1oB4y1u7sX（雕刻笔刷用法基础学习 弹性笔刷~G抓取笔刷~蛇形沟笔刷+解释使用延伸技巧）
 
 # 修改器
 
