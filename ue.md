@@ -394,6 +394,16 @@ https://www.bilibili.com/video/BV1HH4y1T7uN（【UE5】从零开始做原神（2
 
 https://www.bilibili.com/video/BV1ECmrYrEyV（【UE5】从零开始做原神（65）只狼动画重定向小白人）
 
+
+
+mmd到ue重定向时模型飞天问题处理，参考：
+
+https://www.bilibili.com/video/BV1Jb42187Wp（【番外教程】解决mmd骨骼太大+5.4重定向模型上天问题）
+
+https://blog.csdn.net/ONE_SIX_MIX/article/details/119879752（mmd 到 blender 到 ue4/ue5 缩放比例相关的处理流程）
+
+
+
 ## 动画层接口
 
 情景：在动画蓝图中方便地实现人物持枪/持刀动画切换
