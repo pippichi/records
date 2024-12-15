@@ -122,6 +122,52 @@ https://www.bilibili.com/video/BV1oB4y1u7sX（雕刻笔刷用法基础学习-视
 
 png格式的图片可能会存在不能正确显示颜色的问题以及他的size比jpeg要大很多。png可以转成：tif、tga，tif、tga是带alpha通道的，jpeg是不带的。
 
+## 摄像机
+
+### 显示摄像机视角
+
+首先选中右键激活摄像机：
+
+![image-20241215145254801](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145254801.png)
+
+然后对齐视角：
+
+![image-20241215145350091](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145350091.png)
+
+![image-20241215145504056](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145504056.png)
+
+### 锁定摄像机视角
+
+![image-20241215145529710](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145529710.png)
+
+锁定之后就可以随意调整视口显示而不会导致退出摄像机视角
+
+## Driver和custom properties
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-206集Drivers and custom properties）
+
+## 形态键
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-406集shapekeys）
+
+
+
+使用形态键+Driver修复动画引发的链式形状改变，参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-603集）
+
+## 物体跟随顶点
+
+将顶点设置为parent，场景：挂在衣服上的徽章
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
+
 # 雕刻
 
 ## 造型前期三大利器
@@ -148,6 +194,52 @@ https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-法线01、法�
 
 https://www.bilibili.com/video/BV1sQ4y1E7qg（blender-树木-关于法向数据传递修改器的运用）
 
+## 晶格修改器
+
+骚操作：使用骨骼控制晶格修改器间接控制形体，参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
+
+## Hook修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
+
+## Mesh deform修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
+
+# 骨骼
+
+## Bony bone（可弯曲的骨骼）
+
+可以用于制作尾巴、眼部肌肉等
+
+![image-20241215163156769](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215163156769.png)
+
+![image-20241215163214836](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215163214836.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-605集）
+
+上述视频中还讲解了如何设置bony bone的Start/End handle使其变为曲线操作
+
+## constraint
+
+### Damped track阻尼器
+
+参考：
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-605集）
+
+### Stretch to
+
+https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-605集）
+
 # 贴图纹理制作工具Substance Designer
 
 参考：
@@ -163,3 +255,27 @@ https://blog.csdn.net/misaka12807/article/details/132135101（【substance desig
 https://www.bilibili.com/video/BV1JQ44eTEHN（SpeedTree10.0扫盲教学）
 
 https://blog.csdn.net/u012204304/article/details/112385559（SpeedTree基础：软件入门）
+
+# 插件
+
+## MMD插件使用
+
+参考：
+
+https://www.bilibili.com/video/BV1uc411f7wG（blender /mmd toon使用教程）
+
+# MMD资源网站
+
+参考：
+
+https://www.aplaybox.com/（模之屋★）
+
+https://www.mikuclub.org/（初音社）
+
+https://www.aigei.com/3d/mmd（爱给网）
+
+https://bowlroll.net/（B碗）
+
+http://www.deviantart.com/（D站）
+
+https://www.nicovideo.jp/（N站）

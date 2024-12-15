@@ -607,10 +607,6 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
   quixel.com、sketch fab、blender market、poly haven
 
 
-- 二次元人物模型
-
-  https://www.aplaybox.com/（模之屋★）
-
 - HDRI
 
   hdrihaven.com、hdriabs.com、kitbash3d.com
