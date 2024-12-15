@@ -248,6 +248,18 @@ https://www.bilibili.com/video/BV1ki4y1D7K6（Substance Designer入门教程）
 
 https://blog.csdn.net/misaka12807/article/details/132135101（【substance designer】基础节点笔记）
 
+# 贴图绘制工具Substance Painter
+
+参考：
+
+https://www.bilibili.com/video/BV1Hv4y1d7jF（【SP教程】Substance Painter新手入门）
+
+# UV贴图绘制工具C4D（BodyPaint 3D）
+
+参考：
+
+https://www.bilibili.com/video/BV1nL2nYjE4Q（3天能学会的【绝区零】可琳3D角色模型制作教程/3Dmax建模教程-贴图篇）
+
 # 树木建模工具SpeedTree
 
 参考：
