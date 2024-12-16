@@ -70,13 +70,21 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 参考：
 
-https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）
+https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）、https://www.bilibili.com/video/BV1Az42197L9（c++中获取GBuffer进行边缘检测配合后处理体积实现描边）、https://www.bilibili.com/video/BV1ki421e7QA（UE5怎样使用后期处理体积给物体描边）
 
 https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（上））、https://blog.csdn.net/ttm2d/article/details/115263517（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（下））
 
 ## 抗锯齿DitherTemporalAA
 
 参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
+
+## 技巧案例
+
+### 材质融合过渡
+
+参考：
+
+https://zhuanlan.zhihu.com/p/348060852（UE4丨材质融合过渡的应用案例）
 
 # GameMode
 
