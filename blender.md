@@ -16,6 +16,18 @@ https://www.bilibili.com/video/BV1H8411y749（每日一练088-blender材质篇�
 
 https://www.bilibili.com/video/BV1C54y1C7Vs（Blender 节点详解系列 020 矢量置换 Vector Displacement）
 
+## Layer weight
+
+具有Fresnel（菲涅尔）和Facing的信息
+
+Facing为面朝向数据，其中一个用法可以拿来做风格化轮廓勾勒
+
+参考：
+
+https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲教程：我希望早点知道的 10 个轮廓线技巧-勾勒轮廓）
+
+https://www.bilibili.com/opus/494654003419196409（Blender着色器节点教程 —— Layer Weight）
+
 # 烘焙贴图
 
 参考：
@@ -168,6 +180,24 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 
 https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
 
+## Hook
+
+快捷键：Ctrl+H
+
+可以使得物体跟随移动
+
+![image-20241218082029837](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241218082029837.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1CVtzeyEcp（（国语）blender基础入门卡通动漫角色建模贴图绑定渲染教程-耳机绑定那一集第31分50秒处）
+
+## 风格化轮廓勾勒
+
+参考：
+
+https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲教程：我希望早点知道的 10 个轮廓线技巧-勾勒轮廓）
+
 # 雕刻
 
 ## 造型前期三大利器
@@ -230,6 +260,14 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 
 ## constraint
 
+约束分为变换约束、追踪约束、关系约束
+
+参考：
+
+https://blog.csdn.net/weixin_44568736/article/details/128635617（Blender里的三种绑定 （二）约束）
+
+https://www.bilibili.com/video/BV1EixJe3EsZ（【中配】用示例解释所有约束 | 跟踪约束 | Blender 2.8 | 免费项目文件）
+
 ### Damped track阻尼器
 
 参考：
@@ -238,7 +276,15 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 
 ### Stretch to
 
+参考：
+
 https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-605集）
+
+### spline IK
+
+参考：
+
+https://www.bilibili.com/video/BV1CVtzeyEcp（（国语）blender基础入门卡通动漫角色建模贴图绑定渲染教程-耳机绑定那一集）
 
 # 贴图纹理制作工具Substance Designer
 
@@ -275,6 +321,14 @@ https://blog.csdn.net/u012204304/article/details/112385559（SpeedTree基础：�
 参考：
 
 https://www.bilibili.com/video/BV1uc411f7wG（blender /mmd toon使用教程）
+
+## 白嫖插件
+
+### 超级体积雾
+
+参考：
+
+https://www.bilibili.com/video/BV1PQiiYrE1a（【白嫖党系列】超级体积雾UltraVolumetrics发布啦 虚幻引擎5.5版本 详细使用教程）
 
 # MMD资源网站
 
