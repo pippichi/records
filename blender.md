@@ -316,6 +316,12 @@ https://blog.csdn.net/u012204304/article/details/112385559（SpeedTree基础：�
 
 # 插件
 
+## LoopTools
+
+参考：
+
+https://www.bilibili.com/video/BV1eU4y1t7n2（Blender建模必备插件LoopTools快速功能介绍）
+
 ## MMD插件使用
 
 参考：
