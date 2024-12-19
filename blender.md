@@ -28,6 +28,12 @@ https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲
 
 https://www.bilibili.com/opus/494654003419196409（Blender着色器节点教程 —— Layer Weight）
 
+# 几何节点
+
+参考：
+
+https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
+
 # 烘焙贴图
 
 参考：
