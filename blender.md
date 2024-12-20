@@ -34,6 +34,14 @@ https://www.bilibili.com/opus/494654003419196409（Blender着色器节点教程 
 
 https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
 
+https://www.bilibili.com/video/BV1f8BRYsEBJ（（国语）blender基础入门几何节点动态图形教程）
+
+## Geometry proximity（几何接近）
+
+参考：
+
+https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
+
 # 烘焙贴图
 
 参考：
@@ -203,6 +211,12 @@ https://www.bilibili.com/video/BV1CVtzeyEcp（（国语）blender基础入门卡
 参考：
 
 https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲教程：我希望早点知道的 10 个轮廓线技巧-勾勒轮廓）
+
+## 材质节点和几何节点之间互相输入/输出变量属性
+
+参考：
+
+https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
 
 # 雕刻
 
