@@ -42,6 +42,20 @@ https://www.bilibili.com/video/BV1f8BRYsEBJ（（国语）blender基础入门几
 
 https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
 
+## Attribute属性
+
+参考：
+
+https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
+
+### 属性传递
+
+用于解决几何节点在Realize Instances之后无法精确选中编号层的难点
+
+参考：
+
+https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总-传递属性Transfer Attribute）
+
 # 烘焙贴图
 
 参考：
