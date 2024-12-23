@@ -114,6 +114,12 @@ https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处�
 
 https://blog.csdn.net/weixin_38527697/article/details/117989491（ue4 材质始终面向摄像机）
 
+## AttachMeshToTheCamera（让材质贴合到摄像机）
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时55分）
+
 ## 案例
 
 ### 材质融合过渡
@@ -240,7 +246,7 @@ https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模�
 
 https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材质基础(上) | Epic 贾越-第1小时13分）
 
-## Scene Color节点
+## 半透明后处理材质与Scene Color节点
 
 ![image-20241223191932250](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223191932250.png)
 
@@ -250,15 +256,23 @@ https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材
 
 好处：
 
-1、由于只需要渲染圆内不需要渲染整个场景，所以消耗少；
+1、只需要渲染物体内不需要渲染整个场景，消耗少；
 
-2、充分利用了透明的属性；
+2、利用了透明的属性；
 
-使用场景：拾取物外可以罩一个这种后处理材质，用于单独处理
+
+
+使用场景：
+
+1、拾取物外可以罩一个这种后处理材质，用于单独处理；
+
+2、与AttachMeshToTheCamera材质节点结合，将赋予了该后处理材质的物体附着到相机上，根据物体的形状还可以扣掉某些不需要后处理的像素点；
+
+
 
 参考：
 
-https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时49分20秒）
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时49分20秒，第1小时54分）
 
 ## 案例
 
