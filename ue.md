@@ -60,25 +60,61 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 参考：https://zhuanlan.zhihu.com/p/381326628（RotateAboutAxis和FixRotateAboutAxisNormals）、https://zhuanlan.zhihu.com/p/394785452（在 UE4 中使用顶点着色器旋转网格）
 
-## 材质表达式SceneTexture
+## DitherTemporalAA
 
-- SceneTexture:PostProcessInput0
-- SceneTexture:CustomDepth
-- SceneTexture:CustomStencil
-- SceneTexture:WorldNormal
-- ...
-
-参考：
-
-https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）、https://www.bilibili.com/video/BV1Az42197L9（c++中获取GBuffer进行边缘检测配合后处理体积实现描边）、https://www.bilibili.com/video/BV1ki421e7QA（UE5怎样使用后期处理体积给物体描边）
-
-https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（上））、https://blog.csdn.net/ttm2d/article/details/115263517（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（下））
-
-## 抗锯齿DitherTemporalAA
+扰乱、抗锯齿
 
 参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
 
-## 技巧案例
+### Responsive AA
+
+情景：niagara中使用了该材质时，出现了锯齿状失真，此时可以勾选上材质节点中的Responsive AA以改善该情况
+
+![image-20241223171456996](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223171456996.png)
+
+注意：该材质混合模式一定得设置成是透明的（Translucent）
+
+## 对比度
+
+CheapContrast
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/image-adjustment-material-functions-in-unreal-engine（图像调整材质函数）
+
+## 去饱和度
+
+Desaturation
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/color-material-expressions-in-unreal-engine（颜色材质表达式）
+
+## ScreenAlignedPixelToPixelUVs（屏幕空间平铺uv）
+
+参考：
+
+https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材质基础(上) | Epic 贾越-第48分30秒）
+
+## ScaleUVsByCenter
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时42分）
+
+## ViewProperty
+
+用于获取视口中各种属性，例如视口大小、屏幕分辨率等
+
+![image-20241223132109674](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223132109674.png)
+
+## AlignMeshToTheCamera（让材质始终面向摄像机）
+
+参考：
+
+https://blog.csdn.net/weixin_38527697/article/details/117989491（ue4 材质始终面向摄像机）
+
+## 案例
 
 ### 材质融合过渡
 
@@ -127,6 +163,116 @@ https://cloud.tencent.com/developer/article/1889577（UE4技术总结——委�
 https://www.gongyesheji.org/?p=1941&wd=&eqid=faa65b910005355e000000066476aafd（【unreal4】 虚幻引擎中获取虚拟摄像机图像并导入UI(UMG)实时显示（SceneCaptureComponent2D、CanvasRenderTarget2D））
 
 https://blog.csdn.net/qq_39934403/article/details/121654665（Unreal Engine UE4虚幻引擎，生成Cubemap（HDR高动态范围贴图））、https://blog.csdn.net/qq_39934403/article/details/121656255（Unreal Engine UE4虚幻引擎，创建Sky天空球，球天材质，自制天空球（HDR高动态范围贴图））
+
+# 后处理
+
+## 后处理材质
+
+参考：
+
+https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材质基础(上) | Epic 贾越）
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越）
+
+https://www.bilibili.com/video/BV1552UYDEhx（后期处理材质基础教程UE5.4-讲原理的材质基础教程）
+
+
+
+设置后处理材质起效阶段：
+
+![image-20241223111255651](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223111255651.png)
+
+Epic 贾越的教程中说一般选择Before Tonemapping以避免抗锯齿等导致的抖动问题，但上图中没有“Before Tonemapping”，那么可以选择Scene Color Before Bloom或Scene Color Before DOF，参考：
+
+https://forums.unrealengine.com/t/5-4-removed-post-process-material-settings-before-tonemapping/1865552/19（5.4 Removed Post Process Material settings (Before Tonemapping)）
+
+## 材质表达式SceneTexture
+
+- SceneTexture:PostProcessInput0
+- SceneTexture:CustomDepth
+- SceneTexture:CustomStencil
+- SceneTexture:WorldNormal
+- ...
+
+参考：
+
+https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）、https://www.bilibili.com/video/BV1Az42197L9（c++中获取GBuffer进行边缘检测配合后处理体积实现描边）、https://www.bilibili.com/video/BV1ki421e7QA（UE5怎样使用后期处理体积给物体描边）
+
+https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（上））、https://blog.csdn.net/ttm2d/article/details/115263517（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（下））
+
+## 图像模糊
+
+参考：
+
+https://zhuanlan.zhihu.com/p/125744132（高品质后处理：十种图像模糊算法的总结与实现）
+
+### 径向模糊
+
+可以做出零：濡鸦之巫女那样的效果
+
+参考：
+
+https://blog.csdn.net/qq_42486920/article/details/126591803（UE5 描边、径向模糊）
+
+https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材质基础(上) | Epic 贾越-第58分50秒）
+
+### SpiralBlur-SceneTexture
+
+可用于制作毛玻璃效果
+
+参考：
+
+https://blog.csdn.net/goodriver1/article/details/121712281（UE4_如果快速做出毛玻璃效果）
+
+## Custom Depth/Custom Stencil
+
+参考：
+
+https://blog.csdn.net/grayrail/article/details/131173457（在UE中使用Stencil功能）
+
+https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模板缓冲创建遮罩 | Creating masks with the Custom Stencil Buffer(官方字幕)）
+
+## DDX、DDY
+
+邻边像素对比
+
+参考：
+
+https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材质基础(上) | Epic 贾越-第1小时13分）
+
+## Scene Color节点
+
+![image-20241223191932250](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223191932250.png)
+
+用于获取场景中不透明的物体所渲染出来的结果，可以利用这个信息做出很好看的效果，比如配合后处理描边：
+
+![image-20241223192657247](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223192657247.png)
+
+好处：
+
+1、由于只需要渲染圆内不需要渲染整个场景，所以消耗少；
+
+2、充分利用了透明的属性；
+
+使用场景：拾取物外可以罩一个这种后处理材质，用于单独处理
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时49分20秒）
+
+## 案例
+
+参考：
+
+https://www.bilibili.com/video/BV1YS4y1k7Pj（(中英字幕)虚幻引擎4.27！6种不同的后处理效果调试！）
+
+### 不被遮挡描边，被遮挡不描边
+
+可以用SceneDepth和CustomDepth来实现
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
 
 # 创建可复用的动画通知类（Anim Notify Class）
 
@@ -341,10 +487,15 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
 # 游戏技能音效下载网站
 
-- https://soundscrate.com/electricity.html（Electricity Sound Effects）
-- https://freesfx.co.uk/Default.aspx（freeSFX）
-- https://opengameart.org/art-search-advanced（OpenGameArt.ORG）
-- https://www.aigei.com/sound/class/fight/（爱给）
+https://freesound.org/（free sound）
+
+https://soundscrate.com/electricity.html（Electricity Sound Effects）
+
+https://freesfx.co.uk/Default.aspx（freeSFX）
+
+https://opengameart.org/art-search-advanced（OpenGameArt.ORG）
+
+https://www.aigei.com/sound/class/fight/（爱给）
 
 参考：https://zhuanlan.zhihu.com/p/108442292（推荐几个免费 游戏技能音效下载网站）
 
@@ -565,6 +716,14 @@ https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.
 # 多线程异步任务
 
 参考：https://space.bilibili.com/92060300/video（【合集】UE4 C++进阶系列）、https://zhuanlan.zhihu.com/p/38881269（《Exploring in UE4》多线程机制详解[原理分析]）
+
+# 调试窗口
+
+## GPU Visualizer
+
+快捷键ctrl + shift + ,
+
+![image-20241223095916814](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223095916814.png)
 
 # 渲染
 
