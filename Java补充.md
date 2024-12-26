@@ -2095,6 +2095,12 @@ java -jar xxx.jar --a1=aaa --b1=bbb --server.port=8080
 
 参考：https://zhuanlan.zhihu.com/p/47478339（原来你是这样的 Stream —— 浅析 Java Stream 实现原理）
 
+## boxed()
+
+参考：
+
+https://blog.csdn.net/weixin_37862824/article/details/112756654（Java8中Stream为什么要boxed）
+
 # lambda表达式分组、过滤、求和、最值、排序、去重
 
 参考：https://blog.csdn.net/gsls200808/article/details/86501905（java 8 lambda表达式list操作分组、过滤、求和、最值、排序、去重）

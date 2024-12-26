@@ -34,7 +34,7 @@ https://www.bilibili.com/opus/494654003419196409（Blender着色器节点教程 
 
 https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
 
-https://www.bilibili.com/video/BV1f8BRYsEBJ（（国语）blender基础入门几何节点动态图形教程）
+https://www.bilibili.com/video/BV1cLCmYnEcM（（国语）blender基础入门几何节点动态图形教程）
 
 ## Geometry proximity（几何接近）
 
@@ -42,11 +42,27 @@ https://www.bilibili.com/video/BV1f8BRYsEBJ（（国语）blender基础入门几
 
 https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
 
+https://www.bilibili.com/video/BV1cLCmYnEcM（（国语）blender基础入门几何节点动态图形教程-第6.mp4集）
+
+## 预览节点Viewer
+
+快捷键：ctrl + shift + 左键
+
+![image-20241225122728579](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225122728579.png)
+
 ## Attribute属性
 
 参考：
 
 https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
+
+## Named Attribute
+
+输入字符串名称即可调用外部的一些属性，例如：调用UV贴图
+
+参考：
+
+https://www.bilibili.com/video/BV1Eg4y1T7bZ（Blender 3.5毛发系统介绍及应用-第12分10秒）
 
 ### 属性传递
 
@@ -55,6 +71,18 @@ https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总）
 参考：
 
 https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总-传递属性Transfer Attribute）
+
+## Move to Nodes移动几何节点至组
+
+将只需要关注输入输出而不再需要关注内部细节的若干节点移动至组
+
+![image-20241225120020222](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225120020222.png)
+
+## Dual Mesh节点
+
+参考：
+
+https://www.bilibili.com/video/BV1cLCmYnEcM（Blender/几何节点动态系列案例（值得收藏）-第1.mp4集）
 
 # 烘焙贴图
 
@@ -73,6 +101,12 @@ https://www.bilibili.com/video/BV1hY41197vS（blender 11个 烘培贴图案例�
 参考：
 
 https://www.bilibili.com/video/BV19w4m1e7Mn（《绝区零》3D角色建模全流程首创，助力0基础快速进阶建模大神/3Dmax|blender建模下载安装教程）
+
+## 人物头部快速建模
+
+参考：
+
+https://www.bilibili.com/video/BV1xgyHYQEKq（怕脸崩？看这个二次元头部建模教学！）
 
 # 布线原理
 
@@ -232,6 +266,26 @@ https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲
 
 https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
 
+
+
+# 毛发
+
+参考：
+
+https://www.bilibili.com/video/BV1Eg4y1T7bZ（Blender 3.5毛发系统介绍及应用）
+
+## 毛发曲线
+
+新建毛发曲线：
+
+![image-20241225120636759](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225120636759.png)
+
+快速毛发曲线：
+
+![image-20241225112442498](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225112442498.png)
+
+
+
 # 雕刻
 
 ## 造型前期三大利器
@@ -275,6 +329,18 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 参考：
 
 https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大家期盼已久的教程，请一睹为快-604集）
+
+## 镜像修改器
+
+Clipping参数：
+
+![image-20241225170902315](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225170902315.png)
+
+对镜像接缝处的影响比较大
+
+效果参考：
+
+https://www.bilibili.com/video/BV1xgyHYQEKq（怕脸崩？看这个二次元头部建模教学！-第1分30秒）
 
 # 骨骼
 
