@@ -84,6 +84,16 @@ https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总-传递属
 
 https://www.bilibili.com/video/BV1cLCmYnEcM（Blender/几何节点动态系列案例（值得收藏）-第1.mp4集）
 
+## 曲线Curve
+
+## Spline Parameter 样条线参数
+
+参考：
+
+https://www.bilibili.com/video/BV1KjBFY2EF1（blender几何节点教程-节点基础用法详解-样条线参数）
+
+https://www.bilibili.com/video/BV1ky4y1F7Xu（blender毛发转fbx或obj格式-第8分50秒）
+
 # 烘焙贴图
 
 参考：
@@ -175,6 +185,10 @@ https://blog.csdn.net/qq_42720695/article/details/138226113（Blender点操作�
 ## 点、线滑移快捷键
 
 连按两下g键
+
+## 点、线分离
+
+在编辑模式下按快捷键v
 
 ## 倒角外斜切处理方法
 
@@ -284,7 +298,11 @@ https://www.bilibili.com/video/BV1Eg4y1T7bZ（Blender 3.5毛发系统介绍及�
 
 ![image-20241225112442498](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225112442498.png)
 
+## 毛发转网格
 
+参考：
+
+https://www.bilibili.com/video/BV1ky4y1F7Xu（blender毛发转fbx或obj格式）
 
 # 雕刻
 
