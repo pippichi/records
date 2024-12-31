@@ -280,7 +280,13 @@ https://www.bilibili.com/video/BV1Rw411X736（【中字】Blender风格化卡渲
 
 https://www.bilibili.com/video/BV1c34y1o7Vc（Blender 几何节点详解 几何数据 几何接近 Geometry Proximity）
 
+## 模型轻量化处理
 
+参考：
+
+https://blog.csdn.net/shebao3333/article/details/128712321（3D模型轻量化处理教程【Blender】）
+
+https://blog.csdn.net/weixin_44087394/article/details/140557274（Blender中的重拓扑修改器如何使用？）
 
 # 毛发
 

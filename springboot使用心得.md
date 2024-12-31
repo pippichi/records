@@ -631,62 +631,6 @@ https://blog.csdn.net/m0_37941483/article/details/90727830（Spring系列——@
 
 # 注入与上下文环境
 
-## @Value
-
-参考：https://blog.csdn.net/woheniccc/article/details/79804600（spring的@Value注解使用）
-
-
-
-注入默认值：
-
-参考：https://blog.csdn.net/li02112017/article/details/118912109（SpringBoot中@Value注解设置默认值）
-
-
-
-Bean字段注入等更多注入方式：
-
-参考：
-
-https://blog.csdn.net/weixin_43888891/article/details/127505506（@Value的复杂用法）
-
-https://blog.csdn.net/cxyxysam/article/details/135394386（【SpringBoot 基础系列】@Value 中哪些你不知道的知识点）
-
-
-
-## @Bean(initMethod = "init",destroyMethod = "destroy")
-
-参考：https://blog.csdn.net/LiZhen314/article/details/123002611（Spring 框架Bean的初始化和销毁 ---方式： @Bean(initMethod = “init“,destroyMethod = “destroy“)）
-
-## @Configuration
-
-参考：
-
-https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
-
-https://blog.csdn.net/feiying0canglang/article/details/124778853（SpringBoot--@Configuration(proxyBeanMethods = false) 的作用）
-
-## @Repository
-
-参考：https://blog.csdn.net/wqh0830/article/details/96109587（@Repository注解的作用）、https://blog.csdn.net/qq_44421399/article/details/109825479（@Repository 与 @Mapper的区别）
-
-## @Import注入类
-
-原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
-
-利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
-
-### ImportSelector动态加载功能类
-
-参考：https://blog.csdn.net/Smallc0de/article/details/108619562（Spring框架的ImportSelector到底可以干嘛）、https://www.cnblogs.com/niechen/p/9262452.html（深入理解Spring的ImportSelector接口）、https://www.cnblogs.com/niechen/p/9027804.html（深入理解SpringBoot之自动装配）
-
-## @ImportResource
-
-参考：https://blog.csdn.net/weixin_44893467/article/details/107106180（@ImportResource()注解的使用）
-
-## @NestedConfigurationProperty
-
-参考：https://blog.csdn.net/u013541707/article/details/113193128（简单分析@NestedConfigurationProperty的作用）、https://blog.csdn.net/hua_ming/article/details/108624157（@NestedConfigurationProperty注解使用场景）
-
 ## Spring容器获取Bean的9种方式总结
 
 **Spring中的IOC容器：**
@@ -745,8 +689,6 @@ BeanFactory在初始化容器时，并未实例化Bean，直到第一次访问�
 
 参考：https://juejin.cn/post/7215454015726518330（Spring容器获取Bean的9种方式）
 
-
-
 ## BeanFactory和FactoryBean和ObjectFactory
 
 参考：
@@ -755,11 +697,13 @@ https://blog.csdn.net/qiesheng/article/details/72875315（spring中BeanFactory�
 
 https://blog.csdn.net/hong10086/article/details/84583731（spring中的FactoryBean与ObjectFactory的区别）
 
-## AutowireCapableBeanFactory对容器外的Bean进行依赖注入
+### AutowireCapableBeanFactory
 
-参考：https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
+AutowireCapableBeanFactory可以对容器外的Bean进行依赖注入，参考：
 
-## AutowireCapableBeanFactory
+https://www.jianshu.com/p/14dd69b5c516、https://blog.csdn.net/qq_36838191/article/details/80702608
+
+
 
 以下是一段spring的applicationContext中的代码：
 
@@ -840,6 +784,72 @@ public class JobFactory extends AdaptableJobFactory {
     }
 }
 ```
+
+### ListableBeanFactory
+
+参考：
+
+https://blog.csdn.net/u013412772/article/details/80819314（Spring源码学习--ListableBeanFactory接口）
+
+### ConfigurableListableBeanFactory
+
+https://blog.csdn.net/u013412772/article/details/80819447（Spring源码学习--ConfigurableListableBeanFactory接口）
+
+## @Value
+
+参考：https://blog.csdn.net/woheniccc/article/details/79804600（spring的@Value注解使用）
+
+
+
+注入默认值：
+
+参考：https://blog.csdn.net/li02112017/article/details/118912109（SpringBoot中@Value注解设置默认值）
+
+
+
+Bean字段注入等更多注入方式：
+
+参考：
+
+https://blog.csdn.net/weixin_43888891/article/details/127505506（@Value的复杂用法）
+
+https://blog.csdn.net/cxyxysam/article/details/135394386（【SpringBoot 基础系列】@Value 中哪些你不知道的知识点）
+
+
+
+## @Bean(initMethod = "init",destroyMethod = "destroy")
+
+参考：https://blog.csdn.net/LiZhen314/article/details/123002611（Spring 框架Bean的初始化和销毁 ---方式： @Bean(initMethod = “init“,destroyMethod = “destroy“)）
+
+## @Configuration
+
+参考：
+
+https://blog.csdn.net/yunxing323/article/details/108655250（@Configuration(proxyBeanMethods = false) 详解）
+
+https://blog.csdn.net/feiying0canglang/article/details/124778853（SpringBoot--@Configuration(proxyBeanMethods = false) 的作用）
+
+## @Repository
+
+参考：https://blog.csdn.net/wqh0830/article/details/96109587（@Repository注解的作用）、https://blog.csdn.net/qq_44421399/article/details/109825479（@Repository 与 @Mapper的区别）
+
+## @Import注入类
+
+原本我们在一个类中注入另一个类都是通过先new再注入的，现在可以使用该注解直接注入而不需要new。详见《Spring实战》P61。
+
+利用这个注入的特性，我们还可以通过在某个更加高级的类上面标注@Import({xxx.class, xxx.class}) 来拼装类。详见《Spring实战》P62。
+
+### ImportSelector动态加载功能类
+
+参考：https://blog.csdn.net/Smallc0de/article/details/108619562（Spring框架的ImportSelector到底可以干嘛）、https://www.cnblogs.com/niechen/p/9262452.html（深入理解Spring的ImportSelector接口）、https://www.cnblogs.com/niechen/p/9027804.html（深入理解SpringBoot之自动装配）
+
+## @ImportResource
+
+参考：https://blog.csdn.net/weixin_44893467/article/details/107106180（@ImportResource()注解的使用）
+
+## @NestedConfigurationProperty
+
+参考：https://blog.csdn.net/u013541707/article/details/113193128（简单分析@NestedConfigurationProperty的作用）、https://blog.csdn.net/hua_ming/article/details/108624157（@NestedConfigurationProperty注解使用场景）
 
 ## SpringBoot使用AspectJ（CTW）下不能注入SpringIOC容器中的Bean的解决方案
 
