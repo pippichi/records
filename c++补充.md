@@ -1115,6 +1115,55 @@ struct Generator {
 }
 ```
 
+## `::template和.template`
+
+`::template`表示显示调用类的静态模板成员函数，例如：
+
+```c++
+class UContentBrowserAssetContextMenuContext
+{
+public:
+    static const UContentBrowserAssetContextMenuContext* FindContextWithAssets1(const MenuOrSectionType& MenuOrSection)
+    {return nullptr;}
+    
+    template<typename MenuOrSectionType>
+	static const UContentBrowserAssetContextMenuContext* FindContextWithAssets2(const MenuOrSectionType& MenuOrSection)
+    {return nullptr;}
+}
+int main() 
+{
+    // 普通静态函数写法
+    const UContentBrowserAssetContextMenuContext* Context1 = UContentBrowserAssetContextMenuContext::FindContextWithAssets1(nullptr);
+    // 模板静态函数写法
+    const UContentBrowserAssetContextMenuContext* Context2 = UContentBrowserAssetContextMenuContext::template FindContextWithAssets2(nullptr);
+    return 0;
+}
+```
+
+`.template`表示显示调用实例的模板成员函数，例如：
+
+```c++
+class UContentBrowserAssetContextMenuContext
+{
+public:
+    UContentBrowserAssetContextMenuContext* FindContextWithAssets1(const MenuOrSectionType& MenuOrSection)
+    {return nullptr;}
+    
+    template<typename MenuOrSectionType>
+	UContentBrowserAssetContextMenuContext* FindContextWithAssets2(const MenuOrSectionType& MenuOrSection)
+    {return nullptr;}
+}
+int main() 
+{
+    UContentBrowserAssetContextMenuContext IContext;
+    // 普通成员函数写法
+    UContentBrowserAssetContextMenuContext* Context1 = IContext.FindContextWithAssets1(nullptr);
+    // 模板成员函数写法
+    UContentBrowserAssetContextMenuContext* Context2 = IContext.template FindContextWithAssets2(nullptr);
+    return 0;
+}
+```
+
 # vector的reserve的作用
 
 场景：vector如果不断的`push_back`，会进行内存的重新自动分配。
