@@ -128,6 +128,20 @@ https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处�
 
 https://zhuanlan.zhihu.com/p/348060852（UE4丨材质融合过渡的应用案例）
 
+# Enhanced Input增强输入
+
+参考：
+
+https://www.bilibili.com/video/BV1Tr4y1b7C6（UE4/UE5实战系列：增强输入系统（Enhanced Input System）★）
+
+https://blog.csdn.net/u011254268/article/details/131434703（用人话讲！虚幻引擎 UE5 增强输入系统（蓝图篇））
+
+https://blog.csdn.net/weixin_55901138/article/details/130639164（UE5学习笔记|增强输入系统EnhancedInput）
+
+https://zhuanlan.zhihu.com/p/470949422（UE5 -- EnhancedInput(增强输入系统)）
+
+
+
 # GameMode
 
 gamemode仅存于服务器，不存在于客户端
@@ -613,9 +627,15 @@ https://zhuanlan.zhihu.com/p/630381438（UE场景顶点动画效果实现）、h
 
 参考：
 
+https://www.bilibili.com/video/BV1iA41137My（虚幻引擎游戏特效制作教程 Unreal Engine - Niagara 粒子与特效教程）
+
+https://www.bilibili.com/video/BV1kx4y1t7RC（虚幻引擎5 Niagara VFX的一站式课程）
+
 https://zhuanlan.zhihu.com/p/138088668（UE4-Niagara基础解析）
 
 https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
+
+
 
 ## Dynamic Material Parameter
 
@@ -844,6 +864,22 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 - Substance Designer（基于节点生成）
 - Substance Painter（高级，是Substance Alchemist的高阶版，手绘）
 - Mari
+
+# 打包手游
+
+## Iphone
+
+参考：
+
+https://www.bilibili.com/video/BV1Nm4y1t7p9（虚幻引擎在Windows下免费打包iOS应用）
+
+## Android
+
+参考：
+
+https://www.bilibili.com/video/BV1FM4m1D7Ui（【UE5教程】虚幻引擎安卓打包教程—目前B站上最全面一次成功案例教程）
+
+https://www.bilibili.com/video/BV1uu411K73Z（坑多多的UE5.2.1安卓成功打包全过程 您能撑到哪个步骤？何勇作坊录制 虚幻引擎 Android打包apk Unreal Engine）
 
 # 虚幻商城资源包
 
