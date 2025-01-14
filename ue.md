@@ -70,9 +70,11 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 情景：niagara中使用了该材质时，出现了锯齿状失真，此时可以勾选上材质节点中的Responsive AA以改善该情况
 
-![image-20241223171456996](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223171456996.png)
+![image-20241223171456996](ue.assets/image-20241223171456996.png)
 
 注意：该材质混合模式一定得设置成是透明的（Translucent）
+
+
 
 ## 对比度
 
@@ -106,7 +108,7 @@ https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处�
 
 用于获取视口中各种属性，例如视口大小、屏幕分辨率等
 
-![image-20241223132109674](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223132109674.png)
+![image-20241223132109674](ue.assets\image-20241223132109674.png)
 
 ## AlignMeshToTheCamera（让材质始终面向摄像机）
 
@@ -200,7 +202,7 @@ https://www.bilibili.com/video/BV1552UYDEhx（后期处理材质基础教程UE5.
 
 设置后处理材质起效阶段：
 
-![image-20241223111255651](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223111255651.png)
+![image-20241223111255651](ue.assets/image-20241223111255651.png)
 
 Epic 贾越的教程中说一般选择Before Tonemapping以避免抗锯齿等导致的抖动问题，但上图中没有“Before Tonemapping”，那么可以选择Scene Color Before Bloom或Scene Color Before DOF，参考：
 
@@ -262,11 +264,11 @@ https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材
 
 ## 半透明后处理材质与Scene Color节点
 
-![image-20241223191932250](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223191932250.png)
+![image-20241223191932250](ue.assets/image-20241223191932250.png)
 
 用于获取场景中不透明的物体所渲染出来的结果，可以利用这个信息做出很好看的效果，比如配合后处理描边：
 
-![image-20241223192657247](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223192657247.png)
+![image-20241223192657247](ue.assets/image-20241223192657247.png)
 
 好处：
 
@@ -763,7 +765,7 @@ https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.
 
 快捷键ctrl + shift + ,
 
-![image-20241223095916814](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241223095916814.png)
+![image-20241223095916814](ue.assets/image-20241223095916814.png)
 
 # 渲染
 

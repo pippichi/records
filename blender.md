@@ -48,7 +48,7 @@ https://www.bilibili.com/video/BV1cLCmYnEcM（（国语）blender基础入门几
 
 快捷键：ctrl + shift + 左键
 
-![image-20241225122728579](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225122728579.png)
+![image-20241225122728579](blender.assets/image-20241225122728579.png)
 
 ## Attribute属性
 
@@ -76,7 +76,7 @@ https://www.bilibili.com/video/BV1kv411T7dD（几何节点详解汇总-传递属
 
 将只需要关注输入输出而不再需要关注内部细节的若干节点移动至组
 
-![image-20241225120020222](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225120020222.png)
+![image-20241225120020222](blender.assets/image-20241225120020222.png)
 
 ## Dual Mesh节点
 
@@ -216,17 +216,17 @@ png格式的图片可能会存在不能正确显示颜色的问题以及他的si
 
 首先选中右键激活摄像机：
 
-![image-20241215145254801](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145254801.png)
+![image-20241215145254801](blender.assets/image-20241215145254801.png)
 
 然后对齐视角：
 
-![image-20241215145350091](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145350091.png)
+![image-20241215145350091](blender.assets/image-20241215145350091.png)
 
-![image-20241215145504056](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145504056.png)
+![image-20241215145504056](blender.assets/image-20241215145504056.png)
 
 ### 锁定摄像机视角
 
-![image-20241215145529710](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215145529710.png)
+![image-20241215145529710](blender.assets/image-20241215145529710.png)
 
 锁定之后就可以随意调整视口显示而不会导致退出摄像机视角
 
@@ -262,7 +262,7 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 
 可以使得物体跟随移动
 
-![image-20241218082029837](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241218082029837.png)
+![image-20241218082029837](blender.assets/image-20241218082029837.png)
 
 参考：
 
@@ -298,11 +298,11 @@ https://www.bilibili.com/video/BV1Eg4y1T7bZ（Blender 3.5毛发系统介绍及�
 
 新建毛发曲线：
 
-![image-20241225120636759](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225120636759.png)
+![image-20241225120636759](blender.assets/image-20241225120636759.png)
 
 快速毛发曲线：
 
-![image-20241225112442498](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225112442498.png)
+![image-20241225112442498](blender.assets/image-20241225112442498.png)
 
 ## 毛发转网格
 
@@ -358,7 +358,7 @@ https://www.bilibili.com/video/BV1KJ411s7Zk（【Blender高级骨骼绑定】大
 
 Clipping参数：
 
-![image-20241225170902315](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241225170902315.png)
+![image-20241225170902315](blender.assets/image-20241225170902315.png)
 
 对镜像接缝处的影响比较大
 
@@ -372,9 +372,9 @@ https://www.bilibili.com/video/BV1xgyHYQEKq（怕脸崩？看这个二次元头�
 
 可以用于制作尾巴、眼部肌肉等
 
-![image-20241215163156769](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215163156769.png)
+![image-20241215163156769](blender.assets/image-20241215163156769.png)
 
-![image-20241215163214836](C:\Users\QYF\AppData\Roaming\Typora\typora-user-images\image-20241215163214836.png)
+![image-20241215163214836](blender.assets/image-20241215163214836.png)
 
 参考：
 
