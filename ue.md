@@ -122,6 +122,12 @@ https://blog.csdn.net/weixin_38527697/article/details/117989491（ue4 材质始�
 
 https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时55分）
 
+## Gradient Material Functions（渐变材质函数）
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/gradient-material-functions-in-unreal-engine
+
 ## 案例
 
 ### 材质融合过渡
@@ -371,6 +377,20 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Init Ability Actor Info第21分）
+
+### Gameplay Effects
+
+![image-20250115230051749](ue.assets/image-20250115230051749.png)
+
+![image-20250115230340826](ue.assets/image-20250115230340826.png)
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Gameplay Effects第4分）
+
+
 
 # ModularGamePlay、GameFeatures
 

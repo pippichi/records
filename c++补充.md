@@ -412,6 +412,18 @@ struct DecayT<R(Args..., ...)>
 // 暂时不明意义。大致猜测跟用法一的用法是差不多的。
 ```
 
+## 四种类型转换操作符
+
+static_cast、dynamic_cast、reinterpret_cast、const_cast
+
+参考：
+
+https://blog.csdn.net/new9232/article/details/143988074（C++四种类型转换操作符 static_cast、dynamic_cast、reinterpret_cast、const_cast介绍）
+
+https://c.biancheng.net/view/410.html（C++强制类型转换运算符（static_cast、reinterpret_cast、const_cast和dynamic_cast））
+
+https://blog.csdn.net/u014624623/article/details/79837849（static_cast和dynamic_cast详解）
+
 # 编译预处理指令
 
 ## #pragma
