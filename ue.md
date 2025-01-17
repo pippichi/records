@@ -384,13 +384,45 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ![image-20250115230340826](ue.assets/image-20250115230340826.png)
 
-
-
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Gameplay Effects第4分）
 
+#### Periodic Gameplay Effects
 
+![image-20250117202935400](ue.assets/image-20250117202935400.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Peroidic Gameplay Effects第3分）
+
+#### Stacking
+
+- Aggregate by Source
+
+​	![image-20250117211102347](ue.assets/image-20250117211102347.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Effect Stacking第2分20秒）
+
+
+
+- Aggregate by Target
+
+​	![image-20250117211248719](ue.assets/image-20250117211248719.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Effect Stacking第4分50秒）
+
+#### PreAttributeChange
+
+![image-20250117232827432](ue.assets/image-20250117232827432.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.PreAttributeChange第10分30秒）
 
 # ModularGamePlay、GameFeatures
 
