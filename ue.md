@@ -42,7 +42,7 @@ b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数�
 
 参考：https://blog.csdn.net/opk8848/article/details/104887704（ue4 关于ufunction 函数 参数 用引用 UPARAM(ref)）
 
-# 材质节点（Material）
+# 材质（Material）
 
 参考：
 
@@ -51,6 +51,16 @@ b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数�
 https://blog.csdn.net/choa12345/article/details/120075714（[浅析]UE4材质基础总结）
 
 各种材质表达式参考：https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-expressions-reference/（本文列出了[材质编辑器](https://docs.unrealengine.com/5.2/zh-CN/unreal-engine-material-editor-user-guide)中所有可用 **材质表达式** 节点的参考页面）
+
+## Material Domain（材质域）
+
+参考：
+
+https://zhuanlan.zhihu.com/p/101666840（虚化4：材质域（Material Domain））
+
+将材质给UI使用的前提，参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-15.Ghost Globe第7分20秒）
 
 ## ObjectPivotPoint
 
@@ -423,6 +433,50 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.PreAttributeChange第10分30秒）
+
+#### Modifiers
+
+##### Attribute Based
+
+![image-20250120212718225](ue.assets/image-20250120212718225.png)
+
+Coefficient、Pre Multiply Additive Val、Post Multiply Additive Val
+
+![image-20250120212733257](ue.assets/image-20250120212733257.png)
+
+计算方法为：
+
+![image-20250120212812001](ue.assets/image-20250120212812001.png)
+
+![image-20250120213042118](ue.assets/image-20250120213042118.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Modifier Coefficients第1分）
+
+##### ModMagnitudeCalculation（自定义计算）
+
+![image-20250120232220283](ue.assets/image-20250120232220283.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Modifier Magnitude Calculations）
+
+### Gameplay Tags
+
+![image-20250118163044269](ue.assets/image-20250118163044269.png)
+
+![image-20250118163324719](ue.assets/image-20250118163324719.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Gameplay Tags）
+
+### 第一属性和第二属性的设计
+
+![image-20250120214344565](ue.assets/image-20250120214344565.png)
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Secondary Attributes）
 
 # ModularGamePlay、GameFeatures
 
