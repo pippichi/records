@@ -146,6 +146,12 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/gradient-material-fu
 
 https://zhuanlan.zhihu.com/p/348060852（UE4丨材质融合过渡的应用案例）
 
+### 环形进度条
+
+参考：
+
+https://blog.csdn.net/qq_41410054/article/details/114584009（UE4 UI实现环形进度条效果）
+
 # Enhanced Input增强输入
 
 参考：
@@ -472,11 +478,123 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Gameplay Tags）
 
+#### 在c++中初始化Tag
+
+1、利用了自定义的UAssetManager（如何创建并使用自定义UAssetManager见“UAssetManager”章节）；
+
+2、在UAssetManager的StartInitialLoading()初始化方法中初始化Tags：
+
+![image-20250122184200511](ue.assets/image-20250122184200511.png)
+
+3、之后即可创建完成：
+
+![image-20250122184349275](ue.assets/image-20250122184349275.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.Aura Asset Manager）
+
 ### 第一属性和第二属性的设计
 
 ![image-20250120214344565](ue.assets/image-20250120214344565.png)
 
+参考：
+
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Secondary Attributes）
+
+#### 属性面板UI设计
+
+![image-20250121141553766](ue.assets/image-20250121141553766.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Attribute Menu-Game Plan）
+
+#### UI数值更新的MVC架构设计
+
+![image-20250122154649389](ue.assets/image-20250122154649389.png)
+
+![image-20250122154959274](ue.assets/image-20250122154959274.png)
+
+![image-20250122155158552](ue.assets/image-20250122155158552.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Plan for displaying Attribute Data第3分10秒）
+
+### Gameplay Abilities
+
+![image-20250124101646489](ue.assets/image-20250124101646489.png)
+
+![image-20250124101914364](ue.assets/image-20250124101914364.png)
+
+![image-20250124101937218](ue.assets/image-20250124101937218.png)
+
+![image-20250124102025361](ue.assets/image-20250124102025361.png)
+
+### Gameplay Tasks
+
+![image-20250124101805290](ue.assets/image-20250124101805290.png)
+
+# UI
+
+## Image组件
+
+Draw as：
+
+![image-20250121150417638](ue.assets/image-20250121150417638.png)
+
+当背景图是边框时，可以选择Draw as为Border，该选项时可以很方便调整边框Margin：
+
+![image-20250121150611398](ue.assets/image-20250121150611398.png)
+
+而如果Draw as为image，则无法调整边框margin
+
+此外，Draw as为Border时，调整画布size时边框的拉伸不会太严重
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Attribute Menu-Framed Value第8分钟）
+
+
+
+## Named Slot组件（父级UI组件预留插槽）
+
+![image-20250121155556157](ue.assets/image-20250121155556157.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Attribute Menu-Text Value Row第5分40秒）
+
+
+
+## Wrap Box组件
+
+![image-20250121213703500](ue.assets/image-20250121213703500.png)
+
+相当于一个辅助排版工具
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Attribute Menu-Construction第2分50秒）
+
+## Text组件
+
+![image-20250121214455579](ue.assets/image-20250121214455579.png)
+
+点击居中没反应？
+
+将Fill Empty Space勾上即可：
+
+![image-20250121214606451](ue.assets/image-20250121214606451.png)
+
+## LISTS类型组件
+
+参考：
+
+https://zhuanlan.zhihu.com/p/127184008（[UE4蓝图]UMG中新手必晕的ListView详解）
+
+
 
 # ModularGamePlay、GameFeatures
 
@@ -486,9 +604,7 @@ https://zhuanlan.zhihu.com/p/599593994（UE5 ModularGamePlay相关理解）
 
 https://www.bilibili.com/video/BV1s44y1y7kY（模块化游戏功能 Modular Game Features）
 
-# 模块化动画系统LinkAnimLayer
 
-参考：https://zhuanlan.zhihu.com/p/599610314（UE5 Lyra项目学习（五） 模块化动画系统）、官方Lyra项目
 
 # Quartz
 
@@ -507,14 +623,6 @@ https://docs.unrealengine.com/5.3/zh-CN/metasounds-in-unreal-engine/
 https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之七 MetaSounds and Quartz）
 
 
-
-# Control rig与IK rig
-
-参考：
-
-https://zhuanlan.zhihu.com/p/499405167（★【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
-
-https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK（全身IK）原理详细解析与UE4应用实例教学）
 
 # virtual texture
 
@@ -541,12 +649,6 @@ https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK
 # c++ 构建蓝图多输入多输出引脚节点
 
 参考：https://www.cnblogs.com/tanfu/p/16634394.html（构建蓝图中包含多输入多输出引脚的节点）
-
-
-
-# 高级运动系统 (ALSV4)
-
-参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）、https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
 
 
 
@@ -759,6 +861,40 @@ https://blog.csdn.net/qq_29891697/article/details/133239833（UE5 官方顶点�
 
 https://zhuanlan.zhihu.com/p/630381438（UE场景顶点动画效果实现）、https://blog.csdn.net/gzx88666/article/details/107714928（UE4-基于顶点偏移制作拉扯效果）、https://zhuanlan.zhihu.com/p/164352994（UE4-顶点动画）
 
+## 模块化动画系统LinkAnimLayer
+
+参考：https://zhuanlan.zhihu.com/p/599610314（UE5 Lyra项目学习（五） 模块化动画系统）、官方Lyra项目
+
+## Control rig与IK rig
+
+参考：
+
+https://zhuanlan.zhihu.com/p/499405167（★【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
+
+https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK（全身IK）原理详细解析与UE4应用实例教学）
+
+
+
+## 高级运动系统 (ALSV4)
+
+参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）、https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
+
+
+
+## BlendSpace Player（父类动画混合插槽）
+
+![image-20250121155104004](ue.assets/image-20250121155104004.png)
+
+子类动画继承之后即可使用父类的插槽：
+
+![image-20250121155245136](ue.assets/image-20250121155245136.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Animation Blueprints第6分钟）
+
+
+
 # 体积烟雾
 
 参考：https://zhuanlan.zhihu.com/p/405811376（【UE4】五种烟雾流程）、FluidNinjaLive、b站聆枫LingFeng Niagara流体模拟教程
@@ -816,6 +952,24 @@ https://blog.csdn.net/u013412391/article/details/120254269（简单尝试UE5的W
 https://docs.unrealengine.com/5.3/zh-CN/level-instancing-in-unreal-engine/
 
 https://zhuanlan.zhihu.com/p/502068030（UE5 WorldPartition【3】 LevelInstance）
+
+# UAssetManager
+
+设置自己的AssetManager
+
+1、首先创建UAssetManager子类，编写自定义逻辑；
+
+2、在DefaultEngine.ini设置自定义AssetManager；
+
+![image-20250122182034266](ue.assets/image-20250122182034266.png)
+
+![image-20250122183644227](ue.assets/image-20250122183644227.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.Aura Asset Manager第1分10秒）
+
+https://zhuanlan.zhihu.com/p/129712105（【UE4】资源管理之UAssetManager用法★）
 
 # MASS框架
 

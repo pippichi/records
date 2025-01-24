@@ -960,6 +960,14 @@ https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解�
 
 参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
 
+# 单例（线程安全的写法）
+
+参考：
+
+https://blog.csdn.net/unonoi/article/details/121138176（【C++】C++ 单例模式总结（5种单例实现方法））
+
+https://blog.csdn.net/chenxiemin/article/details/110877406（c++: 单例模式(Singleton)的最优写法）
+
 # 协程
 
 参考：https://www.bennyhuo.com/book/cpp-coroutines（渡劫 C++ 协程）、https://www.bilibili.com/video/BV1vv4y1A7fX/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（C++ 20 的协程其实就是一首歌？）
