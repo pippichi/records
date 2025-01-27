@@ -532,9 +532,105 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ![image-20250124102025361](ue.assets/image-20250124102025361.png)
 
+#### Tags
+
+![image-20250124112417533](ue.assets/image-20250124112417533.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Settings on Gameplay Abilities第1分25秒）
+
+#### Instancing Policy
+
+![image-20250124132345896](ue.assets/image-20250124132345896.png)
+
+![image-20250124132359134](ue.assets/image-20250124132359134.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Settings on Gameplay Abilities第9分15秒）
+
+#### Net Execution Policy
+
+![image-20250124132837037](ue.assets/image-20250124132837037.png)
+
+![image-20250124132924521](ue.assets/image-20250124132924521.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Settings on Gameplay Abilities第12分10秒）
+
+#### 不推荐使用的配置项
+
+![image-20250124135842744](ue.assets/image-20250124135842744.png)
+
+注意：GA不在Simulated Proxies中运作，可以用GE和GC代替
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Settings on Gameplay Abilities第14分55秒）
+
+#### 将GA绑定到Enhanced Input上
+
+![image-20250124140429661](ue.assets/image-20250124140429661.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Input Config Data Asset第20秒）
+
+#### AbilitySpecInputPressed和AbilitySpecInputReleased
+
+![image-20250124163318770](ue.assets/image-20250124163318770.png)
+
+方法里面会去调用Ability的InputPressed方法：
+
+![image-20250124163847984](ue.assets/image-20250124163847984.png)
+
+该方法在GameplayAbility中，可通过重写实现自定义逻辑：
+
+![image-20250124164029735](ue.assets/image-20250124164029735.png)
+
+使用案例：
+
+![image-20250124164413647](ue.assets/image-20250124164413647.png)
+
+它可以用于告知GA是否被按下，不管GA是否已经被Active，只要按下了就告知
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Activating Abilities第19分）
+
 ### Gameplay Tasks
 
 ![image-20250124101805290](ue.assets/image-20250124101805290.png)
+
+### Click/Touch To Move
+
+![image-20250125091005457](ue.assets/image-20250125091005457.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Click To Move）
+
+### NavigationSystem
+
+在使用`UNavigationSystemV1::FindPathToActorSynchronously()`方法时，出现无法解析符号的报错，头文件也加上了，后来发现要添加NavigationSystem模块，参考：
+
+https://blog.csdn.net/qq_42673921/article/details/89339295（`UE4 UNavigationSystemV1::FindPathToActorSynchronously`）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Setting Up Auto Running第8分15秒）
+
+
+
+如何解决Client端导航无反应问题？答：需要开启项目设置中的Allow Client Side Navigation（但是！这并不是最省资源的方式，还有一种方式是去Server端请求导航数据）
+
+![image-20250125111804193](ue.assets/image-20250125111804193.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-11.Implementing Auto Running第6分20秒）
+
+
 
 # UI
 
@@ -666,7 +762,7 @@ flowMap被广泛用于制作水体或者云的“流动效果”
 
 
 
-# 网络复制
+# ue网络复制
 
 参考：
 
