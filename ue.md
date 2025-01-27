@@ -600,9 +600,29 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Activating Abilities第19分）
 
+#### AbilityTargetDataMap
+
+用于数据网络同步
+
+![image-20250127115542777](ue.assets/image-20250127115542777.png)
+
+![image-20250127115843681](ue.assets/image-20250127115843681.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Target Data第2分55秒）
+
+
+
 ### Gameplay Tasks
 
 ![image-20250124101805290](ue.assets/image-20250124101805290.png)
+
+#### 网络同步
+
+如何正确处理Client和Server的数据同步？参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Send Mouse Cursor Data）
 
 ### Click/Touch To Move
 
