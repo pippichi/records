@@ -600,9 +600,9 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Activating Abilities第19分）
 
-#### AbilityTargetDataMap
+#### 网络同步
 
-用于数据网络同步
+需要借助FGameplayAbilityTargetData类来实现网络同步，服务端会有AbilityTargetDataMap来维护网络数据
 
 ![image-20250127115542777](ue.assets/image-20250127115542777.png)
 
@@ -611,6 +611,10 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Target Data第2分55秒）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Send Mouse Cursor Data）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Receiving Target Data）
 
 
 
@@ -623,6 +627,8 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 如何正确处理Client和Server的数据同步？参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Send Mouse Cursor Data）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Receiving Target Data）
 
 ### Click/Touch To Move
 
@@ -650,7 +656,73 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-11.Implementing Auto Running第6分20秒）
 
+### Prediction预测
 
+利用FScopedPredictionWindow、ScopedPredictionKey完成Server域预测与Client域先执行
+
+利用ShouldBroadcastAbilityTaskDelegates()方法判断AbilityTask当前是否允许触发广播事件
+
+![image-20250127164846809](ue.assets/image-20250127164846809.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Send Mouse Cursor Data）
+
+![image-20250131093452037](ue.assets/image-20250131093452037.png)
+
+![image-20250131093611460](ue.assets/image-20250131093611460.png)
+
+![image-20250131094047334](ue.assets/image-20250131094047334.png)
+
+![image-20250131094308205](ue.assets/image-20250131094308205.png)
+
+![image-20250131094850841](ue.assets/image-20250131094850841.png)
+
+![image-20250131095356814](ue.assets/image-20250131095356814.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Prediction in GAS）
+
+更多信息需要进一步参考引擎中的GameplayPrediction.h类
+
+### Montage中可以设置特定动作时的人物朝向
+
+此为新版本UE中用于解决根骨骼动画的方案
+
+需要开启Root Motion
+
+![image-20250131221114216](ue.assets/image-20250131221114216.png)
+
+需要开启Motion Warping插件
+
+![image-20250131221258272](ue.assets/image-20250131221258272.png)
+
+在BP_Character中使用该插件
+
+![image-20250131221533026](ue.assets/image-20250131221533026.png)
+
+在Montage中设置Motion Warping
+
+![image-20250131222316179](ue.assets/image-20250131222316179.png)
+
+![image-20250131222401855](ue.assets/image-20250131222401855.png)
+
+在BP_Character中新建事件用于设置上图的“FacingTarget”
+
+![image-20250131223125096](ue.assets/image-20250131223125096.png)
+
+最终在攻击生成火球时已知攻击点的坐标，此时调用上图事件即可完成转身
+
+![image-20250131223341310](ue.assets/image-20250131223341310.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Motion Warping第40秒）
+
+上述操作还可以进一步优化，可以将SetFacingTarget的逻辑写到Interface接口中，参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Motion Warping第9分15秒）
 
 # UI
 
