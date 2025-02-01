@@ -836,7 +836,24 @@ https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之�
 
 # c++ 构建蓝图多输入多输出引脚节点
 
-参考：https://www.cnblogs.com/tanfu/p/16634394.html（构建蓝图中包含多输入多输出引脚的节点）
+参考：
+
+https://www.cnblogs.com/tanfu/p/16634394.html（构建蓝图中包含多输入多输出引脚的节点）
+
+
+
+## UPROPERTY中的meta参数中的ExposeOnSpawn
+
+在c++中设置UPROPERTY：
+
+```c++
+UPROPERTY(BlueprintReadWrite, meta=(ExposeOnSpawn=true)) // ExposeOnSpawn=true意味着spawn时将该变量作为pin暴露出来
+FGameplayEffectSpecHandle DamageEffectSpecHandle;
+```
+
+效果：
+
+![image-20250201162129695](ue.assets/image-20250201162129695.png)
 
 
 
