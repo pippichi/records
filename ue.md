@@ -468,6 +468,56 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Modifier Magnitude Calculations）
 
+##### Set by Caller
+
+![image-20250204145802854](ue.assets/image-20250204145802854.png)
+
+在c++中注册SetByCaller：
+
+```c++
+UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Damage, ScaledDamage); // SetByCaller本质上是一个键值对，key为GameplayTags.Damage，value为ScaledDamage
+```
+
+他的作用之一：不需要在GE中硬编码数值，而是可以将其交由Gameplay Ability处理（GA中我们可以通过Curve Table处理数值）
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Set By Caller Magnitude）
+
+#### Execution Calculation
+
+比ModMagnitudeCalculation（MMC）更强大，但也有不少限制
+
+![image-20250205171015876](ue.assets/image-20250205171015876.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-11.Execution Calculations）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-13.ExecCalcs - Capturing Attributes）
+
+
+
+他还可以捕获到Set By Caller的数值：
+
+![image-20250205171233899](ue.assets/image-20250205171233899.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-11.Execution Calculations第4分30秒）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-14.Implementing Block Chance）
+
+#### FGameplayEffectContextHandle
+
+在GE触发时，可以通过FGameplayEffectContextHandle传递很多有用的信息
+
+![image-20250206001926223](ue.assets/image-20250206001926223.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.The Gameplay Effect Context第26分）
+
 ### Gameplay Tags
 
 ![image-20250118163044269](ue.assets/image-20250118163044269.png)
@@ -724,6 +774,59 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Motion Warping第9分15秒）
 
+### RPG多种Character Classes的属性设计架构
+
+![image-20250203003958089](ue.assets/image-20250203003958089.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.RPG Character Classes）
+
+### 将CurveTable导出/导入至CSV/JSON
+
+导出：
+
+![image-20250204092131254](ue.assets/image-20250204092131254.png)
+
+导入：
+
+法一：
+
+![image-20250204092154544](ue.assets/image-20250204092154544.png)
+
+法二：
+
+![image-20250204092210531](ue.assets/image-20250204092210531.png)
+
+法三：
+
+![image-20250204094329685](ue.assets/image-20250204094329685.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Curve Tables - CSV and JSON第14分）
+
+### Meta Attributes
+
+![image-20250204142022865](ue.assets/image-20250204142022865.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Meta Attributes）
+
+### FScalableFloat
+
+```c++
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Damage")
+FScalableFloat Damage;
+```
+
+可以设置Curve Table以及倍率（倍率为左侧的数字输入框），效果：
+
+![image-20250204151104023](ue.assets/image-20250204151104023.png)
+
+
+
 # UI
 
 ## Image组件
@@ -781,6 +884,26 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://zhuanlan.zhihu.com/p/127184008（[UE4蓝图]UMG中新手必晕的ListView详解）
+
+
+
+## User Interface
+
+### Space
+
+![image-20250205161647062](ue.assets/image-20250205161647062.png)
+
+有时候无法正确显示Widget，可以查看一下这里的设置是否准确，参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Showing Damage Text第21分30秒）
+
+
+
+## 播放动画时内容失真问题解决方案
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Showing Damage Text第21分55秒）
 
 
 
@@ -1263,6 +1386,12 @@ https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.
 快捷键ctrl + shift + ,
 
 ![image-20241223095916814](ue.assets/image-20241223095916814.png)
+
+# 日志管理
+
+参考：
+
+https://blog.csdn.net/zhang1461376499/article/details/113351948（虚幻引擎(UE4) 日志、打印运行时信息）
 
 # 渲染
 
