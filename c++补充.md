@@ -436,6 +436,12 @@ https://blog.csdn.net/weixin_45983489/article/details/120873659（C/C++中关于
 
 https://blog.csdn.net/weixin_62264287/article/details/131819001（C/C++中的#pragma预处理指令）
 
+## #define
+
+参考：
+
+https://blog.csdn.net/u012611878/article/details/52534622（c/c++中define用法详解及代码示例）
+
 # 库函数
 
 ## stl

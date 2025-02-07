@@ -518,6 +518,16 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.The Gameplay Effect Context第26分）
 
+##### 扩展FGameplayEffectContext
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-2.Custom Gameplay Effect Context）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context）
+
+关于如何将自定义的FGameplayEffectContext注入UE，参考`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏-Ability System Globals`章节
+
 ### Gameplay Tags
 
 ![image-20250118163044269](ue.assets/image-20250118163044269.png)
@@ -825,7 +835,37 @@ FScalableFloat Damage;
 
 ![image-20250204151104023](ue.assets/image-20250204151104023.png)
 
+### Net Serialize序列化
 
+![image-20250206132111490](ue.assets/image-20250206132111490.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.NetSerialize）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Implementing Net Serialize）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Struct Ops Type Traits）
+
+### Ability System Globals
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Aura Ability System Globals）
+
+
+
+设置自定义Ability System Globals的法一在上述视频中
+
+法二：
+
+![image-20250206141542349](ue.assets/image-20250206141542349.png)
+
+### Enemy AI
+
+![image-20250207144418585](ue.assets/image-20250207144418585.png)
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Enemy AI Setup）
 
 # UI
 
@@ -980,6 +1020,24 @@ FGameplayEffectSpecHandle DamageEffectSpecHandle;
 
 
 
+## c++函数入参中的UPARAM(ref)标记
+
+用于解决c++函数入参中的非const参数在蓝图中为输出引脚的问题：
+
+![image-20250206150007297](ue.assets/image-20250206150007297.png)
+
+![image-20250206150026383](ue.assets/image-20250206150026383.png)
+
+解决方案：入参前面加上UPARAM(ref)：
+
+![image-20250206150242207](ue.assets/image-20250206150242207.png)
+
+![image-20250206150257334](ue.assets/image-20250206150257334.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context第13分）
+
 # AI行为树源码详解
 
 参考：https://zhuanlan.zhihu.com/p/368889019（【图解UE4源码】AI行为树系统 目录）、https://zhuanlan.zhihu.com/p/371623309（【图解UE4源码】 其三（〇）行为树系统执行任务的流程 概述）、https://zhuanlan.zhihu.com/p/139514376（[UE4] 浅析UE4-BehaviorTree的特性）、https://zhuanlan.zhihu.com/p/143298443（UE4行为树详解（持续更新，才怪））
@@ -1074,6 +1132,14 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 ### TSoftClassPtr 和 TSoftObjectPtr
 
 参考：https://blog.csdn.net/qq_45777198/article/details/107838444（【学习笔记】UE4——`TSoftClassPtr<T> ptr`和`TSoftObjectPtr<T> ptr`）
+
+# 强制类型转换
+
+非UObject或Interface的转换不能使用Cast<>()，得尝试使用static_cast<>()
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context第3分钟）
 
 # UE枚举迭代遍历
 
