@@ -383,6 +383,18 @@ int main() {
 
 参考：https://zhuanlan.zhihu.com/p/357434227（C++关键字之likely和unlikely）
 
+## `__declspec`
+
+参考：
+
+https://blog.csdn.net/zhangzq86/article/details/52982939（`__declspec用法详解`）
+
+### dllexport与dllimport
+
+参考：
+
+https://blog.csdn.net/mrbone11/article/details/122325328（C++ dllexport与dllimport介绍和使用）
+
 # 操作符
 
 ## `sizeof...`
@@ -707,12 +719,6 @@ tie(j, k, i) = make_tuple(i, j, k);
 表示是一个可变参数的宏
 
 参考：https://blog.csdn.net/qq_33726635/article/details/115560659（可变参数列表`__VA_ARGS__`介绍）
-
-# dllexport与dllimport
-
-参考：
-
-https://blog.csdn.net/mrbone11/article/details/122325328（C++ dllexport与dllimport介绍和使用）
 
 # cmake
 

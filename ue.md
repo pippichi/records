@@ -190,11 +190,23 @@ https://blog.csdn.net/q244645787/article/details/129874760（UE4/5C++：Delegate
 
 https://cloud.tencent.com/developer/article/1889577（UE4技术总结——委托）
 
-# 函数解释
+# 函数
 
 ## Make Rot from ...
 
 参考：https://www.cnblogs.com/weixiaodezhoubian/p/12844425.html（UE4 Make Rot From......函数）
+
+## 获取各种类型数值的最大最小值
+
+以float类型举例：
+
+```c++
+float Max = TNumericLimits<float>::Max();
+float Min = TNumericLimits<float>::Min();
+float Lowest = TNumericLimits<float>::Lowest()
+```
+
+
 
 # 组件Component
 
@@ -865,7 +877,112 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ![image-20250207144418585](ue.assets/image-20250207144418585.png)
 
+参考：
+
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Enemy AI Setup）
+
+### Behavior Tree
+
+#### Blackboard Keys
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Blackboard Keys第2分25秒）
+
+#### Behavior Tree Decorators
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Behavior Tree Decorators第1分20秒）
+
+
+
+#### Behavior Tree Task
+
+在蓝图中重写Receive Execute AI方法时，不要忘记最后要执行一下Finish Execute
+
+![image-20250207231404087](ue.assets/image-20250207231404087.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Attack Behavior Tree Task第6分50秒）
+
+### 用于分类的Tag
+
+![image-20250207205821103](ue.assets/image-20250207205821103.png)
+
+然后在c++代码中：
+
+```c++
+APawn* Pawn = xxx;
+Pawn->ActorHasTag(FName("Player"));
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Blackboard Keys第11分25秒）
+
+
+
+#### `UGameplayStatics::GetAllActorsWithTag`
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Blackboard Keys第14分25秒）
+
+#### `UGameplayStatics::GetAllActorsOfClassWithTag`
+
+![image-20250207210818148](ue.assets/image-20250207210818148.png)
+
+### 使AI动作更加自然
+
+#### AI移动时更加自然的转向
+
+把Pawn的Use Controller Rotation Yaw关闭：
+
+![image-20250207213910728](ue.assets/image-20250207213910728.png)
+
+把Character Movement的Use Controller Desired Rotation打开：
+
+![image-20250207213829664](ue.assets/image-20250207213829664.png)
+
+或者直接在c++中设置：
+
+![image-20250207214313284](ue.assets/image-20250207214313284.png)
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.AI and Effect Actors第50秒）
+
+#### AI Idle和run的切换更加自然
+
+![image-20250207233645739](ue.assets/image-20250207233645739.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第40秒）
+
+### 如何在Nav导航网格内获取随即半径位置
+
+因为AI只能在Nav导航网格中移动，所以想让AI移动到某个随即半径位置时得使用这个方法Get Random Location in Navigable Radius：
+
+![image-20250207234847451](ue.assets/image-20250207234847451.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第8分55秒）
+
+### EQS（Environment Query System）
+
+#### EQS的使用场景
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Environment Query System）
+
+
 
 # UI
 
