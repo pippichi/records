@@ -338,10 +338,6 @@ https://www.bilibili.com/video/BV1YS4y1k7Pj（(中英字幕)虚幻引擎4.27！6
 
 https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
 
-# 创建可复用的动画通知类（Anim Notify Class）
-
-参考：https://blog.csdn.net/ttm2d/article/details/111769249（UE4动画系统：什么是动画通知（Anim Notify））
-
 # Data Registry
 
 参考：
@@ -873,7 +869,7 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ![image-20250206141542349](ue.assets/image-20250206141542349.png)
 
-### Enemy AI
+### AI
 
 ![image-20250207144418585](ue.assets/image-20250207144418585.png)
 
@@ -881,23 +877,21 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Enemy AI Setup）
 
-### Behavior Tree
+#### Behavior Tree
 
-#### Blackboard Keys
+##### Blackboard Keys
 
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Blackboard Keys第2分25秒）
 
-#### Behavior Tree Decorators
+##### Behavior Tree Decorators
 
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Behavior Tree Decorators第1分20秒）
 
-
-
-#### Behavior Tree Task
+##### Behavior Tree Task
 
 在蓝图中重写Receive Execute AI方法时，不要忘记最后要执行一下Finish Execute
 
@@ -906,6 +900,128 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Attack Behavior Tree Task第6分50秒）
+
+###### 在Behavior Tree Task中触发GA
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-1.Melee Attack Ability第19分10秒）
+
+#### 使AI动作更加自然
+
+##### AI移动时更加自然的转向
+
+把Pawn的Use Controller Rotation Yaw关闭：
+
+![image-20250207213910728](ue.assets/image-20250207213910728.png)
+
+把Character Movement的Use Controller Desired Rotation打开：
+
+![image-20250207213829664](ue.assets/image-20250207213829664.png)
+
+或者直接在c++中设置：
+
+![image-20250207214313284](ue.assets/image-20250207214313284.png)
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.AI and Effect Actors第50秒）
+
+##### AI Idle和run的切换更加自然
+
+![image-20250207233645739](ue.assets/image-20250207233645739.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第40秒）
+
+##### 因为EndAbility导致Montage只播放了一半的问题
+
+把PlayMontageAndWait中的Stop when Ability Ends关闭即可
+
+![image-20250209204055808](ue.assets/image-20250209204055808.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.Ghoul Attack Montages第7分45秒）
+
+##### 弹弓手在攻击时弹弓的动画蓝图设置
+
+举一反三，其他的比如射箭等动画蓝图也可以这样制作
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Slingshot Animation Blueprint）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage）
+
+##### 普通的Anim Notify
+
+![image-20250210140920274](ue.assets/image-20250210140920274.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第3分）
+
+#### 如何在Nav导航网格内获取随即半径位置
+
+因为AI只能在Nav导航网格中移动，所以想让AI移动到某个随即半径位置时得使用这个方法Get Random Location in Navigable Radius：
+
+![image-20250207234847451](ue.assets/image-20250207234847451.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第8分55秒）
+
+#### EQS（Environment Query System）
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-11.Environment Queries）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.EQS Tests）
+
+##### EQS的使用场景
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Environment Query System）
+
+##### EnvQueryContext
+
+用于筛选EQS点位
+
+![image-20250208110248824](ue.assets/image-20250208110248824.png)
+
+在蓝图中可通过继承EnvQueryContext_BlueprintBase实现自定义EnvQueryContext
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.EQS Tests）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-13.Distance Test）
+
+
+
+如果是Trace检测，则还应该开启遮挡物的Collision中的Visibility为Block
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-14.Using EQS Queries in Behavior Trees第8分钟）
+
+#### AI之间互不阻挡
+
+![image-20250210091905879](ue.assets/image-20250210091905879.png)
+
+![image-20250210094832923](ue.assets/image-20250210094832923.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-13.Melee Polish第18分20秒）
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/using-avoidance-with-the-navigation-system-in-unreal-engine
 
 ### 用于分类的Tag
 
@@ -934,55 +1050,15 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ![image-20250207210818148](ue.assets/image-20250207210818148.png)
 
-### 使AI动作更加自然
-
-#### AI移动时更加自然的转向
-
-把Pawn的Use Controller Rotation Yaw关闭：
-
-![image-20250207213910728](ue.assets/image-20250207213910728.png)
-
-把Character Movement的Use Controller Desired Rotation打开：
-
-![image-20250207213829664](ue.assets/image-20250207213829664.png)
-
-或者直接在c++中设置：
-
-![image-20250207214313284](ue.assets/image-20250207214313284.png)
 
 
+### 射线检测/重叠检测
+
+可以参考GameplayStatics.cpp中的ApplyRadialDamageWithFalloff方法
 
 参考：
 
-https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.AI and Effect Actors第50秒）
-
-#### AI Idle和run的切换更加自然
-
-![image-20250207233645739](ue.assets/image-20250207233645739.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第40秒）
-
-### 如何在Nav导航网格内获取随即半径位置
-
-因为AI只能在Nav导航网格中移动，所以想让AI移动到某个随即半径位置时得使用这个方法Get Random Location in Navigable Radius：
-
-![image-20250207234847451](ue.assets/image-20250207234847451.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Find New Location Around Target第8分55秒）
-
-### EQS（Environment Query System）
-
-#### EQS的使用场景
-
-参考：
-
-https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Environment Query System）
-
-
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Get Live Players Within Radius第1分50秒）
 
 # UI
 
@@ -1062,7 +1138,21 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Showing Damage Text第21分55秒）
 
+# AI
 
+## AI行为树源码详解
+
+参考：https://zhuanlan.zhihu.com/p/368889019（【图解UE4源码】AI行为树系统 目录）、https://zhuanlan.zhihu.com/p/371623309（【图解UE4源码】 其三（〇）行为树系统执行任务的流程 概述）、https://zhuanlan.zhihu.com/p/139514376（[UE4] 浅析UE4-BehaviorTree的特性）、https://zhuanlan.zhihu.com/p/143298443（UE4行为树详解（持续更新，才怪））
+
+## SmartObjects
+
+参考：
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/smart-objects-in-unreal-engine
+
+https://zhuanlan.zhihu.com/p/458142070（UE5 SmartObjects（智能对象）插件）
+
+https://blog.csdn.net/grayrail/article/details/136593620（UE5.2 SmartObject使用实践）
 
 # ModularGamePlay、GameFeatures
 
@@ -1154,12 +1244,6 @@ FGameplayEffectSpecHandle DamageEffectSpecHandle;
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context第13分）
-
-# AI行为树源码详解
-
-参考：https://zhuanlan.zhihu.com/p/368889019（【图解UE4源码】AI行为树系统 目录）、https://zhuanlan.zhihu.com/p/371623309（【图解UE4源码】 其三（〇）行为树系统执行任务的流程 概述）、https://zhuanlan.zhihu.com/p/139514376（[UE4] 浅析UE4-BehaviorTree的特性）、https://zhuanlan.zhihu.com/p/143298443（UE4行为树详解（持续更新，才怪））
-
-
 
 # FlowMap
 
@@ -1404,7 +1488,39 @@ https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Animation Blueprints第6分钟）
 
+## 创建可复用的动画通知类（Anim Notify Class）
 
+参考：https://blog.csdn.net/ttm2d/article/details/111769249（UE4动画系统：什么是动画通知（Anim Notify））
+
+## 瞄准动画时的MeshSpace和LocalSpace
+
+参考：https://zhuanlan.zhihu.com/p/33234659（浅谈MeshSpace和LocalSpace）
+
+## 同一个Owner不同部位动画蓝图之间如何通讯
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Slingshot Animation Blueprint第3分）
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第4分20秒）
+
+## 动画蓝图方法
+
+### Transform(Modify) Bone
+
+![image-20250210133803882](ue.assets/image-20250210133803882.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-8.Slingshot Animation Blueprint第7分15秒）
+
+### Blend Poses by Bool
+
+![image-20250210134624690](ue.assets/image-20250210134624690.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第55秒）
 
 # 体积烟雾
 
@@ -1531,10 +1647,6 @@ https://blog.csdn.net/ttm2d/article/details/131304084（虚幻引擎程序化资
 https://zhuanlan.zhihu.com/p/608502007（虚幻杂记4 PreLoadScreen与LoadingScreen）、https://zhuanlan.zhihu.com/p/395615335（为UE4制作实时加载界面（蓝图向） —— Real-time Loading Screen for UE4（Blueprint））、https://zhuanlan.zhihu.com/p/372577094（UE的LoadingScreen加载界面及动态数据实现）
 
 https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加载画面（后台加载关卡）的实现）
-
-# 瞄准动画时的MeshSpace和LocalSpace
-
-参考：https://zhuanlan.zhihu.com/p/33234659（浅谈MeshSpace和LocalSpace）
 
 # 换装系统
 
