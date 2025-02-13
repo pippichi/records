@@ -372,7 +372,7 @@ https://zhuanlan.zhihu.com/p/418085845（虚幻插件GAS分析02-0 技能网络�
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Replication Mode第1分40秒）
 
-## 虚幻5C++教程使用GAS制作RPG游戏
+## 虚幻5C++教程使用GAS制作RPG游戏第一部分
 
 参考：
 
@@ -535,6 +535,14 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context）
 
 关于如何将自定义的FGameplayEffectContext注入UE，参考`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏-Ability System Globals`章节
+
+#### Instancing Policy
+
+当设置为Instanced Per Actor时，需要注意局部变量初始化问题
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Impact Effects第13分50秒）
 
 ### Gameplay Tags
 
@@ -1052,13 +1060,201 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 
 
-### 射线检测/重叠检测
+### 重叠检测
 
 可以参考GameplayStatics.cpp中的ApplyRadialDamageWithFalloff方法
 
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Get Live Players Within Radius第1分50秒）
+
+## 虚幻5C++教程使用GAS制作RPG游戏第二部分
+
+### 动画序列
+
+#### 预览时显示周围环境、地板等信息
+
+![image-20250210160500555](ue.assets/image-20250210160500555.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Goblin Spear - Sound Notifies第1分10秒）
+
+### MetaSound
+
+#### 调低音量
+
+使用场景：静步
+
+![image-20250210161154384](ue.assets/image-20250210161154384.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Goblin Spear - Sound Notifies第2分25秒）
+
+#### 让声音变得更低沉
+
+![image-20250211203645591](ue.assets/image-20250211203645591.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9.Ghoul - Sound Notifies第1分20秒）
+
+### Gameplay Cue
+
+适用于处理AI的动作触发的声音、特效等及其网络复制
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Melee Impact Gameplay Cue）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-4.Montage and Socket Tags第11分30秒）
+
+### Niagara
+
+#### Emit
+
+##### Spawn Per Unit
+
+在空间中每隔一定距离就会生成
+
+![image-20250211210149983](ue.assets/image-20250211210149983.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10.Ghoul - Swipe Trail第30秒）
+
+#### 在动画通知中使用Niagara
+
+![image-20250211210503363](ue.assets/image-20250211210503363.png)
+
+![image-20250211210742355](ue.assets/image-20250211210742355.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10.Ghoul - Swipe Trail第1分15秒）
+
+### Update Redirector References
+
+有时候资源迁移时会发生这样的问题：
+
+![image-20250212144211142](ue.assets/image-20250212144211142.png)
+
+或者资源诺不过去的问题
+
+解决方法：
+
+![image-20250212143723387](ue.assets/image-20250212143723387.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14.Demon - Sound Notifies第4分10秒）
+
+### 向量旋转
+
+```c++
+const FVector LeftOfSpread = Forward.RotateAngleAxis(SpawnSpread, FVector::UpVector);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16.Shaman Summon Locations第7分50秒）
+
+### 静态资源编组
+
+分组之后多个静态资源可以作为一个整体进行transform
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-17.Async Spawn Times第8分35秒）
+
+### 动态生成的AI原地不动的原因
+
+原因是动态生成的AI没有被分配Controller，所以需要手动分配一个默认的Controller给他们：
+
+![image-20250213131939143](ue.assets/image-20250213131939143.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-19.Select Minion Class at Random第4分15秒）
+
+### Find Look at Rotation
+
+![image-20250213133133802](ue.assets/image-20250213133133802.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-20.Minion Summon Montage第4分）
+
+### 炮弹刚发射出去就爆炸了的原因排查
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22.Elementalist Behavior Tree第2分）
+
+### UPROPERTY()
+
+#### meta参数
+
+##### AllowPrivateAccess参数
+
+当变量在private域中，又想在蓝图中读取的话，就需要加AllowPrivateAccess="true"：
+
+```c++
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess="true"))
+	TObjectPtr<USphereComponent> Sphere;
+```
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22.Elementalist Behavior Tree第5分30秒）
+
+### SpawnActor的On Destroyed监听事件
+
+![image-20250213200647140](ue.assets/image-20250213200647140.png)
+
+使用SpawnActor生成的Actor可以绑定其销毁事件
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24.Decrementing Minion Count第40秒）
+
+### 内存泄露导致FPS不断降低
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26.Enemies Final Polish第2分30秒）
+
+#### WaitGameplayEvent接收多次信号触发多次的问题
+
+![image-20250213211332588](ue.assets/image-20250213211332588.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26.Enemies Final Polish第6分50秒）
+
+#### Niagara粒子未被销毁导致其生命周期无限长的问题
+
+![image-20250213211629262](ue.assets/image-20250213211629262.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26.Enemies Final Polish第9分）
+
+### GE未捕获到Attributes导致控制台一直报错的问题
+
+![image-20250213212226732](ue.assets/image-20250213212226732.png)
+
+方法中把警告日志关闭即可：
+
+![image-20250213212116630](ue.assets/image-20250213212116630.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26.Enemies Final Polish第12分30秒）
 
 # UI
 
@@ -1470,6 +1666,12 @@ https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK
 
 
 
+## 使用IK重定向器修正滑步
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fix-foot-sliding-with-ik-retargeter-in-unreal-engine
+
 ## 高级运动系统 (ALSV4)
 
 参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）、https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
@@ -1521,6 +1723,62 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第55秒）
+
+## 动画序列编辑器
+
+参考：
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-sequence-editor-in-unreal-engine
+
+### 动画资产编辑器
+
+参考：
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-sequence-editor-in-unreal-engine#asseteditor
+
+#### 动画曲线
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-curves-in-unreal-engine
+
+#### Additive Layer Tracks编辑动画层
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/editing-animation-layers
+
+https://blog.csdn.net/qq_39934403/article/details/120843542（UE4 虚幻引擎，动画篇（三）Animation动画，骨骼怎么k帧）
+
+#### Attributes动画属性
+
+![image-20250211224344286](ue.assets/image-20250211224344286.png)
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fbx-attributes-in-unreal-engine
+
+## Animation Composite动画合成
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-composites-in-unreal-engine
+
+## 线程安全的方式获取动画变量
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-get-animation-variables-in-animation-blueprints-in-unreal-engine
+
+## layered blend per bone
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blend-masks-and-blend-profiles-in-unreal-engine
+
+https://blog.csdn.net/weixin_45389639/article/details/109476448（UE4 layered blend per bone 节点详解）
+
+https://zhuanlan.zhihu.com/p/428242048（UE4分层混合节点Layered Blend Per Bone设置）
 
 # 体积烟雾
 
@@ -1687,6 +1945,34 @@ https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.
 参考：
 
 https://blog.csdn.net/zhang1461376499/article/details/113351948（虚幻引擎(UE4) 日志、打印运行时信息）
+
+# 测试与优化
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/testing-and-optimizing-your-content
+
+## 性能Profile的各种方式
+
+参考：
+
+https://blog.csdn.net/qq_29523119/article/details/123606732（UE4性能Profile的各种方式）
+
+https://zhuanlan.zhihu.com/p/416863993（UE4 Profiler 性能分析工具原理和实现机制）
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/unreal-engine-stats-system-overview
+
+## 常用控制台命令
+
+参考：
+
+https://blog.csdn.net/qq_21153225/article/details/144097338（UE5 和 UE4 中常用的控制台命令总结）
+
+## TRACE_BOOKMARK() 事件
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/trace-in-unreal-engine-5
 
 # 渲染
 
