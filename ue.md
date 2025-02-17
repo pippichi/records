@@ -74,7 +74,15 @@ ObjectPivotPoint代表物体模型空间原点在世界空间的位置
 
 扰乱、抗锯齿
 
-参考：https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
+参考：
+
+https://blog.csdn.net/xingyali/article/details/82215662（风格化材质制作）
+
+
+
+可以用来做淡入淡出，参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-4.Fade Actor第5分35秒）
 
 ### Responsive AA
 
@@ -1256,6 +1264,260 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26.Enemies Final Polish第12分30秒）
 
+### 灯光处理
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第5分55秒）
+
+#### SkyLight
+
+##### Intensity Scale
+
+![image-20250213215350344](ue.assets/image-20250213215350344.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第10分40秒）
+
+### PostProcessVolume
+
+#### Exposure
+
+![image-20250213223020509](ue.assets/image-20250213223020509.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第9分55秒）
+
+#### Temperature
+
+![image-20250213222850276](ue.assets/image-20250213222850276.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第21分35秒）
+
+#### Global色调
+
+![image-20250213223246140](ue.assets/image-20250213223246140.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第22分45秒）
+
+#### Shadows阴影
+
+![image-20250213223618253](ue.assets/image-20250213223618253.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第24分30秒）
+
+#### Midtones中间色调
+
+![image-20250213223820391](ue.assets/image-20250213223820391.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第25分15秒）
+
+#### Film Grain
+
+![image-20250213224037444](ue.assets/image-20250213224037444.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第26分17秒）
+
+### 处理静态资源碰撞
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第17分）
+
+#### Collision Complexity
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/simple-versus-complex-collision-in-unreal-engine
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第17分55秒）
+
+### 设置画面质量
+
+![image-20250213224333180](ue.assets/image-20250213224333180.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第27分35秒）
+
+### TEXTURE STREAMING POOL OVER xxx MiB BUDGET问题
+
+![image-20250213232340187](ue.assets/image-20250213232340187.png)
+
+需要压缩纹理来解决该问题
+
+![image-20250213232540557](ue.assets/image-20250213232540557.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Texture Streaming Pool Over Budget第9分15秒）
+
+
+
+另一种方式是通过修改TEXTURE BUDGET LIMIT：
+
+![image-20250213233955144](ue.assets/image-20250213233955144.png)
+
+搜索rendersettings：
+
+![image-20250213234123123](ue.assets/image-20250213234123123.png)
+
+有则修改，无则创建：
+
+![image-20250213234553741](ue.assets/image-20250213234553741.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Texture Streaming Pool Over Budget第16分55秒）
+
+
+
+另外，UE5.5默认存在一个RendererSettings，不知道是不是更新了，不太清楚配置是往最新的这个地方写还是上面那个地方写：
+
+![image-20250213234918012](ue.assets/image-20250213234918012.png)
+
+亲测UE5.5该配置会出问题（250215再次验证又没问题了，挺奇怪的）：
+
+![image-20250215132320086](ue.assets/image-20250215132320086.png)
+
+
+
+### Edit Selection in Property Matrix批处理资产
+
+![image-20250213232915003](ue.assets/image-20250213232915003.png)
+
+![image-20250213233510570](ue.assets/image-20250213233510570.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Texture Streaming Pool Over Budget第11分45秒）
+
+### 过滤资产
+
+![image-20250213233240055](ue.assets/image-20250213233240055.png)
+
+可以跟Edit Selection in Property Matrix批处理资产连用
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Texture Streaming Pool Over Budget第12分）
+
+### 光源的Static、Stationary、Movable
+
+![image-20250214112700852](ue.assets/image-20250214112700852.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Flame Pillar Actor第3分55秒）
+
+### BP中Tick的开关
+
+![image-20250214113029871](ue.assets/image-20250214113029871.png)
+
+### Timeline中Use Last KeyFrame是什么意思？
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/editing-timelines-in-unreal-engine
+
+### 用自循环方式替换Tick
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Flame Pillar Actor第10分45秒）
+
+### 场景物体遮挡视野时，物体淡入淡出解决方案
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-4.Fade Actor）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5.Fading Out Obstructing Geometry）
+
+#### 物体关闭阴影
+
+淡入时，阴影看起来比较假，不如直接关掉
+
+![image-20250214160059125](ue.assets/image-20250214160059125.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5.Fading Out Obstructing Geometry第8分10秒）
+
+### 日志
+
+#### 创建自定义日志分类集
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5.Ability Info Data Asset第9分44秒）
+
+#### 函数名称占位符%hs以及`__FUNCTION__`
+
+```c++
+UE_LOG(LogAura, Error, TEXT("Failed to execute delegate in %hs"), __FUNCTION__);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7.For Each Ability Delegate第3分50秒）
+
+
+
+### #pragma once解决重定义问题
+
+![image-20250215164110774](ue.assets/image-20250215164110774.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5.Ability Info Data Asset第19分10秒）
+
+### ASC的Broadcast和WidgetController的绑定回调函数顺序无法确定的解决方案
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-6.Initialize Overlay Startup Abilities第7分45秒）
+
+
+
+### GameplayAbilitySpec
+
+#### FScopedAbilityListLock
+
+一种遍历Ability时的方法域锁
+
+```c++
+/** Used to stop us from removing abilities from an ability system component while we're iterating through the abilities */
+```
+
+参考：
+
+GameplayAbilitySpec.h
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. For Each Ability Delegate第4分10秒）
+
+#### FScopedTargetListLock
+
+```c++
+/** Used to stop us from canceling or ending an ability while we're iterating through its gameplay targets */
+```
+
+参考：
+
+GameplayAbilitySpec.h
+
 # UI
 
 ## Image组件
@@ -1349,6 +1611,16 @@ https://dev.epicgames.com/documentation/en-us/unreal-engine/smart-objects-in-unr
 https://zhuanlan.zhihu.com/p/458142070（UE5 SmartObjects（智能对象）插件）
 
 https://blog.csdn.net/grayrail/article/details/136593620（UE5.2 SmartObject使用实践）
+
+
+
+# 配置文件使用手册
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/configuration-files-in-unreal-engine
+
+
 
 # ModularGamePlay、GameFeatures
 

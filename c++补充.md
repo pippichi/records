@@ -576,6 +576,22 @@ struct Generator {
 
 ## functional
 
+### function
+
+参考：
+
+https://blog.csdn.net/mj348940862/article/details/144449345（C++中的高阶函数：std::function）
+
+https://blog.csdn.net/hzy925/article/details/79676085（C++ std::function的用法）
+
+https://blog.csdn.net/qq_38410730/article/details/103637778（【C++】C++11的std::function和std::bind用法详解）
+
+### bind
+
+参考：
+
+https://blog.csdn.net/jxianxu/article/details/107382049（C++11中的std::bind 简单易懂）
+
 ### std::greater
 
 自带比较函数，用法：
@@ -711,6 +727,16 @@ tie(j, k, i) = make_tuple(i, j, k);
 ```
 
 参考：http://www.cplusplus.com/reference/tuple/tie/
+
+# 函数指针
+
+## 成员函数指针
+
+参考：
+
+https://blog.csdn.net/afei__/article/details/81985937（C++ 类成员函数的函数指针）
+
+https://blog.csdn.net/weixin_45075170/article/details/145405382（C++中成员函数指针和普通函数指针的区别在哪）
 
 # 内置宏
 
