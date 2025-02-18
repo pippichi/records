@@ -552,6 +552,16 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2.Impact Effects第13分50秒）
 
+#### FGameplayEffectQuery
+
+![image-20250218112205054](ue.assets/image-20250218112205054.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第27分30秒）
+
+
+
 ### Gameplay Tags
 
 ![image-20250118163044269](ue.assets/image-20250118163044269.png)
@@ -700,7 +710,15 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Receiving Target Data）
 
+#### CommitAbility、CommitAbilityCooldown、CommitAbilityCost
 
+CommitAbility会同时执行CommitAbilityCooldown、CommitAbilityCost
+
+CommitAbility失败后整个Ability都会被取消，包括CommitAbility前面的执行节点也会跟没执行过一样！
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Ability Cost第4分10秒）
 
 ### Gameplay Tasks
 
@@ -1220,6 +1238,37 @@ private:
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22.Elementalist Behavior Tree第5分30秒）
 
+### UFUNCTION()
+
+#### meta参数
+
+##### BlueprintInternalUseOnly参数
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第8分50秒）
+
+### UCLASS()
+
+#### meta参数
+
+##### ExposedAsyncProxy参数
+
+```c++
+UCLASS(BlueprintType, meta = (ExposedAsyncProxy = "AsyncTask"))
+class GASGAME250107_API UWaitCooldownChange : public UBlueprintAsyncActionBase
+{
+	GENERATED_BODY()
+    // ...
+}
+```
+
+![image-20250218131536895](ue.assets/image-20250218131536895.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Cooldown Tags in Ability Info第1分）
+
 ### SpawnActor的On Destroyed监听事件
 
 ![image-20250213200647140](ue.assets/image-20250213200647140.png)
@@ -1422,21 +1471,31 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Flame Pillar Actor第3分55秒）
 
-### BP中Tick的开关
+### Tick优化
+
+#### BP中Tick的开关
 
 ![image-20250214113029871](ue.assets/image-20250214113029871.png)
+
+#### 用自循环方式替换Tick
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Flame Pillar Actor第10分45秒）
+
+#### 用Timer替换Tick
+
+Timer可以自定义执行频率，所以可以做到比Tick消耗更少的资源
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Showing Cooldown Time in the HUD第4分40秒）
 
 ### Timeline中Use Last KeyFrame是什么意思？
 
 参考：
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/editing-timelines-in-unreal-engine
-
-### 用自循环方式替换Tick
-
-参考：
-
-https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Flame Pillar Actor第10分45秒）
 
 ### 场景物体遮挡视野时，物体淡入淡出解决方案
 
@@ -1517,6 +1576,41 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 GameplayAbilitySpec.h
+
+#### 发生网络复制时的回调函数
+
+```c++
+UPROPERTY(ReplicatedUsing = OnRep_ActivateAbilities, BlueprintReadOnly, Transient, Category = "Abilities")
+FGameplayAbilitySpecContainer ActivatableAbilities;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Binding Widget Events to the Ability Info Delegate第13分25秒）
+
+### BlueprintAsyncActionBase执行异步任务
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第4分）
+
+### 通过ASC获取技能的冷却剩余时间
+
+![image-20250218112006807](ue.assets/image-20250218112006807.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第27分10秒）
+
+### UE内置的Modeling Mode
+
+#### Merge静态资产合并
+
+![image-20250218142650473](ue.assets/image-20250218142650473.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Modeling Mode第6分15秒）
 
 # UI
 
