@@ -146,6 +146,12 @@ https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处�
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/gradient-material-functions-in-unreal-engine
 
+## GeneratedBand（生成的色带）
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/procedurals-material-functions-in-unreal-engine
+
 ## 案例
 
 ### 材质融合过渡
@@ -1160,6 +1166,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10.Ghoul - Swipe Trail第1分15秒）
 
+#### Niagara朝向用户摄像机
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Level Up Niagara System第7分50秒）
+
 ### Update Redirector References
 
 有时候资源迁移时会发生这样的问题：
@@ -1247,6 +1259,18 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第8分50秒）
+
+#### BlueprintNativeEvent
+
+接口中使用他而非virtual的好处，参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Level Up Interface Function第2分20秒）
+
+
+
+接口中使用他时不能在接口中实现它，因为虚幻的反射代码中已经定义它了，再写一遍就是重定义，参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Level Up Interface Function第14分35秒）
 
 ### UCLASS()
 
@@ -1611,6 +1635,40 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Modeling Mode第6分15秒）
+
+### Experience（XP）经验值
+
+可以手动设置每一级所需经验值，也可以通过数学公式：
+
+![image-20250218143553812](ue.assets/image-20250218143553812.png)
+
+![image-20250218143805148](ue.assets/image-20250218143805148.png)
+
+![image-20250218144047933](ue.assets/image-20250218144047933.png)
+
+![image-20250218144322325](ue.assets/image-20250218144322325.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1. Experience and Leveling Up）
+
+
+
+![image-20250218231557954](ue.assets/image-20250218231557954.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Awarding XP Game Plan）
+
+#### 用于监听XP的GA的优化以及制作
+
+由于该GA只需要在server运行，因此有很多东西不需要开启
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Passively Listening for Events第1分50秒）
+
+
 
 # UI
 
