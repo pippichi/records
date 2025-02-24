@@ -28,19 +28,21 @@ Epic优化：
 
   参考：https://zhuanlan.zhihu.com/p/528351452（C盘爆满：UE（虚幻引擎）缓存，Epic保管库迁移）
 
-# 关键字
 
-## CustomThunk
 
-參考：https://www.cnblogs.com/baustein/p/15240785.html（UE4 CustomThunk笔记）
-
-# 宏
+# 反射系统标签
 
 ## UPARAM(ref)
 
 b站聆枫LingFeng的使用案例：c++定义了一个蓝图中调用的函数，如果想要在蓝图节点中添加一个输入引脚（输入引脚其实就是以入参的方式传入函数），则函数指定引脚入参前要加上UPARAM(ref)
 
 参考：https://blog.csdn.net/opk8848/article/details/104887704（ue4 关于ufunction 函数 参数 用引用 UPARAM(ref)）
+
+## UMETA()
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/metadata-specifiers-in-unreal-engine
 
 # 材质（Material）
 
@@ -726,6 +728,12 @@ CommitAbility失败后整个Ability都会被取消，包括CommitAbility前面�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Ability Cost第4分10秒）
 
+#### 使用MarkAbilitySpecDirty强制对GA进行网络复制
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Update Ability Statuses第11分30秒）
+
 ### Gameplay Tasks
 
 ![image-20250124101805290](ue.assets/image-20250124101805290.png)
@@ -1260,6 +1268,22 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第8分50秒）
 
+##### DisplayName
+
+节点展示名称
+
+##### HidePin
+
+隐藏引脚
+
+##### DefaultToSelf
+
+直接给节点注入self，场景：某些BlueprintPure函数不想手动传入self就可以使用这个特性
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Constructing the Spell Menu Widget Controller第18分30秒）
+
 #### BlueprintNativeEvent
 
 接口中使用他而非virtual的好处，参考：
@@ -1271,6 +1295,10 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 接口中使用他时不能在接口中实现它，因为虚幻的反射代码中已经定义它了，再写一遍就是重定义，参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Level Up Interface Function第14分35秒）
+
+#### CustomThunk
+
+參考：https://www.cnblogs.com/baustein/p/15240785.html（UE4 CustomThunk笔记）
 
 ### UCLASS()
 
@@ -1668,7 +1696,21 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Passively Listening for Events第1分50秒）
 
+### 技能天赋树设计思路
 
+![image-20250221163015987](ue.assets/image-20250221163015987.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1. Spell Menu Design）
+
+### Ability Status设计思路
+
+![image-20250223132136526](ue.assets/image-20250223132136526.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Ability Status and Type）
 
 # UI
 
@@ -1747,6 +1789,36 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Showing Damage Text第21分55秒）
+
+## Wrap Box组件
+
+水平对齐与垂直对齐
+
+![image-20250221170338471](ue.assets/image-20250221170338471.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Offensive Spell Tree第3分45秒）
+
+
+
+垂直对齐妙用（同理水平对齐），参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-4. Passive Spell Tree第6分30秒）
+
+
+
+## 根据视口大小以及视口比例调整控件位置
+
+使用GetViewportSize、GetViewportScale和SetPositionInViewport实现
+
+![image-20250222132852988](ue.assets/image-20250222132852988.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Spell Menu Button第5分）
+
+
 
 # AI
 
