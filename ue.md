@@ -734,6 +734,16 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Update Ability Statuses第11分30秒）
 
+
+
+#### 如何获取GA的CostGameplayEffect以及CooldownGameplayEffect
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第5分45秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第20分）
+
 ### Gameplay Tasks
 
 ![image-20250124101805290](ue.assets/image-20250124101805290.png)
@@ -1712,6 +1722,32 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Ability Status and Type）
 
+### `FString::Printf()`中“L”的使用方法
+
+```c++
+FString::Printf(TEXT("宽字符字符串：%s"), L"很长的一段字符串");
+```
+
+这里的L会被编译器识别为宽字符类型（const wchar_t*）
+
+宽字符和 `wchar_t` 是C++标准的一部分
+
+宽字符花费更多的存储空间，比标准字符类型 char存储更多的字符，通常用于支持国际化和多语言字符集（例如，中文、日文等）
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24. Spell Descriptions第2分）
+
+### 关闭UI界面（销毁UI）时，别忘了解绑所有回调函数
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-33. Unbinding Delegates）
+
+
+
 # UI
 
 ## Image组件
@@ -1763,6 +1799,24 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 将Fill Empty Space勾上即可：
 
 ![image-20250121214606451](ue.assets/image-20250121214606451.png)
+
+### Rich Text Block
+
+Rich Text Block还可以跟DataTable连用
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Rich Text Blocks第1分30秒）
+
+
+
+开启自动换行：
+
+![image-20250224181544290](ue.assets/image-20250224181544290.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24. Spell Descriptions第17分40秒）
 
 ## LISTS类型组件
 
@@ -1818,7 +1872,15 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Spell Menu Button第5分）
 
+## Image在Scroll Box前面，导致滚动条无法点击
 
+可以将Image的Behavior-Visibility设置为不可点击：
+
+![image-20250224211032975](ue.assets/image-20250224211032975.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第31分50秒）
 
 # AI
 
