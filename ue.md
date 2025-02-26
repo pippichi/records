@@ -568,7 +568,37 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Cooldown Async Task第27分30秒）
 
+#### 如何在代码中动态创建GE
 
+```c++
+UGameplayEffect* Effect = NewObject<UGameplayEffect>(GetTransientPackage(), FName(DebuffName)); // GetTransientPackage()表示临时资源，这里我们没有GE的Class，所以采用临时资源的方式创建GE
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Dynamic Gameplay Effects第2分05秒）
+
+##### 如何在代码中动态添加GE的InheritableOwnedTag
+
+```c++
+Effect->InheritableOwnedTagsContainer.AddTag(DebuffTag);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Dynamic Gameplay Effects第7分45秒）
+
+##### 如何在代码中动态添加Modifiers
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Dynamic Gameplay Effects第9分30秒）
+
+##### 如何在代码中动态创建FGameplayEffectSpec
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Dynamic Gameplay Effects第13分42秒）
 
 ### Gameplay Tags
 
@@ -1746,7 +1776,11 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-33. Unbinding Delegates）
 
+### AddWeakLambda()的妙用
 
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Debuff Niagara Component第10分）
 
 # UI
 
