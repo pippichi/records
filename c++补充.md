@@ -63,6 +63,22 @@ main(){
 
 基于这个特性，constexpr还可以被用来实现编译期的type traits，比如STL中的is_const的实现。
 
+
+
+constexpr的重要性举例：
+
+```c++
+template<typename RotatorOrVector>
+TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumDirectors)
+{
+    if constexpr (std::is_same_v<RotatorOrVector, FVector>) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+}
+```
+
+
+
 ## volatile
 
 参考：https://blog.csdn.net/weixin_44363885/article/details/92838607（详解C/C++中volatile关键字）
@@ -1221,6 +1237,79 @@ int main()
     return 0;
 }
 ```
+
+## 判断模板类关系
+
+### 父子关系判断
+
+```c++
+template<typename GEComponentClass>
+GEComponentClass& UGameplayEffect::AddComponent()
+{
+    // 1.
+	static_assert( TIsDerivedFrom<GEComponentClass, UGameplayEffectComponent>::IsDerived, "GEComponentClass must be derived from UGameplayEffectComponent");
+    // 2.
+    if constexpr (TIsDerivedFrom<GEComponentClass, UGameplayEffectComponent>::IsDerived) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+	// ...
+}
+
+// TIsDerivedFrom源码如下：
+/** Is type DerivedType inherited from BaseType. */
+template<typename DerivedType, typename BaseType>
+struct TIsDerivedFrom
+{
+	// Different size types so we can compare their sizes later.
+	typedef char No[1];
+	typedef char Yes[2];
+
+	// Overloading Test() s.t. only calling it with something that is
+	// a BaseType (or inherited from the BaseType) will return a Yes.
+	static Yes& Test( BaseType* );
+	static Yes& Test( const BaseType* );
+	static No& Test( ... );
+
+	// Makes a DerivedType ptr.
+	static DerivedType* DerivedTypePtr(){ return nullptr ;}
+
+	public:
+	// Test the derived type pointer. If it inherits from BaseType, the Test( BaseType* ) 
+	// will be chosen. If it does not, Test( ... ) will be chosen.
+	static constexpr bool Value = sizeof(Test( DerivedTypePtr() )) == sizeof(Yes);
+
+	static constexpr bool IsDerived = Value;
+};
+```
+
+### 同类型判断
+
+```c++
+template<typename RotatorOrVector>
+TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumDirectors)
+{
+    // 1.
+    static_assert( std::is_same_v<RotatorOrVector, FVector>, "...");
+    // 2.
+    if constexpr (std::is_same_v<RotatorOrVector, FVector>) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+}
+```
+
+### constexpr的重要性！
+
+```c++
+template<typename RotatorOrVector>
+TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumDirectors)
+{
+    if constexpr (std::is_same_v<RotatorOrVector, FVector>) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+}
+```
+
+
 
 # vector的reserve的作用
 

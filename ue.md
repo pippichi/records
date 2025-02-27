@@ -1160,6 +1160,30 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Goblin Spear - Sound Notifies第1分10秒）
 
+### 动画蓝图
+
+#### IsFalling()
+
+用于判断角色是否处于滞空状态
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第29分35秒）
+
+#### 状态机
+
+##### Add State Alias
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第30分30秒）
+
+#### Animation Node Functions
+
+参考：
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-blueprint-node-functions-in-unreal-engine
+
 ### MetaSound
 
 #### 调低音量
@@ -1236,15 +1260,17 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14.Demon - Sound Notifies第4分10秒）
 
-### 向量旋转
+### RotateAngleAxis()向量旋转
 
 ```c++
-const FVector LeftOfSpread = Forward.RotateAngleAxis(SpawnSpread, FVector::UpVector);
+const FVector LeftOfSpread = Forward.RotateAngleAxis(45.f, FVector::UpVector);
 ```
 
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16.Shaman Summon Locations第7分50秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第15分15秒）
 
 ### 静态资源编组
 
@@ -1776,11 +1802,128 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-33. Unbinding Delegates）
 
-### AddWeakLambda()的妙用
+### AddWeakLambda()
 
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Debuff Niagara Component第10分）
+
+### AddImpulse()
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Handling Death Impulse第3分）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Handling Death Impulse第7分15秒）
+
+### 击退效果
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback）
+
+### FVector的IsNearlyZero()
+
+```c++
+FVector1.IsNearlyZero(10.f);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第13分05秒）
+
+### LaunchCharacter()
+
+```c++
+TargetCharacter->LaunchCharacter(KnockbackForce, true, true);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第13分50秒）
+
+### GetSafeNormal()
+
+```c++
+(FVector1 - FVector2).GetSafeNormal()
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第24分40秒）
+
+### 判断模板类关系
+
+#### 父子关系判断
+
+```c++
+template<typename GEComponentClass>
+GEComponentClass& UGameplayEffect::AddComponent()
+{
+    // 1.
+	static_assert( TIsDerivedFrom<GEComponentClass, UGameplayEffectComponent>::IsDerived, "GEComponentClass must be derived from UGameplayEffectComponent");
+    // 2.
+    if constexpr (TIsDerivedFrom<GEComponentClass, UGameplayEffectComponent>::IsDerived) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+	// ...
+}
+
+// TIsDerivedFrom源码如下：
+/** Is type DerivedType inherited from BaseType. */
+template<typename DerivedType, typename BaseType>
+struct TIsDerivedFrom
+{
+	// Different size types so we can compare their sizes later.
+	typedef char No[1];
+	typedef char Yes[2];
+
+	// Overloading Test() s.t. only calling it with something that is
+	// a BaseType (or inherited from the BaseType) will return a Yes.
+	static Yes& Test( BaseType* );
+	static Yes& Test( const BaseType* );
+	static No& Test( ... );
+
+	// Makes a DerivedType ptr.
+	static DerivedType* DerivedTypePtr(){ return nullptr ;}
+
+	public:
+	// Test the derived type pointer. If it inherits from BaseType, the Test( BaseType* ) 
+	// will be chosen. If it does not, Test( ... ) will be chosen.
+	static constexpr bool Value = sizeof(Test( DerivedTypePtr() )) == sizeof(Yes);
+
+	static constexpr bool IsDerived = Value;
+};
+```
+
+#### 同类型判断
+
+```c++
+template<typename RotatorOrVector>
+TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumDirectors)
+{
+    // 1.
+    static_assert( std::is_same_v<RotatorOrVector, FVector>, "...");
+    // 2.
+    if constexpr (std::is_same_v<RotatorOrVector, FVector>) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+}
+```
+
+#### constexpr的重要性！
+
+```c++
+template<typename RotatorOrVector>
+TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumDirectors)
+{
+    if constexpr (std::is_same_v<RotatorOrVector, FVector>) { // constexpr是必须的，因为模板类型需要在编译器确定
+        // ...
+    }
+}
+```
+
+
 
 # UI
 
