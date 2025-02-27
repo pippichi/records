@@ -1026,6 +1026,16 @@ https://blog.csdn.net/chenxiemin/article/details/110877406（c++: 单例模式(S
 
 参考：https://www.bennyhuo.com/book/cpp-coroutines（渡劫 C++ 协程）、https://www.bilibili.com/video/BV1vv4y1A7fX/?spm_id_from=333.788&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（C++ 20 的协程其实就是一首歌？）
 
+# ranges与views
+
+用起来有点像Java的流式编程
+
+参考：
+
+https://blog.csdn.net/arong_xu/article/details/140803573（C++ ranges/view库简介）
+
+https://blog.csdn.net/qq_42896106/article/details/128737878（C++ 20 新特性 ranges 精讲）
+
 # 模板
 
 参考：https://blog.csdn.net/sinat_34657451/article/details/51340160（template详解）
