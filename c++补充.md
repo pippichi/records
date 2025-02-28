@@ -362,7 +362,7 @@ RTTI(`Run-TimeType Information`, 运行时类型信息)，它提供了运行时�
 
 参考：https://blog.csdn.net/liitdar/article/details/80654324（C++编程语言中重载运算符（operator）介绍）、https://blog.csdn.net/jinzhu1911/article/details/101317367（C++operator()(重载小括号运算符)）、https://blog.csdn.net/xgf415/article/details/52966475（C++函数对象operator()）
 
-## 重载文本符号
+### 重载文本符号
 
 重载文本运算符时参数类型必须为`char`或`unsigned long long`！
 
@@ -393,7 +393,68 @@ int main() {
 }
 ```
 
+### 重载隐式类型转换
 
+```c++
+class xx {
+    // ...
+    operator int() const {return 1;}
+}
+```
+
+参考：
+
+https://blog.csdn.net/qq_41453285/article/details/95189974（C++:28---类类型转换之类型转换运算符operator（explicit））
+
+### 重载函数调用运算符
+
+```c++
+//类内定义:
+void operator () (int n1 = 0){
+}
+void operator () (){ // 无参函数调用
+}
+```
+
+参考：
+
+https://blog.csdn.net/qq_42683011/article/details/102087764（C++ operator重载运算符详解）
+
+### 类内、外重载
+
+参考：
+
+https://blog.csdn.net/u014583317/article/details/109217780（C++运算符重载（类内、外重载））
+
+### 解决二义性的类型转换
+
+```c++
+//最好不要在两个类之间构建相同的类型转换
+struct B;
+
+struct A {
+    A() = default;
+    A(const B&); //把一个B转换成A
+};
+ 
+struct B {
+    operator A()const; //也是把一个B转换成A
+};
+ 
+int main()
+{
+    A f(const A&);
+    B b;
+    A a = f(b);//二义性错误：含义是f(B::operator A())还是f(A::A(const B&))
+    A a1 = f(b.operator A());  //正确，使用B的类型转换运算符
+	A a2 = f(A(b));  //正确，使用A的构造函数
+    return 0;
+}
+```
+
+参考：
+
+https://blog.csdn.net/qq_41453285/article/details/95189974（C++:28---类类型转换之类型转换运算符operator（explicit））
 
 ## likely与unlikely
 
@@ -1179,7 +1240,18 @@ public:
 
 参考：https://blog.csdn.net/jeffasd/article/details/84667090（std::enable_if 的几种用法）、https://zhuanlan.zhihu.com/p/21314708（C++模板进阶指南：SFINAE）、https://blog.csdn.net/guangcheng0312q/article/details/103884392（现代C++之SFINAE）
 
-对于SFINAE中的`type* = nullptr`的解释：
+
+
+SFINAE中的`type* = nullptr`是 SFINAE 的一种技巧，用于在模板中检查类型特性：
+
+```c++
+template <typename T> 
+void inc_counter(
+    T& counterInt,
+    typename std::enable_if<
+    std::is_integral<T>::value
+    >::type* = nullptr );
+```
 
 参考：https://www.coder.work/article/7294607（`c++ - “type* = nullptr”是什么意思`）
 

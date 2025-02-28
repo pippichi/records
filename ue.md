@@ -710,7 +710,44 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-4.Input Config Data Asset第20秒）
 
-#### AbilitySpecInputPressed和AbilitySpecInputReleased
+#### GameplayAbilitySpec
+
+##### FScopedAbilityListLock
+
+一种遍历Ability时的方法域锁
+
+```c++
+/** Used to stop us from removing abilities from an ability system component while we're iterating through the abilities */
+```
+
+参考：
+
+GameplayAbilitySpec.h
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. For Each Ability Delegate第4分10秒）
+
+##### FScopedTargetListLock
+
+```c++
+/** Used to stop us from canceling or ending an ability while we're iterating through its gameplay targets */
+```
+
+参考：
+
+GameplayAbilitySpec.h
+
+##### 发生网络复制时的回调函数
+
+```c++
+UPROPERTY(ReplicatedUsing = OnRep_ActivateAbilities, BlueprintReadOnly, Transient, Category = "Abilities")
+FGameplayAbilitySpecContainer ActivatableAbilities;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Binding Widget Events to the Ability Info Delegate第13分25秒）
+
+##### AbilitySpecInputPressed和AbilitySpecInputReleased
 
 ![image-20250124163318770](ue.assets/image-20250124163318770.png)
 
@@ -731,6 +768,16 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Activating Abilities第19分）
+
+##### 获取FPredictionKey
+
+```c++
+AbilitySpec.ActivationInfo.GetActivationPredictionKey()
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Invoke Replicated Event第10分50秒）
 
 #### 网络同步
 
@@ -773,6 +820,8 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第5分45秒）
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第20分）
+
+
 
 ### Gameplay Tasks
 
@@ -1667,45 +1716,6 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-6.Initialize Overlay Startup Abilities第7分45秒）
 
-
-
-### GameplayAbilitySpec
-
-#### FScopedAbilityListLock
-
-一种遍历Ability时的方法域锁
-
-```c++
-/** Used to stop us from removing abilities from an ability system component while we're iterating through the abilities */
-```
-
-参考：
-
-GameplayAbilitySpec.h
-
-https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. For Each Ability Delegate第4分10秒）
-
-#### FScopedTargetListLock
-
-```c++
-/** Used to stop us from canceling or ending an ability while we're iterating through its gameplay targets */
-```
-
-参考：
-
-GameplayAbilitySpec.h
-
-#### 发生网络复制时的回调函数
-
-```c++
-UPROPERTY(ReplicatedUsing = OnRep_ActivateAbilities, BlueprintReadOnly, Transient, Category = "Abilities")
-FGameplayAbilitySpecContainer ActivatableAbilities;
-```
-
-参考：
-
-https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Binding Widget Events to the Ability Info Delegate第13分25秒）
-
 ### BlueprintAsyncActionBase执行异步任务
 
 参考：
@@ -1923,7 +1933,120 @@ TArray<RotatorOrVector> UAuraAbilitySystemLibrary::TEvenlyDirectors(const FVecto
 }
 ```
 
+### 巡航导弹Homing Projectile制作
 
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Homing Projectiles）
+
+### UProjectileMovementComponent
+
+#### 成员变量HomingTargetComponent
+
+看了源码，他还是一个虚指针指向的对象
+
+如果要使用HomingTargetComponent，还需要把bIsHomingProjectile置为true，还可以设置弹道弧度HomingAccelerationMagnitude等参数
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Homing Projectiles第5分15秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Homing Projectiles第9分15秒）
+
+#### 自定义虚指针指向对象的垃圾回收处理
+
+虚指针指向的对象，虽然不会影响该对象的垃圾回收，但有可能变为nullptr，并且该对象还需要自行处理其垃圾回收
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Homing Projectiles第7分35秒）
+
+### GAS通用网络复制
+
+#### 技能同步
+
+参考：
+
+https://zhuanlan.zhihu.com/p/159007942（【GameplayAbility深入解析】之技能同步基础）
+
+#### 网络复制函数InvokeReplicatedEvent()
+
+```c++
+InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Invoke Replicated Event第9分30秒）
+
+#### 网络复制函数ServerSetReplicatedEvent()、ClientSetReplicatedEvent()
+
+用于服务端客户端之间触发网络事件
+
+参考：
+
+https://zhuanlan.zhihu.com/p/159007942（【GameplayAbility深入解析】之技能同步基础）
+
+#### 网络复制事件EAbilityGenericReplicatedEvent
+
+```c++
+/** These are generic, nonpayload carrying events that are replicated between the client and server */
+UENUM()
+namespace EAbilityGenericReplicatedEvent
+{
+	enum Type : int
+	{	
+		/** A generic confirmation to commit the ability */
+		GenericConfirm = 0,
+		/** A generic cancellation event. Not necessarily a canellation of the ability or targeting. Could be used to cancel out of a channelling portion of ability. */
+		GenericCancel,
+		/** Additional input presses of the ability (Press X to activate ability, press X again while it is active to do other things within the GameplayAbility's logic) */
+		InputPressed,	
+		/** Input release event of the ability */
+		InputReleased,
+		/** A generic event from the client */
+		GenericSignalFromClient,
+		/** A generic event from the server */
+		GenericSignalFromServer,
+		/** Custom events for game use */
+		GameCustom1,
+		GameCustom2,
+		GameCustom3,
+		GameCustom4,
+		GameCustom5,
+		GameCustom6,
+		MAX
+	};
+}
+```
+
+参考：
+
+https://zhuanlan.zhihu.com/p/159007942（【GameplayAbility深入解析】之技能同步基础）
+
+#### WaitInputPress与WaitInputRelease节点
+
+![image-20250228153549348](ue.assets/image-20250228153549348.png)
+
+需要搭配触发通用网络复制函数InvokeReplicatedEvent()、ServerSetReplicatedEvent()、ClientSetReplicatedEvent()等网络复制函数使用：
+
+```c++
+InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Invoke Replicated Event第6分35秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Invoke Replicated Event第9分30秒）
+
+#### WaitNetSync节点
+
+需要搭配InvokeReplicatedEvent()、ServerSetReplicatedEvent()、ClientSetReplicatedEvent()等网络复制函数使用
+
+参考：
+
+https://zhuanlan.zhihu.com/p/159008831（【GameplayAbility深入解析】之WaitNetSync节点原理）
 
 # UI
 
@@ -2264,6 +2387,41 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 ### TSoftClassPtr 和 TSoftObjectPtr
 
 参考：https://blog.csdn.net/qq_45777198/article/details/107838444（【学习笔记】UE4——`TSoftClassPtr<T> ptr`和`TSoftObjectPtr<T> ptr`）
+
+## UE手动垃圾回收
+
+对于UObject：
+
+```c++
+UMyObject* MyObject = NewObject<UMyObject>(); // 创建一个对象
+
+// 法一：手动销毁对象
+MyObject->ConditionalBeginDestroy();
+
+// 或者用这种方法：
+// 法二：标记对象为垃圾
+MyObject->MarkAsGarbage();
+```
+
+对于AActor：
+
+```c++
+AMyActor* MyActor = GetWorld()->SpawnActor<AMyActor>(); // 创建一个 Actor
+
+// 销毁 Actor
+MyActor->Destroy();
+```
+
+手动触发垃圾回收：
+
+```c++
+#include "Engine/Engine.h"
+
+// 强制触发垃圾回收
+GEngine->ForceGarbageCollection(true);
+```
+
+
 
 # 强制类型转换
 
