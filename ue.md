@@ -821,7 +821,11 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第20分）
 
+#### CancelAbility
 
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-6. Aura Beam Spell第9分10秒）
 
 ### Gameplay Tasks
 
@@ -891,7 +895,9 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 更多信息需要进一步参考引擎中的GameplayPrediction.h类
 
-### Montage中可以设置特定动作时的人物朝向
+### Montage蒙太奇
+
+#### Montage中可以设置特定动作时的人物朝向
 
 此为新版本UE中用于解决根骨骼动画的方案
 
@@ -928,6 +934,10 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 上述操作还可以进一步优化，可以将SetFacingTarget的逻辑写到Interface接口中，参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Motion Warping第9分15秒）
+
+#### Montage中设置Blend Settings混合过渡
+
+![image-20250303192154957](ue.assets/image-20250303192154957.png)
 
 ### RPG多种Character Classes的属性设计架构
 
@@ -1227,6 +1237,14 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第30分30秒）
 
+##### Blend Settings调整状态过渡
+
+![image-20250303191738769](ue.assets/image-20250303191738769.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Electrocute Montage第11分50秒）
+
 #### Animation Node Functions
 
 参考：
@@ -1262,6 +1280,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3.Melee Impact Gameplay Cue）
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-4.Montage and Socket Tags第11分30秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第30秒）
+
+#### ExecuteGameplayCueOnOwner
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第3分10秒）
 
 ### Niagara
 
@@ -2047,6 +2071,16 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://zhuanlan.zhihu.com/p/159008831（【GameplayAbility深入解析】之WaitNetSync节点原理）
+
+### GAS直接判断是否有Tag
+
+![image-20250303194153324](ue.assets/image-20250303194153324.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Player Block Tags第6分20秒）
+
+
 
 # UI
 
