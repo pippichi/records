@@ -196,6 +196,12 @@ gamemode仅存于服务器，不存在于客户端
 
 https://blog.csdn.net/zhangxiao13627093203/article/details/118385657（UE4 中GameInstance、GameMode、GameState、PlayerState和PlayerController的关系）
 
+# GameInstance
+
+参考：
+
+https://blog.csdn.net/Highning0007/article/details/123042719（UE4使用GameInstance设置全局变量(不同关卡、类之间数据传递)）
+
 # 委托
 
 参考：
@@ -205,6 +211,28 @@ https://zhuanlan.zhihu.com/p/575671003（UE4中的委托及实现原理）
 https://blog.csdn.net/q244645787/article/details/129874760（UE4/5C++：Delegate（委托or代理？）的使用）
 
 https://cloud.tencent.com/developer/article/1889577（UE4技术总结——委托）
+
+
+
+接口中返回委托的引用：
+
+```c++
+virtual FOnASCRegistered& GetOnASCRegisteredDelegate() = 0; // 返回引用而不是复制
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-18. Electrocute Polish第2分05秒）
+
+
+
+委托是否已经被绑定回调函数：
+
+```c++
+GetOnDeathDelegate().IsAlreadyBound(this, &ClassName::CallbackFunc);
+```
+
+
 
 # 函数
 
@@ -626,6 +654,16 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-12.Aura Asset Manager）
 
+#### 挂载/卸载标签
+
+使用AddLooseGameplayTags()和RemoveLooseGameplayTags()挂载卸载标签
+
+如果需要网络复制则使用AddReplicatedLooseGameplayTags()和RemoveReplicatedLooseGameplayTags()
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-20. Stun第44分15秒）
+
 ### 第一属性和第二属性的设计
 
 ![image-20250120214344565](ue.assets/image-20250120214344565.png)
@@ -671,6 +709,24 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-3.Settings on Gameplay Abilities第1分25秒）
+
+##### Block Abilities with Tag
+
+场景：该技能发动时阻止其他含有特定标签的技能
+
+![image-20250306101028050](ue.assets/image-20250306101028050.png)
+
+##### Activation Owned Tags
+
+场景：当该技能发动时，将特定标签应用到角色身上
+
+![image-20250306142022743](ue.assets/image-20250306142022743.png)
+
+##### Activation Blocked Tags
+
+场景：角色身上含有特定标签时阻止该技能发动
+
+![image-20250306141224982](ue.assets/image-20250306141224982.png)
 
 #### Instancing Policy
 
@@ -772,7 +828,11 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 ##### 获取FPredictionKey
 
 ```c++
-AbilitySpec.ActivationInfo.GetActivationPredictionKey()
+// UE5.5以前可以这么写：
+// AbilitySpec.ActivationInfo.GetActivationPredictionKey()
+
+// 经过自己实验测试发现新版本需要这样写：
+AbilitySpec.GetPrimaryInstance()->GetCurrentActivationInfo().GetActivationPredictionKey(); 
 ```
 
 参考：
@@ -826,6 +886,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-6. Aura Beam Spell第9分10秒）
+
+#### EndAbility
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2. Aura Passive Ability第5分20秒）
 
 ### Gameplay Tasks
 
@@ -1283,9 +1349,97 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第30秒）
 
+https://blog.csdn.net/xcinkey/article/details/127042540（4.8 游戏反馈 - Gameplay Cues）
+
 #### ExecuteGameplayCueOnOwner
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第3分10秒）
+
+#### 设置Gameplay Cue Manager的搜索路径
+
+![image-20250304103110267](ue.assets/image-20250304103110267.png)
+
+![image-20250304103149394](ue.assets/image-20250304103149394.png)
+
+![image-20250304103239028](ue.assets/image-20250304103239028.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第7分）
+
+#### CheckForTooManyRPCs()
+
+Gameplay Cue的网络复制
+
+![image-20250304095800299](ue.assets/image-20250304095800299.png)
+
+debug后可以看到网络发送数量限制：
+
+![image-20250304095959051](ue.assets/image-20250304095959051.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第9分）
+
+
+
+上图有个`net.MaxRPCPerNetUpdate`，它是ConsoleVariable，可以通过配置文件设置（调试的时候也可以直接在控制台设置），设置方法参考：`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏第二部分-ConsoleVariable`章节
+
+#### GameplayCueNotifyActor
+
+GameplayCueNotifyStatic每次执行是不会实例化的：
+
+![image-20250304102711363](ue.assets/image-20250304102711363.png)
+
+![image-20250304101743269](ue.assets/image-20250304101743269.png)
+
+GameplayCueNotifyActor会实例化：
+
+![image-20250304102332364](ue.assets/image-20250304102332364.png)
+
+属性设置：
+
+![image-20250304103442455](ue.assets/image-20250304103442455.png)
+
+重写方法中的OnActive（执行一次）和WhileActive（执行多次）：
+
+![image-20250304103745572](ue.assets/image-20250304103745572.png)
+
+新版本UE5.5变这样了：
+
+![image-20250304105719755](ue.assets/image-20250304105719755.png)
+
+![image-20250304110318663](ue.assets/image-20250304110318663.png)
+
+以上注释为看了c++源代码之后发现的
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Gameplay Cue Notify Actor第1分）
+
+##### Add GameplayCue On Actor
+
+![image-20250304104459047](ue.assets/image-20250304104459047.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Gameplay Cue Notify Actor第6分）
+
+##### Remove GameplayCue From Owner
+
+![image-20250304105953656](ue.assets/image-20250304105953656.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Gameplay Cue Notify Actor第7分55秒）
+
+#### GC在客户端无法正常关闭的解决方案
+
+让GC在只服务器端关闭即可
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-21. Stun Niagara System）
 
 ### Niagara
 
@@ -1316,6 +1470,18 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Level Up Niagara System第7分50秒）
+
+#### SpawnSystemAttached
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Gameplay Cue Notify Actor第10分30秒）
+
+#### 设置用户变量
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. Gameplay Cue Notify Actor第15分20秒）
 
 ### Update Redirector References
 
@@ -1584,6 +1750,28 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/simple-versus-comple
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Level Lighting and Post Process第17分55秒）
 
+
+
+本教程中做了一个效果，当角色被遮挡时，静态资源需要消失以避免角色被遮挡。但是出现了一个问题：当角色微微被遮挡时，静态资源消失了一下又马上出现了。这个问题的原因是静态资源的Collision Complexity被设置为“Use Complex Collision As Simple”：
+
+![image-20250304145237928](ue.assets/image-20250304145237928.png)
+
+需要将其设置为“Project Default”：
+
+![image-20250304145319410](ue.assets/image-20250304145319410.png)
+
+并给静态资源手动添加一个Box Collision：
+
+![image-20250304145356369](ue.assets/image-20250304145356369.png)
+
+问题就解决了！
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Target Trace Channel第7分30秒）
+
+
+
 ### 设置画面质量
 
 ![image-20250213224333180](ue.assets/image-20250213224333180.png)
@@ -1667,6 +1855,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 #### BP中Tick的开关
 
 ![image-20250214113029871](ue.assets/image-20250214113029871.png)
+
+#### BP中设置Tick频率
+
+尽量不要用tick，实在不行要用时可以考虑降低tick频率
+
+![image-20250306094413646](ue.assets/image-20250306094413646.png)
 
 #### 用自循环方式替换Tick
 
@@ -1996,7 +2190,12 @@ https://zhuanlan.zhihu.com/p/159007942（【GameplayAbility深入解析】之技
 #### 网络复制函数InvokeReplicatedEvent()
 
 ```c++
-InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+// UE5.5以前可以这么写：
+// InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+
+// 经过自己实验测试发现新版本需要这样写：
+InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.GetPrimaryInstance()->GetCurrentActivationInfo().GetActivationPredictionKey()); 
+// 并且使用WaitInputRelease或WaitInputPress函数的GA的Instancing Policy必须是Instanced Per Actor
 ```
 
 参考：
@@ -2055,7 +2254,12 @@ https://zhuanlan.zhihu.com/p/159007942（【GameplayAbility深入解析】之技
 需要搭配触发通用网络复制函数InvokeReplicatedEvent()、ServerSetReplicatedEvent()、ClientSetReplicatedEvent()等网络复制函数使用：
 
 ```c++
-InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+// UE5.5以前可以这么写：
+// InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+
+// 经过自己实验测试发现新版本需要这样写：
+InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.GetPrimaryInstance()->GetCurrentActivationInfo().GetActivationPredictionKey()); 
+// 并且使用WaitInputRelease或WaitInputPress函数的GA的Instancing Policy必须是Instanced Per Actor
 ```
 
 参考：
@@ -2080,7 +2284,75 @@ https://zhuanlan.zhihu.com/p/159008831（【GameplayAbility深入解析】之Wai
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. Player Block Tags第6分20秒）
 
+### ConsoleVariable
 
+![image-20250304100358202](ue.assets/image-20250304100358202.png)
+
+![image-20250304100314211](ue.assets/image-20250304100314211.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第9分45秒）
+
+### Fade In/Fade Out
+
+淡入淡出，让效果显得不突兀
+
+![image-20250304142510333](ue.assets/image-20250304142510333.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Electrocute Looping Sound第4分45秒）
+
+### 射线检测
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. First Trace Target第5分35秒）
+
+#### ETraceTypeQuery是什么
+
+`UKismetSystemLibrary::SphereTraceSingle()`中有个参数是`ETraceTypeQuery::TraceTypeQuery1`
+
+查看`UKismetSystemLibrary::SphereTraceSingle()`的源码发现，里面调用了：
+
+```c++
+ECollisionChannel CollisionChannel = UEngineTypes::ConvertToCollisionChannel(TraceChannel);
+```
+
+意思是TraceChannel可以转换为ECollisionChannel
+
+### 由于目标已死亡导致炮弹停滞的解决方案
+
+可以检测相邻tick之间炮弹的位置，如果位置不变则直接爆炸
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-19. Explode Dem FireBoltz第2分45秒）
+
+### 炮弹及其Movement需要设置为Replicate
+
+```c++
+void AAuraProjectile::BeginPlay()
+{
+	// ...
+	SetReplicates(true);
+	SetReplicateMovement(true); // 炮弹的移动需要网络复制
+	// ...
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-21. Stun Niagara System第4分45秒）
+
+### 持续伤害时的动画优化
+
+持续伤害时，使用某个特定动画代替每次受伤产生的动画，可以让画面不那么鬼畜，并且声音不会重复
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22. Shock Loop Animations）
 
 # UI
 
@@ -2603,9 +2875,9 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fix-foot-sliding-wit
 
 参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）、https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
 
+## 父类动画插槽
 
-
-## BlendSpace Player（父类动画混合插槽）
+### BlendSpace Player（父类动画混合插槽）
 
 ![image-20250121155104004](ue.assets/image-20250121155104004.png)
 
@@ -2616,6 +2888,18 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fix-foot-sliding-wit
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-6.Animation Blueprints第6分钟）
+
+### Sequence Player（父类动画播放器插槽）
+
+![image-20250306131627160](ue.assets/image-20250306131627160.png)
+
+子类动画继承之后即可使用父类的插槽：
+
+![image-20250306131935645](ue.assets/image-20250306131935645.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-20. Stun第24分05秒）
 
 ## 创建可复用的动画通知类（Anim Notify Class）
 
@@ -2684,6 +2968,14 @@ https://blog.csdn.net/qq_39934403/article/details/120843542（UE4 虚幻引擎�
 参考：
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fbx-attributes-in-unreal-engine
+
+#### 裁剪动画
+
+![image-20250306132858527](ue.assets/image-20250306132858527.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-20. Stun第29分45秒）
 
 ## Animation Composite动画合成
 

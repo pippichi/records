@@ -1063,17 +1063,31 @@ unordered_map<array<int, 26>, vector<string>, decltype(arrayHash)> mp(0, arrayHa
 
 ## 锁
 
-参考：https://blog.csdn.net/kangjianflying/article/details/105637015
+参考：
+
+https://blog.csdn.net/kangjianflying/article/details/105637015（C++学习锁）
+
+https://blog.csdn.net/weixin_44046545/article/details/138551385（C++所有锁的讲解、使用场景、相应的C++代码示例）
 
 ## `lock_guard`与它的加强版`unique_lock`
 
-参考：https://blog.csdn.net/u010990478/article/details/107410841（`lock_guard`用法）、
+参考：
+
+https://blog.csdn.net/u010990478/article/details/107410841（`lock_guard`用法）、
 
 https://blog.csdn.net/u012507022/article/details/85909567（`unique_lock`详解）
 
 ## `thread_local`
 
-参考：https://blog.csdn.net/fengbingchun/article/details/108691986/
+参考：
+
+https://blog.csdn.net/fengbingchun/article/details/108691986/（C++11中thread_local的使用）
+
+## 原子变量
+
+参考：
+
+https://blog.csdn.net/qq_46017342/article/details/132838649（C++ 中的原子变量（std::atomic）使用指南）
 
 # 单例（线程安全的写法）
 
