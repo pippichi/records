@@ -1,6 +1,6 @@
-# 安装一个全新虚幻引擎时的优化操作
+# 安装全新虚幻引擎时的优化配置
 
-Rider、IntelliJ优化：
+Rider、IntelliJ：
 
 - Rider内存不足
 
@@ -10,8 +10,19 @@ Rider、IntelliJ优化：
 
   参考：https://blog.csdn.net/weixin_44449518/article/details/103334235（解决 IntelliJ IDEA占用C盘过大空间问题）
 
+- 使用rider调试ue引擎源代码
 
-UE优化★：
+  ![image-20250308220110814](ue.assets/image-20250308220110814.png)
+
+  参考：https://blog.csdn.net/weixin_45685193/article/details/135372792（如何使用rider调试UE引擎的源代码）
+
+- rider添加插件代码索引
+
+  ![image-20250308220037265](ue.assets/image-20250308220037265.png)
+
+  参考：https://blog.csdn.net/weixin_45197377/article/details/136174783（Rider调试UE5源码时部分源文件无法识别问题）
+
+UE★：
 
 - UE编译速度慢
 
@@ -855,6 +866,12 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Receiving Target Data）
 
+#### CheckAbilityCost、CheckAbilityCooldown
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-18. Arcane Shards Cost and Cooldown第11分15秒）
+
 #### CommitAbility、CommitAbilityCooldown、CommitAbilityCost
 
 CommitAbility会同时执行CommitAbilityCooldown、CommitAbilityCost
@@ -1355,6 +1372,12 @@ https://blog.csdn.net/xcinkey/article/details/127042540（4.8 游戏反馈 - Gam
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第3分10秒）
 
+#### ExecuteGameplayCueWithParamsOnOwner
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Cue Notify Burst第4分）
+
 #### 设置Gameplay Cue Manager的搜索路径
 
 ![image-20250304103110267](ue.assets/image-20250304103110267.png)
@@ -1367,7 +1390,7 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. GameplayCue Notify Paths第7分）
 
-#### CheckForTooManyRPCs()
+#### CheckForTooManyRPCs
 
 Gameplay Cue的网络复制
 
@@ -1384,6 +1407,20 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 
 上图有个`net.MaxRPCPerNetUpdate`，它是ConsoleVariable，可以通过配置文件设置（调试的时候也可以直接在控制台设置），设置方法参考：`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏第二部分-ConsoleVariable`章节
+
+#### 大量gameplaycue网络复制时的优化方法
+
+gameplaycue网络复制是有数量上线的，在`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏第二部分-Gameplay Cue-CheckForTooManyRPCs`章节中我们将其设置为10。
+
+那么当数量超过10甚至远超10的时候，此时也不说数量限制了，网络复制消耗的资源会非常多，应该避免使用gameplaycue网络复制了。
+
+解决方案：执行本地GameplayCue
+
+![image-20250310145151891](ue.assets/image-20250310145151891.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Execute Local Gameplay Cues第50秒）
 
 #### GameplayCueNotifyActor
 
@@ -1440,6 +1477,24 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-21. Stun Niagara System）
+
+#### GameplayCueNotify_Burst
+
+适用于一次性特效
+
+![image-20250308110638279](ue.assets/image-20250308110638279.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Cue Notify Burst第1分）
+
+##### Burst Effects
+
+![image-20250308111410634](ue.assets/image-20250308111410634.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Cue Notify Burst第5分20秒）
 
 ### Niagara
 
@@ -1604,6 +1659,22 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 #### CustomThunk
 
 參考：https://www.cnblogs.com/baustein/p/15240785.html（UE4 CustomThunk笔记）
+
+#### BlueprintPure的缺点
+
+涉及到循环遍历时每次遍历都会重新执行一遍，比较昂贵。由于这个特性会产生一些莫名其妙的现象，解决方法就是把变量在循环前先提取出来cache住，后续使用cache值即可
+
+![image-20250307225223936](ue.assets/image-20250307225223936.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第40分50秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Gameplay Cue Notify Burst第7分50秒）
+
+#### 在蓝图中将普通函数转pure
+
+![image-20250310123204338](ue.assets/image-20250310123204338.png)
 
 ### UCLASS()
 
@@ -2179,6 +2250,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Homing Projectiles第7分35秒）
 
+#### 关闭ProjectileMovement
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Aura Fire Ball第11分）
+
 ### GAS通用网络复制
 
 #### 技能同步
@@ -2322,6 +2399,12 @@ ECollisionChannel CollisionChannel = UEngineTypes::ConvertToCollisionChannel(Tra
 
 意思是TraceChannel可以转换为ECollisionChannel
 
+#### 使用预设的碰撞文件Profile进行射线检测
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第20分15秒）
+
 ### 由于目标已死亡导致炮弹停滞的解决方案
 
 可以检测相邻tick之间炮弹的位置，如果位置不变则直接爆炸
@@ -2353,6 +2436,104 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22. Shock Loop Animations）
+
+### UDecalComponent贴花
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1. Magic Circle第5分50秒）
+
+#### 贴花移动时变模糊问题的解决方案
+
+降低采样质量
+
+![image-20250307145037065](ue.assets/image-20250307145037065.png)
+
+关闭动态模糊
+
+![image-20250307145155141](ue.assets/image-20250307145155141.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-6. Anti Aliasing and Moving Decals）
+
+### 子组件三维变换
+
+![image-20250307133035914](ue.assets/image-20250307133035914.png)
+
+可以使用子组件的AddLocalRotation等函数
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2. Spawning Magic Circles第9分35秒）
+
+### UKismetMathLibrary
+
+#### MakeRotFromZ
+
+从向量Vector解算出旋转量Rotator
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第22分45秒）
+
+### Billboard组件的妙用
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第26分05秒）
+
+### 随机位置方案
+
+- 程序化随机
+
+  参考Shaman生成Demon
+
+- 手动随机
+
+  参考GA_ArcaneShards生成PointCollection
+
+### ApplyRadialDamageWithFalloff径向伤害
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Radial Damage Parameters）
+
+### Actor.h
+
+#### TakeDamage
+
+ApplyRadialDamageWithFalloff中有调用到TakeDamage
+
+通过重写该方法可以实现自定义伤害计算
+
+![image-20250309154107512](ue.assets/image-20250309154107512.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Radial Damage with Falloff第6分35秒）
+
+#### SetOwner、GetOwner
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. FireBall Explosive Damage第13分35秒）
+
+
+
+SetOwner是默认网络复制的，这在一些地方会有妙用，比如网络优化中GameplayCue的本地执行，参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Execute Local Gameplay Cues第6分30秒）
+
+### 方向向量别忘了归一化
+
+```c++
+DirectionVector.Normalize();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16. Knockback Force and Death Impulse Overrides第8分45秒）
 
 # UI
 
@@ -3030,6 +3211,12 @@ https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
 这些都相当于高级版RenderTarget
 
 参考：https://zhuanlan.zhihu.com/p/344575245（UE4：Niagara中的UAV）
+
+## 粒子通信
+
+参考：
+
+https://zhuanlan.zhihu.com/p/427618536（UE5 GPU粒子通信_Index与ID使用详解）
 
 # 大世界
 
