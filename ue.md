@@ -703,6 +703,88 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Plan for displaying Attribute Data第3分10秒）
 
+#### 比MVC架构更新的MVVM架构设计
+
+![image-20250311151605544](ue.assets/image-20250311151605544.png)
+
+MVVM由数据驱动，数据和模型直接建立联系，数据变了模型就变
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-8. MVVM）
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/umg-viewmodel
+
+
+
+启用MVVM插件
+
+![image-20250311154517108](ue.assets/image-20250311154517108.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. View Model Class第7分40秒）
+
+
+
+创建mvvm c++类（MVVMViewModelBase）
+
+![image-20250311154650630](ue.assets/image-20250311154650630.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-10. View Model Class第8分20秒）
+
+##### Viewmodels窗口
+
+必须要在Designer下才可以看到这个选项
+
+![image-20250311162739481](ue.assets/image-20250311162739481.png)
+
+![image-20250311163209148](ue.assets/image-20250311163209148.png)
+
+![image-20250311192840721](ue.assets/image-20250311192840721.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Constructing a View Model第11分35秒）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Load Slot View Model第17分）
+
+##### Field Notifies
+
+这是MVVM架构的精髓
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第40秒）
+
+##### UE_MVVM_SET_PROPERTY_VALUE
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第2分30秒）
+
+##### UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/umg-viewmodel
+
+##### UI属性绑定
+
+法一：
+
+![image-20250312003519237](ue.assets/image-20250312003519237.png)
+
+法二：
+
+![image-20250312003557707](ue.assets/image-20250312003557707.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第4分50秒）
+
 ### Gameplay Abilities
 
 ![image-20250124101646489](ue.assets/image-20250124101646489.png)
@@ -1334,26 +1416,6 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://dev.epicgames.com/documentation/en-us/unreal-engine/animation-blueprint-node-functions-in-unreal-engine
 
-### MetaSound
-
-#### 调低音量
-
-使用场景：静步
-
-![image-20250210161154384](ue.assets/image-20250210161154384.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Goblin Spear - Sound Notifies第2分25秒）
-
-#### 让声音变得更低沉
-
-![image-20250211203645591](ue.assets/image-20250211203645591.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9.Ghoul - Sound Notifies第1分20秒）
-
 ### Gameplay Cue
 
 适用于处理AI的动作触发的声音、特效等及其网络复制
@@ -1612,11 +1674,20 @@ private:
 	TObjectPtr<USphereComponent> Sphere;
 ```
 
-
-
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22.Elementalist Behavior Tree第5分30秒）
+
+#### FieldNotify、Setter、Getter
+
+```c++
+UPROPERTY(EditAnywhere, BlueprintReadWrite, FieldNotify, Setter, Getter);
+FString PlayerName;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第1分30秒）
 
 ### UFUNCTION()
 
@@ -2535,6 +2606,33 @@ DirectionVector.Normalize();
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16. Knockback Force and Death Impulse Overrides第8分45秒）
 
+### Save Game
+
+![image-20250310180434534](ue.assets/image-20250310180434534.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1. Saving Progress）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Save Game Object第1分10秒）
+
+### Open Level
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Play and Quit Buttons第10分15秒）
+
+### Travel To Map
+
+```c++
+UFUNCTION(BlueprintCallable, meta=(WorldContext="WorldContextObject", AdvancedDisplay = "2", DisplayName = "Open Level (by Object Reference)"), Category="Game")
+static ENGINE_API void OpenLevelBySoftObjectPtr(const UObject* WorldContextObject, const TSoftObjectPtr<UWorld> Level, bool bAbsolute = true, FString Options = FString(TEXT("")));
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Traveling to the Saved Map第3分30秒）
+
 # UI
 
 ## Image组件
@@ -2595,9 +2693,13 @@ Rich Text Block还可以跟DataTable连用
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Rich Text Blocks第1分30秒）
 
+### EditableText
 
+参考：
 
-开启自动换行：
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-5. Enter Name Load Slot第1分）
+
+### Auto Wrap Text自动换行
 
 ![image-20250224181544290](ue.assets/image-20250224181544290.png)
 
@@ -2605,13 +2707,29 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24. Spell Descriptions第17分40秒）
 
-## LISTS类型组件
+### Line Height Percentage调整行间距
+
+![image-20250312122044081](ue.assets/image-20250312122044081.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-19. Are You Sure Widget第11分15秒）
+
+## LISTS组件
 
 参考：
 
 https://zhuanlan.zhihu.com/p/127184008（[UE4蓝图]UMG中新手必晕的ListView详解）
 
+## Widget Switcher组件
 
+可以通过Active Widget Index切换显示组件
+
+![image-20250311131553380](ue.assets/image-20250311131553380.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Load Menu第55秒）
 
 ## User Interface
 
@@ -2669,6 +2787,36 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-26. Cost and Cooldown in Spell Description第31分50秒）
 
+## Widget在编辑窗口和世界中展示不一致
+
+试试勾选Draw at Desired Size
+
+![image-20250310200115702](ue.assets/image-20250310200115702.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2. Main Menu第28分25秒）
+
+## 调整Widget形状
+
+![image-20250310195752536](ue.assets/image-20250310195752536.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-2. Main Menu第29分10秒）
+
+## 固定组件位置
+
+有时候组件会被其他组件挤占空间导致显示到错误的位置，可以通过设置Size为Fill并调整相对对齐位置来解决这个问题：
+
+![image-20250312153911493](ue.assets/image-20250312153911493.png)
+
+但如果被挤的太厉害的话，这个方法也无能为力了，此时只能通过限制其他组件来解决
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Traveling to the Saved Map第10分45秒）
+
 # AI
 
 ## AI行为树源码详解
@@ -2705,7 +2853,9 @@ https://www.bilibili.com/video/BV1s44y1y7kY（模块化游戏功能 Modular Game
 
 
 
-# Quartz
+# 音效
+
+## Quartz
 
 参考：
 
@@ -2713,7 +2863,17 @@ https://docs.unrealengine.com/5.3/zh-CN/overview-of-quartz-in-unreal-engine/
 
 https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之七 MetaSounds and Quartz）
 
-# MetaSounds
+## SoundWave
+
+### 循环播放
+
+![image-20250310225037750](ue.assets/image-20250310225037750.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Play and Quit Buttons第1分10秒）
+
+## MetaSounds
 
 参考：
 
@@ -2721,7 +2881,33 @@ https://docs.unrealengine.com/5.3/zh-CN/metasounds-in-unreal-engine/
 
 https://www.bilibili.com/video/BV1K64y1x7b2（2021.7.23 有字幕 UE5系列之七 MetaSounds and Quartz）
 
+### 调低音量
 
+使用场景：静步
+
+![image-20250210161154384](ue.assets/image-20250210161154384.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-1.Goblin Spear - Sound Notifies第2分25秒）
+
+### 让声音变得更低沉
+
+![image-20250211203645591](ue.assets/image-20250211203645591.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9.Ghoul - Sound Notifies第1分20秒）
+
+## orphaned sound问题
+
+![image-20250312165918246](ue.assets/image-20250312165918246.png)
+
+可以使用SpawnSound2D并将声音提取为变量代替PlaySound2D，防止声音被垃圾回收
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Changed Needed for 5.3+第31分50秒）
 
 # virtual texture
 
@@ -2873,7 +3059,11 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
 ### TSoftClassPtr 和 TSoftObjectPtr
 
-参考：https://blog.csdn.net/qq_45777198/article/details/107838444（【学习笔记】UE4——`TSoftClassPtr<T> ptr`和`TSoftObjectPtr<T> ptr`）
+参考：
+
+https://blog.csdn.net/qq_45777198/article/details/107838444（【学习笔记】UE4——`TSoftClassPtr<T> ptr`和`TSoftObjectPtr<T> ptr`）
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-21. Map Name Field Notify第4分30秒）
 
 ## UE手动垃圾回收
 
@@ -2918,9 +3108,17 @@ GEngine->ForceGarbageCollection(true);
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-7.Using a Custom Effect Context第3分钟）
 
-# UE枚举迭代遍历
+# 枚举
+
+## 迭代遍历
 
 参考：https://zhuanlan.zhihu.com/p/492702386（UE4枚举的迭代遍历）、https://blog.csdn.net/a359877454/article/details/105262795（UE4遍历枚举）
+
+## TEnumAsByte
+
+参考：
+
+https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16. Load Slot Status第2分20秒）
 
 # 坐标系
 
