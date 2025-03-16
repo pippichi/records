@@ -165,6 +165,16 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/gradient-material-fu
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/procedurals-material-functions-in-unreal-engine
 
+## 创建动态材质实例
+
+```c++
+UMaterialInstanceDynamic* DynamicMaterialInstace = UMaterialInstanceDynamic::Create(Material1, this);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Checkpoints第11分40秒）
+
 ## 案例
 
 ### 材质融合过渡
@@ -212,6 +222,18 @@ https://blog.csdn.net/zhangxiao13627093203/article/details/118385657（UE4 中Ga
 参考：
 
 https://blog.csdn.net/Highning0007/article/details/123042719（UE4使用GameInstance设置全局变量(不同关卡、类之间数据传递)）
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-2. Setting the Default Player Start第2分20秒）
+
+
+
+设置GameInstance
+
+![image-20250312190913824](ue.assets/image-20250312190913824.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-2. Setting the Default Player Start第9分40秒）
 
 # 委托
 
@@ -261,7 +283,13 @@ float Min = TNumericLimits<float>::Min();
 float Lowest = TNumericLimits<float>::Lowest()
 ```
 
+## Make Transform
 
+![image-20250315233746356](ue.assets/image-20250315233746356.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Loot Tiers第24分50秒）
 
 # 组件Component
 
@@ -343,6 +371,14 @@ https://blog.csdn.net/grayrail/article/details/131173457（在UE中使用Stencil
 
 https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模板缓冲创建遮罩 | Creating masks with the Custom Stencil Buffer(官方字幕)）
 
+### 不被遮挡描边，被遮挡不描边
+
+可以用SceneDepth和CustomDepth来实现
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
+
 ## DDX、DDY
 
 邻边像素对比
@@ -384,14 +420,6 @@ https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处�
 参考：
 
 https://www.bilibili.com/video/BV1YS4y1k7Pj（(中英字幕)虚幻引擎4.27！6种不同的后处理效果调试！）
-
-### 不被遮挡描边，被遮挡不描边
-
-可以用SceneDepth和CustomDepth来实现
-
-参考：
-
-https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
 
 # Data Registry
 
@@ -784,6 +812,14 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/umg-viewmodel
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第4分50秒）
+
+###### ToText(Integer)
+
+![image-20250313162243577](ue.assets/image-20250313162243577.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-9. Showing Player Level in Load Screen第4分10秒）
 
 ### Gameplay Abilities
 
@@ -1335,6 +1371,14 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/using-avoidance-with-the-navigation-system-in-unreal-engine
 
+#### SpawnDefaultController
+
+生成AI时生成默认Controller
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-11. Spawn Volumes第10分10秒）
+
 ### 用于分类的Tag
 
 ![image-20250207205821103](ue.assets/image-20250207205821103.png)
@@ -1616,7 +1660,7 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14.Demon - Sound Notifies第4分10秒）
 
-### RotateAngleAxis()向量旋转
+### RotateAngleAxis向量旋转
 
 ```c++
 const FVector LeftOfSpread = Forward.RotateAngleAxis(45.f, FVector::UpVector);
@@ -1627,6 +1671,14 @@ const FVector LeftOfSpread = Forward.RotateAngleAxis(45.f, FVector::UpVector);
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16.Shaman Summon Locations第7分50秒）
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-13. Knockback第15分15秒）
+
+### Vector Up
+
+![image-20250315232855010](ue.assets/image-20250315232855010.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Loot Tiers第19分20秒）
 
 ### 静态资源编组
 
@@ -1660,7 +1712,7 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-22.Elementalist Behavior Tree第2分）
 
-### UPROPERTY()
+### UPROPERTY
 
 #### meta参数
 
@@ -1689,7 +1741,7 @@ FString PlayerName;
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-15. Binding Variables to ViewModels第1分30秒）
 
-### UFUNCTION()
+### UFUNCTION
 
 #### meta参数
 
@@ -1747,7 +1799,7 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 ![image-20250310123204338](ue.assets/image-20250310123204338.png)
 
-### UCLASS()
+### UCLASS
 
 #### meta参数
 
@@ -1767,6 +1819,30 @@ class GASGAME250107_API UWaitCooldownChange : public UBlueprintAsyncActionBase
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Cooldown Tags in Ability Info第1分）
+
+### UINTERFACE
+
+#### BlueprintType
+
+```c++
+// 加上BlueprintType之后就可以在蓝图实现UnHighlightActor()方法了
+UINTERFACE(MinimalAPI, BlueprintType)
+class UHighlightInterface : public UInterface
+{
+	GENERATED_BODY()
+};
+class AURA_API IHighlightInterface
+{
+	GENERATED_BODY()
+public:
+    UFUNCTION(BlueprintNativeEvent)
+	void UnHighlightActor();
+};
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Highlighting Non-Enemies第40秒）
 
 ### SpawnActor的On Destroyed监听事件
 
@@ -2148,7 +2224,17 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-12. Ability Status and Type）
 
-### `FString::Printf()`中“L”的使用方法
+### 字符串
+
+#### FString、FName和FText的区别
+
+参考：
+
+https://zhuanlan.zhihu.com/p/65661142（UE4基础-FString,FName和FText的区别）
+
+https://blog.csdn.net/qq_52855744/article/details/135699763（UE学习笔记--如何区分FString、FName、FText，以及使用场景）
+
+#### `FString::Printf`中“L”的使用方法
 
 ```c++
 FString::Printf(TEXT("宽字符字符串：%s"), L"很长的一段字符串");
@@ -2165,6 +2251,17 @@ FString::Printf(TEXT("宽字符字符串：%s"), L"很长的一段字符串");
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24. Spell Descriptions第2分）
+
+#### RemoveFromStart字符串裁切
+
+```c++
+FString WorldName = World->GetMapName();
+WorldName.RemoveFromStart(World->StreamingLevelsPrefix);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第2分10秒）
 
 ### 关闭UI界面（销毁UI）时，别忘了解绑所有回调函数
 
@@ -2548,6 +2645,18 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第22分45秒）
 
+#### ComposeRotators
+
+ ```c++
+ UKismetMathLibrary::ComposeRotators(Rotation1, Rotation2);
+ ```
+
+叠加旋转
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-14. Loot Effects第9分30秒）
+
 ### Billboard组件的妙用
 
 参考：
@@ -2570,7 +2679,7 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-11. Radial Damage Parameters）
 
-### Actor.h
+### Actor
 
 #### TakeDamage
 
@@ -2596,6 +2705,58 @@ SetOwner是默认网络复制的，这在一些地方会有妙用，比如网络
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-9. Execute Local Gameplay Cues第6分30秒）
 
+#### TActorIterator
+
+继承自TActorIteratorBase，用于遍历UWorld中某类型的所有实例
+
+```c++
+for (TActorIterator<AActor> It(World); It; ++It) {}
+```
+
+FActorIterator
+
+用于遍历UWorld中所有AActor的实例
+
+```c++
+for (FActorIterator It(World); It; ++It) {}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第9分35秒）
+
+#### 获取Actor的唯一标识名称
+
+```c++
+Actor->GetFName()
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第12分）
+
+#### FActorSpawnParameters
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-11. Spawn Volumes第6分35秒）
+
+斯坦福教程USAction_ProjectileAttack
+
+#### GetActorForwardVector
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Loot Tiers第19分15秒）
+
+#### SetActorScale3D
+
+![image-20250316145623559](ue.assets/image-20250316145623559.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-15. Loot Drop Curve第9分40秒）
+
 ### 方向向量别忘了归一化
 
 ```c++
@@ -2616,11 +2777,83 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-14. Save Game Object第1分10秒）
 
+#### 存储Actor
+
+存储Actor及其标注了UPROPERTY(SaveGame)属性字段的方法
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-12. Data Structures for Saving Data第4分50秒）
+
+#### UDeveloperSettings
+
+可用于管理配置变量
+
+参考：
+
+斯坦福教程USSaveGameSettings
+
+#### UGameInstanceSubsystem
+
+可用于创建子系统，例如SaveGameSubsystem
+
+参考：
+
+斯坦福教程USSaveGameSubsystem
+
+https://blog.csdn.net/Motarookie/article/details/140874558（UE5中的UGameInstanceSubsystem）
+
+#### 获取地图名称
+
+```c++
+void AAuraGameModeBase::SaveWorldState(UWorld* World) const
+{
+    FString WorldName = World->GetMapName();
+    // 需要去掉World->StreamingLevelsPrefix这个前缀
+    // World->StreamingLevelsPrefix的意思：Prefix we used to rename streaming levels, non empty in PIE and standalone preview
+    WorldName.RemoveFromStart(World->StreamingLevelsPrefix); 
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第1分40秒）
+
+#### FMemoryWriter
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第14分05秒）
+
+#### FObjectAndNameAsStringProxyArchive
+
+```c++
+FMemoryWriter MemoryWriter(Bytes);
+
+FObjectAndNameAsStringProxyArchive Archive(MemoryWriter, true);
+// Find only vatiables with UPROPERTY(SaveGame)
+Archive.ArIsSaveGame = true;
+
+Actor->Serialize(Archive);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Saving World State第16分45秒）
+
+#### FMemoryReader
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-14. Loading World State第7分50秒）
+
 ### Open Level
 
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-3. Play and Quit Buttons第10分15秒）
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-12. Player Death第2分25秒）
 
 ### Travel To Map
 
@@ -2632,6 +2865,92 @@ static ENGINE_API void OpenLevelBySoftObjectPtr(const UObject* WorldContextObjec
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Traveling to the Saved Map第3分30秒）
+
+## 虚幻5C++教程使用GAS制作RPG游戏第三部分
+
+### Player Start
+
+#### Player Start Tag
+
+![image-20250312181434194](ue.assets/image-20250312181434194.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-1. Choosing the Player Start第1分30秒）
+
+#### ChoosePlayerStart
+
+![image-20250312181934810](ue.assets/image-20250312181934810.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-1. Choosing the Player Start第2分10秒）
+
+#### 继承PlayerStart，制作CheckPoints
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Checkpoints第1分）
+
+### End键
+
+End键可以快速让物体贴附到地面
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Checkpoints第18分20秒）
+
+### Mesh
+
+#### MarkRenderStateDirty强制更新Mesh
+
+```
+GetMesh()->MarkRenderStateDirty();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-5. Set Move-To Location第6分30秒）
+
+### Target Point
+
+![image-20250315213236888](ue.assets/image-20250315213236888.png)
+
+![image-20250315213209808](ue.assets/image-20250315213209808.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-11. Spawn Volumes第2分45秒）
+
+### UBoxComponent
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-11. Spawn Volumes第12分10秒）
+
+### FTimerHandle、FTimerDelegate
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-12. Player Death第9分55秒）
+
+### Camera
+
+#### DetachFromComponent
+
+```c++
+CameraComp->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform); // 相机与父级解绑，并保持世界变换不动
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-12. Player Death第11分55秒）
+
+### Do Once
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-16. Pickup Sounds第1分50秒）
 
 # UI
 
@@ -3055,7 +3374,20 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
 ### FSoftClassPath 和 FSoftObjectPath
 
-参考：https://zhuanlan.zhihu.com/p/428555822（UE4学习记录(2)FSoftClassPath 和FSoftObjectPath 区别）
+参考：
+
+https://zhuanlan.zhihu.com/p/428555822（UE4学习记录(2)FSoftClassPath 和FSoftObjectPath 区别）、https://zhuanlan.zhihu.com/p/351106187（虚幻4中的类型引用）
+
+#### ToSoftObjectPath()
+
+```c++
+TSoftObjectPtr<UWorld> W1;
+FString AssetName = W1.ToSoftObjectPath().GetAssetName();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-7. Map Entrance第14分20秒）
 
 ### TSoftClassPtr 和 TSoftObjectPtr
 
@@ -3119,6 +3451,32 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-16. Load Slot Status第2分20秒）
+
+## 添加名称限定符让枚举意义更明确
+
+普通enum：
+
+```c++
+enum EnumName{
+    E1
+}
+// ...
+if (X1 == E1) // ...
+```
+
+添加名称限定符：
+
+```c++
+enum class EnumName : uint8{
+    E1
+}
+// ...
+if (X1 == EnumName::E1) // ...
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-3. Targeting Status第17分15秒）
 
 # 坐标系
 
@@ -3571,6 +3929,16 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/unreal-engine-stats-
 参考：
 
 https://blog.csdn.net/qq_21153225/article/details/144097338（UE5 和 UE4 中常用的控制台命令总结）
+
+### 时间膨胀
+
+使用控制台Slomo命令：
+
+![image-20250316145852784](ue.assets/image-20250316145852784.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-15. Loot Drop Curve第10分15秒）
 
 ## TRACE_BOOKMARK() 事件
 
