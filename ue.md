@@ -3307,7 +3307,27 @@ https://www.bilibili.com/video/BV1dT4y1N7de/（彻底掌握UE4网络）
 
 https://zhuanlan.zhihu.com/p/593894970（关于UObject如何解决网络复制问题以及数组在Replicated网络复制的优化）
 
+# 多人联机
 
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-subsystems-and-services-in-unreal-engine
+
+## 在线服务
+
+在线服务插件尚未在发行作品中进行测试。从UE 5.1开始，在线服务插件已成为供开发人员使用的API完备版本，意在让它们在未来的引擎版本上正式发行。对于以自己的后端为目标，或者将若干UE 5.1以后的升级整合到项目中后再发行的开发人员，我们也推荐使用该框架。
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-services-in-unreal-engine
+
+## 在线子系统
+
+如果你近期需要发行作品，或者不打算将UE 5.1以后的引擎升级整合到项目中，请使用在线子系统。
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-subsystem-in-unreal-engine
 
 # TAttribute与Slate数据绑定
 
