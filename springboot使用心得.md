@@ -2058,6 +2058,30 @@ public class A implements InitializingBean, DisposableBean {
 
 参考：https://blog.csdn.net/u014788227/article/details/90111662（`AopContext.currentProxy()的使用`）
 
+# 多租户场景
+
+方案一：每个租户补一套资源，数据天然隔离但微服务版本不好统一维护
+
+方案二：k8s分布式部署微服务，解决了微服务维护难的问题，k8s的水平扩展解决了微服务资源问题，但开发难度大，中间件需要加额外字段用于标识租户
+
+当使用方案二时，可能需要用到各个中间件的拦截器，例如kafka、db、redis、xxljob、mongo、http、feign、minio、elasticsearch等
+
+参考：
+
+[陈寿烽`sup-spring-boot-starter-tenant`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## Mybatis-Plus多租户插件
+
+參考：
+
+https://blog.csdn.net/qq_45525848/article/details/143834208（Mybatis-Plus 多租户插件&属性自动赋值）
+
+
+
+用到了TenantLineInnerInterceptor等拦截器，参考：
+
+[陈寿烽`sup-spring-boot-starter-tenant`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # 动态数据源
 
 参考：https://blog.csdn.net/qq_38058332/article/details/84325009（springboot配置多个数据源（两种方式））、https://blog.csdn.net/qq_37758497/article/details/115709598（手把手教你springboot优雅的实现多数据源，看这一篇就够了）、https://blog.csdn.net/weixin_44563573/article/details/115630791（Spring Boot实现优雅地连接多个数据库）、https://www.cnblogs.com/Chenjiabing/p/12518755.html（SpringBoot整合多数据源的巨坑！！！）
