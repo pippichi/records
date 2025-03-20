@@ -456,6 +456,94 @@ int main()
 
 https://blog.csdn.net/qq_41453285/article/details/95189974（C++:28---类类型转换之类型转换运算符operator（explicit））
 
+### 重载new和delete
+
+operator new, operator new[], placement new
+
+operator delete, operator delete[]
+
+参考：
+
+https://blog.csdn.net/wudaijun/article/details/9273339（C++ 内存分配(new，operator new)详解）
+
+https://en.cppreference.com/w/cpp/memory/new/operator_new、https://en.cppreference.com/w/cpp/memory/new/operator_delete
+
+https://blog.csdn.net/aishuirenjia/article/details/102979457（`C++ 深入解析new关键字，::new、operator new函数，placement new表达式`）
+
+### placement new
+
+placement new 允许在已经分配好的内存地址上构造对象，与常规的 new 操作符不同，常规的 new 会同时分配内存并调用构造函数来初始化对象。而使用 placement new 时，需要自己负责内存的分配，并且可以指定对象构造的确切位置。
+
+使用 placement new 的一个典型场景是在实现自定义的内存管理时，比如在内存池或缓存中预先分配一大块内存，然后在这块内存上按需构造和析构对象。
+
+placement new 的语法如下：
+
+```c++
+new (address) Type(initialization arguments); // 其中 address 是一个指向已分配内存的指针，Type 是你想要构造的对象的类型，initialization arguments 是传递给构造函数的参数。
+```
+
+在虚幻引擎中看到的案例：
+
+```c++
+template <typename ThreadSafetyMode>
+struct TWriteLockedDelegateAllocation
+{
+	// ...
+	friend void* operator new<ThreadSafetyMode>(size_t Size, const TWriteLockedDelegateAllocation<ThreadSafetyMode>& LockedAllocation); // 重载new为placement new
+	// ...
+};
+
+// 使用时的写法：
+void CreateCopy(TDelegateBase<FNotThreadSafeNotCheckedDelegateMode>& Base) const final
+{
+    new (TWriteLockedDelegateAllocation{Base}) TBaseUFunctionDelegateInstance(*this);
+}
+```
+
+参考：
+
+https://blog.csdn.net/wudaijun/article/details/9273339（C++ 内存分配(new，operator new)详解）
+
+https://blog.csdn.net/zhangxinrun/article/details/5940019（C++中placement new操作符（经典））
+
+### `::new`
+
+参考：
+
+https://blog.csdn.net/aishuirenjia/article/details/102979457（C++ 深入解析new关键字，::new、operator new函数，placement new表达式）
+
+### operator*()
+
+```c++
+/**
+ * Dereference operator returns a reference to the FUniqueNetId
+ */
+const FUniqueNetId& operator*() const
+{
+    return *GetV1();
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第18分45秒）
+
+### operator->()
+
+```c++
+/**
+ * Arrow operator returns a pointer to this FUniqueNetId
+ */
+const FUniqueNetId* operator->() const
+{
+    return GetV1().Get();
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第18分45秒）
+
 ## likely与unlikely
 
 参考：https://zhuanlan.zhihu.com/p/357434227（C++关键字之likely和unlikely）

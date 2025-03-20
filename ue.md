@@ -39,7 +39,41 @@ Epic优化：
 
   参考：https://zhuanlan.zhihu.com/p/528351452（C盘爆满：UE（虚幻引擎）缓存，Epic保管库迁移）
 
+# 打包
 
+## 项目启动器
+
+开发完成之后用于打包、发布游戏
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/using-the-project-launcher-in-unreal-engine
+
+## 手游
+
+### Iphone
+
+参考：
+
+https://www.bilibili.com/video/BV1Nm4y1t7p9（虚幻引擎在Windows下免费打包iOS应用）
+
+### Android
+
+参考：
+
+https://www.bilibili.com/video/BV1FM4m1D7Ui（【UE5教程】虚幻引擎安卓打包教程—目前B站上最全面一次成功案例教程）
+
+https://www.bilibili.com/video/BV1uu411K73Z（坑多多的UE5.2.1安卓成功打包全过程 您能撑到哪个步骤？何勇作坊录制 虚幻引擎 Android打包apk Unreal Engine）
+
+## 打包后无法跳转地图
+
+编辑器中可以跳转，打包后无法执行ServerTravel、ClientTravel、OpenLevel等，多半是地图没打包进去
+
+![image-20250320101411514](ue.assets/image-20250320101411514.png)
+
+参考：
+
+https://zhuanlan.zhihu.com/p/628136103（【UE5】打包版本中 ServerTravel 函数不生效问题及解决方案）
 
 # 反射系统标签
 
@@ -207,7 +241,37 @@ https://zhuanlan.zhihu.com/p/470949422（UE5 -- EnhancedInput(增强输入系统
 
 gamemode仅存于服务器，不存在于客户端
 
-## 事件OnPostLogin
+![image-20250319235056640](ue.assets/image-20250319235056640.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第40秒）
+
+## PostLogin玩家加入游戏
+
+```c++
+virtual void PostLogin(APlayerController* NewPlayer);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第50秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第3分10秒）
+
+## Logout玩家离开游戏
+
+```c++
+virtual void Logout(AController* Exiting);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第1分10秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第3分25秒）
+
+## OnPostLogin事件
 
 客户端连接时的回调事件
 
@@ -216,6 +280,22 @@ gamemode仅存于服务器，不存在于客户端
 参考：
 
 https://blog.csdn.net/zhangxiao13627093203/article/details/118385657（UE4 中GameInstance、GameMode、GameState、PlayerState和PlayerController的关系）
+
+# GameState
+
+![image-20250319235045844](ue.assets/image-20250319235045844.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第1分15秒）
+
+
+
+GameState中可以访问到PlayerArray，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第5分30秒）
+
+
 
 # GameInstance
 
@@ -235,7 +315,25 @@ https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-2. Setting the Default Player Start第9分40秒）
 
-# 委托
+
+
+GameInstance中可以直接访问GameState，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第4分50秒）
+
+# PlayerState
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第8分20秒）
+
+
+
+PlayerState中可以获取玩家信息，提供了GetPlayerName、GetPlayerId等方法，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第8分50秒）
+
+# Delegate委托
 
 参考：
 
@@ -266,6 +364,31 @@ GetOnDeathDelegate().IsAlreadyBound(this, &ClassName::CallbackFunc);
 ```
 
 
+
+委托绑定回调函数的另一种写法：
+
+```c++
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnCreateSessionComplete, FName, bool);
+typedef FOnCreateSessionComplete::FDelegate FOnCreateSessionCompleteDelegate;
+
+FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate = FOnCreateSessionCompleteDelegate::CreateUObject(this, &ThisClass::CallbackFunc);
+```
+
+![image-20250318151938984](ue.assets/image-20250318151938984.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第9分30秒）
+
+
+
+委托中如果有参数没有托管给虚幻引擎的，例如没有打UCLASS()或USTRUCT()这些标记的，则无法使用DYNAMIC委托，因为无法在蓝图 中使用，此时只能使用普通委托，或者把参数标记起来。简单来讲，跟蓝图不兼容的都只能用普通委托
+
+![image-20250319225917517](ue.assets/image-20250319225917517.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-21_More Subsystem Delegates第2分30秒）
 
 # 函数
 
@@ -3136,6 +3259,21 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-23. Traveling to the Saved Map第10分45秒）
 
+## c++ UButton
+
+```c++
+UPROPERTY(meta = (BindWidget)) // meta = (BindWidget)可以将该c++属性与蓝图中的Button组件实例联系起来
+UButton* HostButton; // 注意当想要将该属性与蓝图中的Button组件实例联系起来时，变量名一定要一致，如下图：
+```
+
+![image-20250319131746557](ue.assets/image-20250319131746557.png)
+
+一旦在c++中获得了UButton的句柄，那么就可以在c++中做一些操作了，比如点击事件绑定等
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-18_Accessing our Subsystem第1分50秒）
+
 # AI
 
 ## AI行为树源码详解
@@ -3246,7 +3384,6 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 - https://www.bilibili.com/video/BV1jt4y1S7A7/?p=282&spm_id_from=333.880.my_history.page.click&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（UE4 最完整的开放世界系列教程【附工程】【收藏夹必备】【422P 持续更新】）
 - https://www.bilibili.com/video/BV1tg411v7L7/?spm_id_from=333.880.my_history.page.click&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（【教程】全网最完整 UE5 100% 蓝图开发Steam 多人孤岛生存游戏 双语字幕 现已更新到117（20230308)）
-- https://www.bilibili.com/video/BV1uS4y1872y?p=1&vd_source=c3d9e4c3ef670596b3b0dddab637f86c（【UE5】多人射击游戏开发完全教程 人工校对字幕-全网最详细56小时超长完整）
 
 
 
@@ -3315,7 +3452,7 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-subsystems-an
 
 ## 在线服务
 
-在线服务插件尚未在发行作品中进行测试。从UE 5.1开始，在线服务插件已成为供开发人员使用的API完备版本，意在让它们在未来的引擎版本上正式发行。对于以自己的后端为目标，或者将若干UE 5.1以后的升级整合到项目中后再发行的开发人员，我们也推荐使用该框架。
+配合EOS（Epic Online Services）使用（意味着与epic强绑），EOS完全免费！不像在线子系统中steam、apply等可能会有限制或者收费
 
 参考：
 
@@ -3323,17 +3460,530 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-services-in-u
 
 ## 在线子系统
 
-如果你近期需要发行作品，或者不打算将UE 5.1以后的引擎升级整合到项目中，请使用在线子系统。
+与steam、apply、google等平台对接的抽象层
 
 参考：
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/online-subsystem-in-unreal-engine
 
+## C++多人射击游戏教程
+
+### LAN方式联机
+
+#### OpenLevel
+
+在Options处可以设置参数
+
+![image-20250317212552018](ue.assets/image-20250317212552018.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-4_测试多人游戏第7分18秒）
+
+
+
+![image-20250317213729965](ue.assets/image-20250317213729965.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第4分30秒）
+
+#### ExecuteConsoleCommand
+
+![image-20250317212730122](ue.assets/image-20250317212730122.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-4_测试多人游戏第8分05秒）
+
+### 局域网方式联机
+
+#### ServerTravel
+
+```c++
+UWorld* World = GetWorld();
+World->ServerTravel("/Game/..");
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第2分50秒）
+
+#### ClientTravel
+
+```c++
+APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
+PlayerController->ClientTravel("Address", ETravelType::TRAVEL_Absolute);
+```
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第6分20秒）
+
+#### 复制资源地址
+
+![image-20250317213155220](ue.assets/image-20250317213155220.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第3分15秒）
+
+#### /Game/路径引用前缀
+
+Content及其之前的都可以用/Game/替代
+
+![image-20250317213445617](ue.assets/image-20250317213445617.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第3分30秒）
+
+### session生命周期
+
+![image-20250318085709399](ue.assets/image-20250318085709399.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-7_在线会话控制第3分20秒）
+
+### 联机流程
+
+![image-20250318085824899](ue.assets/image-20250318085824899.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-7_在线会话控制第4分20秒）
+
+### OnlineSubsystem
+
+参考：
+
+启用插件
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-8_配置Steam第1分15秒）
+
+c++添加插件模块
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-8_配置Steam第2分40秒）
+
+配置DefaultEngine.ini
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-8_配置Steam第3分50秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第31分）
+
+c++操作OnlineSubsystem、IOnlineSessionPtr
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-9_访问线上服务第1分30秒）
+
+### 创建session
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第13分25秒）
+
+#### FOnCreateSessionCompleteDelegate
+
+![image-20250318131759752](ue.assets/image-20250318131759752.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第3分）
+
+
+
+c++中初始化该委托，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第9分30秒）
+
+
+
+将该委托添加到IOnlineSessionPtr中：
+
+```c++
+FDelegateHandle OnCreateSessionCompleteDelegateHandle = OnlineSessionPtr->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate); // 返回值FDelegateHandle可以存储下来方便后续销毁
+```
+
+可以发现IOnlineSessionPtr的很多回调都需要以这种方式注入：
+
+![image-20250318165639811](ue.assets/image-20250318165639811.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第20分）
+
+#### FOnlineSessionSettings
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第15分30秒）
+
+FOnlineSessionSettings属性讲解
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第26分10秒）
+
+
+
+必须要开启bUseLobbiesIfAvailable，否则Session创建失败：
+
+```c++
+TSharedPtr<FOnlineSessionSettings> SessionSettings = MakeShareable(new FOnlineSessionSettings());
+// ...
+// 必须要加下面这一行，否则无法创建session
+SessionSettings->bUseLobbiesIfAvailable = true; // 支持 Lobbies Api，不开启可能无法找到 Session
+```
+
+参考：
+
+https://juejin.cn/post/7142143845763907621（Unreal Engine 连接 Steam（Session 操作））
+
+##### Set方法设置参数
+
+```c++
+SessionSettings->Set(FName("MatchType"), FString("FreeForAll"), EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第4分）
+
+
+
+在FOlineSessionSearch->SearchResults中获取Set的内容：
+
+```c++
+for (auto Result : SessionSearch->SearchResults) {
+
+    // 获取 MatchType
+    FString MatchType;
+    Result.Session.SessionSettings.Get(FName("MatchType"), MatchType);
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第6分10秒）
+
+##### EOnlineDataAdvertisementType
+
+![image-20250318214357452](ue.assets/image-20250318214357452.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第5分15秒）
+
+##### BuildUniqueId
+
+```c++
+TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
+// ...
+LastSessionSettings->BuildUniqueId = 1;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第11分30秒）
+
+#### 获取LocalPlayer
+
+```c++
+const ULocalPlayer* LocalPlayer = GetWorld()->GetFirstLocalPlayerFromController();
+```
+
+#### FUniqueNetId
+
+```c++
+// CreateSession其中一个重载方法的第一个参数就是FUniqueNetId
+virtual bool CreateSession(const FUniqueNetId& HostingPlayerId, FName SessionName, const FOnlineSessionSettings& NewSessionSettings) = 0;
+```
+
+可以从LocalPlayer中获取：
+
+```c++
+LocalPlayer->GetPreferredUniqueNetId();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-10_创建会话第18分）
+
+
+
+### 查找session
+
+#### FOnFindSessionsCompleteDelegate
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第2分）
+
+
+
+将该委托添加到IOnlineSessionPtr中：
+
+```c++
+FDelegateHandle FindSessionsCompleteDelegateHandle = OnlineSessionPtr->AddOnFindSessionsCompleteDelegate_Handle(FindSessionsCompleteDelegate); // 返回值FDelegateHandle可以存储下来方便后续销毁
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第9分15秒）
+
+#### FOnlineSessionSearch
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第4分50秒）
+
+##### QuerySettings
+
+```c++
+SessionSearch->QuerySettings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals); // 只查询 lobbies 值为 true 的
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第13分55秒）
+
+##### FOnlineSessionSearchResult
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第10分20秒）
+
+#### TSharedPtr转Ref
+
+```c++
+TSharedPtr<FOnlineSessionSearch> SessionSearch;
+SessionSearch.ToSharedRef();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-11_设置加入游戏会话第8分15秒）
+
+### 加入session
+
+#### FOnJoinSessionCompleteDelegate
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第8分35秒）
+
+
+
+将该委托添加到IOnlineSessionPtr中：
+
+```c++
+FDelegateHandle CreateSessionCompleteDelegateHandle = OnlineSessionPtr->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate); // 返回值FDelegateHandle可以存储下来方便后续销毁
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第11分45秒）
+
+#### EOnJoinSessionCompleteResult
+
+![image-20250318220043701](ue.assets/image-20250318220043701.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第9分30秒）
+
+#### GetResolvedConnectString
+
+连接成功后获取服务器地址
+
+```c++
+FString Address;
+bool bSuccess = OnlineSessionPtr->GetResolvedConnectString(NAME_GameSession, Address);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第14分）
+
+#### 从GameInstance获取LocalPlayerController
+
+```c++
+GetGameInstance()->GetFirstLocalPlayerController();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-13_Joining the Session第16分）
+
+### 开始session
+
+#### FOnStartSessionCompleteDelegate
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-16_Session Interface Delegates第7分）
+
+### 销毁session
+
+#### FOnDestroySessionCompleteDelegate
+
+销毁之后马上创建session会失败，应该等待销毁结束后再创建，此时就可以利用该Delegate
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-16_Session Interface Delegates第7分）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-25_Polishing the Menu Subsystem第1分35秒）
+
+
+
+### 清除会话过程中的Delegate
+
+IOnlineSessionPtr中有很多清除Delegate的方法：
+
+![image-20250319135956329](ue.assets/image-20250319135956329.png)
+
+举个例子，清除AddOnCreateSessionCompleteDelegate_Handle所产生的Delegate：
+
+```c++
+IOnlineSessionPtr OnlineSessionPtr;
+// ...
+OnlineSessionPtr->ClearOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegateHandle); // OnCreateSessionCompleteDelegateHandle为调用AddOnCreateSessionCompleteDelegate_Handle时返回的句柄
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-19_Create Session第11分15秒）
+
+### 创建Plugin
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-14_Creating a Plugin第3分40秒）
+
+#### uplugin配置文件
+
+![image-20250319090908014](ue.assets/image-20250319090908014.png)
+
+Type可以是Runtime也可以是Editor
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-14_Creating a Plugin第5分50秒）
+
+
+
+配置文件中添加插件依赖：
+
+![image-20250319093711585](ue.assets/image-20250319093711585.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-14_Creating a Plugin第6分20秒）
+
+
+
+当使用UI时，需要添加UMG、Slate、SlateCore模块依赖
+
+![image-20250319111550187](ue.assets/image-20250319111550187.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-17_The Menu Class第4分）
+
+#### PublicDependencyModuleNames与PrivateDependencyModuleNames
+
+![image-20250319094657892](ue.assets/image-20250319094657892.png)
+
+PrivateDependencyModuleNames的意思是仅私有源文件可访问
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-14_Creating a Plugin第7分40秒）
+
+#### 制作Subsystem
+
+![image-20250319100613444](ue.assets/image-20250319100613444.png)
+
+![image-20250319100202176](ue.assets/image-20250319100202176.png)
+
+![image-20250319100400407](ue.assets/image-20250319100400407.png)
+
+参考：
+
+https://dev.epicgames.com/documentation/en-us/unreal-engine/programming-subsystems-in-unreal-engine
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-15_Creating our Own Subsystem第1分30秒）
+
+
+
+可以通过GameInstance获取自定义的Subsystem
+
+```c++
+UMultiplayerSessionsSubsystem* MultiplayerSessionsSubsystem = GameInstance->GetSubsystem<UMultiplayerSessionsSubsystem>(); // UMultiplayerSessionsSubsystem是自定义的Subsystem
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-18_Accessing our Subsystem第13分）
+
+#### 在插件中创建c++类
+
+![image-20250319101348594](ue.assets/image-20250319101348594.png)
+
+创建c++类时，右侧可以选择插件目录
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-15_Creating our Own Subsystem第5分10秒）
+
+#### 编辑器中设置Show Plugin Content
+
+![image-20250319102601578](ue.assets/image-20250319102601578.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-15_Creating our Own Subsystem第6分45秒）
+
+#### UserWidget
+
+FInputModeUIOnly中可以调用SetWidgetToFocus，可以传入TakeWidget()：
+
+![image-20250319112223143](ue.assets/image-20250319112223143.png)
+
+TakeWidget可以获取该Widget底层的SlateWidget（如果不存在则会创建一个）
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-17_The Menu Class第6分50秒）
+
+
+
+FInputModeUIOnly中可以调用SetLockMouseToViewportBehavior，可以传入EMouseLockMode来控制鼠标行为：
+
+![image-20250319113008758](ue.assets/image-20250319113008758.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-17_The Menu Class第7分10秒）
+
+### 配置DefaultGame.ini
+
+#### 设置MaxPlayers
+
+![image-20250320110633057](ue.assets/image-20250320110633057.png)
+
+这样可以有更多的玩家加入进来
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第12分10秒）
+
 # TAttribute与Slate数据绑定
 
-参考：https://zhuanlan.zhihu.com/p/465410846（UE4 TAttribute原理 与 Slate数据绑定）
+参考：
 
-
+https://zhuanlan.zhihu.com/p/465410846（UE4 TAttribute原理 与 Slate数据绑定）
 
 # UE常用数据结构TArray、TMap、TSet、TDoubleLinkedList
 
@@ -4065,22 +4715,6 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 - Substance Designer（基于节点生成）
 - Substance Painter（高级，是Substance Alchemist的高阶版，手绘）
 - Mari
-
-# 打包手游
-
-## Iphone
-
-参考：
-
-https://www.bilibili.com/video/BV1Nm4y1t7p9（虚幻引擎在Windows下免费打包iOS应用）
-
-## Android
-
-参考：
-
-https://www.bilibili.com/video/BV1FM4m1D7Ui（【UE5教程】虚幻引擎安卓打包教程—目前B站上最全面一次成功案例教程）
-
-https://www.bilibili.com/video/BV1uu411K73Z（坑多多的UE5.2.1安卓成功打包全过程 您能撑到哪个步骤？何勇作坊录制 虚幻引擎 Android打包apk Unreal Engine）
 
 # 虚幻商城资源包
 

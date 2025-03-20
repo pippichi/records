@@ -2082,6 +2082,45 @@ https://blog.csdn.net/qq_45525848/article/details/143834208（Mybatis-Plus 多�
 
 [陈寿烽`sup-spring-boot-starter-tenant`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
+
+
+Mapper中可以使用@InterceptorIgnore注解忽略自动的tenant_id注入：
+
+```java
+@Mapper
+public interface ObpAlgorithmMapper extends BaseMapper<ObpAlgorithm> {
+
+    @InterceptorIgnore(tenantLine = "true")
+    ObpAlgorithm selectBuiltInAlgById(@Param("id") Long id); // 该sql语句最终的执行将忽略tenant_id注入
+}
+```
+
+更多@InterceptorIgnore的属性参考mbp官方文档或源代码：
+
+![image-20250318141604591](springboot使用心得.assets/image-20250318141604591.png)
+
+![image-20250318141956117](springboot使用心得.assets/image-20250318141956117.png)
+
+## Kafka的Header
+
+多租户场景下，可以利用kafka自带的header传递租户信息
+
+参考：
+
+https://blog.csdn.net/Android_xue/article/details/131207362（一文带你理解Kafka的Header）
+
+# Mybatis-Plus
+
+## @EnumValue
+
+枚举与存储值之间转换的优雅处理方案
+
+参考：
+
+https://blog.csdn.net/a_beiyo/article/details/141676266（MybatisPlus中@EnumValue注解介绍、应用场景和示例代码）
+
+https://blog.csdn.net/H900302/article/details/108735197（springboot整合mybatisplus通用枚举(五)---@EnumValue）
+
 # 动态数据源
 
 参考：https://blog.csdn.net/qq_38058332/article/details/84325009（springboot配置多个数据源（两种方式））、https://blog.csdn.net/qq_37758497/article/details/115709598（手把手教你springboot优雅的实现多数据源，看这一篇就够了）、https://blog.csdn.net/weixin_44563573/article/details/115630791（Spring Boot实现优雅地连接多个数据库）、https://www.cnblogs.com/Chenjiabing/p/12518755.html（SpringBoot整合多数据源的巨坑！！！）
