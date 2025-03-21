@@ -69,11 +69,23 @@ https://www.bilibili.com/video/BV1uu411K73Z（坑多多的UE5.2.1安卓成功打
 
 编辑器中可以跳转，打包后无法执行ServerTravel、ClientTravel、OpenLevel等，多半是地图没打包进去
 
+搜索maps to include并配置地图
+
 ![image-20250320101411514](ue.assets/image-20250320101411514.png)
 
 参考：
 
 https://zhuanlan.zhihu.com/p/628136103（【UE5】打包版本中 ServerTravel 函数不生效问题及解决方案）
+
+# 模块依赖
+
+PublicDependencyModuleNames和PrivateDependencyModuleNames有什么区别？
+
+参考：
+
+https://blog.csdn.net/maxiaosheng521/article/details/79174337（UE4 PublicDependencyModuleNames与PrivateDependencyModuleNames）
+
+https://blog.csdn.net/u010087338/article/details/144711409（PublicDependencyModuleNames vs PrivateDependencyModuleNames）
 
 # 反射系统标签
 
@@ -2768,6 +2780,12 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第22分45秒）
 
+#### MakeRotFromX
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第4分20秒）
+
 #### ComposeRotators
 
  ```c++
@@ -2779,6 +2797,21 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 参考：
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-14. Loot Effects第9分30秒）
+
+#### NormalizedDeltaRotator相对旋转量
+
+场景：键盘移动角色的同时鼠标旋转对角色产生的相对旋转量，可用于BlendSpace
+
+```c++
+FRotator AimRotation = Character->GetBaseAimRotation();
+FRotator MovementRotation = UKismetMathLibrary::MakeRotFromX(Character->GetVelocity());
+FRotator Offset = UKismetMathLibrary::NormalizedDeltaRotator(MovementRotation, AimRotation); // 相对旋转量
+float YawOffset = Offset.Yaw;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第13分30秒）
 
 ### Billboard组件的妙用
 
@@ -3979,6 +4012,473 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第12分10秒）
 
+### 美术资源
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-28_Assets）
+
+### Mixamo以及动画重定向
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-29_Retargeting Animations）
+
+### 动画资产、动画蓝图以及AnimInstance
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-33_Animation Blueprint）
+
+斯坦福教程
+
+#### TryGetPawnOwner
+
+获取所有者Pawn
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-33_Animation Blueprint第5分25秒）
+
+#### Time Remaining(ratio)
+
+可以获取动画混合剩余比例
+
+![image-20250320162136447](ue.assets/image-20250320162136447.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-33_Animation Blueprint第16分）
+
+#### Blend Poses By Bool
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-41_Equipped Animation Pose第7分40秒）
+
+#### 从已有动画资产中创建新动画资产
+
+1、复制资产；
+
+2、改变新资产transform；
+
+3、添加key；
+
+![image-20250321112641421](ue.assets/image-20250321112641421.png)
+
+4、烘焙并创建资产（烘焙后key将消失）；
+
+![image-20250321111557763](ue.assets/image-20250321111557763.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-44_Running Blendspace第3分40秒）
+
+#### 在键盘鼠标同时作用下如何正确计算角色旋转量
+
+场景：BlendSpace中需要用到正确的角色旋转量
+
+参考：
+
+`Gameplay Ability System（GAS）-虚幻5C++教程使用GAS制作RPG游戏第二部分-UKismetMathLibrary-NormalizedDeltaRotator相对旋转量`章节
+
+#### 插值计算角色倾斜度
+
+场景：BlendSpace中需要用到正确的角色倾斜度
+
+![image-20250321134025557](ue.assets/image-20250321134025557.png)
+
+```c++
+// Delta.Yaw表示角色在每一帧的旋转量，这个值是很小的，让他除以DeltaTime的意义在于放大这个值，并让值与DeltaTime成比例
+const float Target = Delta.Yaw / DeltaTime;
+// FInterpTo计算插值，让变化更丝滑
+const float Interp = FMath::FInterpTo(Lean, Target, DeltaTime, 6.f); // Lean为BlendSpace中用到的自定义变量；6.f表示插值速度
+// Clamp防止鼠标剧烈旋转导致数值爆炸
+Lean = FMath::Clamp(Interp, -90.f, 90.f);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第19分25秒）
+
+#### 调整过渡值让角色动画更丝滑
+
+直接调整动画序列中的Interpolation Time可以做到Yaw变化更丝滑，但也会导致一个新的问题，即向后移动时会发生-180到180的插值，看起来会很鬼畜，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第22分15秒）
+
+
+
+解决方案：
+
+1、不使用动画序列的Interpolation Time；
+
+2、对于Yaw不使用一维数值进行插值；
+
+3、在c++中用`FMath::RInterpTo()`方法对Yaw进行插值（该方法使用最短路径插值，它其实是三维数值插值，因此不会出现-180到180这种剧烈的插值变化。将其想象成一个球体即可理解）；
+
+![image-20250321142638017](ue.assets/image-20250321142638017.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第25分30秒）
+
+#### 跑、跳动画状态机
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-46_Idle and Jumps）
+
+
+
+Automatic Rule Based on Sequence Player in State状态自动过渡
+
+![image-20250321144231379](ue.assets/image-20250321144231379.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-46_Idle and Jumps第4分20秒）
+
+
+
+调整JumpZVelocity与GravityScale
+
+![image-20250321144651455](ue.assets/image-20250321144651455.png)
+
+![image-20250321144926744](ue.assets/image-20250321144926744.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-46_Idle and Jumps第7分30秒）
+
+#### AimOffset瞄准偏移
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets）
+
+##### BasePose基础姿势
+
+AimOffset是动画叠加的，因此需要基础姿势
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第11分45秒）
+
+##### Additive Anim叠加动画
+
+除了基础姿势，其他动画都需要转为叠加动画
+
+1、先转成Mesh Space
+
+![image-20250321155811907](ue.assets/image-20250321155811907.png)
+
+2、选中基础姿势
+
+![image-20250321155948244](ue.assets/image-20250321155948244.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第12分45秒）
+
+##### 创建AimOffset
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第17分50秒）
+
+### Seamless Travel
+
+NON-SEAMLESS TRAVEL
+
+![image-20250320162702269](ue.assets/image-20250320162702269.png)
+
+SEAMLESS TRAVEL
+
+![image-20250320162812147](ue.assets/image-20250320162812147.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby）
+
+
+
+可以通过GameMode中的bUseSeamlessTravel打开：
+
+![image-20250320163903804](ue.assets/image-20250320163903804.png)
+
+![image-20250320164133076](ue.assets/image-20250320164133076.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第13分50秒）
+
+
+
+ServerTravel和ClientTravel的区别：
+
+![image-20250320163014116](ue.assets/image-20250320163014116.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第3分）
+
+#### 创建Lobby的GameMode
+
+选择功能更多的GameMode而非GameModeBase
+
+![image-20250320163254218](ue.assets/image-20250320163254218.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第5分30秒）
+
+#### 创建过渡用的TransitionLevel
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第15分50秒）
+
+#### 设置TransitionMap
+
+![image-20250320164331574](ue.assets/image-20250320164331574.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第16分40秒）
+
+### Weapon武器
+
+#### 制作武器
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-36_Weapon Class）
+
+##### Weapon状态枚举设计
+
+这个状态枚举后面还可以用于网络复制的信号
+
+![image-20250320220251482](ue.assets/image-20250320220251482.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-36_Weapon Class第11分）
+
+#### 装配武器
+
+像装配武器这种重要的操作全部由server完成，client可以通过server RPC完成
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第14分30秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第18分）
+
+##### 将武器附着到Socket的另一种方法
+
+```c++
+Socket->AttachActor(WeaponActor, Character->GetMesh());
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第21分10秒）
+
+##### SetOwner很重要
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第22分05秒）
+
+
+
+SetOwner已经被网络复制了，不需要再手动做复制。而且其通知函数OnRep_Owner是用virtual标记的，意味着可以重写，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-40_Remote Procedure Calls第11分25秒）
+
+### 网络
+
+#### DOREPLIFETIME_CONDITION
+
+![image-20250320222235825](ue.assets/image-20250320222235825.png)
+
+```c++
+DOREPLIFETIME_CONDITION(ABlasterCharacter, Variable1, COND_AutonomousOnly); // 只复制给网络角色为Autonomous的
+DOREPLIFETIME_CONDITION(ABlasterCharacter, Variable1, COND_OwnerOnly); // 只复制给Owner
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-38_Variable Replication第9分50秒）
+
+#### IsLocallyControlled
+
+判断server中托管的pawn是否为远端本地控制
+
+有时候使用了OnRep_Func进行网络复制，但复制只能是从Server复制到Client不能反向，所以导致远端本地触发时OnRep_Func失效
+
+所以在只能在Server触发的函数中，可以使用IsLocallyControlled使得远端本地触发该函数
+
+```c++
+void Func() { // 假设该函数只在server端执行，不在client端执行
+    if (IsLocallyControlled()) // 触发远端本地执行
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-38_Variable Replication第15分45秒）
+
+
+
+筛选本地其他用户
+
+```c++
+if (!Character->HasAuthority() && !Character->IsLocallyControlled()) // ...
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第8分25秒）
+
+#### Overlap等事件只在server上生成
+
+当server上开启/关闭Overlap，client也会自动跟随，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-40_Remote Procedure Calls第15分）
+
+#### 调用Server RPC时不需要判断HasAuthority的场景
+
+该情况下Server端调用只会在Server执行，Client端调用也只会在Server执行，那么这个情况就不需要再判断HasAuthority了
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-43_Aiming第15分）
+
+### friend友元的妙用
+
+![image-20250321094840403](ue.assets/image-20250321094840403.png)
+
+此时UCombatComponent拥有了访问UBlasterCharacter内容的权限，包括私有内容
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第8分）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第11分10秒）
+
+### ACharacter
+
+#### PostInitializeComponents
+
+初始化组件函数钩子
+
+![image-20250321094651122](ue.assets/image-20250321094651122.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第10分25秒）
+
+#### Crouch/UnCrouch处理蹲伏
+
+需要先开启CanCrouch：
+
+![image-20250321103818895](ue.assets/image-20250321103818895.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第7分30秒）
+
+
+
+关于CanCrouch的讲解：
+
+![image-20250321103945517](ue.assets/image-20250321103945517.png)
+
+从源码发现可以从c++设置CanCrouch：
+
+![image-20250321104453717](ue.assets/image-20250321104453717.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第8分10秒）
+
+
+
+![image-20250321103549483](ue.assets/image-20250321103549483.png)
+
+![image-20250321103640606](ue.assets/image-20250321103640606.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第2分20秒）
+
+
+
+Crouch自动处理了胶囊体大小，参考：
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第11分40秒）
+
+
+
+设置Crouch时Character的各种属性，例如移动速度等，参考：
+
+![image-20250321111347936](ue.assets/image-20250321111347936.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第12分40秒）
+
+#### 获取角色速度
+
+```c++
+Character->GetVelocity();
+```
+
+根据角色速度获取旋转量并用于BlendSpace
+
+```c++
+FRotator MovementRotation = UKismetMathLibrary::MakeRotFromX(Character->GetVelocity());
+float YawMagnitude = MovementRotation.Yaw;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第5分）
+
+#### 获取角色是否在加速
+
+```c++
+GetCharacterMovement()->GetCurrentAcceleration().Size() > 0.f;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-33_Animation Blueprint第9分35秒）
+
+#### 获取基于用户镜头控制下的旋转
+
+```c++
+// 可用于BlendSpace
+// 默认网络复制
+Character->GetBaseAimRotation();
+```
+
+![image-20250321113141559](ue.assets/image-20250321113141559.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第1分35秒）
+
+### 项目之间迁移注意资产相对路径一致
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第16分10秒）
+
 # TAttribute与Slate数据绑定
 
 参考：
@@ -4610,7 +5110,13 @@ https://blog.csdn.net/qq_21153225/article/details/144097338（UE5 和 UE4 中常
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-15. Loot Drop Curve第10分15秒）
 
-## TRACE_BOOKMARK() 事件
+### ShowCollision
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-42_Crouching第11分40秒）
+
+## TRACE_BOOKMARK事件
 
 参考：
 
