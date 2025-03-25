@@ -2121,6 +2121,18 @@ https://blog.csdn.net/a_beiyo/article/details/141676266（MybatisPlus中@EnumVal
 
 https://blog.csdn.net/H900302/article/details/108735197（springboot整合mybatisplus通用枚举(五)---@EnumValue）
 
+# Kafka
+
+## 事务回滚
+
+```c++
+kafkaTemplate.executeInTransaction(callbackFunc);
+```
+
+参考：
+
+[陈寿烽`sup-spring-boot-starter-kafka`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # 动态数据源
 
 参考：https://blog.csdn.net/qq_38058332/article/details/84325009（springboot配置多个数据源（两种方式））、https://blog.csdn.net/qq_37758497/article/details/115709598（手把手教你springboot优雅的实现多数据源，看这一篇就够了）、https://blog.csdn.net/weixin_44563573/article/details/115630791（Spring Boot实现优雅地连接多个数据库）、https://www.cnblogs.com/Chenjiabing/p/12518755.html（SpringBoot整合多数据源的巨坑！！！）

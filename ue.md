@@ -221,6 +221,12 @@ UMaterialInstanceDynamic* DynamicMaterialInstace = UMaterialInstanceDynamic::Cre
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Checkpoints第11分40秒）
 
+## StaticMeshMorphTarget静态网格体变形目标节点
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/static-mesh-morph-targets-in-unreal-engine
+
 ## 案例
 
 ### 材质融合过渡
@@ -1978,6 +1984,17 @@ public:
 参考：
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-4. Highlighting Non-Enemies第40秒）
+
+### UENUM
+
+#### UMETA
+
+```c++
+enum class ETurningInPlace : uint8
+{
+	ETIP_Left UMETA(DisplayName = "Turning Left") // DisplayName可以指定其在蓝图编辑器中展示的名称
+};
+```
 
 ### SpawnActor的On Destroyed监听事件
 
@@ -4012,17 +4029,60 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第12分10秒）
 
-### 美术资源
+### 配置DefaultEngine.ini
+
+#### 设置多人射击网游的Server Net Tick Rate
+
+多人射击网游对网络延迟要求很高，必要情况下需要调整该属性值
+
+![image-20250322230334512](ue.assets/image-20250322230334512.png)
+
+```c++
+[/Script/OnlineSubsystemUtils.IpNetDriver]
+NetServerMaxTickRate=60
+```
 
 参考：
 
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第5分）
+
+### 美术、音效资源
+
+美术资源参考：
+
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-28_Assets）
+
+音效资源参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第25秒）
 
 ### Mixamo以及动画重定向
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-29_Retargeting Animations）
+
+#### 解决重定向导致的角色悬空问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第23分40秒）
+
+### GameFramework
+
+![image-20250325145651554](ue.assets/image-20250325145651554.png)
+
+![image-20250325145926310](ue.assets/image-20250325145926310.png)
+
+![image-20250325150003629](ue.assets/image-20250325150003629.png)
+
+![image-20250325150042521](ue.assets/image-20250325150042521.png)
+
+Server的东西可以通过GAME STATE下发给Client
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-84_Game Framework）
 
 ### 动画资产、动画蓝图以及AnimInstance
 
@@ -4151,6 +4211,12 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-46_Idle and Jumps第7分30秒）
 
+
+
+处理45度斜着跑时的动画，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-58_Rotating Running Animations第45秒）
+
 #### AimOffset瞄准偏移
 
 参考：
@@ -4181,11 +4247,363 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第12分45秒）
 
+
+
+叠加动画还可以应用在开火动画上（开火动画需要在基础动画上播放，使得开火方向等看起来是正确的）
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第4分25秒）
+
+
+
 ##### 创建AimOffset
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第17分50秒）
+
+##### 制作AimOffset的状态机
+
+![image-20250321232952536](ue.assets/image-20250321232952536.png)
+
+![image-20250321233041538](ue.assets/image-20250321233041538.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-52_Using our Aim Offsets）
+
+##### 使用AimOffset
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-50_ Applying Aim Offsets第3分25秒）
+
+#### 为State Machine创建Cached Pose
+
+![image-20250321164910829](ue.assets/image-20250321164910829.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-50_ Applying Aim Offsets第1分20秒）
+
+
+
+可以当封装方法使用，简化动画蓝图工作量。步骤为：创建状态机->创建状态->组装动画资源->为状态机创建Cached Pose
+
+这样在其他地方就可以直接使用Cached Pose而不需要再重新组装动画资源了
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第18分15秒）
+
+#### Layered blend per bone
+
+![image-20250321165145189](ue.assets/image-20250321165145189.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-50_ Applying Aim Offsets第1分45秒）
+
+#### Idle时的丝滑动画（类似ALSV4）
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-50_ Applying Aim Offsets第6分）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-52_Using our Aim Offsets第3分）
+
+##### 解决Client端Pitch异常问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-51_Pitch in Multiplayer）
+
+
+
+查看Pitch网络打包源码，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-51_Pitch in Multiplayer第6分40秒）
+
+
+
+map映射数值
+
+![image-20250321232420441](ue.assets/image-20250321232420441.png)
+
+```c++
+AO_Pitch = GetBaseAimRotation().Pitch;
+if (!IsLocallyControlled() && AO_Pitch > 90.f) {
+    // map pitch from [270, 360) to [-90, 0)
+    FVector2D InRange(270.f, 360.f);
+    FVector2D OutRange(-90.f, 0.f);
+    AO_Pitch = FMath::GetMappedRangeValueClamped(InRange, OutRange, AO_Pitch);
+}
+```
+
+##### 解决Idle下还在Aimming时动画异常问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-52_Using our Aim Offsets第3分40秒）
+
+##### 解决Idle下鼠标旋转超90度时角色突然转向另一侧的问题
+
+思路：鼠标转到一定角度时直接让角色也转过去，并配合动画完成效果
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place）
+
+
+
+定义角色旋转状态枚举，方便后续指定角色该不该转向以及该转向哪
+
+![image-20250322110156626](ue.assets/image-20250322110156626.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第3分）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第5分40秒）
+
+
+
+在c++中定义好角色转向状态
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第7分45秒）
+
+
+
+在动画蓝图中使用转向状态
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-54_Turning in Place第14分10秒）
+
+###### Rotate Root Bone
+
+根骨骼旋转
+
+这里想解决鼠标旋转超90度之后角色自动转过去，作者的做法是：1、开启bUseControllerRotationYaw；2、开启之后角色会随着鼠标旋转，此时使用Rotate Root Bone抵消该旋转；3、在c++代码中记录角色转过去之前的鼠标旋转初始值并插值至0度，将该插值传递给Rotate Root Bone即可实现效果；
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-55_Rotate Root Bone第1分25秒）
+
+
+
+设置Interp Result让旋转在网络模式下更顺畅（网络动画Tick更新有延迟，可能会导致抖动等鬼畜的效果）
+
+![image-20250322225329118](ue.assets/image-20250322225329118.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第1分10秒）
+
+
+
+RotateRootBone的缺点：虽然是每帧更新，但在网络中是根据网络更新频率去更新的，所以其他客户端看起来就会抖动，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-81_Smooth Rotation for Proxies第1分）
+
+通过日志分析原因以及解决方案参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-81_Smooth Rotation for Proxies第14分15秒）
+
+##### 解决Simulated角色跑动时仍在播放转向动画（滑步）问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-81_Smooth Rotation for Proxies第26分25秒）
+
+#### FABRIK IK
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK）
+
+为FABRIK IK创建状态机，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK第13分35秒）
+
+使用FABRIK节点及其骨骼配置
+
+![image-20250322102648772](ue.assets/image-20250322102648772.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK第14分35秒）
+
+替换掉AimOffsets状态机，使用FABRIK IK状态机
+
+![image-20250322102856887](ue.assets/image-20250322102856887.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK第17分45秒）
+
+将武器替换为其他武器，并为其创建相同的socket，即可复用FABRIK IK了！参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK第22分05秒）
+
+##### TransformToBoneSpace
+
+```c++
+// 思路：1、左手要做解算；2、左手目标应该是武器上的socket位置；3、武器上的socket位置应该是相对右手hand_r骨骼的骨骼空间位置；
+
+LeftHandTransform = EquippedWeapon->GetWeaponMesh()->GetSocketTransform(FName("LeftHandSocket"), ERelativeTransformSpace::RTS_World);
+
+FVector OutPosition;
+FRotator OutRotation;
+Character->GetMesh()->TransformToBoneSpace(FName("hand_r"), LeftHandTransform.GetLocation(), FRotator::ZeroRotator, OutPosition, OutRotation); // TransformToBoneSpace具体什么意思参考视频讲解
+
+// LeftHandTransform即为左手要移动的目标位置
+LeftHandTransform.SetLocation(OutPosition);
+LeftHandTransform.SetRotation(FQuat(OutRotation));
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-53_FABRIK IK第9分10秒）
+
+#### 动画资产
+
+##### 动画资产之间Notifies批量复制
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-58_Rotating Running Animations第3分35秒）
+
+##### UAnimationAsset
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-62_Fire Weapon Effects第1分55秒）
+
+
+
+通过USkeletalMeshComponent播放UAnimationAsset资产
+
+```c++
+USkeletalMeshComponent* WeaponMesh;
+WeaponMesh->PlayAnimation(AnimationAsset1, false);// false表示不循环播放
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-62_Fire Weapon Effects第3分30秒）
+
+#### Sync Marker
+
+![image-20250323102750691](ue.assets/image-20250323102750691.png)
+
+![image-20250323103321213](ue.assets/image-20250323103321213.png)
+
+在做脚步声之前，先加一个Sync Marker，它的作用是当我们在不同的动画之间进行混合时，它会及时做同步，使得脚步动画和通知同步，例如想在右脚发出声音的同时发出通知
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第10分50秒）
+
+#### Montage蒙太奇
+
+在c++中设置UAnimMontage
+
+![image-20250323110024139](ue.assets/image-20250323110024139.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第9分10秒）
+
+##### Montage Section
+
+![image-20250323105238480](ue.assets/image-20250323105238480.png)
+
+![image-20250323105745342](ue.assets/image-20250323105745342.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第6分15秒）
+
+
+
+sections编排
+
+![image-20250323105842083](ue.assets/image-20250323105842083.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第8分10秒）
+
+##### Anim Slot Manager
+
+![image-20250323105502028](ue.assets/image-20250323105502028.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第6分40秒）
+
+
+
+在动画蓝图中使用蒙太奇插槽
+
+![image-20250323111224855](ue.assets/image-20250323111224855.png)
+
+之后将其缓存并使用
+
+![image-20250323111353779](ue.assets/image-20250323111353779.png)
+
+![image-20250323111417453](ue.assets/image-20250323111417453.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第14分50秒）
+
+
+
+##### 在c++中利用AnimInstance控制蒙太奇播放
+
+```c++
+UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+if (AnimInstance && FireWeaponMontage) {
+    AnimInstance->Montage_Play(FireWeaponMontage);
+    FName SectionName = bAiming ? FName("RifleAim") : FName("RifleHip"); // Montage Section
+    AnimInstance->Montage_JumpToSection(SectionName); // Montage Section跳转播放
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第11分30秒）
+
+#### 从Mesh中获取AnimInstance
+
+```c++
+UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+```
+
+#### 角色被击中时的蒙太奇动画
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-80_Hitting the Character）
+
+### 音效
+
+#### SoundCue
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第3分20秒）
+
+#### Attenuation
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第6分15秒）
 
 ### Seamless Travel
 
@@ -4297,6 +4715,74 @@ SetOwner已经被网络复制了，不需要再手动做复制。而且其通知
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-40_Remote Procedure Calls第11分25秒）
 
+
+
+在SpawnActor时通过FActorSpawnParameters设置武器发射出的子弹的Owner，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-65_Spawning the Projectile第11分25秒）
+
+
+
+AttachActor后，WeaponActor和Character->GetMesh()就建立了联系，此时可以通过weapon直接获取Character->GetMesh()中的骨骼信息
+
+```c++
+FTransform RightHandTransform = EquippedWeapon->GetWeaponMesh()->GetSocketTransform(FName("hand_r"), ERelativeTransformSpace::RTS_World); // Hand_R为角色身上的骨骼，GetSocketTransform不区分大小写，因此hand_r == Hand_R，这里直接通过weapon获取到了角色的骨骼信息
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第9分30秒）
+
+#### 从Socket处SpawnActor时X轴朝向很重要
+
+![image-20250323230759491](ue.assets/image-20250323230759491.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-70_Bullet Shells第2分20秒）
+
+
+
+SpawnActor时使用Socket的位置和旋转
+
+```c++
+const* Socket = Mesh->GetSocketByName(FName("AmmoEject"));
+FTransform SocketTransform = Socket->GetSocketTransform(Mesh);
+
+UWorld* World = GetWorld();
+World->SpawnActor<>(
+	ActorClass,
+    SocketTransform.GetLocation(),
+    SocketTransform.GetRotation().Rotator() // 需要转Rotator
+);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-70_Bullet Shells第11分10秒）
+
+#### 解决当角色背靠墙体太近时屏幕被武器挡住的问题
+
+一定距离时让武器不可见
+
+```c++
+if (IsLocallyControlled()) {
+    WeaponMesh->bOwnerNoSee = true; // 只对Owner不可见
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-79_Extending the Trace Start第8分40秒）
+
+#### 自动开火
+
+在客户端使用TimerDelay实现
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-82_Automatic Fire）
+
 ### 网络
 
 #### DOREPLIFETIME_CONDITION
@@ -4314,7 +4800,7 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 #### IsLocallyControlled
 
-判断server中托管的pawn是否为远端本地控制
+场景一：判断server中托管的pawn是否为远端本地控制
 
 有时候使用了OnRep_Func进行网络复制，但复制只能是从Server复制到Client不能反向，所以导致远端本地触发时OnRep_Func失效
 
@@ -4332,7 +4818,7 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 
 
-筛选本地其他用户
+场景二：筛选本地其他Character
 
 ```c++
 if (!Character->HasAuthority() && !Character->IsLocallyControlled()) // ...
@@ -4341,6 +4827,44 @@ if (!Character->HasAuthority() && !Character->IsLocallyControlled()) // ...
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第8分25秒）
+
+
+
+场景三：筛选本地控制Character
+
+```c++
+if (!Character->HasAuthority() && Character->IsLocallyControlled()) // ...
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-51_Pitch in Multiplayer第2分40秒）
+
+
+
+场景四：筛选在服务器上但非服务器本地控制的Character，也就是客户端控制的Character
+
+```c++
+if (Character->HasAuthority() && !Character->IsLocallyControlled()) // ...
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-51_Pitch in Multiplayer第4分）
+
+
+
+在动画蓝图中直接调用IsLocallyControlled是线程不安全的：
+
+![image-20250324212506215](ue.assets/image-20250324212506215.png)
+
+正确做法是在c++的AnimInstance上新建bLocallyControlled并在线程安全的方法中设置它（这里是在AnimInstance的NativeUpdateAnimation方法中设置了该变量）：
+
+![image-20250324212630516](ue.assets/image-20250324212630516.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第22分）
 
 #### Overlap等事件只在server上生成
 
@@ -4356,19 +4880,99 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-43_Aiming第15分）
 
-### friend友元的妙用
+#### bReplicates的解释
 
-![image-20250321094840403](ue.assets/image-20250321094840403.png)
+bReplicates不开启时物体拥有所有机器的权限，它将在各自的机器上生成并且独立于服务器存在；
 
-此时UCombatComponent拥有了访问UBlasterCharacter内容的权限，包括私有内容
+bReplicates开启时Server生成它并传播到其他Client，Server拥有它的所有权限；
 
 参考：
 
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第8分）
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-67_Projectile Tracer第8分15秒）
 
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第11分10秒）
+#### FVector_NetQuantize
+
+该FVector对网络发送数据进行了优化
+
+![image-20250323224708969](ue.assets/image-20250323224708969.png)
+
+![image-20250323224407593](ue.assets/image-20250323224407593.png)
+
+![image-20250323224812978](ue.assets/image-20250323224812978.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-68_Replicating the Hit Target第2分20秒）
+
+#### OnRep_ReplicatedMovement
+
+优化Movement的网络部分，使其更加丝滑
+
+如果在动画蓝图nativetick中通过网络更新Simulated角色动作，可能会导致抖动。那是因为动画蓝图nativetick比网络更新频率快多了，会导致Simulated角色的nativetick中会掺插0值，这是抖动的根本原因
+
+此时应该使用OnRep_ReplicatedMovement函数，它跟网络更新频率一致，可以杜绝0值
+
+![image-20250325141631625](ue.assets/image-20250325141631625.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-81_Smooth Rotation for Proxies第16分20秒）
+
+#### Character拥有比PlayerState更快的网络复制
+
+所以血条等需要及时更新的信息可以放在Character
+
+![image-20250325150619991](ue.assets/image-20250325150619991.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-85_Health第50秒）
+
+#### Replicated比RPC效率要高
+
+能用Replicated解决的不要用RPC
+
+比如在这个案例中作者将原先用RPC的函数删除，并挪到OnRep_Func中，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第15分）
+
+原因是Replicated的变量会考虑压缩再传输，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第27分20秒）
 
 ### ACharacter
+
+#### 角色移动时获取正确的方向
+
+朝前方向
+
+```c++
+void MoveForward(float UserInputMagnitude) {
+    if (Controller != nullptr && UserInputMagnitude != 0.f) {
+        const FRotator YawRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
+        const FVector Direction(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X));
+        AddMovementInput(Direction, Value);
+    }
+}
+```
+
+朝右方向
+
+```c++
+void MoveForward(float UserInputMagnitude) {
+    if (Controller != nullptr && UserInputMagnitude != 0.f) {
+        const FRotator YawRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
+        const FVector Direction(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y));
+        AddMovementInput(Direction, Value);
+    }
+}
+```
+
+
+
+上面这些信息在矫正武器旋转时也很有用，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第3分15秒）
 
 #### PostInitializeComponents
 
@@ -4473,11 +5077,532 @@ Character->GetBaseAimRotation();
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-45_Leaning and Strafing第1分35秒）
 
+#### 网络复制频率设置
+
+![image-20250322225747126](ue.assets/image-20250322225747126.png)
+
+通常设置为66和33，越高越流畅网络带宽要求越高
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第2分10秒）
+
+
+
+在c++ Character中设置网络复制频率
+
+![image-20250322225913977](ue.assets/image-20250322225913977.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第4分10秒）
+
+#### Rotation Rate
+
+可以控制角色的转向速度
+
+使用的前提是orient character to move需要开启
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-57_Crouch Unequipped第3分05秒）
+
+
+
+在c++中设置该属性
+
+![image-20250322232141925](ue.assets/image-20250322232141925.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-57_Crouch Unequipped第3分40秒）
+
+#### 重写Jump
+
+场景：在Crouch状态下则UnCrouch，在UnCrouch状态下Jump
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-57_Crouch Unequipped第4分35秒）
+
+#### Damage伤害
+
+通过`UGameplayStatics::ApplyDamage`发起伤害：
+
+![image-20250325151924834](ue.assets/image-20250325151924834.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第5分45秒）
+
+
+
+绑定OnTakeAnyDamage事件来承受伤害：
+
+![image-20250325152605751](ue.assets/image-20250325152605751.png)
+
+还有OnTakePointDamage、OnTakeRadialDamage等伤害事件
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第12分30秒）
+
+### friend友元的妙用
+
+![image-20250321094840403](ue.assets/image-20250321094840403.png)
+
+此时UCombatComponent拥有了访问UBlasterCharacter内容的权限，包括私有内容
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第8分）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-39_Equipping Weapons第11分10秒）
+
 ### 项目之间迁移注意资产相对路径一致
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-49_Aim Offsets第16分10秒）
+
+### 多人射击网游的网络优化
+
+参考：
+
+`多人联机-C++多人射击游戏教程-配置DefaultEngine.ini-设置多人射击网游的Server Net Tick Rate`章节
+
+`多人联机-C++多人射击游戏教程-ACharacter-网络复制频率设置`章节
+
+### 屏幕空间到世界空间
+
+场景：射击游戏朝屏幕准星开枪射击
+
+#### 从c++获取屏幕大小和屏幕比例
+
+```c++
+FVector2D ViewportSize;
+if (GEngine && GEngine->GameViewport) {
+    GEngine->GameViewport->GetViewportSize(ViewportSize); // 获取屏幕大小
+}
+FVector2D CrosshairLocation(ViewportSize.X / 2.f, ViewportSize.Y / 2.f); // 获取屏幕中心位置
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-64_The Hit Target第2分30秒）
+
+#### 屏幕空间投射到世界空间
+
+```c++
+#define TRACE_LENGTH 80000;
+
+FVector2D ViewportSize;
+if (GEngine && GEngine->GameViewport) {
+    GEngine->GameViewport->GetViewportSize(ViewportSize); // 获取屏幕大小
+}
+FVector2D CrosshairLocation(ViewportSize.X / 2.f, ViewportSize.Y / 2.f); // 获取屏幕中心位置
+
+FVector CrosshairWorldPosition;
+FVector CrosshairWorldDirection;
+bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(
+	UGameplayStatics::GetPlayerController(this, 0),
+    CrosshairLocation,
+    CrosshairWorldPosition,
+    CrosshairWorldDirection
+); // 获取屏幕空间位置在世界空间的位置以及它所指向的方向
+
+if (bScreenToWorld) {
+    FVector Start = CrosshairWorldPosition;
+    FVector End = Start + CrosshairWorldDirection * TRACE_LENGTH;
+    
+    // 射线检测
+    FHitResult TraceHitResult;
+    GetWorld()->LineTraceSingleByChannel(
+    	TraceHitResult,
+        Start, End,
+        ECollisionChannel::ECC_Visibility
+    );
+    
+    if (!TraceHitResult.bBlockingHit) {
+        TraceHitResult.ImpactPoint = End;
+    } else {
+        // ...
+    }
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-64_The Hit Target第4分05秒）
+
+### 摄像机
+
+#### Socket Offset
+
+射击游戏通常需要调整摄像机往边上稍微偏一点，这样可以看到准星
+
+![image-20250323145857918](ue.assets/image-20250323145857918.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-64_The Hit Target第15分30秒）
+
+#### 解决当角色背靠墙体太近时屏幕被身体挡住的问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-79_Extending the Trace Start第5分35秒）
+
+### ProjectileMovementComponent
+
+```c++
+ProjectileMovementComponent->bRotationFollowsVelocity = true;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-66_Projectile Movement Component第2分50秒）
+
+### 子弹特效
+
+作者用的是老粒子系统
+
+```c++
+UGameplayStatics::SpawnEmitterAttached(...); // 该方法可以使得粒子效果依附在子弹上
+```
+
+![image-20250323152255017](ue.assets/image-20250323152255017.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-67_Projectile Tracer）
+
+### 物理
+
+#### 开启刚体碰撞通知
+
+```c++
+Mesh->SetSimulatePhysics(true);
+Mesh->SetNotifyRigidBodyCollision(true); // 开启刚体碰撞通知之后Mesh才能响应OnOverlap等碰撞事件
+```
+
+蓝图版本：
+
+![image-20250324104116060](ue.assets/image-20250324104116060.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-71_Shell Physics第12分40秒）
+
+### HUD
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-72_Blaster HUD and Player Controller第1分）
+
+
+
+`AHUD::DrawHUD()`，该函数会在每一帧调用
+
+```c++
+virtual void DrawHUD() override;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-72_Blaster HUD and Player Controller第3分05秒）
+
+
+
+`AHUD::DrawTexture()`
+
+![image-20250324182704554](ue.assets/image-20250324182704554.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-73_Drawing the Crosshairs第5分30秒）
+
+#### UTexture2D
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-72_Blaster HUD and Player Controller第4分15秒）
+
+
+
+压缩优化，将资产压缩格式改为UserInterface2D(RGBA)
+
+![image-20250324142801352](ue.assets/image-20250324142801352.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-72_Blaster HUD and Player Controller第6分40秒）
+
+
+
+获取尺寸
+
+```c++
+Texture->GetSizeX();
+Texture->GetSizeY();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-73_Drawing the Crosshairs第4分）
+
+#### 动态准星绘制
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-74_Crosshair Spread）
+
+
+
+根据角色移动速度、是否在空中、是否在瞄准中等状态计算准星偏移举例，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-74_Crosshair Spread第6分50秒）
+
+#### 优化准星绘制
+
+只有IsLocallyControlled的玩家才需要绘制准星
+
+```c++
+if (Character->IsLocallyControlled()) {
+    // 绘制准星
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming第11分30秒）
+
+#### 瞄准时缩小准星、开火时放大准星
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-77_Shrink Crosshairs when Aiming）
+
+#### 射线检测到敌人时改变准星颜色
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-78_Change Crosshairs Color）
+
+### 矫正武器旋转
+
+开火时发现子弹是歪掉的，并没有跟枪管对齐：
+
+```c++
+// 比较枪口位置MuzzleFlash到沿MuzzleFlash向前向量*1000位置的射线 与 MuzzleFlash到屏幕中心射线检测击中目标HitTarget位置的射线的区别
+FTransform MuzzleTipTransform = EquippedWeapon->GetWeaponMesh()->GetSocketTransform(FName("MuzzleFlash"), ERelativeTransformSpace::RTS_World);
+FVector MuzzleX(FRotationMatrix(MuzzleTipTransform.GetRotation().Rotator()).GetUnitAxis(EAxis::X)); // 获取枪口位置MuzzleFlash的向前向量
+// 通过DrawDebugLine比较（MuzzleFlash到MuzzleFlash + MuzzleX * 1000.f）和（MuzzleFlash到屏幕中心射线检测击中目标HitTarget）的区别
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第3分15秒）
+
+
+
+需要调整右手骨骼让他朝向HitTarget
+
+获取右手骨骼hand_r到屏幕中心射线检测击中目标HitTarget的LookAtRotation
+
+```c++
+// FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(RightHandTransform.GetLocation(), BlasterCharacter->GetHitTarget());
+// 由于hand_r的x轴朝向是向内的，所以要这样写：
+FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(RightHandTransform.GetLocation(), RightHandTransform.GetLocation() + (RightHandTransform.GetLocation() - BlasterCharacter->GetHitTarget())); 
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第10分10秒）
+
+
+
+通过Transform(Modify) Bone节点修改hand_r骨骼的transform
+
+![image-20250324194837297](ue.assets/image-20250324194837297.png)
+
+关闭不必要的pin
+
+![image-20250324194937393](ue.assets/image-20250324194937393.png)
+
+将模式修改为Replace Existing以及World Space
+
+![image-20250324195030150](ue.assets/image-20250324195030150.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第11分40秒）
+
+
+
+矫正后别忘了要先计算正确的hand_r位置后再应用FABRIK IK，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第15分15秒）
+
+
+
+优化点：
+
+武器正确旋转的效果只对当前正在控制的玩家敏感，对于模拟玩家其实并不重要，所以应该跳过模拟玩家相关计算以及取消HitTarget每一帧的网络复制
+
+![image-20250324212106626](ue.assets/image-20250324212106626.png)
+
+在动画蓝图中也应该只对LocallyControlled的玩家进行计算，跳过其他所有计算
+
+![image-20250324213203854](ue.assets/image-20250324213203854.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第18分30秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第21分40秒）
+
+
+
+#### 解决目标突变时武器旋转突变问题
+
+使用平滑插值即可解决，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-78_Change Crosshairs Color第11分40秒）
+
+#### 解决目标在摄像机和角色之间时武器旋转问题
+
+由于射线是从camera中心射出来的，因此当有物体在摄像机和角色之间时，武器就会指向错误的方向
+
+解决方案：将射线起点推进至与角色齐平，这样射线即不会打到自己身上也不会打到背后的物体
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-79_Extending the Trace Start）
+
+### 瞄准时调整FOV控制画面放大缩小
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming）
+
+
+
+获取相机FOV（FieldOfView）
+
+```c++
+Camera->FieldOfView;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming第7分20秒）
+
+设置相机FOV
+
+```c++
+Camera->SetFieldOfView(CurrentFOV);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming第10分55秒）
+
+
+
+只有IsLocallyControlled的玩家才需要调整FOV
+
+```c++
+if (Character->IsLocallyControlled()) {
+    // 调整FOV
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming第11分15秒）
+
+
+
+调整FOV后镜头会变得模糊，此时可以通过调整Depth of Field中的Focal Distance来部分解决问题
+
+![image-20250324215007777](ue.assets/image-20250324215007777.png)
+
+调整后如果还是模糊，则可以调整Camera属性框的Aperture(F-stop)
+
+![image-20250324215222387](ue.assets/image-20250324215222387.png)
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-76_Zoom While Aiming第13分30秒）
+
+### UI
+
+#### 下载并导入字体
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-85_Health第5分05秒）
+
+### GameMode
+
+#### 玩家死亡
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-88_Blaster Game Mode第3分50秒）
+
+
+
+播放淘汰动画，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-89_Elim Animation）
+
+#### 玩家重生
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning）
+
+
+
+重生之前需要重置并销毁Character
+
+```c++
+if (Character) {
+    Character->Reset(); // Reset里面会有很多操作，例如Controller->UnPossess()等，参考视频
+    Character->Destroy();
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第6分35秒）
+
+
+
+让Player在PlayerStart处重生
+
+```c++
+if (Controller) {
+    RestartPlayerAtPlayerStart(Controller， PlayerStart); // GameMode中调用的
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第8分30秒）
+
+
+
+获取世界中所有APlayerStart的实例
+
+```c++
+TArray<AActor*> Actors;
+UGameplayStatics::GetAllActorsOfClass(this, APlayerStart::StaticClass(), Actors);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第9分20秒）
 
 # TAttribute与Slate数据绑定
 
@@ -4672,6 +5797,12 @@ https://www.aigei.com/sound/class/fight/（爱给）
 
 参考：https://zhuanlan.zhihu.com/p/108442292（推荐几个免费 游戏技能音效下载网站）
 
+# Add Force/Add Impulse
+
+参考：
+
+https://www.incg.com.cn/ue4_add-force_vs_add-impulse/（ue4虚幻引擎Add Force / Add Impulse力和脉冲）
+
 # 风场（Wind）
 
 参考：https://blog.csdn.net/shenmifangke/article/details/80281904（ue4内植物碰撞和风力设置）、https://blog.csdn.net/qq_36917144/article/details/104010429（虚幻4创建旗帜和随机风力）
@@ -4824,7 +5955,11 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第4分20秒）
 
-## 动画蓝图方法
+## 动画蓝图节点
+
+参考：
+
+https://zhuanlan.zhihu.com/p/141266454（AdvancedLocomotionV4学习笔记（1）——动画节点）
 
 ### Transform(Modify) Bone
 
@@ -4841,6 +5976,24 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 参考：
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-9.Slingshot Attack Montage第55秒）
+
+### layered blend per bone
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blend-masks-and-blend-profiles-in-unreal-engine
+
+https://blog.csdn.net/weixin_45389639/article/details/109476448（UE4 layered blend per bone 节点详解）
+
+https://zhuanlan.zhihu.com/p/428242048（UE4分层混合节点Layered Blend Per Bone设置）
+
+### Modify Curve
+
+借助该节点，可以在运行时混合、缩放并重新映射动画曲线
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-blueprint-modify-curve-in-unreal-engine
 
 ## 动画序列编辑器
 
@@ -4896,15 +6049,17 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-composites
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-get-animation-variables-in-animation-blueprints-in-unreal-engine
 
-## layered blend per bone
+## MorphTargets网格体形变
+
+与blender的形态键配合可以完成捏脸功能
 
 参考：
 
-https://dev.epicgames.com/documentation/zh-cn/unreal-engine/blend-masks-and-blend-profiles-in-unreal-engine
+https://blog.csdn.net/u013412391/article/details/120827050（学习在UE中导入 Morph Targets 资源）
 
-https://blog.csdn.net/weixin_45389639/article/details/109476448（UE4 layered blend per bone 节点详解）
+https://www.cnblogs.com/kekec/p/18150759（SkeletalMesh之MorphTargets技术）
 
-https://zhuanlan.zhihu.com/p/428242048（UE4分层混合节点Layered Blend Per Bone设置）
+https://dev.epicgames.com/documentation/en-us/unreal-engine/BlueprintAPI/Animation/MorphTargets
 
 # 体积烟雾
 
@@ -5047,6 +6202,8 @@ https://zhuanlan.zhihu.com/p/58675771（UE4换装系统）、https://zhuanlan.zh
 https://blog.csdn.net/ZFSR05255134/article/details/119602023（[UE4]换装功能 SetMasterPoseComponent）
 
 https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.换装系统的基本原理）、https://blog.csdn.net/qq_52905520/article/details/124578023（ue4 换装系统 2.换装系统的场景捕捉）、https://blog.csdn.net/qq_52905520/article/details/125081700（ue4 换装系统3.最终成果）
+
+https://zhuanlan.zhihu.com/p/54900203（UE4[BP]角色换装系统的实现）
 
 # UMG
 
