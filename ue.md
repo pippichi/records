@@ -211,10 +211,30 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/gradient-material-fu
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/procedurals-material-functions-in-unreal-engine
 
-## 创建动态材质实例
+## 材质实例与动态材质实例
 
 ```c++
-UMaterialInstanceDynamic* DynamicMaterialInstace = UMaterialInstanceDynamic::Create(Material1, this);
+// Dynamic material instance that we can change at runtime
+UPROPERTY(VisibleAnywhere)
+UMaterialInstanceDynamic* MaterialInstanceDynamic;
+
+// Material instance set on the Blueprint, used with the dynamic material instance
+UPROPERTY(EditAnywhere)
+UMaterialInstance* MaterialInstance;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第10分10秒）
+
+
+
+创建并设置动态材质实例：
+
+```c++
+UMaterialInstanceDynamic* DynamicMaterialInstace = UMaterialInstanceDynamic::Create(MaterialInstance1, this);
+
+Mesh->SetMaterial(0, DynamicMaterialInstace);
 ```
 
 参考：
@@ -1557,6 +1577,8 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-5.Get Live Players Within Radius第1分50秒）
 
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-119_Rocket Projectiles第5分）
+
 ## 虚幻5C++教程使用GAS制作RPG游戏第二部分
 
 ### 动画序列
@@ -2398,11 +2420,15 @@ FString::Printf(TEXT("宽字符字符串：%s"), L"很长的一段字符串");
 
 宽字符花费更多的存储空间，比标准字符类型 char存储更多的字符，通常用于支持国际化和多语言字符集（例如，中文、日文等）
 
-
-
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-24. Spell Descriptions第2分）
+
+#### `FString::Printf`中%d”的使用方法
+
+```c++
+FString::Printf(TEXT("%02d")); // 02表示2位数，用0补位，例如：11、12、03、04
+```
 
 #### RemoveFromStart字符串裁切
 
@@ -3559,6 +3585,16 @@ World->ServerTravel("/Game/..");
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-5_局域网连接第2分50秒）
 
+
+
+命令行测试ServerTravel
+
+![image-20250326190410678](ue.assets/image-20250326190410678.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-117_Restart Game第3分30秒）
+
 #### ClientTravel
 
 ```c++
@@ -4599,11 +4635,41 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第3分20秒）
 
+
+
+飞行音效播放了一次就停掉了，解决方案：设置为Looping
+
+![image-20250326233822976](ue.assets/image-20250326233822976.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails第24分25秒）
+
+
+
+调整音量
+
+![image-20250326234030554](ue.assets/image-20250326234030554.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails第24分55秒）
+
 #### Attenuation
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-59_Footstep and Jump Sounds第6分15秒）
+
+
+
+Attenuation失效，听不见音效，解决方案：Virtualization Mode切换为Play when Silent
+
+![image-20250326233559286](ue.assets/image-20250326233559286.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails第22分45秒）
 
 ### Seamless Travel
 
@@ -4782,6 +4848,138 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-82_Automatic Fire）
+
+#### 丢弃武器
+
+```c++
+// 改变武器状态
+SetWeaponState(EWeaponState::EWS_Dropped);
+
+// 分离Mesh
+FDetachmentTransformRules DetachRules(EDetachmentRule::KeepWorld, true); // EDetachmentRule还有一个选项是EDetachmentRule::KeepRelative
+WeaponMesh->DetachFromComponent(DetachRules);
+
+// 清除武器所有者
+SetOwner(nullptr);
+OwnerCharacter = nullptr;
+OwnerController = nullptr;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-94_Disable Movement when Elimmed第10分30秒）
+
+#### 处理弹夹剩余子弹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-99_Weapon Ammo）
+
+
+
+由于weapon需要先SetOwner才能修改HUD中的子弹数量，因此需要重写OnRep_Owner并完成该操作
+
+```c++
+void AWeapon::OnRep_Owner() {
+    Super::OnRep_Owner();
+    if (Owner == nullptr) { // 考虑到了丢弃武器的情况
+        OwnerCharacter = nullptr;
+		OwnerController = nullptr;
+    } else {
+	    SetHUDAmmo();
+    }
+}
+```
+
+
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-99_Weapon Ammo第17分40秒）
+
+#### 是否可以开火
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-100_Can Fire）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-105_Allowing Weapon Fire）
+
+
+
+#### 处理备用弹药
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-101_Carried Ammo）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-102_Displaying Carried Ammo）
+
+
+
+处理换弹动画，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-103_Reloading第4分20秒）
+
+换弹时需要关闭持枪时的手部IK，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-104_Reloading Combat State第15分）
+
+利用动画通知将换弹状态由换弹中切换回未在换弹，使得客户端可以再次换弹
+
+![image-20250326133247723](ue.assets/image-20250326133247723.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-104_Reloading Combat State第18分25秒）
+
+
+
+换弹时计算正确的弹药值，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-106_Updating Ammo第6分）
+
+
+
+换弹时取消AimOffset和RightHand旋转，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-107_Reload Effects第7分45秒）
+
+#### 制作火箭筒
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-119_Rocket Projectiles）
+
+
+
+添加火箭筒飞行音效，使用USoundCue生成UAudioComponent实例并暂存，并给它设置USoundAttenuation参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails第17分45秒）
+
+在OnHit时停止飞行音效
+
+```c++
+if (AudioComponent->IsPlaying()) {
+    AudioComponent->Stop();
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails第22分10秒）
+
+##### 制作火箭筒烟雾轨迹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails）
+
+##### 自定义火箭筒各生命周期的行为
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails）
 
 ### 网络
 
@@ -5146,6 +5344,96 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第12分30秒）
+
+#### SpawnCollisionHandlingMethod
+
+![image-20250325222611171](ue.assets/image-20250325222611171.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第20分40秒）
+
+在c++中设置
+
+```c++
+SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第22分45秒）
+
+#### 死亡后禁止玩家操作并Destroyed
+
+```c++
+CharacterMovement->DisableMovement(); // 禁止移动
+CharacterMovement->StopMovementImmediately(); // 禁止鼠标旋转
+if (PlayerController) {
+    DisableInput(PlayerController); // 禁止玩家输入
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-94_Disable Movement when Elimmed第1分55秒）
+
+
+
+Destroyed是自带网络复制的，会在所有机器上执行，所以可以利用这个函数做一些自定义的网络复制操作，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-95_Elim Bot第15分10秒）
+
+### APlayerController
+
+#### OnPossess
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-96_On Possess第2分）
+
+### PlayerState
+
+PlayerState中已经有很多内置的东西例如Score、PlayerName、PlayerId等了
+
+![image-20250326100302096](ue.assets/image-20250326100302096.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-97_Blaster Player State）
+
+
+
+PlayerState中通过GetPawn()跟Character建立联系，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-97_Blaster Player State第5分15秒）
+
+
+
+```c++
+GetPlayerState<MyPlayerState>(); // Character中可以通过这个函数直接获取PlayerState
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-97_Blaster Player State第23分）
+
+### SkeletalMesh
+
+#### Physics Asset
+
+![image-20250326085342229](ue.assets/image-20250326085342229.png)
+
+这个很重要，因为涉及到碰撞事件，例如子弹打过来击中的就是Physics Asset
+
+这个就是Physics Asset:
+
+![image-20250326085702487](ue.assets/image-20250326085702487.png)
+
+![image-20250326085721852](ue.assets/image-20250326085721852.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第17分55秒）
 
 ### friend友元的妙用
 
@@ -5544,6 +5832,159 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 ### GameMode
 
+#### GameMode和GameModeBase的区别
+
+![image-20250326151211290](ue.assets/image-20250326151211290.png)
+
+GameMode继承自GameModeBase，所以后者有的前者都有，在此基础上还多了一个功能叫Match State
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State）
+
+#### Match State
+
+![image-20250326151817697](ue.assets/image-20250326151817697.png)
+
+![image-20250326152613338](ue.assets/image-20250326152613338.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第1分50秒）
+
+
+
+添加自定义Match State：
+
+![image-20250326152033003](ue.assets/image-20250326152033003.png)
+
+![image-20250326152049020](ue.assets/image-20250326152049020.png)
+
+![image-20250326151939905](ue.assets/image-20250326151939905.png)
+
+![image-20250326152202198](ue.assets/image-20250326152202198.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第4分50秒）
+
+
+
+DELAYED START延迟开始阶段，需要通过bDelayedStart=true开启，此阶段会处于WaitingToStart这个Match State：
+
+![image-20250326152525447](ue.assets/image-20250326152525447.png)
+
+在此阶段，会生成一个默认的pawn供玩家在关卡飞行，直到手动调用StartMatch。
+
+在蓝图中设置DelayedStart：
+
+![image-20250326154811500](ue.assets/image-20250326154811500.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第5分45秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第10分25秒）
+
+
+
+每个Match State都会有自己的处理方法，这些内置的方法都是可以重写的：
+
+![image-20250326154030651](ue.assets/image-20250326154030651.png)
+
+![image-20250326154041169](ue.assets/image-20250326154041169.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第8分）
+
+
+
+在StartMatch中还可以通过重写HandleStartMatchRequest方法来控制Match State的结果：
+
+![image-20250326154334766](ue.assets/image-20250326154334766.png)
+
+可以发现默认情况下StartMatch后Match State就会转变为InProgress
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第9分35秒）
+
+
+
+##### 游戏开始前的倒计时阶段
+
+![image-20250326155717988](ue.assets/image-20250326155717988.png)
+
+LevelStartingTime表示加载游戏耗时，其他业务上的时间需要减掉这个时间才是正确的
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第12分30秒）
+
+##### OnMatchStateSet
+
+扩展OnMatchStateSet方法，可以做一些自定义操作比如HUD什么阶段展示等
+
+```c++
+virtual void OnMatchStateSet(); // 如果有自定义的Match State，就要重写这个方法
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-112_On Match State Set）
+
+
+
+UI数值不正确的原因：在一些必要的组件还未初始化前就调用了设置数值导致数值初始化失败。解决方案：在Tick中后置初始化数值。参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-112_On Match State Set第13分15秒）
+
+##### 自定义Match State制作游戏中倒计时阶段
+
+在.h文件中：
+
+```c++
+// 模仿内置MatchState写的，内置的用的ENGINE_API，自定义扩展的用项目自己的宏“MYPROJECTNAME_API”
+namespace MatchState {
+    extern MYPROJECTNAME_API const FName Cooldown; // Match duration has been reached. Display winner and begin cooldown timer.
+}
+```
+
+在.cpp文件中：
+
+```c++
+namespace MatchState {
+    const FName Cooldown = FName("Cooldown");
+}
+```
+
+之后便是扩展OnMatchStateSet，定义Cooldown行为
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-115_Custom Match States）
+
+
+
+游戏中倒计时结束时设置Match State为Cooldown
+
+```c++
+SetMatchState(MatchState::Cooldown); // 该函数后续会触发OnMatchStateSet，自然就会触发自定义的Cooldown行为
+```
+
+![image-20250326182850459](ue.assets/image-20250326182850459.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-115_Custom Match States第7分35秒）
+
+
+
+游戏结束，显示记分板UI，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-116_Cooldown Announcement）
+
 #### 玩家死亡
 
 参考：
@@ -5555,6 +5996,18 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 播放淘汰动画，参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-89_Elim Animation）
+
+
+
+玩家死亡后掉落到地板下面去的问题，原因是因为有重力，此时简单的把Movement给禁掉就能解决这个问题了
+
+```c++
+CharacterMovement->DisableMovement();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-119_Rocket Projectiles第26分35秒）
 
 #### 玩家重生
 
@@ -5604,6 +6057,432 @@ UGameplayStatics::GetAllActorsOfClass(this, APlayerStart::StaticClass(), Actors)
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-90_Respawning第9分20秒）
 
+#### 游戏倒计时
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-109_Game Timer）
+
+**时钟同步！**作者这里采用的是RTT近似估计（RoundTripTime网络传输损耗时间）
+
+![image-20250326145729045](ue.assets/image-20250326145729045.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-110_ Syncing Client and Server Time）
+
+利用Controller的ReceivedPlayer方法来尽早同步服务器时间：
+
+```c++
+virtual void ReceivedPlayer() override; // Sync with server clock as soon as posible
+```
+
+![image-20250326150430277](ue.assets/image-20250326150430277.png)
+
+设置以一定的频率同步服务器时间：
+
+![image-20250326150335496](ue.assets/image-20250326150335496.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-110_ Syncing Client and Server Time第15分）
+
+#### 获取世界中的所有玩家Controller
+
+```c++
+for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It) {
+    ABlasterPlayerController* BlasterPlayer = Cast<ABlasterPlayerController>(*It);
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-112_On Match State Set第6分35秒）
+
+#### 玩家中途加入游戏时获取必要信息
+
+Client需要从GameMode获取正确的服务器时间、Match State等信息，并且不同的Match State阶段所要做的事情也是不一样的。
+
+所以千万注意不能简单的在BeginPlay中初始化一些东西，应该根据Match State阶段去初始化。
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-114_Updating Warmup Time第1分30秒）
+
+
+
+设置正确的HUD时间，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-114_Updating Warmup Time第13分25秒）
+
+#### RestartGame重开游戏
+
+![image-20250326190041363](ue.assets/image-20250326190041363.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-117_Restart Game）
+
+### GameState
+
+可以处理玩家积分排名等
+
+![image-20250326192921493](ue.assets/image-20250326192921493.png)
+
+直接使用GameStateBase的扩展类GameState，原因是我们用了GameMode而不是GameModeBase，两者最好对应
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-118_Blaster Game State）
+
+
+
+通过UGameplayStatics获取GameState
+
+```c++
+UGameplayStatics::GetGameState(this);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-118_Blaster Game State第12分20秒）
+
+### 材质
+
+#### Dissolve溶解
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-91_Dissolve Material）
+
+##### 采样noise texture边缘
+
+拿到边缘信息后就可以制作边缘发光效果了
+
+![image-20250325224409919](ue.assets/image-20250325224409919.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-91_Dissolve Material第14分30秒）
+
+##### 将溶解材质应用到角色
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-92_Dissolving the Character）
+
+#### ParticleSubUV
+
+用于制作帧动画材质
+
+![image-20250326222209100](ue.assets/image-20250326222209100.png)
+
+![image-20250326222728077](ue.assets/image-20250326222728077.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第1分55秒）
+
+#### ParticleColor
+
+niagara会将颜色信息输入到该节点
+
+![image-20250326222340137](ue.assets/image-20250326222340137.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第3分45秒）
+
+#### DepthFade
+
+材质靠近墙壁或天花板时，越靠近就会越消失
+
+![image-20250326222700537](ue.assets/image-20250326222700537.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第6分35秒）
+
+### Niagara
+
+#### Niagara System
+
+创建一个Niagara System
+
+![image-20250326230329805](ue.assets/image-20250326230329805.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第22分05秒）
+
+#### Emitter
+
+##### SPRITE RENDERER
+
+该渲染器会是一个平面，且始终旋转face to camera，所以永远看不到它的侧面或背面
+
+![image-20250326223033814](ue.assets/image-20250326223033814.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第8分35秒）
+
+
+
+设置ParticleSubUV制作的烟雾帧动画材质，并设置其SUB UV
+
+![image-20250326223301662](ue.assets/image-20250326223301662.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第9分55秒）
+
+##### EMITTER UPDATE
+
+![image-20250326223358265](ue.assets/image-20250326223358265.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第11分）
+
+
+
+EMITTER的Life Cycle Mode以及Scalability Mode如果设置为Self则为自己管理，如果设为System则由System管理，System更加高效
+
+![image-20250326223642977](ue.assets/image-20250326223642977.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第11分15秒）
+
+
+
+添加Spawning Module
+
+![image-20250326223809601](ue.assets/image-20250326223809601.png)
+
+这里我们选择Spawn Rate
+
+![image-20250326223952388](ue.assets/image-20250326223952388.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第12分）
+
+##### PARTICLE SPAWN
+
+Set new or existing parameter directly
+
+![image-20250326224108391](ue.assets/image-20250326224108391.png)
+
+因为是一个64帧的动画材质，所以可以选择SubImageIndex
+
+![image-20250326224208585](ue.assets/image-20250326224208585.png)
+
+选择随机值并随机0-63之间的值
+
+![image-20250326224258426](ue.assets/image-20250326224258426.png)
+
+![image-20250326224535854](ue.assets/image-20250326224535854.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第13分20秒）
+
+###### INITIALIZE PARTICLE
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第17分25秒）
+
+
+
+Sprite Size Mode选择Random Uniform
+
+![image-20250326225113863](ue.assets/image-20250326225113863.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第17分30秒）
+
+
+
+Lifetime Mode选择Random
+
+![image-20250326225254842](ue.assets/image-20250326225254842.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第18分）
+
+
+
+Sprite Rotation Mode选择Random
+
+![image-20250326225744587](ue.assets/image-20250326225744587.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第19分10秒）
+
+##### PARTICLE UPDATE
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第15分10秒）
+
+###### Scale Sprite Size
+
+![image-20250326224713645](ue.assets/image-20250326224713645.png)
+
+Vector 2DFrom Float随机值
+
+![image-20250326224810717](ue.assets/image-20250326224810717.png)
+
+Float from Curve曲线值
+
+![image-20250326224905143](ue.assets/image-20250326224905143.png)
+
+![image-20250326225000819](ue.assets/image-20250326225000819.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第15分30秒）
+
+Scale Curve用于整体放大缩小
+
+![image-20250326230837512](ue.assets/image-20250326230837512.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第26分50秒）
+
+
+
+###### Scale Color
+
+![image-20250326225850582](ue.assets/image-20250326225850582.png)
+
+颜色选择Vector from Curve
+
+![image-20250326225946093](ue.assets/image-20250326225946093.png)
+
+![image-20250326230039467](ue.assets/image-20250326230039467.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第19分35秒）
+
+Scale Curve用于整体放大缩小
+
+![image-20250326231003484](ue.assets/image-20250326231003484.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第27分）
+
+#### 制作火焰效果
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第23分30秒）
+
+#### 在c++中操作Niagara
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails）
+
+### Curve
+
+![image-20250325230104322](ue.assets/image-20250325230104322.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第1分50秒）
+
+
+
+将Curve应用到Timeline：
+
+![image-20250325230203992](ue.assets/image-20250325230203992.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第3分25秒）
+
+
+
+#### UCurveFloat
+
+c++中的Curve，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第7分20秒）
+
+### UTimelineComponent
+
+在c++中使用Timeline
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第3分35秒）
+
+
+
+为Timeline设置UCurveFloat
+
+```c++
+Timeline->AddInterpFloat(CurveFloat, TrackCallbackFunc);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第8分）
+
+
+
+启动Timeline
+
+```c++
+Timeline->Play();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第8分45秒）
+
+#### FOnTimelineFloat
+
+1、这个其实就是Timeline中的float类型的Track轨道；
+
+2、它是一个事件；
+
+![image-20250325230821824](ue.assets/image-20250325230821824.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-93_Dissolving with Curves第4分25秒）
+
+### 如何优雅的检查nullptr
+
+1、初始化指针为nullptr并使用check；
+
+2、加UPROPERTY并使用check；★
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-98_Defeats第17分55秒）
+
+### 对于ENGINE_API这个宏的解释
+
+大概意思是告诉编译器这些数据已经定义了，并且是外部的DLL定义的
+
+![image-20250326152917198](ue.assets/image-20250326152917198.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第7分10秒）
+
 # TAttribute与Slate数据绑定
 
 参考：
@@ -5612,7 +6491,28 @@ https://zhuanlan.zhihu.com/p/465410846（UE4 TAttribute原理 与 Slate数据绑
 
 # UE常用数据结构TArray、TMap、TSet、TDoubleLinkedList
 
-参考：https://blog.csdn.net/ryacber/article/details/128758764（UE C++基础 | 常用数据容器 | TArray、TMap、TSet）、https://docs.unrealengine.com/5.1/en-US/API/Runtime/Core/Containers/TDoubleLinkedList/（UE官方TDoubleLinkedList）
+参考：
+
+https://blog.csdn.net/ryacber/article/details/128758764（UE C++基础 | 常用数据容器 | TArray、TMap、TSet）
+
+https://docs.unrealengine.com/5.1/en-US/API/Runtime/Core/Containers/TDoubleLinkedList/（UE官方TDoubleLinkedList）
+
+
+
+TMap无法使用replicated网络复制，原因是TMap使用了Hash函数，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-101_Carried Ammo第13分55秒）
+
+
+
+```c++
+TMap<int32, int32> Map;
+Map.Emplace(1, 1); // 相比于Add可以避免临时对象创建
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-102_Displaying Carried Ammo第2分05秒）
 
 # UE多线程以及线程安全
 
@@ -5787,6 +6687,8 @@ https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使�
 
 https://freesound.org/（free sound）
 
+https://zapsplat.com（free sound effect）
+
 https://soundscrate.com/electricity.html（Electricity Sound Effects）
 
 https://freesfx.co.uk/Default.aspx（freeSFX）
@@ -5893,15 +6795,21 @@ https://zhuanlan.zhihu.com/p/630381438（UE场景顶点动画效果实现）、h
 
 参考：https://zhuanlan.zhihu.com/p/599610314（UE5 Lyra项目学习（五） 模块化动画系统）、官方Lyra项目
 
+## virtual-bone虚拟骨骼
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/virtual-bones-in-unreal-engine
+
 ## Control rig与IK rig
 
 参考：
 
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-blueprint-skeletal-controls-in-unreal-engine
+
 https://zhuanlan.zhihu.com/p/499405167（★【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
 
 https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK（全身IK）原理详细解析与UE4应用实例教学）
-
-
 
 ## 使用IK重定向器修正滑步
 
@@ -6077,8 +6985,6 @@ https://zhuanlan.zhihu.com/p/138088668（UE4-Niagara基础解析）
 
 https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
 
-
-
 ## Dynamic Material Parameter
 
 在particle update中添加Dynamic Material Parameter指定粒子的属性
@@ -6098,6 +7004,12 @@ https://www.yuque.com/unrealengine/niagara/sfq70w（Niagara详解笔记）
 参考：
 
 https://zhuanlan.zhihu.com/p/427618536（UE5 GPU粒子通信_Index与ID使用详解）
+
+## 制作烟雾、喷泉特效
+
+参考：
+
+https://blog.csdn.net/weixin_45865901/article/details/135607651（虚幻UE 特效-Niagara特效实战-烟雾、喷泉）
 
 # 大世界
 
