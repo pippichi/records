@@ -6801,6 +6801,8 @@ https://zhuanlan.zhihu.com/p/630381438（UE场景顶点动画效果实现）、h
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/virtual-bones-in-unreal-engine
 
+https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
+
 ## Control rig与IK rig
 
 参考：
@@ -6819,7 +6821,7 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/fix-foot-sliding-wit
 
 ## 高级运动系统 (ALSV4)
 
-参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）、https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统 手部IK 虚拟骨骼）
+参考：https://zhuanlan.zhihu.com/p/604888297（【UE5】【3C】ALSv4重构分析（一） : 更好的ALS学习体验）、https://zhuanlan.zhihu.com/p/518724305（UE4 UE5 骨骼动画 高级运动系统 (ALSV4)）、https://zhuanlan.zhihu.com/p/547321935（UE4 UE5 骨骼动画 高级运动系统 脚部IK）
 
 ## 父类动画插槽
 
