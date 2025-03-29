@@ -428,6 +428,18 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-21_More Subsystem Delegates第2分30秒）
 
+## SPARSE稀疏委托
+
+用于不常被Bind或Add的委托上，减少内存占用
+
+参考：
+
+https://zhuanlan.zhihu.com/p/561175379（UE5 SparseDelegate）
+
+写法以及详细的解释，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-153_Pickup Spawn Point第12分05秒）
+
 # 函数
 
 ## Make Rot from ...
@@ -4098,6 +4110,8 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-29_Retargeting Animations）
 
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-133_Reload Animations）
+
 #### 解决重定向导致的角色悬空问题
 
 参考：
@@ -4566,13 +4580,15 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 
 
-sections编排
+sections编排与自动过渡
 
 ![image-20250323105842083](ue.assets/image-20250323105842083.png)
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-61_Fire Montage第8分10秒）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-134_Shotgun Reload第9分55秒）
 
 ##### Anim Slot Manager
 
@@ -4733,6 +4749,12 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 ### Weapon武器
 
+#### 获取武器资源
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-125_Submachine Gun）
+
 #### 制作武器
 
 参考：
@@ -4869,6 +4891,67 @@ OwnerController = nullptr;
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-94_Disable Movement when Elimmed第10分30秒）
 
+##### 解决丢弃武器后Server和Client武器的transform不一致问题
+
+```c++
+SetReplicateMovement(true); // 开启Movement网络复制即可
+```
+
+最好再检查一遍蓝图，以免被蓝图设置覆盖
+
+![image-20250327102935245](ue.assets/image-20250327102935245.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第18分35秒）
+
+#### ProjectileMovementComponent
+
+```c++
+ProjectileMovementComponent->bRotationFollowsVelocity = true;
+ProjectileMovementComponent->SetIsReplicated(true);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-66_Projectile Movement Component第2分50秒）
+
+##### 自定义ProjectileMovementComponent
+
+为了解决其内置的OnHit事件导致弹头碰到角色自身时停止移动悬空的问题
+
+创建c++类
+
+![image-20250327100550323](ue.assets/image-20250327100550323.png)
+
+搜索内置的HandleBlockingHit
+
+![image-20250327100636280](ue.assets/image-20250327100636280.png)
+
+上图可以看到EHandleBlockingHitResult中定义的三种碰撞结果行为，这正是HandleBlockingHit方法的返回值，我们可以通过修改返回值控制弹头碰撞后的行为：
+
+![image-20250327100958749](ue.assets/image-20250327100958749.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第2分45秒）
+
+此外还发现了一个控制碰撞反弹的函数HandleImpact
+
+![image-20250327101215392](ue.assets/image-20250327101215392.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第7分07秒）
+
+重写这两个函数改变弹头碰撞行为：
+
+![image-20250327101441206](ue.assets/image-20250327101441206.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第10分）
+
 #### 处理弹夹剩余子弹
 
 参考：
@@ -4945,6 +5028,20 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-107_Reload Effects第7分45秒）
 
+#### 子弹特效
+
+作者用的是老粒子系统
+
+```c++
+UGameplayStatics::SpawnEmitterAttached(...); // 该方法可以使得粒子效果依附在子弹上
+```
+
+![image-20250323152255017](ue.assets/image-20250323152255017.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-67_Projectile Tracer）
+
 #### 制作火箭筒
 
 参考：
@@ -4980,6 +5077,352 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails）
+
+##### 火箭筒飞行时碰撞忽略指定Actor
+
+```c++
+CollisionBox->IgnoreActorWhenMoving();
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第1分15秒）
+
+#### 制作Hit Scan Weapon
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-123_Hit Scan Weapons）
+
+##### 在扫中位置的法线方向释放粒子特效
+
+```c++
+UGameplayStatics::SpawnEmitterAtLocation(
+	World,
+    ImpactParticles,
+    End,
+    FireHit.ImpactNormal.Rotation() // 法线方向
+);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-123_Hit Scan Weapons第12分50秒）
+
+##### 调整弹壳正确位置
+
+![image-20250327104646859](ue.assets/image-20250327104646859.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-123_Hit Scan Weapons第22分10秒）
+
+##### 制作子弹飞行轨迹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-124_Beam Particles）
+
+
+
+设置特效参数（这里用的是旧特效系统，niagara同理）
+
+```c++
+UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(
+    World,
+    BeamParticles,
+    SocketTransform
+);
+if (Beam) {
+    Beam->SetVectorParameter(FName("Target"), BeamEnd); // 设置Beam特效中的属性
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-124_Beam Particles第6分20秒）
+
+##### 解决特效在Simulated角色失效的问题
+
+原因是最开始的if条件中过滤了Controller为空的，Simulated角色本就没有Controller，所以导致了这个问题，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-124_Beam Particles第8分30秒）
+
+##### 制作冲锋枪
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-125_Submachine Gun）
+
+课程源码中提供了一些特效、音效等资产
+
+![image-20250327111354236](ue.assets/image-20250327111354236.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-125_Submachine Gun第16分45秒）
+
+##### 制作霰弹枪
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-127_Shotgun）
+
+
+
+在半径范围内挑选随机向量作为霰弹枪子弹射出方向（或者直接用UE内置的锥形函数）
+
+```c++
+FVector TraceStart; // 射线Start
+FVector HitTarget; // 单射线击中处
+FVector ToTargetNormalized = (HitTarget - TraceStart).GetSafeNormal();
+FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
+FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, SphereRadius); // 随机方向
+FVector TraceEnd = SphereCenter + RandVec; // 射线End
+FVector Direction = TraceEnd - TraceStart; // 射线方向
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-127_Shotgun第27分50秒）
+
+
+
+完成弹道偏移制作，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-128_Weapon Scatter）
+
+
+
+控制音效的Volume与Pitch
+
+```c++
+UGameplayStatics::PlaySoundAtLocation(
+	this,
+    Sound,
+    Location,
+    .5f, // Volume
+    FMath::FRandRange(-.5f, .5f) // Pitch
+);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-128_Weapon Scatter第15分05秒）
+
+
+
+霰弹枪换弹跟其他武器不太一样
+
+![image-20250327222624147](ue.assets/image-20250327222624147.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-134_Shotgun Reload）
+
+##### 制作狙击枪
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-129_Sniper Rifle）
+
+ 制作瞄准镜UI，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-130_Sniper Scope）
+
+#### 制作榴弹发射器
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-131_Grenade Launcher）
+
+##### 制作榴弹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-132_Projectile Grenades第8分40秒）
+
+
+
+榴弹弹跳功能：
+
+```c++
+MovementComponent->bShouldBounce = true;
+```
+
+![image-20250327155822393](ue.assets/image-20250327155822393.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-132_Projectile Grenades第12分）
+
+FOnProjectileBounceDelegate炮弹弹跳事件以及FOnProjectileStopDelegate炮弹停止事件：
+
+![image-20250327160015644](ue.assets/image-20250327160015644.png)
+
+![image-20250327160141746](ue.assets/image-20250327160141746.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-132_Projectile Grenades第12分20秒）
+
+
+
+榴弹轨迹特效，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-132_Projectile Grenades第19分）
+
+
+
+#### 让枪带飘动起来
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-126_Strap Physics）
+
+##### 创建自定义Physics Asset物理资产
+
+![image-20250327112054381](ue.assets/image-20250327112054381.png)
+
+由于要制作飘带效果，所以别忘了勾选Create Body for All Bones
+
+![image-20250327112310704](ue.assets/image-20250327112310704.png)
+
+添加物理碰撞体
+
+![image-20250327112625805](ue.assets/image-20250327112625805.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-126_Strap Physics第2分35秒）
+
+##### 设置物理碰撞体的属性
+
+设置Physics Type为Simulated
+
+![image-20250327112932038](ue.assets/image-20250327112932038.png)
+
+设置其他属性
+
+![image-20250327113057632](ue.assets/image-20250327113057632.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-126_Strap Physics第7分20秒）
+
+#### 制作各个武器换弹动画
+
+1、找到动画资源；
+
+2、重定向动画；
+
+3、调整动画；
+
+4、利用Montage section将多种武器换弹动画拼到一起并配置动画通知、音效、特效等；
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-133_Reload Animations）
+
+#### 制作手榴弹
+
+手榴弹动画，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-136_Grenade Throw Montage）
+
+扔手榴弹时武器从右手切换到左手，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-137_Weapon Attachment while Throwing Grenades）
+
+
+
+获取手榴弹资产，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-138_Grenade Assets）
+
+
+
+丢手榴弹，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-139_Showing the Attached Grenade）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-140_Spawning Grenades）
+
+丢手榴弹时如果是IsLocallyControlled丢的，则需要把目标位置通过RPC传递给Server，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-141_Grenades in Multiplayer）
+
+
+
+手榴弹UI，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-142_Grenades in the HUD）
+
+
+
+丢手榴弹在Client和在Server的执行细节，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-142_Grenades in the HUD第10分50秒）
+
+#### 制作拾取物
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-143_Pickup Class）
+
+
+
+拾取物使用USceneComponent的好处，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-143_Pickup Class第8分）
+
+##### 制作子弹拾取物
+
+备用子弹使用了TMap，TMap由于Hash的原因无法网络复制，那么TMap除了第一次初始化备用子弹时可以在Client用，后续都只能在Server用，取出单值之后再复制给Client
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-144_Ammo Pickups）
+
+
+
+在c++中设置拾取物的位置偏移、体积缩放、CustomStencil
+
+```c++
+Sphere->AddLocalOffset(FVector(0.f, 0.f, 85.f));
+
+Mesh->SetRelativeScale3D(FVector(5.f, 5.f, 5.f));
+Mesh->SetRenderCustomDepth(true);
+Mesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_PURPLE);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-144_Ammo Pickups第20分55秒）
+
+#### 在特定的GameMode下让角色拥有默认武器
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-155_Spawn Default Weapon第2分20秒）
+
+
+
+beginplay中初始化HUD中的UI数值失败的原因：beginplay时HUD可能还没初始化。解决方案：在Tick中不断尝试更新UI数值直到成功。参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-155_Spawn Default Weapon第9分24秒）
+
+#### 副武器
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-156_Secondary Weapon）
+
+
+
+主副武器交换，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-157_Swap Weapons）
 
 ### 网络
 
@@ -5540,30 +5983,6 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-79_Extending the Trace Start第5分35秒）
-
-### ProjectileMovementComponent
-
-```c++
-ProjectileMovementComponent->bRotationFollowsVelocity = true;
-```
-
-参考：
-
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-66_Projectile Movement Component第2分50秒）
-
-### 子弹特效
-
-作者用的是老粒子系统
-
-```c++
-UGameplayStatics::SpawnEmitterAttached(...); // 该方法可以使得粒子效果依附在子弹上
-```
-
-![image-20250323152255017](ue.assets/image-20250323152255017.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-67_Projectile Tracer）
 
 ### 物理
 
@@ -6215,6 +6634,14 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第22分05秒）
 
+
+
+![image-20250328142518163](ue.assets/image-20250328142518163.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-149_ Jump Buffs第5分15秒）
+
 #### Emitter
 
 ##### SPRITE RENDERER
@@ -6239,6 +6666,8 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 ##### EMITTER UPDATE
 
+EMITTER的Life Cycle Mode以及Scalability Mode如果设置为Self则为自己管理，如果设为System则由System管理，System更加高效
+
 ![image-20250326223358265](ue.assets/image-20250326223358265.png)
 
 参考：
@@ -6247,13 +6676,19 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 
 
-EMITTER的Life Cycle Mode以及Scalability Mode如果设置为Self则为自己管理，如果设为System则由System管理，System更加高效
-
-![image-20250326223642977](ue.assets/image-20250326223642977.png)
+![image-20250328141213957](ue.assets/image-20250328141213957.png)
 
 参考：
 
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第11分15秒）
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs第26分15秒）
+
+
+
+![image-20250328142345047](ue.assets/image-20250328142345047.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-149_ Jump Buffs第4分40秒）
 
 
 
@@ -6268,6 +6703,14 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第12分）
+
+###### Spawn Rate
+
+![image-20250328140405246](ue.assets/image-20250328140405246.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs第20分45秒）
 
 ##### PARTICLE SPAWN
 
@@ -6325,6 +6768,14 @@ Sprite Rotation Mode选择Random
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第19分10秒）
 
+###### Sphere Location
+
+![image-20250328140606886](ue.assets/image-20250328140606886.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs第21分）
+
 ##### PARTICLE UPDATE
 
 参考：
@@ -6380,6 +6831,26 @@ Scale Curve用于整体放大缩小
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-120_Rocket Trails第27分）
+
+###### 生命周期结束时杀死粒子
+
+Kill Particles When Lifetime Has Elapsed
+
+![image-20250328131942321](ue.assets/image-20250328131942321.png)
+
+把这个取消勾选，粒子就不会自己消失了
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-146_Health Pickup第2分45秒）
+
+###### Add Velocity In Come
+
+![image-20250328140209841](ue.assets/image-20250328140209841.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs第20分40秒）
 
 #### 制作火焰效果
 
@@ -6482,6 +6953,102 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第7分10秒）
+
+### 后处理材质
+
+#### c++中开启/关闭CustomDepth
+
+```c++
+EnableCustomDepth(true/false);
+```
+
+![image-20250327231650528](ue.assets/image-20250327231650528.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-135_Weapon Outline Effect第7分35秒）
+
+### Buff
+
+BuffComponent
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-145_Buff Component）
+
+
+
+获取buff特效资源，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-146_Health Pickup）
+
+#### 加血
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-147_Healing the Character）
+
+#### 加速
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs）
+
+修改加速Pickup的特效，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-148_Speed Buffs第20分20秒）
+
+#### 跳跃
+
+获取音效资源（很好听）
+
+![image-20250328141710860](ue.assets/image-20250328141710860.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-149_ Jump Buffs）
+
+#### 护盾
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-152_Shield Buffs）
+
+#### 制作Buff生成器
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-153_Pickup Spawn Point）
+
+
+
+绑定Actor的销毁事件FActorDestroyedSignature
+
+![image-20250328153146728](ue.assets/image-20250328153146728.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-153_Pickup Spawn Point第12分05秒）
+
+
+
+站在即将生成的buff上，buff看起来好像没生成并且后续都不会再生成了的原因：buff刚生成就立刻销毁了以至于没有绑定到Overlap事件（该事件定义了销毁后继续生成的逻辑），导致后续都不再生成了。解决方案：延迟Overlap事件绑定。参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-153_Pickup Spawn Point第24分13秒）
+
+### 制作护盾
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-150_Shield Bar）
+
+
+
+更新HUD护盾值时没有正确更新的解决方案，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-151_Updating the Shield第6分50秒）
+
+
 
 # TAttribute与Slate数据绑定
 
