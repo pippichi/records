@@ -371,6 +371,26 @@ PlayerState中可以获取玩家信息，提供了GetPlayerName、GetPlayerId等
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第8分50秒）
 
+## 计算玩家ping
+
+法一：通过计算RTT间接获取ping
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第12分47秒）
+
+
+
+法二：使用PlayerState中的ping
+
+```c++
+PlayerState->GetPing() * 4; // 乘4是因为它被压缩了，虚幻将它除以4进行压缩，因此要得到正确的需要乘4
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第13分45秒）
+
 # Delegate委托
 
 参考：
@@ -3185,6 +3205,10 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 
 
+c++中使用UImage控制Image，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第5分）
+
 ## Named Slot组件（父级UI组件预留插槽）
 
 ![image-20250121155556157](ue.assets/image-20250121155556157.png)
@@ -3271,9 +3295,50 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG游戏（一）-10.Showing Damage Text第21分30秒）
 
+## Widget动画
+
+c++使用UWidgetAnimation控制动画
+
+```c++
+UPROPERTY(meta = (BindWidgetAnim), Transient) // 动画必须使用Transient，具体解释参考视频
+UWidgetAnimation HighPingAnimation;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第5分25秒）
 
 
-## 播放动画时内容失真问题解决方案
+
+c++中操控Widget动画
+
+```c++
+MyUserWidget->PlayAnimation(HighPingAnimation); // 播放动画
+
+if (MyUserWidget->IsAnimationPlaying(HighPingAnimation)) { // 判断动画是否正在播放中
+    MyUserWidget->StopAnimation(HighPingAnimation); // 停止播放
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第8分50秒）
+
+PlayAnimation还可传递更多参数
+
+![image-20250330091524908](ue.assets/image-20250330091524908.png)
+
+```c++
+MyUserWidget->PlayAnimation(HighPingAnimation,
+                           0.f, // Start time
+                           5); // Looping count
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第21分17秒）
+
+### 播放动画时内容失真问题解决方案
 
 参考：
 
@@ -5580,6 +5645,53 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 原因是Replicated的变量会考虑压缩再传输，参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-87_Damage第27分20秒）
+
+#### 监测ping
+
+参考：
+
+`PlayerState-计算玩家ping`章节
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning）
+
+##### 测试/模拟网络延迟
+
+在DefaultEngine.ini中配置PacketSimulationSettings
+
+延迟100ms：
+
+```ini
+[PacketSimulationSettings]
+PktLag = 100
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第19分30秒）
+
+#### 网络延迟感解决方案
+
+##### Local Fire Effects本地先触发开火特效
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-161_Local Fire Effects）
+
+##### 不重要的东西不需要通过Server，Client自行处理
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-162_Show the Widget Locally）
+
+#### 十字链表算法
+
+1、加速AOI角色位置检索效率，无视地图大小（其他算法可能由于地图变大或人数变多导致空间和时间效率急剧涨大）；
+
+2、起到反作弊功能，只将必要时的角色位置信息同步给客户端；
+
+参考：
+
+https://www.bilibili.com/video/BV14SXnYyEUE（第6分05秒）
 
 ### ACharacter
 
