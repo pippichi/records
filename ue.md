@@ -4679,6 +4679,16 @@ UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-80_Hitting the Character）
 
+#### 编辑器中停止动画
+
+勾选Pause Anims即可
+
+![image-20250330192817228](ue.assets/image-20250330192817228.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-172_Hit Boxes第10分53秒）
+
 ### 音效
 
 #### SoundCue
@@ -5790,6 +5800,71 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-171_Lag Compensation Component）
+
+
+
+关于历史快照中应该存储哪些信息的讨论，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-171_Lag Compensation Component第3分15秒）
+
+
+
+胶囊碰撞可以存储蹲/起的信息，盒子碰撞可以通过拼凑存储更精准的几何信息。甚至如果需要更加精准，可以存储每一个骨骼的骨骼变换，当然代价就是需要消耗更多资源
+
+![image-20250330190927934](ue.assets/image-20250330190927934.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-171_Lag Compensation Component第4分08秒）
+
+
+
+延迟补偿组件只有Server需要使用，因此不需要设置bReplicates为true，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-173_Frame Package第6分25秒）
+
+
+
+**使用盒子碰撞记录信息**
+
+![image-20250330192215176](ue.assets/image-20250330192215176.png)
+
+将UBoxComponent组件依附至人物骨骼
+
+```c++
+head = CreateDefaultSubobject<UBoxComponent>(TEXT("head"));
+head->SetupAttachment(CharacterMesh, FName("head"));
+```
+
+由于盒子组件很多，编辑器中可以隐藏部分盒子让显示更直观，将盒子一起选中取消勾选Visible即可：
+
+![image-20250330193101059](ue.assets/image-20250330193101059.png)
+
+通过Box Extent调整盒子大小
+
+![image-20250330193303751](ue.assets/image-20250330193303751.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-172_Hit Boxes）
+
+
+
+**制作FRAME PACKAGE帧包**
+
+![image-20250330195310507](ue.assets/image-20250330195310507.png)
+
+注意，帧包中的信息不能存指针，因为指针只是一个地址
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-173_Frame Package）
+
+
+
+**使用FRAME PACKAGE帧包**
+
+
 
 #### 十字链表算法
 
