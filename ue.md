@@ -4130,35 +4130,6 @@ FInputModeUIOnly中可以调用SetLockMouseToViewportBehavior，可以传入EMou
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-17_The Menu Class第7分10秒）
 
-### 配置DefaultGame.ini
-
-#### 设置MaxPlayers
-
-![image-20250320110633057](ue.assets/image-20250320110633057.png)
-
-这样可以有更多的玩家加入进来
-
-参考：
-
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第12分10秒）
-
-### 配置DefaultEngine.ini
-
-#### 设置多人射击网游的Server Net Tick Rate
-
-多人射击网游对网络延迟要求很高，必要情况下需要调整该属性值
-
-![image-20250322230334512](ue.assets/image-20250322230334512.png)
-
-```c++
-[/Script/OnlineSubsystemUtils.IpNetDriver]
-NetServerMaxTickRate=60
-```
-
-参考：
-
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第5分）
-
 ### 美术、音效资源
 
 美术资源参考：
@@ -5504,6 +5475,35 @@ DOREPLIFETIME_CONDITION(ABlasterCharacter, Variable1, COND_OwnerOnly); // 只复
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-38_Variable Replication第9分50秒）
 
+#### 配置DefaultGame.ini
+
+##### 设置MaxPlayers
+
+![image-20250320110633057](ue.assets/image-20250320110633057.png)
+
+这样可以有更多的玩家加入进来
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第12分10秒）
+
+#### 配置DefaultEngine.ini
+
+##### 设置多人射击网游的Server Net Tick Rate
+
+多人射击网游对网络延迟要求很高，必要情况下需要调整该属性值
+
+![image-20250322230334512](ue.assets/image-20250322230334512.png)
+
+```c++
+[/Script/OnlineSubsystemUtils.IpNetDriver]
+NetServerMaxTickRate=60
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-56_Net Update Frequency第5分）
+
 #### IsLocallyControlled
 
 场景一：判断server中托管的pawn是否为远端本地控制
@@ -5669,19 +5669,127 @@ PktLag = 100
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第19分30秒）
 
-#### 网络延迟感解决方案
+#### Lag（延迟/滞后）与Lag Compensation（延迟补偿/滞后补偿）
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts）
+
+
+
+关于ping的解释，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第25秒）
+
+
+
+Client-Side Prediction（本地预测），参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第6分）
+
+
+
+同步方案之一Interpolation（插值法），参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第8分33秒）
+
+同步方案之二EXTRAPOLATION（推断法），参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第9分18秒）
+
+虚幻引擎Character Movement Component中使用了这些方法的组合，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第10分）
+
+Rubber-banding（不同步很严重时，将直接传送），参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第10分29秒）
+
+
+
+Server-Side Rewind（服务器端倒带）
+
+服务器端倒带时会发生这种情况：敌人已经躲到掩体后了，然后突然又倒回去死了，这个特性可以改善高ping玩家体验，但是会降低低ping玩家体验
+
+对于高ping玩家，一般会启用服务器端倒带来做改善
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-159_Lag Compensation Concepts第11分19秒）
 
 ##### Local Fire Effects本地先触发开火特效
+
+这种滞后补偿的原则就是：Client几乎可以跟Server做一样的事，唯独计算伤害最后是在Server做的就行
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-161_Local Fire Effects）
+
+###### 解决射击偏移服务端客户端的一致性
+
+冲锋枪，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-163_Replicating Scatter）
+
+霰弹枪，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-164_Replicating Shotgun Scatter）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-165_Shotgun Fire RPCs）
 
 ##### 不重要的东西不需要通过Server，Client自行处理
 
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-162_Show the Widget Locally）
+
+##### Client-Side Prediction本地预测
+
+该技法本质上就是让Client尽快完成无关紧要但却对用户感官上敏感的东西，重要但不敏感的东西Server可以慢慢更新过来。
+
+虚幻内置的例如CharacterMovementComponent这些组件已经实现了本地预测了，这个技术很不错所以还可以应用到其他场景
+
+![image-20250330135232467](ue.assets/image-20250330135232467.png)
+
+原理解读，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-166_Client-Side Prediction）
+
+###### 应用到子弹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-167_Client-Side Predicting Ammo第3分12秒）
+
+###### 应用到Aiming瞄准
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-168_Client-Side Predicting Aiming）
+
+###### 应用到Reloading换弹
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-169_Client-Side Predicting Reloading）
+
+##### Server-Side Rewind服务端倒带
+
+服务端倒带非常依赖时钟同步！因为客户端要发送时间点给服务端
+
+服务器倒带也有缺点，那就是拐角死亡问题，这对低ping玩家不公平，所以什么场合下使用它也是需要考虑的
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-170_Server-Side Rewind）
+
+###### 制作延迟补偿组件
+
+该组件中可以包含服务端倒带算法
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-171_Lag Compensation Component）
 
 #### 十字链表算法
 
@@ -5937,6 +6045,12 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 Destroyed是自带网络复制的，会在所有机器上执行，所以可以利用这个函数做一些自定义的网络复制操作，参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-95_Elim Bot第15分10秒）
+
+#### 死亡后主副武器的处理
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-158_Drop the Secondary Weapon）
 
 ### APlayerController
 
@@ -7785,6 +7899,12 @@ https://blog.csdn.net/ttm2d/article/details/131304084（虚幻引擎程序化资
 https://zhuanlan.zhihu.com/p/608502007（虚幻杂记4 PreLoadScreen与LoadingScreen）、https://zhuanlan.zhihu.com/p/395615335（为UE4制作实时加载界面（蓝图向） —— Real-time Loading Screen for UE4（Blueprint））、https://zhuanlan.zhihu.com/p/372577094（UE的LoadingScreen加载界面及动态数据实现）
 
 https://blog.csdn.net/sinat_27456831/article/details/49933285（虚幻4动态加载画面（后台加载关卡）的实现）
+
+# Vehicle Movement Component载具组件
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-set-up-vehicles-in-unreal-engine
 
 # 换装系统
 
