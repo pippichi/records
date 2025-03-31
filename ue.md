@@ -2783,6 +2783,16 @@ ECollisionChannel CollisionChannel = UEngineTypes::ConvertToCollisionChannel(Tra
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Point Collection第20分15秒）
 
+#### 获取射线碰撞到的Component
+
+```c++
+HitResult.Component
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-187_Hit Box Collision Type第8分05秒）
+
 ### 由于目标已死亡导致炮弹停滞的解决方案
 
 可以检测相邻tick之间炮弹的位置，如果位置不变则直接爆炸
@@ -3429,9 +3439,27 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 # AI
 
-## AI行为树源码详解
+## 行为树
 
 参考：https://zhuanlan.zhihu.com/p/368889019（【图解UE4源码】AI行为树系统 目录）、https://zhuanlan.zhihu.com/p/371623309（【图解UE4源码】 其三（〇）行为树系统执行任务的流程 概述）、https://zhuanlan.zhihu.com/p/139514376（[UE4] 浅析UE4-BehaviorTree的特性）、https://zhuanlan.zhihu.com/p/143298443（UE4行为树详解（持续更新，才怪））
+
+## 状态树
+
+1、采用分层状态机结构；
+
+2、解决了行为树状态过渡不清晰、难维护、耦合度高、代码膨胀不好追溯、Blackboard值更新容易混乱等问题；
+
+3、但由于这个技术比较新，内置节点也比较少，短期内不会替代行为树；
+
+这两个东西用起来是差不多的，很多功能都可以平替，简单AI任务可以继续用行为树，复杂任务可以直接上状态树。
+
+参考：
+
+https://dev.epicgames.com/documentation/zh-cn/unreal-engine/state-tree-in-unreal-engine
+
+https://www.bilibili.com/video/BV1zQZCYgEy1（探索虚幻引擎UE5 全新「状态决策系统」AI框架：2024黄金海岸站）
+
+https://www.bilibili.com/video/BV1ed4y1b7Zk（[UOD2022]从行为树到状态树 | Epic 周澄清）
 
 ## SmartObjects
 
@@ -4867,6 +4895,18 @@ FTransform RightHandTransform = EquippedWeapon->GetWeaponMesh()->GetSocketTransf
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-75_Correcting the Weapon Rotation第9分30秒）
 
+
+
+设置了Owner，附属物才可以使用“服务器复制变量至Owner”的功能
+
+```c++
+DOREPLIFETIME_CONDITION(AWeapon, bUseServerSideRewind, COND_OwnerOnly);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-190_Limiting Server-Side Rewind第2分25秒）
+
 #### 从Socket处SpawnActor时X轴朝向很重要
 
 ![image-20250323230759491](ue.assets/image-20250323230759491.png)
@@ -4997,6 +5037,17 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-122_Rocket Movement Component第10分）
+
+##### 初始化速度与最大速度
+
+```c++
+ProjectileMovementComponent->InitialSpeed = 3500.f;
+ProjectileMovementComponent->MaxSpeed = 3500.f;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-184_Predict Projectile Path第8分30秒）
 
 #### 处理弹夹剩余子弹
 
@@ -5470,6 +5521,16 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-157_Swap Weapons）
 
+
+
+播放切换主/副武器时的蒙太奇动画，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-191_Swap Weapon Animation）
+
+由于CustomDepth的渲染导致快速切换武器时会有一点小问题，解决方案就是切换开始的时候关掉副武器的CustomDepth，等副武器成功切到背后之后（接收到切换武器结束的动画通知）再开启CustomDepth，并且要去掉任何其他地方的关于CustomDepth的操作，确保只有动画能控制它，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-191_Swap Weapon Animation第26分10秒）
+
 ### 网络
 
 #### DOREPLIFETIME_CONDITION
@@ -5606,7 +5667,7 @@ bReplicates开启时Server生成它并传播到其他Client，Server拥有它的
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-67_Projectile Tracer第8分15秒）
 
-#### FVector_NetQuantize
+#### FVector_NetQuantize、FVector_NetQuantize100
 
 该FVector对网络发送数据进行了优化
 
@@ -5619,6 +5680,22 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-68_Replicating the Hit Target第2分20秒）
+
+
+
+关于FVector_NetQuantize100：
+
+```c++
+FVector_NetQuantize100 InitialVelocity;
+```
+
+![image-20250331120737200](ue.assets/image-20250331120737200.png)
+
+它有2位小数位精度，比只有整数的FVector_NetQuantize要精确一点
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-184_Predict Projectile Path第16分35秒）
 
 #### OnRep_ReplicatedMovement
 
@@ -5678,6 +5755,16 @@ PktLag = 100
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-160_High Ping Warning第19分30秒）
+
+ue还提供了很多关于网络包测试的配置：
+
+![image-20250331210451828](ue.assets/image-20250331210451828.png)
+
+![image-20250331210547949](ue.assets/image-20250331210547949.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-192_Wrapping up Lag Compensation第1分32秒）
 
 #### Lag（延迟/滞后）与Lag Compensation（延迟补偿/滞后补偿）
 
@@ -5844,6 +5931,12 @@ head->SetupAttachment(CharacterMesh, FName("head"));
 
 ![image-20250330193303751](ue.assets/image-20250330193303751.png)
 
+c++中获取Box Extent：
+
+```c++
+BoxComponent->GetScaledBoxExtent();
+```
+
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-172_Hit Boxes）
@@ -5864,7 +5957,234 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 **使用FRAME PACKAGE帧包**
 
+参考：
 
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-174_Saving a Frame Package）
+
+
+
+DrawDebugBox
+
+![image-20250330205334532](ue.assets/image-20250330205334532.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-174_Saving a Frame Package第11分15秒）
+
+
+
+**FRAME HISTORY帧历史信息存储**
+
+使用TDoubleLinkedList数据结构来实现帧历史信息存储要优于使用TArray，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-175_Frame History）
+
+TDoubleLinkedList不能带UPROPERTY，它不是为蓝图设计的，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-175_Frame History第6分17秒）
+
+TDoubleLinkedListNode：
+
+```c++
+TDoubleLinkedList<FFramePackage>::TDoubleLinkedListNode* Node;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-176_Rewinding Time第21分）
+
+
+
+**设计一个REWINDING TIME倒带时间算法**
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-176_Rewinding Time）
+
+Client击中敌人的时间一般会在帧历史信息链表中某两个节点之间，可以通过Interpolate插值计算出近似的信息
+
+![image-20250330225321558](ue.assets/image-20250330225321558.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-176_Rewinding Time第8分58秒）
+
+编写ServerSideRewind方法，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-176_Rewinding Time第10分20秒）
+
+`FMath::VInterpTo`原理详解：
+
+![image-20250330230004240](ue.assets/image-20250330230004240.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-177_Interp Between Frames）
+
+编写帧插值函数，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-177_Interp Between Frames第3分49秒）
+
+通过插值获取近似的帧信息，在这里使用VInterpTo函数时，我们不关心DeltaTime，因此直接置1即可，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-177_Interp Between Frames第9分31秒）
+
+Server端通过倒带确认Hit真实结果，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-178_Confirming the Hit）
+
+编写倒带函数，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-178_Confirming the Hit第3分）
+
+使用倒带函数，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-179_Score Request）
+
+使用倒带函数时，一定要注意传递的时间，如果只是简单使用了同步过的服务器时间可能还是不行的，因为在Client端看到的敌人可能还不是真正的位置，还少算了一个单程RTT时间（总之，要始终记得Server才是计算的基线）：
+
+![image-20250331094816912](ue.assets/image-20250331094816912.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-179_Score Request第9分58秒）
+
+###### 在霰弹枪上应用服务器倒带
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-180_Server-Side Rewind for Shotguns）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-181_Confirming Shotgun Hits）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-182_Shotgun Score Request）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-183_Requesting a Shotgun Hit）
+
+###### 在Projectile武器上应用服务器倒带
+
+Projectile武器和射线武器不一样，它是有抛物线轨迹的，要获得这个轨迹可以用虚幻内置的PredictProjectilePath：
+
+![image-20250331110852168](ue.assets/image-20250331110852168.png)
+
+![image-20250331111008691](ue.assets/image-20250331111008691.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-184_Predict Projectile Path）
+
+
+
+c++中调用PredictProjectilePath
+
+```c++
+UGameplayStatics::PredictProjectilePath(Projectile, PredictProjectilePathParams, PredictProjectilePathResult);
+```
+
+![image-20250331111158644](ue.assets/image-20250331111158644.png)
+
+```c++
+FPredictProjectilePathParams PathParams; // 其中参数的详细解释见视频
+PathParams.bTraceWithChannel = true;
+PathParams.bTraceWithCollision = true;
+PathParams.DrawDebugTime = 5.f;
+PathParams.DrawDebugType = EDrawDebugTrace::ForDuration;
+PathParams.LaunchVelocity = GetActorForwardVector() * InitialSpeed;
+PathParams.MaxSimTime = 4.f;
+PathParams.ProjectileRadius = 5.f;
+PathParams.SimFrequency = 30.f;
+PathParams.StartLocation = GetActorLocation();
+PathParams.TraceChannel = ECollisionChannel::ECC_Visibility;
+PathParams.ActorsToIgnore.Add(this);
+```
+
+![image-20250331111418710](ue.assets/image-20250331111418710.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-184_Predict Projectile Path第4分10秒）
+
+
+
+从FPredictProjectilePathResult中获取碰撞信息
+
+![image-20250331151523525](ue.assets/image-20250331151523525.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-188_Projectile Server-Side Rewind第11分15秒）
+
+
+
+将Projectile分为本地的和服务器倒带专用的，用于服务器倒带的那个不需要网络复制
+
+![image-20250331134728194](ue.assets/image-20250331134728194.png)
+
+为什么要搞这么麻烦呢？根本原因还是因为Projectile武器和射线武器不一样，它的特性是需要一定的时间才能击中目标，它必须要有弹道模拟才能做服务器倒带。在此基础上，就必须有两个Projectile，一个用于权威计算，由Server生成并复制给Client；一个只是用于服务器倒带（非复制，由于非复制所以可以做到在本地控制时感觉不到延迟）。
+
+![image-20250331140603306](ue.assets/image-20250331140603306.png)
+
+最终结果就是：
+
+1、如果不使用服务器倒带，那么就跟以前一样，Server开火时Server不会感到延迟，其他的都感到一点点延迟；如果是Client开火，那么延迟更严重；
+
+2、如果使用服务器倒带，如果是Server和Client的IsLocallyControlled发射的炮弹，他们各自都不会感到延迟；Server和Client的非IsLocallyControlled只会感到一点点延迟（在接到开火指令后立刻发射非复制的炮弹，就因为非复制所以不需要像复制炮弹那样等待服务器生成权威的炮弹后再开火）；
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-186_Spawning Projectiles Locally）
+
+![image-20250331153829224](ue.assets/image-20250331153829224.png)
+
+黄框这里原先是关闭SSR的，为什么后来改为使用SSR了，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-189_Projectile Score Request第12分50秒）
+
+
+
+开始服务器倒带计算，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-188_Projectile Server-Side Rewind）
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-189_Projectile Score Request）
+
+
+
+思考：教程中没有给出火箭弹、手榴弹的服务器倒带方案，如何自己实现？
+
+火箭弹等Projectile使用径向伤害，因此需要在UBoxComponent基础上再继承一个AActor，使其能接收径向伤害即可
+
+###### 为服务器倒带设置新的碰撞检测通道
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-187_Hit Box Collision Type）
+
+###### 在ping很高时禁用服务器倒带
+
+注意，Client和Server需要一起禁用。
+
+武器通过事件接收服务器倒带禁用/启用标志，并通过网络复制传递给Client
+
+![image-20250331170017350](ue.assets/image-20250331170017350.png)
+
+当丢弃武器时移除绑定，降低开销
+
+![image-20250331201943052](ue.assets/image-20250331201943052.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-190_Limiting Server-Side Rewind）
+
+##### 更多关于网络延迟补偿的操作
+
+作者已经教了本地预测和服务端倒带等技巧，可以将这些技巧应用到更多地方
+
+![image-20250331211623738](ue.assets/image-20250331211623738.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-192_Wrapping up Lag Compensation第3分20秒）
 
 #### 十字链表算法
 
@@ -7255,20 +7575,6 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-111_Match State第7分10秒）
 
-### 后处理材质
-
-#### c++中开启/关闭CustomDepth
-
-```c++
-EnableCustomDepth(true/false);
-```
-
-![image-20250327231650528](ue.assets/image-20250327231650528.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-135_Weapon Outline Effect第7分35秒）
-
 ### Buff
 
 BuffComponent
@@ -7349,7 +7655,76 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-151_Updating the Shield第6分50秒）
 
+### 解决蓝图覆盖c++中修改的属性值的问题
 
+c++中重写PostEditChangeProperty，并使用c/c++语法`#if`条件编译将这段代码设置为只有在编辑器中才被编译
+
+由于加了条件编译，这段代码不会在打包构建中编译进项目
+
+```c++
+#if WITH_EDITOR
+virtual void PostEditChangeProperty(struct FPropertyChangedEvent& Event) override;
+#endif
+```
+
+在cpp实现中也需要用条件编译语句包裹
+
+```c++
+#if WITH_EDITOR
+void AProjectileBullet::PostEditChangeProperty(FPropertyChangedEvent& Event) {
+    Super::PostEditChangeProperty(Event);
+    
+    FName PropertyName = Event.Property != nullptr ? Event.Property->GetFName() : NAME_None; // NAME_None是UE内置的，它表示无FName
+    if (PropertyName == GET_MEMBER_NAME_CHECKED(AProjectileBullet, InitialSpeed)) // GET_MEMBER_NAME_CHECKED用于获取我们关心的变量的回调事件，它的返回为该变量的名字。这里我们希望通过变量名字获取InitialSpeed变量的更新回调事件
+    {
+        if (ProjectileMovementComponent) {
+            ProjectileMovementComponent->InitialSpeed = InitialSpeed; // 在回调事件中更新变量值，确保在蓝图编辑器中该值被动态修改掉
+            ProjectileMovementComponent->MaxSpeed = InitialSpeed; // 在回调事件中更新变量值，确保在蓝图编辑器中该值被动态修改掉
+        }
+    }
+}
+#endif
+```
+
+![image-20250331121709544](ue.assets/image-20250331121709544.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-185_Post Edit Change Property）
+
+### 作弊问题
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-193_ Cheating and Validation）
+
+使用ue内置的Validation校验游戏数据
+
+![image-20250331213649886](ue.assets/image-20250331213649886.png)
+
+```c++
+UFUNCTION(Server, Reliable, WithValidation)
+ServerFire(HitTarget, Damage);
+
+bool ServerFire_Validate(HitTarget, Damage) {
+    if (Damage >= TooMuchDamage) {
+        return false; // 发现异常就踢出玩家，玩家会回到大厅
+    }
+    return true; // 如果是正常的就允许继续执行RPC
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-193_ Cheating and Validation第8分20秒）
+
+更多WithValidation的信息参考官网：
+
+![image-20250331214303940](ue.assets/image-20250331214303940.png)
+
+实战：将射击频率Delay也作为参数传给ServerRPC，配合WithValidation监测Client是否作弊，参考：
+
+https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-193_ Cheating and Validation第13分30秒）
 
 # TAttribute与Slate数据绑定
 
