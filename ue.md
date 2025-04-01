@@ -319,6 +319,14 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://blog.csdn.net/zhangxiao13627093203/article/details/118385657（UE4 中GameInstance、GameMode、GameState、PlayerState和PlayerController的关系）
 
+## HandleMatchHasStarted
+
+```c++
+virtual void HandleMatchHasStarted();
+```
+
+可以在此函数中给玩家分组
+
 # GameState
 
 ![image-20250319235045844](ue.assets/image-20250319235045844.png)
@@ -358,6 +366,21 @@ https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使�
 GameInstance中可以直接访问GameState，参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-23_Tracking Incoming Players第4分50秒）
+
+
+
+Server、Client端都可以通过GameInstance可以获取到Subsystem：
+
+```c++
+UGameInstance* GameInstance = GetGameInstance();
+if (GameInstance) {
+    UMySubsystem* MySubsystem = GameInstance->GetSubsystem<UMySubsystem>();
+}
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第17分20秒）
 
 # PlayerState
 
@@ -3251,7 +3274,7 @@ https://www.bilibili.com/video/BV1JD421E7yC（虚幻5C++教程使用GAS制作RPG
 
 ### Rich Text Block
 
-Rich Text Block还可以跟DataTable连用
+RichTextBlock还可以跟DataTable连用
 
 参考：
 
@@ -3279,13 +3302,21 @@ https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使�
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-19. Are You Sure Widget第11分15秒）
 
+### Text Box
+
+TextBox可以让用户输入文本内容
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-220_Select Match Type第16分50秒）
+
 ## LISTS组件
 
 参考：
 
 https://zhuanlan.zhihu.com/p/127184008（[UE4蓝图]UMG中新手必晕的ListView详解）
 
-## Widget Switcher组件
+## Widget Switcher
 
 可以通过Active Widget Index切换显示组件
 
@@ -3294,6 +3325,12 @@ https://zhuanlan.zhihu.com/p/127184008（[UE4蓝图]UMG中新手必晕的ListVie
 参考：
 
 https://www.bilibili.com/video/BV1TH4y1L7NP（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（二）-7. Load Menu第55秒）
+
+## CheckBox
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-220_Select Match Type第2分10秒）
 
 ## User Interface
 
@@ -3436,6 +3473,28 @@ UButton* HostButton; // 注意当想要将该属性与蓝图中的Button组件�
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-18_Accessing our Subsystem第1分50秒）
+
+## 借助UCanvasPanelSlot获取组件大小位置等信息
+
+可以获取像Box这种组件的大小和位置，方便在代码中调整该组件及其子组件的transform
+
+```c++
+UCanvasPanelSlot* CanvasSlot = UWidgetLayoutLibrary::SlotAsCanvasSlot(Widget->MyBox); // 通过组件获取CanvasPanelSlot
+if (CanvasSlot) {
+    FVector2D Position = CanvasSlot->GetPosition(); // 获取Box组件的位置
+    FVector2D NewPosition(
+    	CanvasSlot->GetPosition().X,
+        Position.Y - CanvasSlot->GetSize().Y // // CanvasSlot->GetSize()用于获取Box组件的大小
+    );
+    CanvasSlot->SetPosition(NewPosition); // 设置Box组件的新位置
+}
+```
+
+![image-20250401102312957](ue.assets/image-20250401102312957.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-200_Dynamic Elim Announcements第8分）
 
 # AI
 
@@ -4157,6 +4216,14 @@ FInputModeUIOnly中可以调用SetLockMouseToViewportBehavior，可以传入EMou
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-17_The Menu Class第7分10秒）
+
+### 在其他项目中引入该Plugin
+
+![image-20250331221036731](ue.assets/image-20250331221036731.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第14分15秒）
 
 ### 美术、音效资源
 
@@ -5531,6 +5598,24 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-191_Swap Weapon Animation第26分10秒）
 
+#### 爆头
+
+可以利用物理资产检测是否击中头部
+
+![image-20250401103451784](ue.assets/image-20250401103451784.png)
+
+```c++
+FHitResult FireHit;
+// ...
+FireHit.BoneName.ToString() == FString("head"); // 从FHitResult中拿到BoneName
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-201_Head Shots）
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-202_Projectile Head Shots）
+
 ### 网络
 
 #### DOREPLIFETIME_CONDITION
@@ -6175,6 +6260,12 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-190_Limiting Server-Side Rewind）
+
+###### 处理爆头伤害
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-203_Head Shots for Server-Side Rewind）
 
 ##### 更多关于网络延迟补偿的操作
 
@@ -6870,6 +6961,30 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-85_Health第5分05秒）
 
+#### 设置成为焦点
+
+可以使得操作专注于该UI部件
+
+```c++
+bIsFocusable = true;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第4分35秒）
+
+#### 重写Initialize方法
+
+该方法中可以完成一些初始化操作，比如按钮事件绑定等
+
+```c++
+virtual bool Initialize() override;
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第8分25秒）
+
 ### GameMode
 
 #### GameMode和GameModeBase的区别
@@ -7162,6 +7277,34 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-117_Restart Game）
+
+#### 在处理玩家死亡时顺便做一些东西
+
+给第一名做个皇冠
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-198_Spawning the Crown）
+
+做一个死亡广播
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-199_Elim Announcements）
+
+多个死亡广播的处理以及广播过一段时间后自己消失。使用了UCanvasPanelSlot、UWidgetLayoutLibrary工具来挪动组件到新定位
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-200_Dynamic Elim Announcements）
+
+#### 设计GameMode时应该考虑多态
+
+代码中获取GameMode应该直接获取基类（类似Java接口），避免使用子类导致后续修改代码
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-208_Preventing Friendly Fire第9分26秒）
 
 ### GameState
 
@@ -7485,6 +7628,16 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-121_Spawning Rocket Trails）
 
+#### AttachTo角色的Mesh而非胶囊体
+
+在SpawnSystemAttached时，最好不要附着到胶囊体，因为胶囊体蹲起高度会发生改变导致特效也跟着位置改变，而附着到角色Mesh则不会
+
+![image-20250401132907893](ue.assets/image-20250401132907893.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-206_Team Colors第10分45秒）
+
 ### Curve
 
 ![image-20250325230104322](ue.assets/image-20250325230104322.png)
@@ -7726,6 +7879,176 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-193_ Cheating and Validation第13分30秒）
 
+### 回到主菜单
+
+```c++
+UWorld* World = GetWorld();
+if (World)
+{
+    AGameModeBase* GameMode = World->GetAuthGameMode<AGameModeBase>();
+    if (GameMode)
+    {
+        GameMode->ReturnToMainMenuHost(); // Server退回至主菜单
+    }
+    else
+    {
+        PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
+        if (PlayerController)
+        {
+            PlayerController->ClientReturnToMainMenuWithTextReason(FText()); // Client退回至主菜单
+        }
+    }
+}
+```
+
+Client退回至主菜单还有很多其他方法：
+
+![image-20250331222120165](ue.assets/image-20250331222120165.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第22分35秒）
+
+#### 选择游戏模式和匹配类型
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-220_Select Match Type）
+
+通过UI与之前制作的OnlineSubsystem插件进行交互，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-221_Accessing our Subsystem）
+
+打包测试最终的游戏，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-222_Teams and Capture the Flag Maps）
+
+### 退出游戏
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-195_Leaving the Game）
+
+#### 处理玩家中途退出游戏
+
+![image-20250331223721721](ue.assets/image-20250331223721721.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-196_Player Bookkeeping）
+
+Server离开游戏很简单，直接将所有玩家踢出房间就行；而Client离开游戏要考虑的就多了：
+
+![image-20250331224042772](ue.assets/image-20250331224042772.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-196_Player Bookkeeping第1分26秒）
+
+Character和GameMode都需要提供一些功能来让Client离开游戏，并且回到主菜单时数据是带不过来的，所以还要考虑提供回调函数将数据跨地图传输过去：
+
+![image-20250331224407805](ue.assets/image-20250331224407805.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-196_Player Bookkeeping第4分20秒）
+
+### Teams（团队类型的游戏）
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-204_Teams）
+
+
+
+创建Teams的GameMode，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-205_Teams Game Mode）
+
+重写HandleMatchHasStarted，在该函数中对所有PlayerState进行分组（蓝队和红队）：
+
+![image-20250401112819844](ue.assets/image-20250401112819844.png)
+
+在PostLogin和Logout函数中处理玩家进入和退出游戏时的分组
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-205_Teams Game Mode第2分10秒）
+
+
+
+给不同组别的玩家穿不同颜色的衣服，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-206_Team Colors）
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-207_Setting Team Colors）
+
+
+
+关闭友伤，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-208_Preventing Friendly Fire）
+
+
+
+显示Team Scores，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-209_Team Scores）
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-210_Updating Team Scores）
+
+
+
+展示Announcement公告，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-211_Teams Cooldown Announcement）
+
+对于代码中的字符串，最好不要写死，而是创建一个单独的.h文件并提供命名空间，将字符串写到那里去，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-211_Teams Cooldown Announcement第1分）
+
+### Capture The Flag（抢旗子类型的游戏）
+
+获取资源：
+
+![image-20250401143624909](ue.assets/image-20250401143624909.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-212_Capture the Flag）
+
+举旗，旗子类继承自Weapon类，这样旗子就天然拥有了Pickup、Dropdown等功能了，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-213_Holding the Flag）
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-214_Picking up the Flag）
+
+举旗时禁止其他动作，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-215_Burdening the Flag Bearer）
+
+重写Weapon的捡起、丢弃行为及其网络复制函数以适配旗子，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-216_Dropping the Flag）
+
+只能捡起自己队伍的旗子，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-217_Team Flags）
+
+红队和蓝队的重生点，作者这里的做法比较特殊，没有用原生的重生方法，而是直接用SetActorLocationAndRotation将角色定位至重生点：
+
+![image-20250401154138578](ue.assets/image-20250401154138578.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-218_Team Player Starts）
+
+处理旗子游戏的GameMode，并在其中编写得分逻辑，参考：
+
+https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-219_Capture the Flag Game Mode）
+
+
+
 # TAttribute与Slate数据绑定
 
 参考：
@@ -7800,15 +8123,11 @@ https://zhuanlan.zhihu.com/p/403211214（UE4/UE5的LockFreeList）、https://zhu
 
   - 继承自UActorComponent的组件，使用AActor::CreateDefaultSubobject<>，同样组件的指针变量也需要用UPROPERTY()修饰
 
-
-
 ## UE中的智能指针
 
 在游戏开发中，我们不可能完全使用UE的注解进行内存管理，特殊情况下我们需要自己开辟销毁内存，此时使用UE封装的智能指针就是一种方案。
 
 参考：https://blog.csdn.net/github_38111866/article/details/107712692（【UE4】共享（智能）指针用法）、https://zhuanlan.zhihu.com/p/472486869（【UE4 C++ 基础知识】<15> 智能指针 TSharedPtr、UniquePtr、TWeakPtr、TSharedRef）、https://zhuanlan.zhihu.com/p/369974105（UE4的智能指针 TSharedPtr）
-
-
 
 ### FSoftClassPath 和 FSoftObjectPath
 
@@ -8333,6 +8652,14 @@ https://zhuanlan.zhihu.com/p/494672575（Ue5 程序化生成： Dynamic Mesh初�
 参考：
 
 https://www.bilibili.com/video/BV17z4y1P7nK（★PCG All In One Tutorial）
+
+https://www.bilibili.com/video/BV1Vs2EYaEBN（[UFSH2024]PCG小技巧及新功能简介 | 肖月 Epic Games开发者关系TA）
+
+https://www.bilibili.com/video/BV1Uu4y1i7CL（[UnrealCircle苏州]《Electric Dreams》项目PCG技术解析 | 王潇）
+
+https://www.bilibili.com/video/BV19mBeYpEF8（虚幻引擎5.4.4中制作PCG森林路径全流程）
+
+https://www.bilibili.com/video/BV1Eo4y1F7fu（【UE5】2小时掌握！程序开放世界创建！PCG+虚幻引擎 5.2）
 
 https://zhuanlan.zhihu.com/p/636291504（UE5中的PCG —— PCG in UE5）、https://zhuanlan.zhihu.com/p/638790748（UE5中的PCG进阶 —— Advanced PCG in UE5）
 
