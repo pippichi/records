@@ -247,19 +247,27 @@ https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使�
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/static-mesh-morph-targets-in-unreal-engine
 
-## 案例
-
-### 材质融合过渡
+## 材质融合过渡
 
 参考：
 
 https://zhuanlan.zhihu.com/p/348060852（UE4丨材质融合过渡的应用案例）
 
-### 环形进度条
+## 环形进度条
 
 参考：
 
 https://blog.csdn.net/qq_41410054/article/details/114584009（UE4 UI实现环形进度条效果）
+
+## SmoothStep
+
+参考：
+
+https://zhuanlan.zhihu.com/p/580408121（（材质编辑器篇）【第四节：SmoothStep节点介绍】）
+
+https://www.bilibili.com/video/BV1ue4y1b7qg（SmoothStep过渡材质-UE4/UE5和你讲原理的材质基础教程）
+
+https://zhuanlan.zhihu.com/p/137837446（UE4后处理雨滴效果）
 
 # Enhanced Input增强输入
 
@@ -272,8 +280,6 @@ https://blog.csdn.net/u011254268/article/details/131434703（用人话讲！虚�
 https://blog.csdn.net/weixin_55901138/article/details/130639164（UE5学习笔记|增强输入系统EnhancedInput）
 
 https://zhuanlan.zhihu.com/p/470949422（UE5 -- EnhancedInput(增强输入系统)）
-
-
 
 # GameMode
 
@@ -521,6 +527,10 @@ https://blog.csdn.net/qq_39934403/article/details/121654665（Unreal Engine UE4�
 
 # 后处理
 
+参考：
+
+https://www.bilibili.com/video/BV1YS4y1k7Pj（(中英字幕)虚幻引擎4.27！6种不同的后处理效果调试！）
+
 ## 后处理材质
 
 参考：
@@ -631,11 +641,13 @@ https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材
 
 https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第1小时49分20秒，第1小时54分）
 
-## 案例
+## 镜头雨滴效果
 
 参考：
 
-https://www.bilibili.com/video/BV1YS4y1k7Pj（(中英字幕)虚幻引擎4.27！6种不同的后处理效果调试！）
+https://www.bilibili.com/video/BV1v14y1e7jd（UE5/Unity-镜头后处理效果上的雨滴—【Ben图形/54】）
+
+https://zhuanlan.zhihu.com/p/137837446（UE4后处理雨滴效果）
 
 # Data Registry
 
