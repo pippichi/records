@@ -4850,6 +4850,10 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 ![image-20250320164133076](ue.assets/image-20250320164133076.png)
 
+设置TransitionMap：
+
+![image-20250402134331450](ue.assets/image-20250402134331450.png)
+
 参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-34_Seamless Travel and Lobby第13分50秒）
