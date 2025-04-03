@@ -4237,7 +4237,7 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1GW4y1k7ga（UE5_C++多人TPS完整教程(二)-194_Return to Main Menu第14分15秒）
 
-### 美术、音效资源
+### 获取美术、音效资源
 
 美术资源参考：
 
@@ -5334,7 +5334,7 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-125_Submachine Gun）
 
-课程源码中提供了一些特效、音效等资产
+从课程源码中获取特效、音效等资源
 
 ![image-20250327111354236](ue.assets/image-20250327111354236.png)
 
@@ -5516,7 +5516,7 @@ https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-
 
 
 
-获取手榴弹资产，参考：
+获取手榴弹资源，参考：
 
 https://www.bilibili.com/video/BV1Zr4y1G79Z（UE5_C++多人TPS完整教程(一)-138_Grenade Assets）
 
@@ -8711,6 +8711,14 @@ https://blog.csdn.net/qq_52905520/article/details/124558629（ue4换装系统 1.
 
 https://zhuanlan.zhihu.com/p/54900203（UE4[BP]角色换装系统的实现）
 
+
+
+使用同一套骨骼以及SetSkeletalMesh方法换装，参考：
+
+https://www.bilibili.com/video/BV1Nb4y1H7uj（【同步】10分钟教你还原换装系统！-第10分15秒）
+
+https://www.bilibili.com/video/BV1454y1o7z1（【直播录播】开发UE5角色换装系统）
+
 # UMG
 
 ## EditorUtilityWidget
@@ -8845,7 +8853,7 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 
 还有各种编辑器扩展，用到的时候再去翻阅网络资料
 
-# 资源网站
+# 获取各种资源的网站
 
 - 动画
 
@@ -8885,7 +8893,7 @@ https://blog.csdn.net/weixin_40301728/article/details/119744451（Unreal 自定�
 - Substance Painter（高级，是Substance Alchemist的高阶版，手绘）
 - Mari
 
-# 虚幻商城资源包
+# 获取虚幻商城资源包
 
 horse animset（骑马）
 
