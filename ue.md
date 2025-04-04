@@ -269,6 +269,16 @@ https://www.bilibili.com/video/BV1ue4y1b7qg（SmoothStep过渡材质-UE4/UE5和�
 
 https://zhuanlan.zhihu.com/p/137837446（UE4后处理雨滴效果）
 
+## 制作扫描仪
+
+制作拾取扫描仪功能用到了AttachComponentToComponent、SetLeaderPoseComponent、AddActorComponent、HasComponent、AddComponent等节点
+
+制作扫描仪效果用到了RotateAboutWorldAxis_cheap、ObjectPivotPoint、SmoothStep、FixRotateAboutAxisNormals、BlendAngleCorrectedNormals、DepthFade等节点
+
+参考：
+
+https://www.bilibili.com/video/BV1jT42117Sm（【UE5 | 教程 | 功能 | 扫描】虚幻引擎5 实现扫描功能 | 第一到五部分）
+
 # Enhanced Input增强输入
 
 参考：
@@ -512,6 +522,14 @@ float Lowest = TNumericLimits<float>::Lowest()
 参考：
 
 https://www.bilibili.com/video/BV1EwAKemEof（【AI中字】虚幻5C++教程使用GAS制作RPG游戏（三）-13. Loot Tiers第24分50秒）
+
+## Retriggerable Delay
+
+参考：
+
+https://blog.csdn.net/Highning0007/article/details/125440936（UE4\UE5 蓝图节点Delay与Retriggerable Delay的使用与区别）
+
+https://www.bilibili.com/video/BV1Hr42137x3（【UE5 | 教程 | 功能 | 扫描】虚幻引擎5 实现扫描功能 | 第五部分 | END-第25分25秒）
 
 # 组件Component
 
