@@ -279,6 +279,28 @@ https://zhuanlan.zhihu.com/p/137837446（UE4后处理雨滴效果）
 
 https://www.bilibili.com/video/BV1jT42117Sm（【UE5 | 教程 | 功能 | 扫描】虚幻引擎5 实现扫描功能 | 第一到五部分）
 
+## 距离、坐标与深度
+
+关于WorldPosition、ActorPosition、ObjectPosition、CameraPosition、Screenposition，参考：
+
+https://zhuanlan.zhihu.com/p/464288700（UE4材质节点入门 第10节 （距离，坐标与深度 上））
+
+关于ObjectBounds、ObjectRadius、ObjectOrientation、TransformVector、Distance、PixelDepth、SceneDepth、DepthFade，参考：
+
+https://zhuanlan.zhihu.com/p/464712106（UE4材质节点入门 第10节 （距离，坐标与深度 中））
+
+案例参考：
+
+https://zhuanlan.zhihu.com/p/465076982（UE4材质节点入门 第10节 （距离，坐标与深度最终章整活篇））
+
+## SkyAtmosphereLightDirection天光向量
+
+![image-20250407144425158](ue.assets/image-20250407144425158.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第6分）
+
 # Enhanced Input增强输入
 
 参考：
@@ -8826,6 +8848,8 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/trace-in-unreal-engi
 参考：
 
 https://www.bilibili.com/video/BV1az42117wz（【UE5】从零开始做原神（32）三渲二材质（兰伯特+Ramp图+边缘光+matcap+高光+水渍效果））
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程）
 
 ## matcap贴图
 
