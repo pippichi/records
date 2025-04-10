@@ -259,6 +259,12 @@ https://zhuanlan.zhihu.com/p/348060852（UE4丨材质融合过渡的应用案例
 
 https://blog.csdn.net/qq_41410054/article/details/114584009（UE4 UI实现环形进度条效果）
 
+## Step
+
+参考：
+
+https://www.bilibili.com/video/BV187421K7Sf（UE5材质节点：Step）
+
 ## SmoothStep
 
 参考：
@@ -268,6 +274,42 @@ https://zhuanlan.zhihu.com/p/580408121（（材质编辑器篇）【第四节：
 https://www.bilibili.com/video/BV1ue4y1b7qg（SmoothStep过渡材质-UE4/UE5和你讲原理的材质基础教程）
 
 https://zhuanlan.zhihu.com/p/137837446（UE4后处理雨滴效果）
+
+## TwoSideSign
+
+可以用于正面剔除
+
+![image-20250410151911021](ue.assets/image-20250410151911021.png)
+
+参考：
+
+https://zhuanlan.zhihu.com/p/192542448（UE4 单材质球双面不同材质显示小技巧）
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第9分32秒）
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时08分22秒）
+
+## TwoSidedTexturing
+
+参考：
+
+https://blog.csdn.net/maxiaosheng521/article/details/105619711（UE4 TwoSidedFoliage 双面植被）
+
+## MultiplyAdd
+
+先乘后加
+
+![image-20250409165452311](ue.assets/image-20250409165452311.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第9分32秒）
+
+## ConstantBiasScale
+
+先加后乘
+
+![image-20250409170418741](ue.assets/image-20250409170418741.png)
 
 ## 制作扫描仪
 
@@ -293,6 +335,20 @@ https://zhuanlan.zhihu.com/p/464712106（UE4材质节点入门 第10节 （距�
 
 https://zhuanlan.zhihu.com/p/465076982（UE4材质节点入门 第10节 （距离，坐标与深度最终章整活篇））
 
+## 获取天空大气光方向
+
+法一：
+
+在Custom节点中直接写hlsl语句`View.DirectionalLightDirection.xyz`
+
+法二：
+
+直接使用SkyAtmosphereLightDirection节点
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第16分40秒）
+
 ## SkyAtmosphereLightDirection天光向量
 
 ![image-20250407144425158](ue.assets/image-20250407144425158.png)
@@ -300,6 +356,57 @@ https://zhuanlan.zhihu.com/p/465076982（UE4材质节点入门 第10节 （距�
 参考：
 
 https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第6分）
+
+## 在材质编辑器中快速调整天光方向
+
+键盘按住L，鼠标移动即可
+
+![image-20250409190808093](ue.assets/image-20250409190808093.png)
+
+## 球谐光照
+
+需要在Custom节点中自己写
+
+```c
+float4 NormalVector = float4(Normal, 1.0f);
+
+float3 Intermediate0, Intermediate1, Intermediate2;
+Intermediate0.x = dot(View.SkyIrradianceEnvironmentMap[0], NormalVector);
+Intermediate0.y = dot(View.SkyIrradianceEnvironmentMap[1], NormalVector);
+Intermediate0.z = dot(View.SkyIrradianceEnvironmentMap[2], NormalVector);
+
+float4 vB = NormalVector.xyzz * NormalVector.yzzx;
+Intermediate1.x = dot(View.SkyIrradianceEnvironmentMap[3], vB);
+Intermediate1.y = dot(View.SkyIrradianceEnvironmentMap[4], vB);
+Intermediate1.z = dot(View.SkyIrradianceEnvironmentMap[5], vB);
+
+float vC = NormalVector.x * NormalVector.x - NormalVector.y * NormalVector.y;
+Intermediate2 = View.SkyIrradianceEnvironmentMap[6].xyz * vC;
+
+return max(0, Intermediate0 + Intermediate1 + Intermediate2);
+```
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第20分40秒）
+
+## 采样颜色渐变
+
+1、使用曲线图普（Curve Atlas）注册颜色曲线（Curve）；
+
+2、在材质中使用CurveAtlasRowParameter节点使用曲线；
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第59分08秒）
+
+## Disable Depth Test禁用Z-test深度测试
+
+在Translucent半透明模式下可设置该选项
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时25分55秒）
 
 # Enhanced Input增强输入
 
@@ -553,6 +660,14 @@ https://blog.csdn.net/Highning0007/article/details/125440936（UE4\UE5 蓝图节
 
 https://www.bilibili.com/video/BV1Hr42137x3（【UE5 | 教程 | 功能 | 扫描】虚幻引擎5 实现扫描功能 | 第五部分 | END-第25分25秒）
 
+## SetLeaderPoseComponent
+
+组合骨骼时，各骨骼动画与主骨骼动画同步
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第8分45秒）
+
 # 组件Component
 
 ## SceneCapture场景捕获
@@ -636,6 +751,16 @@ https://blog.csdn.net/goodriver1/article/details/121712281（UE4_如果快速做
 https://blog.csdn.net/grayrail/article/details/131173457（在UE中使用Stencil功能）
 
 https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模板缓冲创建遮罩 | Creating masks with the Custom Stencil Buffer(官方字幕)）
+
+
+
+当自定义模板Custom Stencil被遮挡时（比如眼睫毛被头发遮挡），可以通过调整Custom Depth Stencil Write Mask来解决（可以发现选项后面有ignore depth忽略深度）：
+
+![image-20250410202255314](ue.assets/image-20250410202255314.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时24分53秒）
 
 ### 不被遮挡描边，被遮挡不描边
 
@@ -8850,6 +8975,8 @@ https://dev.epicgames.com/documentation/zh-cn/unreal-engine/trace-in-unreal-engi
 https://www.bilibili.com/video/BV1az42117wz（【UE5】从零开始做原神（32）三渲二材质（兰伯特+Ramp图+边缘光+matcap+高光+水渍效果））
 
 https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程）
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程）
 
 ## matcap贴图
 

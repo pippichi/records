@@ -288,6 +288,16 @@ https://blog.csdn.net/shebao3333/article/details/128712321（3D模型轻量化�
 
 https://blog.csdn.net/weixin_44087394/article/details/140557274（Blender中的重拓扑修改器如何使用？）
 
+## 平滑法线
+
+有时候按距离合并顶点之后法线会变丑，此时可以试试按角度加权平滑法线
+
+![image-20250410145149318](blender.assets/image-20250410145149318.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时07分）
+
 # 毛发
 
 参考：
@@ -330,6 +340,14 @@ https://www.bilibili.com/video/BV1oB4y1u7sX（雕刻笔刷用法基础学习 弹
 
 https://www.bilibili.com/video/BV1dV411s7Rp（建模布线原理-法线01、法线02）
 
+## 加权法线修改器
+
+用于平滑法线
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时11分48秒）
+
 ## 数据传递修改器
 
 参考：
@@ -365,6 +383,12 @@ Clipping参数：
 效果参考：
 
 https://www.bilibili.com/video/BV1xgyHYQEKq（怕脸崩？看这个二次元头部建模教学！-第1分30秒）
+
+## Wield焊接修改器
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时11分48秒）
 
 # 骨骼
 
