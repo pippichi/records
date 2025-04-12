@@ -408,6 +408,26 @@ https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引
 
 https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时25分55秒）
 
+## 法线贴图翻转G通道
+
+法线G通道方向反了会导致细节朝向错误，此时需要反转一下G通道
+
+![image-20250411134652736](ue.assets/image-20250411134652736.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第5分45秒）
+
+## lambert兰伯特与halflambert半兰伯特
+
+可以配合Ramp图来画光与阴影
+
+半兰伯特为兰伯特的优化版
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第14分）
+
 # Enhanced Input增强输入
 
 参考：
@@ -712,6 +732,8 @@ https://forums.unrealengine.com/t/5-4-removed-post-process-material-settings-bef
 - SceneTexture:CustomDepth
 - SceneTexture:CustomStencil
 - SceneTexture:WorldNormal
+- SceneTexture:Shading Model ID
+- SceneTexture:Shading Model Color
 - ...
 
 参考：
@@ -719,6 +741,54 @@ https://forums.unrealengine.com/t/5-4-removed-post-process-material-settings-bef
 https://docs.unrealengine.com/5.2/zh-CN/post-process-materials-in-unreal-engine/（后期处理材质）、https://zhuanlan.zhihu.com/p/615915744（UE4技术杂谈——后处理 之 遮挡描边）、https://www.bilibili.com/video/BV1Az42197L9（c++中获取GBuffer进行边缘检测配合后处理体积实现描边）、https://www.bilibili.com/video/BV1ki421e7QA（UE5怎样使用后期处理体积给物体描边）
 
 https://blog.csdn.net/ttm2d/article/details/115247252（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（上））、https://blog.csdn.net/ttm2d/article/details/115263517（Unreal Engine 4 使用HLSL自定义着色器（Custom Shaders）教程（下））
+
+
+
+**CustomDepth/CustomStencil**
+
+参考：
+
+https://blog.csdn.net/grayrail/article/details/131173457（在UE中使用Stencil功能）
+
+https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模板缓冲创建遮罩 | Creating masks with the Custom Stencil Buffer(官方字幕)）
+
+
+
+当自定义模板Custom Stencil被遮挡时（比如眼睫毛被头发遮挡），可以通过调整Custom Depth Stencil Write Mask来解决（可以发现选项后面有ignore depth忽略深度）：
+
+![image-20250410202255314](ue.assets/image-20250410202255314.png)
+
+参考：
+
+https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时24分53秒）
+
+
+
+**Shading Model ID**
+
+场景：要把描边部分排除掉，由于描边部分材质是Unlit，可以用Shading Model ID来做区分
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第55分30秒）
+
+### 描边
+
+**外发光、轮廓线**
+
+参考：
+
+https://blog.csdn.net/ChaoChao66666/article/details/132721693（【UE】材质描边、外发光、轮廓线）
+
+
+
+**不被遮挡描边，被遮挡不描边**
+
+可以用SceneDepth和CustomDepth来实现
+
+参考：
+
+https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
 
 ## 图像模糊
 
@@ -743,32 +813,6 @@ https://www.bilibili.com/video/BV1Pk4y1R7MN（[中文直播]第19期 | 后期材
 参考：
 
 https://blog.csdn.net/goodriver1/article/details/121712281（UE4_如果快速做出毛玻璃效果）
-
-## Custom Depth/Custom Stencil
-
-参考：
-
-https://blog.csdn.net/grayrail/article/details/131173457（在UE中使用Stencil功能）
-
-https://www.bilibili.com/video/BV1hA411n7vZ（[技巧分享]使用自定义模板缓冲创建遮罩 | Creating masks with the Custom Stencil Buffer(官方字幕)）
-
-
-
-当自定义模板Custom Stencil被遮挡时（比如眼睫毛被头发遮挡），可以通过调整Custom Depth Stencil Write Mask来解决（可以发现选项后面有ignore depth忽略深度）：
-
-![image-20250410202255314](ue.assets/image-20250410202255314.png)
-
-参考：
-
-https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程-第1时24分53秒）
-
-### 不被遮挡描边，被遮挡不描边
-
-可以用SceneDepth和CustomDepth来实现
-
-参考：
-
-https://www.bilibili.com/video/BV14a4y147hy（[中文直播] 第20期 | 后处理材质基础(下) | Epic贾越-第42分）
 
 ## DDX、DDY
 
@@ -8552,9 +8596,11 @@ https://zhuanlan.zhihu.com/p/568124406（UE4 UE5 骨骼动画 高级运动系统
 
 https://dev.epicgames.com/documentation/zh-cn/unreal-engine/animation-blueprint-skeletal-controls-in-unreal-engine
 
-https://zhuanlan.zhihu.com/p/499405167（★【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
+https://zhuanlan.zhihu.com/p/499405167（【游戏开发】逆向运动学（IK）详解，包括雅可比矩阵、奇异值分解（SVD）等解算方法讲解★）、https://zhuanlan.zhihu.com/p/591982020（UE5 -- Control Rig与IK Rig介绍）、https://blog.csdn.net/ttm2d/article/details/112545858（虚幻引擎图文笔记：用Two Bone IK实现手扶墙）、https://blog.csdn.net/weixin_41363156/article/details/114645792（UE4之Control Rig）、https://zhuanlan.zhihu.com/p/412251528（[玩转UE4/UE5动画系统＞Control Rig篇] 之 Control Rig + Fullbody IK版的足部IK实现（附项目代码））
 
 https://www.bilibili.com/video/BV1Sz4y1d7bN（【动画技术教程】FullBodyIK（全身IK）原理详细解析与UE4应用实例教学）
+
+https://www.bilibili.com/video/BV1jY4y1x7R8（UE5 Animation 04: Control Rig簡介★）
 
 ## 使用IK重定向器修正滑步
 
@@ -8978,13 +9024,43 @@ https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原
 
 https://www.bilibili.com/video/BV1CN411C7qx（【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程）
 
-## matcap贴图
+https://www.bilibili.com/opus/811182098274582564（对于【Unity/虚幻5/Blender】3种引擎 崩坏: 星穹铁道风格 卡通渲染 从球谐光照到眉毛透过刘海 完整流程的总结）
+
+
+
+**matcap贴图**
 
 参考：
 
 https://blog.csdn.net/csuyuanxing/article/details/135039939（Matcap的原理和应用）
 
 https://www.bilibili.com/video/BV1cU411f7D1（【UE5】从零开始做原神（32）三渲二材质（matcap））
+
+
+
+**关于为什么要将颜色连到自发光通道而不是基础颜色通道**
+
+那是因为基础颜色通道会受PBR特性影响，而自发光通道则不会，自发光通道只会受自定义材质特性影响
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第27分10秒）
+
+
+
+**用sdf图区分亮部暗部详细讲解！**
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第30分35秒）
+
+
+
+**利用RenderTarget制作软阴影**
+
+参考：
+
+https://www.bilibili.com/video/BV1h14y177bp（【虚幻&Unity】两种引擎 原神风格基础卡通渲染 完整流程-第57分30秒）
 
 # module模块与plugin插件
 
