@@ -1108,41 +1108,43 @@ spring:
 
 参考：https://blog.csdn.net/jgteng/article/details/54411423（线程池的RejectedExecutionHandler（拒绝策略））
 
-# 单点登录
+# 认证与授权
+
+## 单点登录
 
 参考：https://blog.csdn.net/weixin_43214644/article/details/124142708（什么是单点登录）、https://blog.csdn.net/qq_41913971/article/details/122609233（单点登录（SSO））、https://blog.csdn.net/weixin_45908458/article/details/109553893（单点登录、JWT和OAuth2）、https://blog.csdn.net/qq_42296117/article/details/107677950（OAuth2与JWT（单点登录））、https://blog.csdn.net/m0_37122623/article/details/114091913（Oauth2.0 + JWT 实现单点登录）
 
-# SpringCloud+Spring Security+OAuth2 + JWT + Gateway
+## SpringCloud+Spring Security+OAuth2 + JWT + Gateway
 
 参考：https://blog.csdn.net/lbjfish/article/details/109187316（SpringCloud+Spring Security+OAuth2 + JWT + Gateway讲解）
 
-# 被弃用的WebSecurityConfigurerAdapter及其替代方案：SecurityFilterChain、WebSecurityCustomizer、JdbcUserDetailsManager、InMemoryUserDetailsManager、EmbeddedLdapServerContextSourceFactoryBean与AuthenticationManager
+## 被弃用的WebSecurityConfigurerAdapter及其替代方案：SecurityFilterChain、WebSecurityCustomizer、JdbcUserDetailsManager、InMemoryUserDetailsManager、EmbeddedLdapServerContextSourceFactoryBean与AuthenticationManager
 
 参考：https://blog.csdn.net/OLinOne/article/details/128100367（Spring Security 5.7.0弃用 WebSecurityConfigurerAdapter）、https://blog.csdn.net/lazy_LYF/article/details/127284459（WebSecurityConfigurerAdapter已弃用）
 
-## 基于方法的动态权限（@EnableGlobalMethodSecurity与@PreAuthorize）；
+### 基于方法的动态权限（@EnableGlobalMethodSecurity与@PreAuthorize）；
 
 参考：https://juejin.cn/post/7106300827035238407（别再用过时的方式了！全新版本Spring Security，这样用才够优雅！）
 
-## 基于路径的动态权限（AbstractSecurityInterceptor、Filter接口与AccessDecisionManager接口）
+### 基于路径的动态权限（AbstractSecurityInterceptor、Filter接口与AccessDecisionManager接口）
 
 AccessDecisionManager接口可用于创建自定义权限控制管理器
 
 参考：https://juejin.cn/post/7106300827035238407（别再用过时的方式了！全新版本Spring Security，这样用才够优雅！）、https://blog.csdn.net/weixin_44516305/article/details/88868791（Spring Security用户认证和权限控制（自定义实现））
 
-# TokenEndpoint、Token授权TokenGranter接口
+## TokenEndpoint、Token授权TokenGranter接口
 
 参考：https://blog.csdn.net/hou_ge/article/details/122341774（SpringSecurity OAuth2 获取Token端点TokenEndpoint、Token授权TokenGranter接口 详解）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# TokenEnhancer、JwtAccessConverter与TokenEnhancerChain向jwt中添加额外信息
+## TokenEnhancer、JwtAccessConverter与TokenEnhancerChain向jwt中添加额外信息
 
 参考：https://blog.csdn.net/cauchy6317/article/details/85123018（Spring Security Oauth2 中实现TokenEnhancer向jwt中添加额外信息）、https://blog.csdn.net/qq_42654484/article/details/95216037（Springsceurity使用TokenEnhancer和JwtAccessConverter增强jwt令牌原理）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# AuthorizationServer配置、AuthorizationServerConfigurerAdapter
+## AuthorizationServer配置、AuthorizationServerConfigurerAdapter
 
 参考：https://blog.csdn.net/silmeweed/article/details/101603227（Oauth2---AuthorizationServer配置）、https://blog.csdn.net/hurley11/article/details/110868018（oauth2.0的配置信息AuthorizationServerConfigurerAdapter）、[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# KeyPair与KeyStoreKeyFactory、KeyPairGenerator与jks证书
+## KeyPair与KeyStoreKeyFactory、KeyPairGenerator与jks证书
 
 KeyStoreKeyFactory可从本地证书文件中获取密钥，参考：[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
@@ -1152,13 +1154,21 @@ KeyPairGenerator可生成RSA密钥对，参考：https://blog.csdn.net/kzcming/a
 
 如何使用jks证书文件？参考：[张润华`system-auth`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
 
-# RSA加密解密
+## RSA加密解密
 
 参考：https://blog.csdn.net/qq_35605213/article/details/80591869（RSA加密解密，String转PublicKey、PrivateKey；附Base64.JAR）
 
-# Spring Security密码解析器PasswordEncoder接口及其实现类BCryptPasswordEncoder详解
+## Spring Security密码解析器PasswordEncoder接口及其实现类BCryptPasswordEncoder详解
 
 参考：https://blog.csdn.net/qq_31960623/article/details/118397707（PasswordEncoder详解）、[张润华`system-manager`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## 使用spring security防止csrf攻击
+
+参考：
+
+https://springdoc.cn/spring-security-csrf/（使用spring security防止csrf攻击）
+
+https://blog.csdn.net/u012702547/article/details/106206339（松哥手把手教你在 SpringBoot 中防御 CSRF 攻击！提供了前后端分离与不分两种示例！）
 
 # HttpSession
 
@@ -1501,6 +1511,12 @@ public class TagGroup extends BasicEntity<Long> {
 ## 复合切点切面
 
 参考：https://blog.csdn.net/yangshangwei/article/details/77429625（Spring-AOP 复合切点切面）
+
+## @DeclareParents
+
+参考：
+
+https://blog.csdn.net/Swh1234567/article/details/116454743（@DeclareParents注解详解）
 
 # 泛型处理之 ResolvableType
 
