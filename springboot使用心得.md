@@ -1170,6 +1170,12 @@ https://springdoc.cn/spring-security-csrf/（使用spring security防止csrf攻�
 
 https://blog.csdn.net/u012702547/article/details/106206339（松哥手把手教你在 SpringBoot 中防御 CSRF 攻击！提供了前后端分离与不分两种示例！）
 
+## 动态授权
+
+参考：
+
+https://zhuanlan.zhihu.com/p/518281189（SpringSecurity动态鉴权流程解析）
+
 # HttpSession
 
 参考：https://blog.csdn.net/hcz666/article/details/108916119（HttpSession详解(简称session)）
@@ -2022,6 +2028,24 @@ public interface AlgorithmManagerFeign {
 # Gateway网关
 
 网关的实现依赖于各种过滤器，参考[张润华`system-gateway`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
+## 路由转发与重定向
+
+参考：
+
+https://developer.aliyun.com/article/1573114（重定向和转发到底有啥区别？看这篇就够了！）
+
+微服务路由转发，参考：
+
+https://blog.csdn.net/heihaozi/article/details/138532713（全面解析：Spring Gateway如何优雅处理微服务的路由转发？）
+
+https://www.jianshu.com/p/dd47605c420d（Spring Cloud Gateway（一、路由转发及自定义过滤器））
+
+https://blog.csdn.net/qq_39794062/article/details/118492031（Gateway配置网关路由和路径重写）
+
+重定向，参考：
+
+https://blog.csdn.net/u013600907/article/details/119246202（SpringCloudGateway网关实践&302重定向）
 
 # AsyncConfigurer接口
 

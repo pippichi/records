@@ -1380,7 +1380,7 @@ return org.springframework.security.core.userdetails.User
         .withUsername(user.getUsername())
         .password(user.getPassword())
         .roles("ADMIN")
-        .authorities("USER_ADD", "USER_UPDATE")
+        .authorities("USER_ADD", "USER_UPDATE") // .authorities不仅会覆盖上面的.authorities还会覆盖上面的.roles。所以.roles和.authorities一般不能同时使用
         .build();
 ```
 
