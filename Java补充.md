@@ -2214,6 +2214,14 @@ JNI的使用请参考：https://blog.csdn.net/weixin_51763233/article/details/12
 
 JNA的使用请参考：https://blog.csdn.net/qingzhuyuxian/article/details/122997670（开源框架JNA的使用）
 
+
+
+Idea下JNI编程，参考：
+
+https://blog.csdn.net/weixin_43699108/article/details/124243927（熟悉JNI机制-Idea下JNI编程）
+
+参考项目：[刘鹏`tpt-apc-backend`项目](https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent)
+
 # OutputStream
 
 ## ObjectOutputStream
