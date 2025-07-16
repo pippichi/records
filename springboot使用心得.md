@@ -1514,6 +1514,18 @@ public class TagGroup extends BasicEntity<Long> {
 
 参考：https://blog.csdn.net/dongshaw/article/details/112213322（使用自定义注解及AOP切面定位字段并做业务处理）、https://blog.csdn.net/weixin_49930191/article/details/108360531（Springboot Aop 自定义注解、切面）
 
+## 切入点表达式
+
+参考：
+
+https://blog.csdn.net/weixin_49426115/article/details/146770610（全面解析 Spring AOP 切入点表达式）
+
+https://blog.csdn.net/a1806542392/article/details/139783908（Spring中的AOP）
+
+https://cloud.tencent.com/developer/article/1497814（【小家Spring】Spring AOP中@Pointcut切入点表达式最全面使用介绍）
+
+https://blog.csdn.net/yangshangwei/article/details/77731696（Spring-AOP @AspectJ切点函数之args()和@args()）
+
 ## 复合切点切面
 
 参考：https://blog.csdn.net/yangshangwei/article/details/77429625（Spring-AOP 复合切点切面）
