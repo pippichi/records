@@ -184,14 +184,20 @@ private LocalDateTime time; // 从前端接收的字符串类型的time会被自
 
 两者之间的差别请参考：https://blog.csdn.net/zhou520yue520/article/details/81348926（@DateTimeFormat注解 和 @JsonFormat注解）
 
-## @JsonSerialize
+## @JsonSerialize和@JsonDeserialize
 
-参考：https://mp.baomidou.com/guide/faq.html#%E5%85%B3%E4%BA%8E-long-%E5%9E%8B%E4%B8%BB%E9%94%AE%E5%A1%AB%E5%85%85%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98（ 关于 Long 型主键填充不生效的问题）
+参考：
+
+https://mp.baomidou.com/guide/faq.html#%E5%85%B3%E4%BA%8E-long-%E5%9E%8B%E4%B8%BB%E9%94%AE%E5%A1%AB%E5%85%85%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98（ 关于 Long 型主键填充不生效的问题）
 
 ```java
 @JsonSerialize(using= ToStringSerializer.class) // 可以将返回前端的字段自动转成string类型，避免js接到long型数据时精度丢失问题
 private Long indexId;
 ```
+
+https://blog.csdn.net/yage124/article/details/107321339（@JsonDeserialize 和 @JsonSerialize 基本使用）
+
+https://blog.csdn.net/qq_20919883/article/details/116307751（@JsonDeserialize#as 反序列化为子类）
 
 ## @JsonView
 
@@ -2372,7 +2378,13 @@ https://blog.csdn.net/weixin_45481821/article/details/125357875（【微服务~S
 
 # spring boot health indicator
 
-参考：https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
+参考：
+
+https://blog.csdn.net/layuan110/article/details/110001630（spring boot health indicator原理及其使用）
+
+https://blog.csdn.net/qq_42914528/article/details/131388401（SpringBoot 监控神器——Actuator 保姆级教程）
+
+https://blog.csdn.net/qq_23388169/article/details/134758362（SpringBoot的监控(Actuator) 功能）
 
 ## actuator组件（服务健康监测组件）深度使用（包括InfoContributor接口的使用、EndPoint解析等）
 

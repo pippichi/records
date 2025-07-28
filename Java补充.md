@@ -1817,6 +1817,26 @@ https://blog.csdn.net/dgh112233/article/details/118915259（Caffeine本地缓存
 
 https://blog.csdn.net/l_dongyang/article/details/108326755（Caffeine入门使用）、https://blog.csdn.net/l_dongyang/article/details/123294062（Caffeine基础源码解析）、https://blog.csdn.net/l_dongyang/article/details/123461686（Caffeine 驱逐算法）
 
+# maven工程
+
+## 将依赖包变为可选传递
+
+参考：
+
+https://blog.csdn.net/weixin_43608796/article/details/130880223（Maven 中`<optional>true</optional>和<scope>provided</scope>`之间的区别）
+
+## `<type>pom</type>`
+
+参考：
+
+https://blog.csdn.net/qq_44748801/article/details/124375599（理解 maven 依赖配置`<dependency>中的<type>pom</type>`）
+
+## `<scope>import</scope>`
+
+参考：
+
+https://blog.csdn.net/lbh199466/article/details/106405346（maven scope标签的import到底是个啥？）
+
 # 关键字
 
 ## strictfp
@@ -2152,7 +2172,11 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。当你遇�
 
 # 内存分析工具MemoryAnalyzer
 
-参考：https://blog.csdn.net/lyd135364/article/details/121449969（MAT（Memory Analyzer Tool）工具使用超详细版）
+参考：
+
+https://blog.csdn.net/lyd135364/article/details/121449969（MAT（Memory Analyzer Tool）工具使用超详细版）
+
+https://blog.csdn.net/WX10301075WX/article/details/116501682（MAT工具学习，incoming reference和outgoing reference，Shallow Heap和Retained Heap）
 
 # BIO与NIO、AIO的区别
 
