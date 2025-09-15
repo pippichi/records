@@ -7843,11 +7843,19 @@ int main(){
 
 #### 离散傅里叶变换
 
-参考：https://zhuanlan.zhihu.com/p/71582795、https://www.zhihu.com/question/21314374
+参考：https://zhuanlan.zhihu.com/p/71582795（深入理解离散傅里叶变换(DFT)）、https://www.zhihu.com/question/21314374（如何通俗地解释什么是离散傅里叶变换？）
 
 #### 连续傅里叶变换
 
-暂时没有找到资源
+参考：
+
+https://b23.tv/MctZY8o（李永乐讲傅里叶变换）
+
+#### 傅里叶变换的性质总结
+
+参考：
+
+https://zhuanlan.zhihu.com/p/690249764（傅里叶变换的性质总结）
 
 #### 快速傅里叶变换
 
@@ -7859,11 +7867,17 @@ int main(){
 
 ### 拉普拉斯变换、拉普拉斯方程、拉普拉斯算子
 
-参考：https://zhuanlan.zhihu.com/p/416317648、https://zhuanlan.zhihu.com/p/376436061
+参考：
+
+https://zhuanlan.zhihu.com/p/416317648（拉普拉斯变换）
+
+https://zhuanlan.zhihu.com/p/114535104（高等数学系列R之三：拉氏变换）
+
+https://zhuanlan.zhihu.com/p/376436061（拉普拉斯算子）
 
 ### 复数的物理意义
 
-参考：https://www.zhihu.com/question/23234701/answer/26017000
+参考：https://www.zhihu.com/question/23234701/answer/26017000（复数的物理意义是什么？）
 
 ### 背包问题
 
